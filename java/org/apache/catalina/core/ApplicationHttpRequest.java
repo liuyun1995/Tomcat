@@ -78,18 +78,18 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
      * The set of attribute names that are special for request dispatchers.
      */
     protected static final String specials[] =
-    { RequestDispatcher.INCLUDE_REQUEST_URI,
-      RequestDispatcher.INCLUDE_CONTEXT_PATH,
-      RequestDispatcher.INCLUDE_SERVLET_PATH,
-      RequestDispatcher.INCLUDE_PATH_INFO,
-      RequestDispatcher.INCLUDE_QUERY_STRING,
-      RequestDispatcher.INCLUDE_MAPPING,
-      RequestDispatcher.FORWARD_REQUEST_URI,
-      RequestDispatcher.FORWARD_CONTEXT_PATH,
-      RequestDispatcher.FORWARD_SERVLET_PATH,
-      RequestDispatcher.FORWARD_PATH_INFO,
-      RequestDispatcher.FORWARD_QUERY_STRING,
-      RequestDispatcher.FORWARD_MAPPING};
+            {RequestDispatcher.INCLUDE_REQUEST_URI,
+                    RequestDispatcher.INCLUDE_CONTEXT_PATH,
+                    RequestDispatcher.INCLUDE_SERVLET_PATH,
+                    RequestDispatcher.INCLUDE_PATH_INFO,
+                    RequestDispatcher.INCLUDE_QUERY_STRING,
+                    RequestDispatcher.INCLUDE_MAPPING,
+                    RequestDispatcher.FORWARD_REQUEST_URI,
+                    RequestDispatcher.FORWARD_CONTEXT_PATH,
+                    RequestDispatcher.FORWARD_SERVLET_PATH,
+                    RequestDispatcher.FORWARD_PATH_INFO,
+                    RequestDispatcher.FORWARD_QUERY_STRING,
+                    RequestDispatcher.FORWARD_MAPPING};
 
     private static final int SPECIALS_FIRST_FORWARD_INDEX = 6;
 
@@ -100,8 +100,8 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
     /**
      * Construct a new wrapped request around the specified servlet request.
      *
-     * @param request The servlet request being wrapped
-     * @param context The target context for the wrapped request
+     * @param request      The servlet request being wrapped
+     * @param context      The target context for the wrapped request
      * @param crossContext {@code true} if the wrapped request will be a
      *                     cross-context request, otherwise {@code false}
      */
@@ -233,7 +233,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
         if (name.equals(Globals.DISPATCHER_TYPE_ATTR)) {
             return dispatcherType;
         } else if (name.equals(Globals.DISPATCHER_REQUEST_PATH_ATTR)) {
-            if ( requestDispatcherPath != null ){
+            if (requestDispatcherPath != null) {
                 return requestDispatcherPath.toString();
             } else {
                 return null;
@@ -288,14 +288,14 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
      * Override the <code>setAttribute()</code> method of the
      * wrapped request.
      *
-     * @param name Name of the attribute to set
+     * @param name  Name of the attribute to set
      * @param value Value of the attribute to set
      */
     @Override
     public void setAttribute(String name, Object value) {
 
         if (name.equals(Globals.DISPATCHER_TYPE_ATTR)) {
-            dispatcherType = (DispatcherType)value;
+            dispatcherType = (DispatcherType) value;
             return;
         } else if (name.equals(Globals.DISPATCHER_REQUEST_PATH_ATTR)) {
             requestDispatcherPath = value;
@@ -338,7 +338,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
 
         // Convert a request-relative path to a context-relative one
         String servletPath =
-            (String) getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH);
+                (String) getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH);
         if (servletPath == null)
             servletPath = getServletPath();
 
@@ -376,7 +376,6 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
 
     /**
      * Override the getDispatcherType() method of the wrapped request.
-     *
      */
     @Override
     public DispatcherType getDispatcherType() {
@@ -559,7 +558,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
                 Session localSession = null;
                 try {
                     localSession =
-                        context.getManager().findSession(other.getId());
+                            context.getManager().findSession(other.getId());
                     if (localSession != null && !localSession.isValid()) {
                         localSession = null;
                     }
@@ -568,7 +567,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
                 }
                 if (localSession == null && create) {
                     localSession =
-                        context.getManager().createSession(other.getId());
+                            context.getManager().createSession(other.getId());
                 }
                 if (localSession != null) {
                     localSession.access();
@@ -695,9 +694,9 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
         super.setRequest(request);
 
         // Initialize the attributes for this request
-        dispatcherType = (DispatcherType)request.getAttribute(Globals.DISPATCHER_TYPE_ATTR);
+        dispatcherType = (DispatcherType) request.getAttribute(Globals.DISPATCHER_TYPE_ATTR);
         requestDispatcherPath =
-            request.getAttribute(Globals.DISPATCHER_REQUEST_PATH_ATTR);
+                request.getAttribute(Globals.DISPATCHER_REQUEST_PATH_ATTR);
 
         // Initialize the path elements for this request
         contextPath = request.getContextPath();
@@ -735,7 +734,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
 
     /**
      * Parses the parameters of this request.
-     *
+     * <p>
      * If parameters are present in both the query string and the request
      * content, they are merged.
      */
@@ -748,7 +747,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
         parameters = new ParameterMap<>();
         parameters.putAll(getRequest().getParameterMap());
         mergeParameters();
-        ((ParameterMap<String,String[]>) parameters).setLocked(true);
+        ((ParameterMap<String, String[]>) parameters).setLocked(true);
         parsedParams = true;
     }
 
@@ -792,7 +791,7 @@ class ApplicationHttpRequest extends HttpServletRequestWrapper {
      * Get a special attribute.
      *
      * @return the special attribute pos, or -1 if it is not a special
-     *         attribute
+     * attribute
      */
     protected int getSpecial(String name) {
         for (int i = 0; i < specials.length; i++) {

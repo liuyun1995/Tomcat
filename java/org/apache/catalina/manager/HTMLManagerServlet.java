@@ -55,26 +55,26 @@ import org.apache.tomcat.util.res.StringManager;
 import org.apache.tomcat.util.security.Escape;
 
 /**
-* Servlet that enables remote management of the web applications deployed
-* within the same virtual host as this web application is.  Normally, this
-* functionality will be protected by a security constraint in the web
-* application deployment descriptor.  However, this requirement can be
-* relaxed during testing.
-* <p>
-* The difference between the <code>ManagerServlet</code> and this
-* Servlet is that this Servlet prints out an HTML interface which
-* makes it easier to administrate.
-* <p>
-* However if you use a software that parses the output of
-* <code>ManagerServlet</code> you won't be able to upgrade
-* to this Servlet since the output are not in the
-* same format ar from <code>ManagerServlet</code>
-*
-* @author Bip Thelin
-* @author Malcolm Edgar
-* @author Glenn L. Nielsen
-* @see ManagerServlet
-*/
+ * Servlet that enables remote management of the web applications deployed
+ * within the same virtual host as this web application is.  Normally, this
+ * functionality will be protected by a security constraint in the web
+ * application deployment descriptor.  However, this requirement can be
+ * relaxed during testing.
+ * <p>
+ * The difference between the <code>ManagerServlet</code> and this
+ * Servlet is that this Servlet prints out an HTML interface which
+ * makes it easier to administrate.
+ * <p>
+ * However if you use a software that parses the output of
+ * <code>ManagerServlet</code> you won't be able to upgrade
+ * to this Servlet since the output are not in the
+ * same format ar from <code>ManagerServlet</code>
+ *
+ * @author Bip Thelin
+ * @author Malcolm Edgar
+ * @author Glenn L. Nielsen
+ * @see ManagerServlet
+ */
 public final class HTMLManagerServlet extends ManagerServlet {
 
     private static final long serialVersionUID = 1L;
@@ -95,16 +95,15 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Process a GET request for the specified resource.
      *
-     * @param request The servlet request we are processing
+     * @param request  The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet-specified error occurs
      */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         StringManager smClient = StringManager.getManager(
                 Constants.Package, request.getLocales());
@@ -149,10 +148,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 command.equals("/expire") || command.equals("/start") ||
                 command.equals("/stop")) {
             message =
-                smClient.getString("managerServlet.postCommand", command);
+                    smClient.getString("managerServlet.postCommand", command);
         } else {
             message =
-                smClient.getString("managerServlet.unknownCommand", command);
+                    smClient.getString("managerServlet.unknownCommand", command);
         }
 
         list(request, response, message, smClient);
@@ -161,16 +160,15 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Process a POST request for the specified resource.
      *
-     * @param request The servlet request we are processing
+     * @param request  The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet-specified error occurs
      */
     @Override
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException {
+                       HttpServletResponse response)
+            throws IOException, ServletException {
 
         StringManager smClient = StringManager.getManager(
                 Constants.Package, request.getLocales());
@@ -229,7 +227,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
             message = sslReload(tlsHostName, smClient);
         } else {
             // Try GET
-            doGet(request,response);
+            doGet(request, response);
             return;
         }
 
@@ -257,11 +255,11 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 // Get the filename if uploaded name includes a path
                 if (filename.lastIndexOf('\\') >= 0) {
                     filename =
-                        filename.substring(filename.lastIndexOf('\\') + 1);
+                            filename.substring(filename.lastIndexOf('\\') + 1);
                 }
                 if (filename.lastIndexOf('/') >= 0) {
                     filename =
-                        filename.substring(filename.lastIndexOf('/') + 1);
+                            filename.substring(filename.lastIndexOf('/') + 1);
                 }
 
                 // Identify the appBase of the owning Host of this Context
@@ -298,9 +296,9 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 }
                 break;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             message = smClient.getString
-                ("htmlManagerServlet.deployUploadFail", e.getMessage());
+                    ("htmlManagerServlet.deployUploadFail", e.getMessage());
             log(message, e);
         }
         return message;
@@ -310,14 +308,14 @@ public final class HTMLManagerServlet extends ManagerServlet {
      * Deploy an application for the specified path from the specified
      * web application archive.
      *
-     * @param config URL of the context configuration file to be deployed
-     * @param cn Name of the application to be deployed
-     * @param war URL of the web application archive to be deployed
+     * @param config   URL of the context configuration file to be deployed
+     * @param cn       Name of the application to be deployed
+     * @param war      URL of the web application archive to be deployed
      * @param smClient internationalized strings
      * @return message String
      */
     protected String deployInternal(String config, ContextName cn, String war,
-            StringManager smClient) {
+                                    StringManager smClient) {
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -331,20 +329,20 @@ public final class HTMLManagerServlet extends ManagerServlet {
      * Render an HTML list of the currently active Contexts in our virtual host,
      * and memory and server status information.
      *
-     * @param request The request
+     * @param request  The request
      * @param response The response
-     * @param message a message to display
+     * @param message  a message to display
      * @param smClient internationalized strings
      * @throws IOException an IO error occurred
      */
     protected void list(HttpServletRequest request,
-                     HttpServletResponse response,
-                     String message,
-                     StringManager smClient) throws IOException {
+                        HttpServletResponse response,
+                        String message,
+                        StringManager smClient) throws IOException {
 
         if (debug >= 1)
             log("list: Listing contexts for virtual host '" +
-                host.getName() + "'");
+                    host.getName() + "'");
 
         PrintWriter writer = response.getWriter();
 
@@ -356,7 +354,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
         args[0] = request.getContextPath();
         args[1] = smClient.getString("htmlManagerServlet.title");
         writer.print(MessageFormat.format
-                     (Constants.BODY_HEADER_SECTION, args));
+                (Constants.BODY_HEADER_SECTION, args));
 
         // Message Section
         args = new Object[3];
@@ -374,15 +372,15 @@ public final class HTMLManagerServlet extends ManagerServlet {
         args[1] = response.encodeURL(request.getContextPath() + "/html/list");
         args[2] = smClient.getString("htmlManagerServlet.list");
         args[3] = // External link
-            (request.getContextPath() + "/" +
-             smClient.getString("htmlManagerServlet.helpHtmlManagerFile"));
+                (request.getContextPath() + "/" +
+                        smClient.getString("htmlManagerServlet.helpHtmlManagerFile"));
         args[4] = smClient.getString("htmlManagerServlet.helpHtmlManager");
         args[5] = // External link
-            (request.getContextPath() + "/" +
-             smClient.getString("htmlManagerServlet.helpManagerFile"));
+                (request.getContextPath() + "/" +
+                        smClient.getString("htmlManagerServlet.helpManagerFile"));
         args[6] = smClient.getString("htmlManagerServlet.helpManager");
         args[7] = response.encodeURL
-            (request.getContextPath() + "/status");
+                (request.getContextPath() + "/status");
         args[8] = smClient.getString("statusServlet.title");
         writer.print(MessageFormat.format(Constants.MANAGER_SECTION, args));
 
@@ -410,10 +408,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
         String appsStop = smClient.getString("htmlManagerServlet.appsStop");
         String appsReload = smClient.getString("htmlManagerServlet.appsReload");
         String appsUndeploy =
-            smClient.getString("htmlManagerServlet.appsUndeploy");
+                smClient.getString("htmlManagerServlet.appsUndeploy");
         String appsExpire = smClient.getString("htmlManagerServlet.appsExpire");
         String noVersion = "<i>" +
-            smClient.getString("htmlManagerServlet.noVersion") + "</i>";
+                smClient.getString("htmlManagerServlet.noVersion") + "</i>";
 
         boolean isHighlighted = true;
         boolean isDeployed = true;
@@ -425,7 +423,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
             if (ctxt != null) {
                 // Bugzilla 34818, alternating row colors
                 isHighlighted = !isHighlighted;
-                if(isHighlighted) {
+                if (isHighlighted) {
                     highlightColor = "#C3F3C3";
                 } else {
                     highlightColor = "#FFFFFF";
@@ -457,9 +455,9 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 args = new Object[7];
                 args[0] = // External link
                         "<a href=\""
-                        + URLEncoder.DEFAULT.encode(contextPath + "/", StandardCharsets.UTF_8)
-                        + "\" " + Constants.REL_EXTERNAL + ">"
-                        + Escape.htmlElementContent(displayPath) + "</a>";
+                                + URLEncoder.DEFAULT.encode(contextPath + "/", StandardCharsets.UTF_8)
+                                + "\" " + Constants.REL_EXTERNAL + ">"
+                                + Escape.htmlElementContent(displayPath) + "</a>";
                 if ("".equals(ctxt.getWebappVersion())) {
                     args[1] = noVersion;
                 } else {
@@ -472,12 +470,12 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 }
                 args[3] = Boolean.valueOf(ctxt.getState().isAvailable());
                 args[4] = Escape.htmlElementContent(response.encodeURL(request.getContextPath() +
-                     "/html/sessions?" + pathVersion));
+                        "/html/sessions?" + pathVersion));
                 Manager manager = ctxt.getManager();
                 if (manager instanceof DistributedManager && showProxySessions) {
                     args[5] = Integer.valueOf(
-                            ((DistributedManager)manager).getActiveSessionsFull());
-                } else if (manager != null){
+                            ((DistributedManager) manager).getActiveSessionsFull());
+                } else if (manager != null) {
                     args[5] = Integer.valueOf(manager.getActiveSessions());
                 } else {
                     args[5] = Integer.valueOf(0);
@@ -486,7 +484,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 args[6] = highlightColor;
 
                 writer.print
-                    (MessageFormat.format(APPS_ROW_DETAILS_SECTION, args));
+                        (MessageFormat.format(APPS_ROW_DETAILS_SECTION, args));
 
                 args = new Object[14];
                 args[0] = Escape.htmlElementContent(response.encodeURL(request
@@ -515,19 +513,19 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
                 if (ctxt.getName().equals(this.context.getName())) {
                     writer.print(MessageFormat.format(
-                        MANAGER_APP_ROW_BUTTON_SECTION, args));
+                            MANAGER_APP_ROW_BUTTON_SECTION, args));
                 } else if (ctxt.getState().isAvailable() && isDeployed) {
                     writer.print(MessageFormat.format(
-                        STARTED_DEPLOYED_APPS_ROW_BUTTON_SECTION, args));
+                            STARTED_DEPLOYED_APPS_ROW_BUTTON_SECTION, args));
                 } else if (ctxt.getState().isAvailable() && !isDeployed) {
                     writer.print(MessageFormat.format(
-                        STARTED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION, args));
+                            STARTED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION, args));
                 } else if (!ctxt.getState().isAvailable() && isDeployed) {
                     writer.print(MessageFormat.format(
-                        STOPPED_DEPLOYED_APPS_ROW_BUTTON_SECTION, args));
+                            STOPPED_DEPLOYED_APPS_ROW_BUTTON_SECTION, args));
                 } else {
                     writer.print(MessageFormat.format(
-                        STOPPED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION, args));
+                            STOPPED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION, args));
                 }
 
             }
@@ -596,7 +594,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
         args[7] = smClient.getString("htmlManagerServlet.serverHostname");
         args[8] = smClient.getString("htmlManagerServlet.serverIPAddress");
         writer.print(MessageFormat.format
-                     (Constants.SERVER_HEADER_SECTION, args));
+                (Constants.SERVER_HEADER_SECTION, args));
 
         // Server Row Section
         args = new Object[8];
@@ -627,11 +625,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Reload the web application at the specified context path.
      *
-     * @see ManagerServlet#reload(PrintWriter, ContextName, StringManager)
-     *
-     * @param cn Name of the application to be restarted
-     * @param smClient  StringManager for the client's locale
+     * @param cn       Name of the application to be restarted
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#reload(PrintWriter, ContextName, StringManager)
      */
     protected String reload(ContextName cn, StringManager smClient) {
 
@@ -646,11 +643,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Undeploy the web application at the specified context path.
      *
-     * @see ManagerServlet#undeploy(PrintWriter, ContextName, StringManager)
-     *
-     * @param cn Name of the application to be undeployed
-     * @param smClient  StringManager for the client's locale
+     * @param cn       Name of the application to be undeployed
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#undeploy(PrintWriter, ContextName, StringManager)
      */
     protected String undeploy(ContextName cn, StringManager smClient) {
 
@@ -665,13 +661,12 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Display session information and invoke list.
      *
-     * @see ManagerServlet#sessions(PrintWriter, ContextName, int,
-     *          StringManager)
-     *
-     * @param cn Name of the application to list session information
-     * @param idle Expire all sessions with idle time &ge; idle for this context
-     * @param smClient  StringManager for the client's locale
+     * @param cn       Name of the application to list session information
+     * @param idle     Expire all sessions with idle time &ge; idle for this context
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#sessions(PrintWriter, ContextName, int,
+     * StringManager)
      */
     protected String sessions(ContextName cn, int idle, StringManager smClient) {
 
@@ -686,11 +681,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Start the web application at the specified context path.
      *
-     * @see ManagerServlet#start(PrintWriter, ContextName, StringManager)
-     *
-     * @param cn Name of the application to be started
-     * @param smClient  StringManager for the client's locale
+     * @param cn       Name of the application to be started
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#start(PrintWriter, ContextName, StringManager)
      */
     protected String start(ContextName cn, StringManager smClient) {
 
@@ -705,11 +699,10 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Stop the web application at the specified context path.
      *
-     * @see ManagerServlet#stop(PrintWriter, ContextName, StringManager)
-     *
-     * @param cn Name of the application to be stopped
-     * @param smClient  StringManager for the client's locale
+     * @param cn       Name of the application to be stopped
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#stop(PrintWriter, ContextName, StringManager)
      */
     protected String stop(ContextName cn, StringManager smClient) {
 
@@ -724,11 +717,9 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Find potential memory leaks caused by web application reload.
      *
-     * @see ManagerServlet#findleaks(boolean, PrintWriter, StringManager)
-     *
-     * @param smClient  StringManager for the client's locale
-     *
+     * @param smClient StringManager for the client's locale
      * @return message String
+     * @see ManagerServlet#findleaks(boolean, PrintWriter, StringManager)
      */
     protected String findleaks(StringManager smClient) {
 
@@ -766,7 +757,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
 
     protected void sslConnectorCiphers(HttpServletRequest request,
-            HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
+                                       HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
         request.setAttribute("cipherList", getConnectorCiphers(smClient));
         getServletContext().getRequestDispatcher(
                 connectorCiphersJspPath).forward(request, response);
@@ -774,7 +765,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
 
     protected void sslConnectorCerts(HttpServletRequest request,
-            HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
+                                     HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
         request.setAttribute("certList", getConnectorCerts(smClient));
         getServletContext().getRequestDispatcher(
                 connectorCertsJspPath).forward(request, response);
@@ -782,7 +773,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
 
     protected void sslConnectorTrustedCerts(HttpServletRequest request,
-            HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
+                                            HttpServletResponse response, StringManager smClient) throws ServletException, IOException {
         request.setAttribute("trustedCertList", getConnectorTrustedCerts(smClient));
         getServletContext().getRequestDispatcher(
                 connectorTrustedCertsJspPath).forward(request, response);
@@ -813,16 +804,15 @@ public final class HTMLManagerServlet extends ManagerServlet {
     // ------------------------------------------------ Sessions administration
 
     /**
-     *
      * Extract the expiration request parameter
      *
-     * @param cn Name of the application from which to expire sessions
-     * @param req The Servlet request
+     * @param cn       Name of the application from which to expire sessions
+     * @param req      The Servlet request
      * @param smClient StringManager for the client's locale
      * @return message string
      */
     protected String expireSessions(ContextName cn, HttpServletRequest req,
-            StringManager smClient) {
+                                    StringManager smClient) {
         int idle = -1;
         String idleParam = req.getParameter("idle");
         if (idleParam != null) {
@@ -838,15 +828,15 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Handle session operations.
      *
-     * @param cn Name of the application for the sessions operation
-     * @param req The Servlet request
-     * @param resp The Servlet response
+     * @param cn       Name of the application for the sessions operation
+     * @param req      The Servlet request
+     * @param resp     The Servlet response
      * @param smClient StringManager for the client's locale
      * @throws ServletException Propagated Servlet error
-     * @throws IOException An IO error occurred
+     * @throws IOException      An IO error occurred
      */
     protected void doSessions(ContextName cn, HttpServletRequest req,
-            HttpServletResponse resp, StringManager smClient)
+                              HttpServletResponse resp, StringManager smClient)
             throws ServletException, IOException {
         req.setAttribute("path", cn.getPath());
         req.setAttribute("version", cn.getVersion());
@@ -867,7 +857,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
             String sessionId = req.getParameter("sessionId");
             String name = req.getParameter("attributeName");
             boolean removed =
-                removeSessionAttribute(cn, sessionId, name, smClient);
+                    removeSessionAttribute(cn, sessionId, name, smClient);
             String outMessage = removed ? "Session attribute '" + name + "' removed." : "Session did not contain any attribute named '" + name + "'";
             req.setAttribute(APPLICATION_MESSAGE, outMessage);
             displaySessionDetailPage(req, resp, cn, sessionId, smClient);
@@ -877,7 +867,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
     }
 
     protected List<Session> getSessionsForName(ContextName cn,
-            StringManager smClient) {
+                                               StringManager smClient) {
         if ((cn == null) || !(cn.getPath().startsWith("/") ||
                 cn.getPath().equals(""))) {
             String path = null;
@@ -901,7 +891,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
         if (manager instanceof DistributedManager && showProxySessions) {
             // Add dummy proxy sessions
             Set<String> sessionIds =
-                ((DistributedManager) manager).getSessionIdsFull();
+                    ((DistributedManager) manager).getSessionIdsFull();
             // Remove active (primary and backup) session IDs from full list
             for (Session session : sessions) {
                 sessionIds.remove(session.getId());
@@ -915,11 +905,11 @@ public final class HTMLManagerServlet extends ManagerServlet {
     }
 
     protected Session getSessionForNameAndId(ContextName cn, String id,
-            StringManager smClient) {
+                                             StringManager smClient) {
 
         List<Session> sessions = getSessionsForName(cn, smClient);
         if (sessions.isEmpty()) return null;
-        for(Session session : sessions) {
+        for (Session session : sessions) {
             if (session.getId().equals(id)) {
                 return session;
             }
@@ -929,16 +919,17 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
     /**
      * List session.
-     * @param cn Name of the application for which the sessions will be listed
-     * @param req The Servlet request
-     * @param resp The Servlet response
+     *
+     * @param cn       Name of the application for which the sessions will be listed
+     * @param req      The Servlet request
+     * @param resp     The Servlet response
      * @param smClient StringManager for the client's locale
      * @throws ServletException Propagated Servlet error
-     * @throws IOException An IO error occurred
+     * @throws IOException      An IO error occurred
      */
     protected void displaySessionsListPage(ContextName cn,
-            HttpServletRequest req, HttpServletResponse resp,
-            StringManager smClient)
+                                           HttpServletRequest req, HttpServletResponse resp,
+                                           StringManager smClient)
             throws ServletException, IOException {
         List<Session> sessions = getSessionsForName(cn, smClient);
         String sortBy = req.getParameter("sort");
@@ -979,17 +970,17 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Display session details.
      *
-     * @param req The Servlet request
-     * @param resp The Servlet response
-     * @param cn Name of the application for which the sessions will be listed
+     * @param req       The Servlet request
+     * @param resp      The Servlet response
+     * @param cn        Name of the application for which the sessions will be listed
      * @param sessionId the session id
-     * @param smClient StringManager for the client's locale
+     * @param smClient  StringManager for the client's locale
      * @throws ServletException Propagated Servlet error
-     * @throws IOException An IO error occurred
+     * @throws IOException      An IO error occurred
      */
     protected void displaySessionDetailPage(HttpServletRequest req,
-            HttpServletResponse resp, ContextName cn, String sessionId,
-            StringManager smClient) throws ServletException, IOException {
+                                            HttpServletResponse resp, ContextName cn, String sessionId,
+                                            StringManager smClient) throws ServletException, IOException {
         Session session = getSessionForNameAndId(cn, sessionId, smClient);
         //strong>NOTE</strong> - This header will be overridden
         // automatically if a <code>RequestDispatcher.forward()</code> call is
@@ -1004,14 +995,14 @@ public final class HTMLManagerServlet extends ManagerServlet {
     /**
      * Invalidate specified sessions.
      *
-     * @param cn Name of the application for which sessions are to be
-     *           invalidated
+     * @param cn         Name of the application for which sessions are to be
+     *                   invalidated
      * @param sessionIds the session ids of the sessions
-     * @param smClient  StringManager for the client's locale
+     * @param smClient   StringManager for the client's locale
      * @return number of invalidated sessions
      */
     protected int invalidateSessions(ContextName cn, String[] sessionIds,
-            StringManager smClient) {
+                                     StringManager smClient) {
         if (null == sessionIds) {
             return 0;
         }
@@ -1019,7 +1010,7 @@ public final class HTMLManagerServlet extends ManagerServlet {
         for (int i = 0; i < sessionIds.length; ++i) {
             String sessionId = sessionIds[i];
             HttpSession session =
-                getSessionForNameAndId(cn, sessionId, smClient).getSession();
+                    getSessionForNameAndId(cn, sessionId, smClient).getSession();
             if (null == session) {
                 // Shouldn't happen, but let's play nice...
                 if (debug >= 1) {
@@ -1044,17 +1035,18 @@ public final class HTMLManagerServlet extends ManagerServlet {
 
     /**
      * Removes an attribute from an HttpSession
-     * @param cn Name of the application hosting the session from which the
-     *           attribute is to be removed
-     * @param sessionId the session id
+     *
+     * @param cn            Name of the application hosting the session from which the
+     *                      attribute is to be removed
+     * @param sessionId     the session id
      * @param attributeName the attribute name
-     * @param smClient  StringManager for the client's locale
+     * @param smClient      StringManager for the client's locale
      * @return true if there was an attribute removed, false otherwise
      */
     protected boolean removeSessionAttribute(ContextName cn, String sessionId,
-            String attributeName, StringManager smClient) {
+                                             String attributeName, StringManager smClient) {
         HttpSession session =
-            getSessionForNameAndId(cn, sessionId, smClient).getSession();
+                getSessionForNameAndId(cn, sessionId, smClient).getSession();
         if (null == session) {
             // Shouldn't happen, but let's play nice...
             if (debug >= 1) {
@@ -1156,302 +1148,302 @@ public final class HTMLManagerServlet extends ManagerServlet {
     // (maximum of 10).
 
     private static final String APPS_HEADER_SECTION =
-        "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td colspan=\"6\" class=\"title\">{0}</td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"header-left\"><small>{1}</small></td>\n" +
-        " <td class=\"header-left\"><small>{2}</small></td>\n" +
-        " <td class=\"header-center\"><small>{3}</small></td>\n" +
-        " <td class=\"header-center\"><small>{4}</small></td>\n" +
-        " <td class=\"header-left\"><small>{5}</small></td>\n" +
-        " <td class=\"header-left\"><small>{6}</small></td>\n" +
-        "</tr>\n";
+            "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"6\" class=\"title\">{0}</td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"header-left\"><small>{1}</small></td>\n" +
+                    " <td class=\"header-left\"><small>{2}</small></td>\n" +
+                    " <td class=\"header-center\"><small>{3}</small></td>\n" +
+                    " <td class=\"header-center\"><small>{4}</small></td>\n" +
+                    " <td class=\"header-left\"><small>{5}</small></td>\n" +
+                    " <td class=\"header-left\"><small>{6}</small></td>\n" +
+                    "</tr>\n";
 
     private static final String APPS_ROW_DETAILS_SECTION =
-        "<tr>\n" +
-        " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{0}</small></td>\n" +
-        " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{1}</small></td>\n" +
-        " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{2}</small></td>\n" +
-        " <td class=\"row-center\" bgcolor=\"{6}\" rowspan=\"2\"><small>{3}</small></td>\n" +
-        " <td class=\"row-center\" bgcolor=\"{6}\" rowspan=\"2\">" +
-        "<small><a href=\"{4}\">{5}</a></small></td>\n";
+            "<tr>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{0}</small></td>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{1}</small></td>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{6}\" rowspan=\"2\"><small>{2}</small></td>\n" +
+                    " <td class=\"row-center\" bgcolor=\"{6}\" rowspan=\"2\"><small>{3}</small></td>\n" +
+                    " <td class=\"row-center\" bgcolor=\"{6}\" rowspan=\"2\">" +
+                    "<small><a href=\"{4}\">{5}</a></small></td>\n";
 
     private static final String MANAGER_APP_ROW_BUTTON_SECTION =
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  <small>\n" +
-        "  &nbsp;{1}&nbsp;\n" +
-        "  &nbsp;{3}&nbsp;\n" +
-        "  &nbsp;{5}&nbsp;\n" +
-        "  &nbsp;{7}&nbsp;\n" +
-        "  </small>\n" +
-        " </td>\n" +
-        "</tr><tr>\n" +
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  <form method=\"POST\" action=\"{8}\">\n" +
-        "  <small>\n" +
-        "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
-        "  </small>\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        "</tr>\n";
+            " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  <small>\n" +
+                    "  &nbsp;{1}&nbsp;\n" +
+                    "  &nbsp;{3}&nbsp;\n" +
+                    "  &nbsp;{5}&nbsp;\n" +
+                    "  &nbsp;{7}&nbsp;\n" +
+                    "  </small>\n" +
+                    " </td>\n" +
+                    "</tr><tr>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  <form method=\"POST\" action=\"{8}\">\n" +
+                    "  <small>\n" +
+                    "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
+                    "  </small>\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    "</tr>\n";
 
     private static final String STARTED_DEPLOYED_APPS_ROW_BUTTON_SECTION =
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  &nbsp;<small>{1}</small>&nbsp;\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{2}\">" +
-        "  <small><input type=\"submit\" value=\"{3}\"></small>" +
-        "  </form>\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{4}\">" +
-        "  <small><input type=\"submit\" value=\"{5}\"></small>" +
-        "  </form>\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{6}\">" +
-        "  &nbsp;&nbsp;<small><input type=\"submit\" value=\"{7}\"></small>" +
-        "  </form>\n" +
-        " </td>\n" +
-        " </tr><tr>\n" +
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  <form method=\"POST\" action=\"{8}\">\n" +
-        "  <small>\n" +
-        "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
-        "  </small>\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        "</tr>\n";
+            " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  &nbsp;<small>{1}</small>&nbsp;\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{2}\">" +
+                    "  <small><input type=\"submit\" value=\"{3}\"></small>" +
+                    "  </form>\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{4}\">" +
+                    "  <small><input type=\"submit\" value=\"{5}\"></small>" +
+                    "  </form>\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{6}\">" +
+                    "  &nbsp;&nbsp;<small><input type=\"submit\" value=\"{7}\"></small>" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    " </tr><tr>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  <form method=\"POST\" action=\"{8}\">\n" +
+                    "  <small>\n" +
+                    "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
+                    "  </small>\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    "</tr>\n";
 
     private static final String STOPPED_DEPLOYED_APPS_ROW_BUTTON_SECTION =
-        " <td class=\"row-left\" bgcolor=\"{13}\" rowspan=\"2\">\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{0}\">" +
-        "  <small><input type=\"submit\" value=\"{1}\"></small>" +
-        "  </form>\n" +
-        "  &nbsp;<small>{3}</small>&nbsp;\n" +
-        "  &nbsp;<small>{5}</small>&nbsp;\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{6}\">" +
-        "  <small><input type=\"submit\" value=\"{7}\"></small>" +
-        "  </form>\n" +
-        " </td>\n" +
-        "</tr>\n<tr></tr>\n";
+            " <td class=\"row-left\" bgcolor=\"{13}\" rowspan=\"2\">\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{0}\">" +
+                    "  <small><input type=\"submit\" value=\"{1}\"></small>" +
+                    "  </form>\n" +
+                    "  &nbsp;<small>{3}</small>&nbsp;\n" +
+                    "  &nbsp;<small>{5}</small>&nbsp;\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{6}\">" +
+                    "  <small><input type=\"submit\" value=\"{7}\"></small>" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    "</tr>\n<tr></tr>\n";
 
     private static final String STARTED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION =
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  &nbsp;<small>{1}</small>&nbsp;\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{2}\">" +
-        "  <small><input type=\"submit\" value=\"{3}\"></small>" +
-        "  </form>\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{4}\">" +
-        "  <small><input type=\"submit\" value=\"{5}\"></small>" +
-        "  </form>\n" +
-        "  &nbsp;<small>{7}</small>&nbsp;\n" +
-        " </td>\n" +
-        " </tr><tr>\n" +
-        " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
-        "  <form method=\"POST\" action=\"{8}\">\n" +
-        "  <small>\n" +
-        "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
-        "  </small>\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        "</tr>\n";
+            " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  &nbsp;<small>{1}</small>&nbsp;\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{2}\">" +
+                    "  <small><input type=\"submit\" value=\"{3}\"></small>" +
+                    "  </form>\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{4}\">" +
+                    "  <small><input type=\"submit\" value=\"{5}\"></small>" +
+                    "  </form>\n" +
+                    "  &nbsp;<small>{7}</small>&nbsp;\n" +
+                    " </td>\n" +
+                    " </tr><tr>\n" +
+                    " <td class=\"row-left\" bgcolor=\"{13}\">\n" +
+                    "  <form method=\"POST\" action=\"{8}\">\n" +
+                    "  <small>\n" +
+                    "  &nbsp;<input type=\"submit\" value=\"{9}\">&nbsp;{10}&nbsp;<input type=\"text\" name=\"idle\" size=\"5\" value=\"{11}\">&nbsp;{12}&nbsp;\n" +
+                    "  </small>\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    "</tr>\n";
 
     private static final String STOPPED_NONDEPLOYED_APPS_ROW_BUTTON_SECTION =
-        " <td class=\"row-left\" bgcolor=\"{13}\" rowspan=\"2\">\n" +
-        "  <form class=\"inline\" method=\"POST\" action=\"{0}\">" +
-        "  <small><input type=\"submit\" value=\"{1}\"></small>" +
-        "  </form>\n" +
-        "  &nbsp;<small>{3}</small>&nbsp;\n" +
-        "  &nbsp;<small>{5}</small>&nbsp;\n" +
-        "  &nbsp;<small>{7}</small>&nbsp;\n" +
-        " </td>\n" +
-        "</tr>\n<tr></tr>\n";
+            " <td class=\"row-left\" bgcolor=\"{13}\" rowspan=\"2\">\n" +
+                    "  <form class=\"inline\" method=\"POST\" action=\"{0}\">" +
+                    "  <small><input type=\"submit\" value=\"{1}\"></small>" +
+                    "  </form>\n" +
+                    "  &nbsp;<small>{3}</small>&nbsp;\n" +
+                    "  &nbsp;<small>{5}</small>&nbsp;\n" +
+                    "  &nbsp;<small>{7}</small>&nbsp;\n" +
+                    " </td>\n" +
+                    "</tr>\n<tr></tr>\n";
 
     private static final String DEPLOY_SECTION =
-        "</table>\n" +
-        "<br>\n" +
-        "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\">\n" +
-        "<form method=\"post\" action=\"{2}\">\n" +
-        "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{3}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"text\" name=\"deployPath\" size=\"20\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{4}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"text\" name=\"deployVersion\" size=\"20\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{5}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"text\" name=\"deployConfig\" size=\"20\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{6}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"text\" name=\"deployWar\" size=\"40\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  &nbsp;\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"submit\" value=\"{7}\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "</table>\n" +
-        "</form>\n" +
-        "</td>\n" +
-        "</tr>\n";
+            "</table>\n" +
+                    "<br>\n" +
+                    "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\">\n" +
+                    "<form method=\"post\" action=\"{2}\">\n" +
+                    "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{3}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"text\" name=\"deployPath\" size=\"20\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{4}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"text\" name=\"deployVersion\" size=\"20\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{5}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"text\" name=\"deployConfig\" size=\"20\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{6}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"text\" name=\"deployWar\" size=\"40\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  &nbsp;\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"submit\" value=\"{7}\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "</table>\n" +
+                    "</form>\n" +
+                    "</td>\n" +
+                    "</tr>\n";
 
     private static final String UPLOAD_SECTION =
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"header-left\"><small>{0}</small></td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\">\n" +
-        "<form method=\"post\" action=\"{1}\" " +
-        "enctype=\"multipart/form-data\">\n" +
-        "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{2}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"file\" name=\"deployWar\" size=\"40\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  &nbsp;\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"submit\" value=\"{3}\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "</table>\n" +
-        "</form>\n" +
-        "</td>\n" +
-        "</tr>\n" +
-        "</table>\n" +
-        "<br>\n" +
-        "\n";
+            "<tr>\n" +
+                    " <td colspan=\"2\" class=\"header-left\"><small>{0}</small></td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\">\n" +
+                    "<form method=\"post\" action=\"{1}\" " +
+                    "enctype=\"multipart/form-data\">\n" +
+                    "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{2}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"file\" name=\"deployWar\" size=\"40\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  &nbsp;\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"submit\" value=\"{3}\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "</table>\n" +
+                    "</form>\n" +
+                    "</td>\n" +
+                    "</tr>\n" +
+                    "</table>\n" +
+                    "<br>\n" +
+                    "\n";
 
     private static final String CONFIG_SECTION =
-        "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
-        "</tr>\n" +
+            "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\">\n" +
-        "<form method=\"post\" action=\"{2}\">\n" +
-        "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  <small>{3}</small>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"text\" name=\"tlsHostName\" size=\"20\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "<tr>\n" +
-        " <td class=\"row-right\">\n" +
-        "  &nbsp;\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <input type=\"submit\" value=\"{4}\">\n" +
-        " </td>\n" +
-        "</tr>\n" +
-        "</table>\n" +
-        "</form>\n" +
-        "</td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\">\n" +
+                    "<form method=\"post\" action=\"{2}\">\n" +
+                    "<table cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  <small>{3}</small>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"text\" name=\"tlsHostName\" size=\"20\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-right\">\n" +
+                    "  &nbsp;\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <input type=\"submit\" value=\"{4}\">\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
+                    "</table>\n" +
+                    "</form>\n" +
+                    "</td>\n" +
+                    "</tr>\n" +
 
-        "</table>\n" +
-        "<br>";
+                    "</table>\n" +
+                    "<br>";
 
     private static final String DIAGNOSTICS_SECTION =
-        "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
-        "</tr>\n" +
+            "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"title\">{0}</td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"header-left\"><small>{1}</small></td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <form method=\"post\" action=\"{2}\">\n" +
-        "   <input type=\"submit\" value=\"{4}\">\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <small>{3}</small>\n" +
-        " </td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <form method=\"post\" action=\"{2}\">\n" +
+                    "   <input type=\"submit\" value=\"{4}\">\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <small>{3}</small>\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td colspan=\"2\" class=\"header-left\"><small>{5}</small></td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td colspan=\"2\" class=\"header-left\"><small>{5}</small></td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <form method=\"post\" action=\"{6}\">\n" +
-        "   <input type=\"submit\" value=\"{7}\">\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <small>{8}</small>\n" +
-        " </td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <form method=\"post\" action=\"{6}\">\n" +
+                    "   <input type=\"submit\" value=\"{7}\">\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <small>{8}</small>\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <form method=\"post\" action=\"{9}\">\n" +
-        "   <input type=\"submit\" value=\"{10}\">\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <small>{11}</small>\n" +
-        " </td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <form method=\"post\" action=\"{9}\">\n" +
+                    "   <input type=\"submit\" value=\"{10}\">\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <small>{11}</small>\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
 
-        "<tr>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <form method=\"post\" action=\"{12}\">\n" +
-        "   <input type=\"submit\" value=\"{13}\">\n" +
-        "  </form>\n" +
-        " </td>\n" +
-        " <td class=\"row-left\">\n" +
-        "  <small>{14}</small>\n" +
-        " </td>\n" +
-        "</tr>\n" +
+                    "<tr>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <form method=\"post\" action=\"{12}\">\n" +
+                    "   <input type=\"submit\" value=\"{13}\">\n" +
+                    "  </form>\n" +
+                    " </td>\n" +
+                    " <td class=\"row-left\">\n" +
+                    "  <small>{14}</small>\n" +
+                    " </td>\n" +
+                    "</tr>\n" +
 
-        "</table>\n" +
-        "<br>";
+                    "</table>\n" +
+                    "<br>";
 }

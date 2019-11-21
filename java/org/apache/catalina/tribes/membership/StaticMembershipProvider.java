@@ -83,20 +83,20 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
 
     @Override
     public void start(int level) throws Exception {
-        if (Channel.MBR_RX_SEQ==(level & Channel.MBR_RX_SEQ)) {
+        if (Channel.MBR_RX_SEQ == (level & Channel.MBR_RX_SEQ)) {
             //no-op
         }
-        if (Channel.MBR_TX_SEQ==(level & Channel.MBR_TX_SEQ)) {
+        if (Channel.MBR_TX_SEQ == (level & Channel.MBR_TX_SEQ)) {
             //no-op
         }
         startLevel = (startLevel | level);
         if (startLevel == (Channel.MBR_RX_SEQ | Channel.MBR_TX_SEQ)) {
             startMembership(getAliveMembers(staticMembers.toArray(new Member[0])));
             running = true;
-            if ( thread == null && useThread) {
+            if (thread == null && useThread) {
                 thread = new PingThread();
                 thread.setDaemon(true);
-                thread.setName("StaticMembership.PingThread[" + this.channel.getName() +"]");
+                thread.setName("StaticMembership.PingThread[" + this.channel.getName() + "]");
                 thread.start();
             }
         }
@@ -104,14 +104,14 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
 
     @Override
     public boolean stop(int level) throws Exception {
-        if (Channel.MBR_RX_SEQ==(level & Channel.MBR_RX_SEQ)) {
+        if (Channel.MBR_RX_SEQ == (level & Channel.MBR_RX_SEQ)) {
             // no-op
         }
-        if (Channel.MBR_TX_SEQ==(level & Channel.MBR_TX_SEQ)) {
+        if (Channel.MBR_TX_SEQ == (level & Channel.MBR_TX_SEQ)) {
             // no-op
         }
         startLevel = (startLevel & (~level));
-        if ( startLevel == 0 ) {
+        if (startLevel == 0) {
             running = false;
             if (thread != null) {
                 thread.interrupt();
@@ -156,10 +156,10 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
 
     protected void memberAdded(Member member) {
         Member mbr = setupMember(member);
-        if(membership.memberAlive(mbr)) {
+        if (membership.memberAlive(mbr)) {
             Runnable r = new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     String name = Thread.currentThread().getName();
                     try {
                         Thread.currentThread().setName("StaticMembership-memberAdded");
@@ -177,7 +177,7 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
         membership.removeMember(member);
         Runnable r = new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 String name = Thread.currentThread().getName();
                 try {
                     Thread.currentThread().setName("StaticMembership-memberDisappeared");
@@ -196,7 +196,7 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
     }
 
     protected void stopMembership(Member[] members) {
-        if (members.length == 0 ) return;
+        if (members.length == 0) return;
         Member localmember = service.getLocalMember(false);
         localmember.setCommand(Member.SHUTDOWN_PAYLOAD);
         MemberMessage msg = new MemberMessage(membershipId, MemberMessage.MSG_STOP, localmember);
@@ -378,14 +378,14 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
 
         protected String getTypeDesc() {
             switch (msgtype) {
-            case MSG_START:
-                return "MSG_START";
-            case MSG_STOP:
-                return "MSG_STOP";
-            case MSG_PING:
-                return "MSG_PING";
-            default:
-                return "UNKNOWN";
+                case MSG_START:
+                    return "MSG_START";
+                case MSG_STOP:
+                    return "MSG_STOP";
+                case MSG_PING:
+                    return "MSG_PING";
+                default:
+                    return "UNKNOWN";
             }
         }
     }
@@ -397,9 +397,9 @@ public class StaticMembershipProvider extends MembershipProviderBase implements 
                 try {
                     sleep(pingInterval);
                     ping();
-                }catch (InterruptedException ix) {
-                }catch (Exception x) {
-                    log.warn(sm.getString("staticMembershipProvider.pingThread.failed"),x);
+                } catch (InterruptedException ix) {
+                } catch (Exception x) {
+                    log.warn(sm.getString("staticMembershipProvider.pingThread.failed"), x);
                 }
             }
         }

@@ -63,7 +63,7 @@ public final class RemoteCIDRFilter extends FilterBase {
      * Return a string representation of the {@link NetMask} list in #allow.
      *
      * @return the #allow list as a string, without the leading '[' and trailing
-     *         ']'
+     * ']'
      */
     public String getAllow() {
         return allow.toString().replace("[", "").replace("]", "");
@@ -96,7 +96,7 @@ public final class RemoteCIDRFilter extends FilterBase {
      * Return a string representation of the {@link NetMask} list in #deny.
      *
      * @return the #deny list as string, without the leading '[' and trailing
-     *         ']'
+     * ']'
      */
     public String getDeny() {
         return deny.toString().replace("[", "").replace("]", "");
@@ -122,7 +122,6 @@ public final class RemoteCIDRFilter extends FilterBase {
 
         throw new IllegalArgumentException(sm.getString("remoteCidrFilter.invalid", "deny"));
     }
-
 
 
     @Override
@@ -209,7 +208,7 @@ public final class RemoteCIDRFilter extends FilterBase {
      * Fill a {@link NetMask} list from a string input containing a
      * comma-separated list of (hopefully valid) {@link NetMask}s.
      *
-     * @param input The input string
+     * @param input  The input string
      * @param target The list to fill
      * @return a string list of processing errors (empty when no errors)
      */

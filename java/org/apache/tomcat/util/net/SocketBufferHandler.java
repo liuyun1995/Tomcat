@@ -37,7 +37,7 @@ public class SocketBufferHandler {
     private final boolean direct;
 
     public SocketBufferHandler(int readBufferSize, int writeBufferSize,
-            boolean direct) {
+                               boolean direct) {
         this.direct = direct;
         if (direct) {
             readBuffer = ByteBuffer.allocateDirect(readBufferSize);

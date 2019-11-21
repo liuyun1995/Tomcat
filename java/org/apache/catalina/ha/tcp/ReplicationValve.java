@@ -63,7 +63,7 @@ import org.apache.tomcat.util.res.StringManager;
  * @author Peter Rossbach
  */
 public class ReplicationValve
-    extends ValveBase implements ClusterValve {
+        extends ValveBase implements ClusterValve {
 
     private static final Log log = LogFactory.getLog(ReplicationValve.class);
 
@@ -73,9 +73,9 @@ public class ReplicationValve
      * The StringManager for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
-    private CatalinaCluster cluster = null ;
+    private CatalinaCluster cluster = null;
 
     /**
      * Filter expression
@@ -86,7 +86,7 @@ public class ReplicationValve
      * crossContext session container
      */
     protected final ThreadLocal<ArrayList<DeltaSession>> crossContextSessions =
-        new ThreadLocal<>() ;
+            new ThreadLocal<>();
 
     /**
      * doProcessingStats (default = off)
@@ -112,7 +112,7 @@ public class ReplicationValve
     /**
      * must primary change indicator set
      */
-    protected boolean primaryIndicator = false ;
+    protected boolean primaryIndicator = false;
 
     /**
      * Name of primary change indicator as request attribute
@@ -145,17 +145,17 @@ public class ReplicationValve
      * @return the filter
      */
     public String getFilter() {
-       if (filter == null) {
-           return null;
-       }
-       return filter.toString();
+        if (filter == null) {
+            return null;
+        }
+        return filter.toString();
     }
 
     /**
      * compile filter string to regular expression
+     *
+     * @param filter The filter to set.
      * @see Pattern#compile(java.lang.String)
-     * @param filter
-     *            The filter to set.
      */
     public void setFilter(String filter) {
         if (log.isDebugEnabled()) {
@@ -204,6 +204,7 @@ public class ReplicationValve
 
     /**
      * Calc processing stats
+     *
      * @return <code>true</code> if statistics are enabled
      */
     public boolean doStatistics() {
@@ -280,12 +281,12 @@ public class ReplicationValve
      */
     public void registerReplicationSession(DeltaSession session) {
         List<DeltaSession> sessions = crossContextSessions.get();
-        if(sessions != null) {
-            if(!sessions.contains(session)) {
-                if(log.isDebugEnabled()) {
+        if (sessions != null) {
+            if (!sessions.contains(session)) {
+                if (log.isDebugEnabled()) {
                     log.debug(sm.getString("ReplicationValve.crossContext.registerSession",
-                        session.getIdInternal(),
-                        session.getManager().getContext().getName()));
+                            session.getIdInternal(),
+                            session.getManager().getContext().getName()));
                 }
                 sessions.add(session);
             }
@@ -296,58 +297,56 @@ public class ReplicationValve
      * Log the interesting request parameters, invoke the next Valve in the
      * sequence, and log the interesting response parameters.
      *
-     * @param request The servlet request to be processed
+     * @param request  The servlet request to be processed
      * @param response The servlet response to be created
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     @Override
     public void invoke(Request request, Response response)
-        throws IOException, ServletException
-    {
+            throws IOException, ServletException {
         long totalstart = 0;
 
         //this happens before the request
-        if(doStatistics()) {
+        if (doStatistics()) {
             totalstart = System.currentTimeMillis();
         }
         if (primaryIndicator) {
-            createPrimaryIndicator(request) ;
+            createPrimaryIndicator(request);
         }
         Context context = request.getContext();
         boolean isCrossContext = context != null
                 && context instanceof StandardContext
                 && context.getCrossContext();
         try {
-            if(isCrossContext) {
-                if(log.isDebugEnabled()) {
+            if (isCrossContext) {
+                if (log.isDebugEnabled()) {
                     log.debug(sm.getString("ReplicationValve.crossContext.add"));
                 }
                 //FIXME add Pool of Arraylists
                 crossContextSessions.set(new ArrayList<DeltaSession>());
             }
             getNext().invoke(request, response);
-            if(context != null && cluster != null
+            if (context != null && cluster != null
                     && context.getManager() instanceof ClusterManager) {
                 ClusterManager clusterManager = (ClusterManager) context.getManager();
 
                 // valve cluster can access manager - other cluster handle replication
                 // at host level - hopefully!
-                if(cluster.getManager(clusterManager.getName()) == null) {
-                    return ;
+                if (cluster.getManager(clusterManager.getName()) == null) {
+                    return;
                 }
-                if(cluster.hasMembers()) {
+                if (cluster.hasMembers()) {
                     sendReplicationMessage(request, totalstart, isCrossContext, clusterManager);
                 } else {
-                    resetReplicationRequest(request,isCrossContext);
+                    resetReplicationRequest(request, isCrossContext);
                 }
             }
         } finally {
             // Array must be remove: Current master request send endAccess at recycle.
             // Don't register this request session again!
-            if(isCrossContext) {
-                if(log.isDebugEnabled()) {
+            if (isCrossContext) {
+                if (log.isDebugEnabled()) {
                     log.debug(sm.getString("ReplicationValve.crossContext.remove"));
                 }
                 // crossContextSessions.remove() only exist at Java 5
@@ -375,15 +374,15 @@ public class ReplicationValve
      * Start this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
         if (cluster == null) {
             Cluster containerCluster = getContainer().getCluster();
             if (containerCluster instanceof CatalinaCluster) {
-                setCluster((CatalinaCluster)containerCluster);
+                setCluster((CatalinaCluster) containerCluster);
             } else {
                 if (log.isWarnEnabled()) {
                     log.warn(sm.getString("ReplicationValve.nocluster"));
@@ -399,7 +398,7 @@ public class ReplicationValve
     protected void sendReplicationMessage(Request request, long totalstart, boolean isCrossContext, ClusterManager clusterManager) {
         //this happens after the request
         long start = 0;
-        if(doStatistics()) {
+        if (doStatistics()) {
             start = System.currentTimeMillis();
         }
         try {
@@ -410,7 +409,7 @@ public class ReplicationValve
             }
             // send replication
             sendSessionReplicationMessage(request, clusterManager);
-            if(isCrossContext) {
+            if (isCrossContext) {
                 sendCrossContextSession();
             }
         } catch (Exception x) {
@@ -418,8 +417,8 @@ public class ReplicationValve
             log.error(sm.getString("ReplicationValve.send.failure"), x);
         } finally {
             // FIXME this stats update are not cheap!!
-            if(doStatistics()) {
-                updateStats(totalstart,start);
+            if (doStatistics()) {
+                updateStats(totalstart, start);
             }
         }
     }
@@ -429,14 +428,14 @@ public class ReplicationValve
      */
     protected void sendCrossContextSession() {
         List<DeltaSession> sessions = crossContextSessions.get();
-        if(sessions != null && sessions.size() >0) {
+        if (sessions != null && sessions.size() > 0) {
             for (DeltaSession session : sessions) {
-                if(log.isDebugEnabled()) {
+                if (log.isDebugEnabled()) {
                     log.debug(sm.getString("ReplicationValve.crossContext.sendDelta",
-                            session.getManager().getContext().getName() ));
+                            session.getManager().getContext().getName()));
                 }
-                sendMessage(session,(ClusterManager)session.getManager());
-                if(doStatistics()) {
+                sendMessage(session, (ClusterManager) session.getManager());
+                if (doStatistics()) {
                     nrOfCrossContextSendRequests++;
                 }
             }
@@ -445,24 +444,25 @@ public class ReplicationValve
 
     /**
      * Fix memory leak for long sessions with many changes, when no backup member exists!
-     * @param request current request after response is generated
+     *
+     * @param request        current request after response is generated
      * @param isCrossContext check crosscontext threadlocal
      */
     protected void resetReplicationRequest(Request request, boolean isCrossContext) {
         Session contextSession = request.getSessionInternal(false);
-        if(contextSession instanceof DeltaSession){
+        if (contextSession instanceof DeltaSession) {
             resetDeltaRequest(contextSession);
-            ((DeltaSession)contextSession).setPrimarySession(true);
+            ((DeltaSession) contextSession).setPrimarySession(true);
         }
-        if(isCrossContext) {
+        if (isCrossContext) {
             List<DeltaSession> sessions = crossContextSessions.get();
-            if(sessions != null && sessions.size() >0) {
+            if (sessions != null && sessions.size() > 0) {
                 Iterator<DeltaSession> iter = sessions.iterator();
-                for(; iter.hasNext() ;) {
+                for (; iter.hasNext(); ) {
                     Session session = iter.next();
                     resetDeltaRequest(session);
-                    if(session instanceof DeltaSession) {
-                        ((DeltaSession)contextSession).setPrimarySession(true);
+                    if (session instanceof DeltaSession) {
+                        ((DeltaSession) contextSession).setPrimarySession(true);
                     }
 
                 }
@@ -472,23 +472,25 @@ public class ReplicationValve
 
     /**
      * Reset DeltaRequest from session
+     *
      * @param session HttpSession from current request or cross context session
      */
     protected void resetDeltaRequest(Session session) {
-        if(log.isDebugEnabled()) {
-            log.debug(sm.getString("ReplicationValve.resetDeltaRequest" ,
-                session.getManager().getContext().getName() ));
+        if (log.isDebugEnabled()) {
+            log.debug(sm.getString("ReplicationValve.resetDeltaRequest",
+                    session.getManager().getContext().getName()));
         }
-        ((DeltaSession)session).resetDeltaRequest();
+        ((DeltaSession) session).resetDeltaRequest();
     }
 
     /**
      * Send Cluster Replication Request
+     *
      * @param request current request
      * @param manager session manager
      */
     protected void sendSessionReplicationMessage(Request request,
-            ClusterManager manager) {
+                                                 ClusterManager manager) {
         Session session = request.getSessionInternal(false);
         if (session != null) {
             String uri = request.getDecodedRequestURI();
@@ -497,22 +499,22 @@ public class ReplicationValve
                 if (log.isDebugEnabled()) {
                     log.debug(sm.getString("ReplicationValve.invoke.uri", uri));
                 }
-                sendMessage(session,manager);
-            } else
-                if(doStatistics()) {
-                    nrOfFilterRequests++;
-                }
+                sendMessage(session, manager);
+            } else if (doStatistics()) {
+                nrOfFilterRequests++;
+            }
         }
 
     }
 
-   /**
-    * Send message delta message from request session
-    * @param session current session
-    * @param manager session manager
-    */
+    /**
+     * Send message delta message from request session
+     *
+     * @param session current session
+     * @param manager session manager
+     */
     protected void sendMessage(Session session,
-             ClusterManager manager) {
+                               ClusterManager manager) {
         String id = session.getIdInternal();
         if (id != null) {
             send(manager, id);
@@ -521,7 +523,8 @@ public class ReplicationValve
 
     /**
      * send manager requestCompleted message to cluster
-     * @param manager SessionManager
+     *
+     * @param manager   SessionManager
      * @param sessionId sessionid from the manager
      * @see DeltaManager#requestCompleted(String)
      * @see SimpleTcpCluster#send(ClusterMessage)
@@ -530,7 +533,7 @@ public class ReplicationValve
         ClusterMessage msg = manager.requestCompleted(sessionId);
         if (msg != null && cluster != null) {
             cluster.send(msg);
-            if(doStatistics()) {
+            if (doStatistics()) {
                 nrOfSendRequests++;
             }
         }
@@ -538,16 +541,17 @@ public class ReplicationValve
 
     /**
      * check for session invalidations
+     *
      * @param manager Associated manager
      */
     protected void sendInvalidSessions(ClusterManager manager) {
-        String[] invalidIds=manager.getInvalidatedSessions();
-        if ( invalidIds.length > 0 ) {
-            for ( int i=0;i<invalidIds.length; i++ ) {
+        String[] invalidIds = manager.getInvalidatedSessions();
+        if (invalidIds.length > 0) {
+            for (int i = 0; i < invalidIds.length; i++) {
                 try {
-                    send(manager,invalidIds[i]);
-                } catch ( Exception x ) {
-                    log.error(sm.getString("ReplicationValve.send.invalid.failure",invalidIds[i]),x);
+                    send(manager, invalidIds[i]);
+                } catch (Exception x) {
+                    log.error(sm.getString("ReplicationValve.send.invalid.failure", invalidIds[i]), x);
                 }
             }
         }
@@ -555,6 +559,7 @@ public class ReplicationValve
 
     /**
      * is request without possible session change
+     *
      * @param uri The request uri
      * @return True if no session change
      */
@@ -565,10 +570,11 @@ public class ReplicationValve
 
     /**
      * Protocol cluster replications stats
+     *
      * @param requestTime Request time
      * @param clusterTime Cluster time
      */
-    protected  void updateStats(long requestTime, long clusterTime) {
+    protected void updateStats(long requestTime, long clusterTime) {
         // TODO: Async requests may trigger multiple replication requests. How,
         //       if at all, should the stats handle this?
         long currentTime = System.currentTimeMillis();
@@ -576,19 +582,19 @@ public class ReplicationValve
         totalSendTime += currentTime - clusterTime;
         totalRequestTime += currentTime - requestTime;
         nrOfRequests++;
-        if(log.isInfoEnabled()) {
-            if ( (nrOfRequests % 100) == 0 ) {
-                 log.info(sm.getString("ReplicationValve.stats",
-                     new Object[]{
-                         Long.valueOf(totalRequestTime/nrOfRequests),
-                         Long.valueOf(totalSendTime/nrOfRequests),
-                         Long.valueOf(nrOfRequests),
-                         Long.valueOf(nrOfSendRequests),
-                         Long.valueOf(nrOfCrossContextSendRequests),
-                         Long.valueOf(nrOfFilterRequests),
-                         Long.valueOf(totalRequestTime),
-                         Long.valueOf(totalSendTime)}));
-             }
+        if (log.isInfoEnabled()) {
+            if ((nrOfRequests % 100) == 0) {
+                log.info(sm.getString("ReplicationValve.stats",
+                        new Object[]{
+                                Long.valueOf(totalRequestTime / nrOfRequests),
+                                Long.valueOf(totalSendTime / nrOfRequests),
+                                Long.valueOf(nrOfRequests),
+                                Long.valueOf(nrOfSendRequests),
+                                Long.valueOf(nrOfCrossContextSendRequests),
+                                Long.valueOf(nrOfFilterRequests),
+                                Long.valueOf(totalRequestTime),
+                                Long.valueOf(totalSendTime)}));
+            }
         }
     }
 
@@ -609,19 +615,19 @@ public class ReplicationValve
                 ClusterSession cses = (ClusterSession) session;
                 if (log.isDebugEnabled()) {
                     log.debug(sm.getString(
-                            "ReplicationValve.session.indicator", request.getContext().getName(),id,
+                            "ReplicationValve.session.indicator", request.getContext().getName(), id,
                             primaryIndicatorName,
                             Boolean.valueOf(cses.isPrimarySession())));
                 }
-                request.setAttribute(primaryIndicatorName, cses.isPrimarySession()?Boolean.TRUE:Boolean.FALSE);
+                request.setAttribute(primaryIndicatorName, cses.isPrimarySession() ? Boolean.TRUE : Boolean.FALSE);
             } else {
                 if (log.isDebugEnabled()) {
                     if (session != null) {
                         log.debug(sm.getString(
-                                "ReplicationValve.session.found", request.getContext().getName(),id));
+                                "ReplicationValve.session.found", request.getContext().getName(), id));
                     } else {
                         log.debug(sm.getString(
-                                "ReplicationValve.session.invalid", request.getContext().getName(),id));
+                                "ReplicationValve.session.invalid", request.getContext().getName(), id));
                     }
                 }
             }

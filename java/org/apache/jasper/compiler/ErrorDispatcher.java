@@ -30,10 +30,10 @@ import org.xml.sax.SAXException;
 /**
  * Class responsible for dispatching JSP parse and javac compilation errors
  * to the configured error handler.
- *
+ * <p>
  * This class is also responsible for localizing any error codes before they
  * are passed on to the configured error handler.
- *
+ * <p>
  * In the case of a Java compilation error, the compiler error message is
  * parsed into an array of JavacErrorDetail instances, which is passed on to
  * the configured error handler.
@@ -58,7 +58,7 @@ public class ErrorDispatcher {
      * Constructor.
      *
      * @param jspcMode true if compilation has been initiated by JspC, false
-     * otherwise
+     *                 otherwise
      */
     public ErrorDispatcher(boolean jspcMode) {
         // XXX check web.xml for custom error handler
@@ -68,13 +68,13 @@ public class ErrorDispatcher {
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
+     * @param args    Arguments for parametric replacement
      * @throws JasperException An error occurred
      */
     public void jspError(String errCode, String... args) throws JasperException {
@@ -83,14 +83,14 @@ public class ErrorDispatcher {
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
-     * @param where Error location
+     * @param where   Error location
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
+     * @param args    Arguments for parametric replacement
      * @throws JasperException An error occurred
      */
     public void jspError(Mark where, String errCode, String... args)
@@ -100,14 +100,14 @@ public class ErrorDispatcher {
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
-     * @param n Node that caused the error
+     * @param n       Node that caused the error
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
+     * @param args    Arguments for parametric replacement
      * @throws JasperException An error occurred
      */
     public void jspError(Node n, String errCode, String... args)
@@ -127,54 +127,54 @@ public class ErrorDispatcher {
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
-     * @param e Parsing exception
+     * @param args    Arguments for parametric replacement
+     * @param e       Parsing exception
      * @throws JasperException An error occurred
      */
     public void jspError(Exception e, String errCode, String... args)
-                throws JasperException {
+            throws JasperException {
         dispatch(null, errCode, args, e);
     }
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
-     * @param where Error location
-     * @param e Parsing exception
+     * @param where   Error location
+     * @param e       Parsing exception
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
+     * @param args    Arguments for parametric replacement
      * @throws JasperException An error occurred
      */
     public void jspError(Mark where, Exception e, String errCode, String... args)
-                throws JasperException {
+            throws JasperException {
         dispatch(where, errCode, args, e);
     }
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
-     * @param n Node that caused the error
-     * @param e Parsing exception
+     * @param n       Node that caused the error
+     * @param e       Parsing exception
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
+     * @param args    Arguments for parametric replacement
      * @throws JasperException An error occurred
      */
     public void jspError(Node n, Exception e, String errCode, String... args)
-                throws JasperException {
+            throws JasperException {
         dispatch(n.getStart(), errCode, args, e);
     }
 
@@ -183,14 +183,13 @@ public class ErrorDispatcher {
      * messages (one per javac compilation error line number).
      *
      * @param errMsg Error message
-     * @param fname Name of Java source file whose compilation failed
-     * @param page Node representation of JSP page from which the Java source
-     * file was generated
-     *
+     * @param fname  Name of Java source file whose compilation failed
+     * @param page   Node representation of JSP page from which the Java source
+     *               file was generated
      * @return Array of javac compilation errors, or null if the given error
      * message does not contain any compilation error line numbers
      * @throws JasperException An error occurred
-     * @throws IOException IO error which usually should not occur
+     * @throws IOException     IO error which usually should not occur
      */
     public static JavacErrorDetail[] parseJavacErrors(String errMsg,
                                                       String fname,
@@ -219,11 +218,11 @@ public class ErrorDispatcher {
      * configured error handler.
      *
      * @param errorReport Compilation error report
-     * @param e Compilation exception
+     * @param e           Compilation exception
      * @throws JasperException An error occurred
      */
     public void javacError(String errorReport, Exception e)
-                throws JasperException {
+            throws JasperException {
 
         errHandler.javacError(errorReport, e);
     }
@@ -234,15 +233,15 @@ public class ErrorDispatcher {
 
     /**
      * Dispatches the given JSP parse error to the configured error handler.
-     *
+     * <p>
      * The given error code is localized. If it is not found in the
      * resource bundle for localized error messages, it is used as the error
      * message.
      *
-     * @param where Error location
+     * @param where   Error location
      * @param errCode Error code
-     * @param args Arguments for parametric replacement
-     * @param e Parsing exception
+     * @param args    Arguments for parametric replacement
+     * @param e       Parsing exception
      * @throws JasperException An error occurred
      */
     private void dispatch(Mark where, String errCode, Object[] args,
@@ -298,24 +297,23 @@ public class ErrorDispatcher {
     /**
      * Parses the given Java compilation error message, which may contain one
      * or more compilation errors, into an array of JavacErrorDetail instances.
-     *
+     * <p>
      * Each JavacErrorDetail instance contains the information about a single
      * compilation error.
      *
      * @param errMsg Compilation error message that was generated by the
-     * javac compiler
-     * @param fname Name of Java source file whose compilation failed
-     * @param page Node representation of JSP page from which the Java source
-     * file was generated
-     *
+     *               javac compiler
+     * @param fname  Name of Java source file whose compilation failed
+     * @param page   Node representation of JSP page from which the Java source
+     *               file was generated
      * @return Array of JavacErrorDetail instances corresponding to the
      * compilation errors
      * @throws JasperException An error occurred
-     * @throws IOException IO error which usually should not occur
+     * @throws IOException     IO error which usually should not occur
      */
     private static JavacErrorDetail[] parseJavacMessage(
-                                String errMsg, String fname, Node.Nodes page)
-                throws IOException, JasperException {
+            String errMsg, String fname, Node.Nodes page)
+            throws IOException, JasperException {
 
         List<JavacErrorDetail> errors = new ArrayList<>();
         StringBuilder errMsgBuf = null;
@@ -383,33 +381,35 @@ public class ErrorDispatcher {
 
     /**
      * Create a compilation error.
-     * @param fname The file name
-     * @param page The page nodes
+     *
+     * @param fname     The file name
+     * @param page      The page nodes
      * @param errMsgBuf The error message
-     * @param lineNum The source line number of the error
+     * @param lineNum   The source line number of the error
      * @return JavacErrorDetail The error details
      * @throws JasperException An error occurred
      */
     public static JavacErrorDetail createJavacError(String fname,
-            Node.Nodes page, StringBuilder errMsgBuf, int lineNum)
-    throws JasperException {
+                                                    Node.Nodes page, StringBuilder errMsgBuf, int lineNum)
+            throws JasperException {
         return createJavacError(fname, page, errMsgBuf, lineNum, null);
     }
 
 
     /**
      * Create a compilation error.
-     * @param fname The file name
-     * @param page The page nodes
+     *
+     * @param fname     The file name
+     * @param page      The page nodes
      * @param errMsgBuf The error message
-     * @param lineNum The source line number of the error
-     * @param ctxt The compilation context
+     * @param lineNum   The source line number of the error
+     * @param ctxt      The compilation context
      * @return JavacErrorDetail The error details
      * @throws JasperException An error occurred
      */
     public static JavacErrorDetail createJavacError(String fname,
-            Node.Nodes page, StringBuilder errMsgBuf, int lineNum,
-            JspCompilationContext ctxt) throws JasperException {
+                                                    Node.Nodes page, StringBuilder errMsgBuf, int lineNum,
+                                                    JspCompilationContext ctxt) throws JasperException {
         JavacErrorDetail javacError;
         // Attempt to map javac error line number to line in JSP page
         ErrorVisitor errVisitor = new ErrorVisitor(lineNum);
@@ -425,7 +425,7 @@ public class ErrorDispatcher {
                         lineNum,
                         errNode.getStart().getFile(),
                         errNode.getStart().getLineNumber() + lineNum -
-                            errVisitor.getJspSourceNode().getBeginJavaLine(),
+                                errVisitor.getJspSourceNode().getBeginJavaLine(),
                         errMsgBuf,
                         ctxt);
             } else {

@@ -91,25 +91,39 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
         DriverManager.getDrivers();
     }
 
-    /** Description */
+    /**
+     * Description
+     */
     private String description;
 
-    /** Url name */
+    /**
+     * Url name
+     */
     private String url;
 
-    /** User name */
+    /**
+     * User name
+     */
     private String userName;
 
-    /** User password */
+    /**
+     * User password
+     */
     private char[] userPassword;
 
-    /** Driver class name */
+    /**
+     * Driver class name
+     */
     private String driver;
 
-    /** Login TimeOut in seconds */
+    /**
+     * Login TimeOut in seconds
+     */
     private int loginTimeout;
 
-    /** Log stream. NOT USED */
+    /**
+     * Log stream. NOT USED
+     */
     private transient PrintWriter logWriter;
     // PreparedStatement pool properties
     private boolean poolPreparedStatements;
@@ -120,10 +134,14 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
 
     private int maxPreparedStatements = -1;
 
-    /** Whether or not getConnection has been called */
+    /**
+     * Whether or not getConnection has been called
+     */
     private volatile boolean getConnectionCalled;
 
-    /** Connection properties passed to JDBC Driver */
+    /**
+     * Connection properties passed to JDBC Driver
+     */
     private Properties connectionProperties;
 
     /**
@@ -223,9 +241,9 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Gets the minimum amount of time a statement may sit idle in the pool before it is eligible for eviction by the
      * idle object evictor (if any).
      *
+     * @return the minimum amount of time a statement may sit idle in the pool.
      * @see #setMinEvictableIdleTimeMillis
      * @see #setTimeBetweenEvictionRunsMillis
-     * @return the minimum amount of time a statement may sit idle in the pool.
      */
     public int getMinEvictableIdleTimeMillis() {
         return minEvictableIdleTimeMillis;
@@ -234,9 +252,9 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Gets the number of statements to examine during each run of the idle object evictor thread (if any.)
      *
+     * @return the number of statements to examine during each run of the idle object evictor thread (if any.)
      * @see #setNumTestsPerEvictionRun
      * @see #setTimeBetweenEvictionRunsMillis
-     * @return the number of statements to examine during each run of the idle object evictor thread (if any.)
      */
     public int getNumTestsPerEvictionRun() {
         return numTestsPerEvictionRun;
@@ -247,7 +265,7 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      */
     @Override
     public Object getObjectInstance(final Object refObj, final Name name, final Context context,
-            final Hashtable<?, ?> env) throws Exception {
+                                    final Hashtable<?, ?> env) throws Exception {
         // The spec says to return null if we can't create an instance
         // of the reference
         DriverAdapterCPDS cpds = null;
@@ -350,10 +368,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Attempts to establish a database connection.
      *
-     * @param pooledUserName
-     *            name to be used for the connection
-     * @param pooledUserPassword
-     *            password to be used fur the connection
+     * @param pooledUserName     name to be used for the connection
+     * @param pooledUserPassword password to be used fur the connection
      */
     @Override
     public PooledConnection getPooledConnection(final String pooledUserName, final String pooledUserPassword)
@@ -496,8 +512,7 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Sets the value of the accessToUnderlyingConnectionAllowed property. It controls if the PoolGuard allows access to
      * the underlying connection. (Default: false)
      *
-     * @param allow
-     *            Access to the underlying connection is granted when true.
+     * @param allow Access to the underlying connection is granted when true.
      */
     public synchronized void setAccessToUnderlyingConnectionAllowed(final boolean allow) {
         this.accessToUnderlyingConnectionAllowed = allow;
@@ -514,10 +529,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * null.
      * </p>
      *
-     * @param props
-     *            Connection properties to use when creating new connections.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param props Connection properties to use when creating new connections.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setConnectionProperties(final Properties props) {
         assertInitializationAllowed();
@@ -536,8 +549,7 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Sets the value of description. This property is here for use by the code which will deploy this datasource. It is
      * not used internally.
      *
-     * @param v
-     *            Value to assign to description.
+     * @param v Value to assign to description.
      */
     public void setDescription(final String v) {
         this.description = v;
@@ -547,12 +559,9 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Sets the driver class name. Setting the driver class name cause the driver to be registered with the
      * DriverManager.
      *
-     * @param v
-     *            Value to assign to driver.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
-     * @throws ClassNotFoundException
-     *             if the class cannot be located
+     * @param v Value to assign to driver.
+     * @throws IllegalStateException  if {@link #getPooledConnection()} has been called
+     * @throws ClassNotFoundException if the class cannot be located
      */
     public void setDriver(final String v) throws ClassNotFoundException {
         assertInitializationAllowed();
@@ -582,10 +591,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Gets the maximum number of statements that can remain idle in the pool, without extra ones being released, or
      * negative for no limit.
      *
-     * @param maxIdle
-     *            The maximum number of statements that can remain idle
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param maxIdle The maximum number of statements that can remain idle
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setMaxIdle(final int maxIdle) {
         assertInitializationAllowed();
@@ -595,8 +602,7 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Sets the maximum number of prepared statements.
      *
-     * @param maxPreparedStatements
-     *            the new maximum number of prepared statements
+     * @param maxPreparedStatements the new maximum number of prepared statements
      */
     public void setMaxPreparedStatements(final int maxPreparedStatements) {
         this.maxPreparedStatements = maxPreparedStatements;
@@ -606,12 +612,10 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Sets the minimum amount of time a statement may sit idle in the pool before it is eligible for eviction by the
      * idle object evictor (if any). When non-positive, no objects will be evicted from the pool due to idle time alone.
      *
-     * @param minEvictableIdleTimeMillis
-     *            minimum time to set (in ms)
+     * @param minEvictableIdleTimeMillis minimum time to set (in ms)
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      * @see #getMinEvictableIdleTimeMillis()
      * @see #setTimeBetweenEvictionRunsMillis(long)
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
      */
     public void setMinEvictableIdleTimeMillis(final int minEvictableIdleTimeMillis) {
         assertInitializationAllowed();
@@ -626,12 +630,10 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * per run.
      * </p>
      *
-     * @param numTestsPerEvictionRun
-     *            number of statements to examine per run
+     * @param numTestsPerEvictionRun number of statements to examine per run
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      * @see #getNumTestsPerEvictionRun()
      * @see #setTimeBetweenEvictionRunsMillis(long)
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
      */
     public void setNumTestsPerEvictionRun(final int numTestsPerEvictionRun) {
         assertInitializationAllowed();
@@ -641,10 +643,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Sets the value of password for the default user.
      *
-     * @param userPassword
-     *            Value to assign to password.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param userPassword Value to assign to password.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setPassword(final char[] userPassword) {
         assertInitializationAllowed();
@@ -655,10 +655,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Sets the value of password for the default user.
      *
-     * @param userPassword
-     *            Value to assign to password.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param userPassword Value to assign to password.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setPassword(final String userPassword) {
         assertInitializationAllowed();
@@ -669,10 +667,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Whether to toggle the pooling of <code>PreparedStatement</code>s
      *
-     * @param poolPreparedStatements
-     *            true to pool statements.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param poolPreparedStatements true to pool statements.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setPoolPreparedStatements(final boolean poolPreparedStatements) {
         assertInitializationAllowed();
@@ -683,12 +679,10 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
      * Sets the number of milliseconds to sleep between runs of the idle object evictor thread. When non-positive, no
      * idle object evictor thread will be run.
      *
-     * @param timeBetweenEvictionRunsMillis
-     *            The number of milliseconds to sleep between runs of the idle object evictor thread. When non-positive,
-     *            no idle object evictor thread will be run.
+     * @param timeBetweenEvictionRunsMillis The number of milliseconds to sleep between runs of the idle object evictor thread. When non-positive,
+     *                                      no idle object evictor thread will be run.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      * @see #getTimeBetweenEvictionRunsMillis()
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
      */
     public void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
         assertInitializationAllowed();
@@ -698,10 +692,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Sets the value of URL string used to locate the database for this datasource.
      *
-     * @param v
-     *            Value to assign to url.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param v Value to assign to url.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setUrl(final String v) {
         assertInitializationAllowed();
@@ -711,10 +703,8 @@ public class DriverAdapterCPDS implements ConnectionPoolDataSource, Referenceabl
     /**
      * Sets the value of default user (login or user name).
      *
-     * @param v
-     *            Value to assign to user.
-     * @throws IllegalStateException
-     *             if {@link #getPooledConnection()} has been called
+     * @param v Value to assign to user.
+     * @throws IllegalStateException if {@link #getPooledConnection()} has been called
      */
     public void setUser(final String v) {
         assertInitializationAllowed();

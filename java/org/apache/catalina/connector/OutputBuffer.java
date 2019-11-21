@@ -320,7 +320,6 @@ public class OutputBuffer extends Writer {
      * state of Response and calling the right interceptors.
      *
      * @param buf the ByteBuffer to be written to the response
-     *
      * @throws IOException An underlying IOException occurred
      */
     public void realWriteBytes(ByteBuffer buf) throws IOException {
@@ -436,7 +435,6 @@ public class OutputBuffer extends Writer {
      * Convert the chars to bytes, then send the data to the client.
      *
      * @param from Char buffer to be written to the response
-     *
      * @throws IOException An underlying IOException occurred
      */
     public void realWriteChars(CharBuffer from) throws IOException {
@@ -600,7 +598,7 @@ public class OutputBuffer extends Writer {
      * Has this buffer been used at all?
      *
      * @return true if no chars or bytes have been added to the buffer since the
-     *         last call to {@link #recycle()}
+     * last call to {@link #recycle()}
      */
     public boolean isNew() {
         return (bytesWritten == 0) && (charsWritten == 0);
@@ -686,6 +684,7 @@ public class OutputBuffer extends Writer {
 
     /**
      * Add data to the buffer.
+     *
      * @param src Char array
      * @param off Offset
      * @param len Length
@@ -693,7 +692,7 @@ public class OutputBuffer extends Writer {
      */
     public void append(char src[], int off, int len) throws IOException {
         // if we have limit and we're below
-        if(len <= cb.capacity() - cb.limit()) {
+        if (len <= cb.capacity() - cb.limit()) {
             transfer(src, off, len, cb);
             return;
         }
@@ -704,7 +703,7 @@ public class OutputBuffer extends Writer {
         // copy the first part, flush, then copy the second part - 1 write
         // and still have some space for more. We'll still have 2 writes, but
         // we write more on the first.
-        if(len + cb.limit() < 2 * cb.capacity()) {
+        if (len + cb.limit() < 2 * cb.capacity()) {
             /* If the request length exceeds the size of the output buffer,
                flush the output buffer and then write the data directly.
                We can't avoid 2 writes, but we can write more on the second
@@ -846,13 +845,13 @@ public class OutputBuffer extends Writer {
 
     private void toReadMode(Buffer buffer) {
         buffer.limit(buffer.position())
-              .reset();
+                .reset();
     }
 
     private void toWriteMode(Buffer buffer) {
         buffer.mark()
-              .position(buffer.limit())
-              .limit(buffer.capacity());
+                .position(buffer.limit())
+                .limit(buffer.capacity());
     }
 
 

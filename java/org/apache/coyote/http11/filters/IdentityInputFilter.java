@@ -151,7 +151,7 @@ public class IdentityInputFilter implements InputFilter, ApplicationBufferHandle
 
             int nread = buffer.doRead(this);
             tempRead = null;
-            if (nread > 0 ) {
+            if (nread > 0) {
                 swallowed += nread;
                 remaining = remaining - nread;
                 if (maxSwallowSizeExceeded && swallowed > maxSwallowSize) {

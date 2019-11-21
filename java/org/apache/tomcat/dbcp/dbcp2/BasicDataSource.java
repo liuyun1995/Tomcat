@@ -464,7 +464,6 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * </p>
      *
      * @return A new connection factory.
-     *
      * @throws SQLException If the connection factort cannot be created
      */
     protected ConnectionFactory createConnectionFactory() throws SQLException {
@@ -600,9 +599,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * Creates the actual data source instance. This method only exists so that subclasses can replace the
      * implementation class.
      *
-     * @throws SQLException if unable to create a datasource instance
-     *
      * @return A new DataSource instance
+     * @throws SQLException if unable to create a datasource instance
      */
     protected DataSource createDataSourceInstance() throws SQLException {
         final PoolingDataSource<PoolableConnection> pds = new PoolingDataSource<>(connectionPool);
@@ -619,7 +617,7 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * @return a non-null instance
      */
     protected GenericObjectPool<PoolableConnection> createObjectPool(final PoolableConnectionFactory factory,
-            final GenericObjectPoolConfig<PoolableConnection> poolConfig, final AbandonedConfig abandonedConfig) {
+                                                                     final GenericObjectPoolConfig<PoolableConnection> poolConfig, final AbandonedConfig abandonedConfig) {
         GenericObjectPool<PoolableConnection> gop;
         if (abandonedConfig != null && (abandonedConfig.getRemoveAbandonedOnBorrow()
                 || abandonedConfig.getRemoveAbandonedOnMaintenance())) {
@@ -635,9 +633,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * subclasses can replace the default implementation.
      *
      * @param driverConnectionFactory JDBC connection factory
-     * @throws SQLException if an error occurs creating the PoolableConnectionFactory
-     *
      * @return A new PoolableConnectionFactory configured with the current configuration of this BasicDataSource
+     * @throws SQLException if an error occurs creating the PoolableConnectionFactory
      */
     protected PoolableConnectionFactory createPoolableConnectionFactory(final ConnectionFactory driverConnectionFactory)
             throws SQLException {
@@ -733,8 +730,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
     /**
      * Creates (if necessary) and return a connection to the database.
      *
-     * @throws SQLException if a database access error occurs
      * @return a database connection
+     * @throws SQLException if a database access error occurs
      */
     @Override
     public Connection getConnection() throws SQLException {
@@ -758,10 +755,9 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      *
      * @param user Database user on whose behalf the Connection is being made
      * @param pass The database user's password
-     *
+     * @return nothing - always throws UnsupportedOperationException
      * @throws UnsupportedOperationException always thrown.
      * @throws SQLException                  if a database access error occurs
-     * @return nothing - always throws UnsupportedOperationException
      */
     @Override
     public Connection getConnection(final String user, final String pass) throws SQLException {
@@ -1049,10 +1045,10 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * Calls {@link #createDataSource()}, so has the side effect of initializing the connection pool.
      * </p>
      *
+     * @return login timeout in seconds
      * @throws SQLException                  if a database access error occurs
      * @throws UnsupportedOperationException If the DataSource implementation does not support the login timeout
      *                                       feature.
-     * @return login timeout in seconds
      */
     @Override
     public int getLoginTimeout() throws SQLException {
@@ -1069,8 +1065,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * Calls {@link #createDataSource()}, so has the side effect of initializing the connection pool.
      * </p>
      *
-     * @throws SQLException if a database access error occurs
      * @return log writer in use
+     * @throws SQLException if a database access error occurs
      */
     @Override
     public PrintWriter getLogWriter() throws SQLException {
@@ -1330,7 +1326,7 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * </p>
      *
      * @return minimum amount of time a connection may sit idle in the pool before it is eligible for eviction, assuming
-     *         there are minIdle idle connections in the pool
+     * there are minIdle idle connections in the pool
      */
     @Override
     public synchronized long getSoftMinEvictableIdleTimeMillis() {
@@ -1341,7 +1337,6 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * Returns the {@link #testOnBorrow} property.
      *
      * @return true if objects are validated before being borrowed from the pool
-     *
      * @see #testOnBorrow
      */
     @Override
@@ -1438,7 +1433,6 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * and reclaim pool capacity.
      *
      * @param connection The Connection to invalidate.
-     *
      * @throws IllegalStateException if invalidating the connection failed.
      * @since 2.1
      */
@@ -1539,9 +1533,9 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
 
     /**
      * Logs the given throwable.
-     * @param message TODO
-     * @param throwable the throwable.
      *
+     * @param message   TODO
+     * @param throwable the throwable.
      * @since 2.7.0
      */
     protected void log(String message, Throwable throwable) {
@@ -1956,8 +1950,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
     }
 
     /**
-     * @see #getFastFailValidation()
      * @param fastFailValidation true means connections created by this factory will fast fail validation
+     * @see #getFastFailValidation()
      * @since 2.1
      */
     public void setFastFailValidation(final boolean fastFailValidation) {
@@ -2090,8 +2084,8 @@ public class BasicDataSource implements DataSource, BasicDataSourceMXBean, MBean
      * Sets the maximum number of connections that can remain idle in the pool. Excess idle connections are destroyed on
      * return to the pool.
      *
-     * @see #getMaxIdle()
      * @param maxIdle the new value for maxIdle
+     * @see #getMaxIdle()
      */
     public synchronized void setMaxIdle(final int maxIdle) {
         this.maxIdle = maxIdle;

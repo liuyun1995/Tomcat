@@ -128,9 +128,9 @@ public interface Session {
      * Set the session identifier for this session and optionally notifies any
      * associated listeners that a new session has been created.
      *
-     * @param id        The new session identifier
-     * @param notify    Should any associated listeners be notified that a new
-     *                      session has been created?
+     * @param id     The new session identifier
+     * @param notify Should any associated listeners be notified that a new
+     *               session has been created?
      */
     public void setId(String id, boolean notify);
 
@@ -273,7 +273,7 @@ public interface Session {
      * Add a session event listener to this component.
      *
      * @param listener the SessionListener instance that should be notified
-     *   for session events
+     *                 for session events
      */
     public void addSessionListener(SessionListener listener);
 
@@ -292,10 +292,9 @@ public interface Session {
 
 
     /**
+     * @param name Name of the note to be returned
      * @return the object bound with the specified name to the internal notes
      * for this session, or <code>null</code> if no such binding exists.
-     *
-     * @param name Name of the note to be returned
      */
     public Object getNote(String name);
 
@@ -327,7 +326,7 @@ public interface Session {
      * Remove a session event listener from this component.
      *
      * @param listener remove the session listener, which will no longer be
-     *     notified
+     *                 notified
      */
     public void removeSessionListener(SessionListener listener);
 
@@ -336,7 +335,7 @@ public interface Session {
      * Bind an object to a specified name in the internal notes associated
      * with this session, replacing any existing binding for this name.
      *
-     * @param name Name to which the object should be bound
+     * @param name  Name to which the object should be bound
      * @param value Object to be bound to the specified name
      */
     public void setNote(String name, Object value);
@@ -345,15 +344,15 @@ public interface Session {
     /**
      * Inform the listeners about the change session ID.
      *
-     * @param newId  new session ID
-     * @param oldId  old session ID
-     * @param notifySessionListeners  Should any associated sessionListeners be
-     *        notified that session ID has been changed?
-     * @param notifyContainerListeners  Should any associated ContainerListeners
-     *        be notified that session ID has been changed?
+     * @param newId                    new session ID
+     * @param oldId                    old session ID
+     * @param notifySessionListeners   Should any associated sessionListeners be
+     *                                 notified that session ID has been changed?
+     * @param notifyContainerListeners Should any associated ContainerListeners
+     *                                 be notified that session ID has been changed?
      */
     public void tellChangedSessionId(String newId, String oldId,
-            boolean notifySessionListeners, boolean notifyContainerListeners);
+                                     boolean notifySessionListeners, boolean notifyContainerListeners);
 
 
     /**
@@ -370,9 +369,8 @@ public interface Session {
      *
      * @param name  The attribute name
      * @param value The attribute value
-     *
      * @return {@code true} if distribution is supported, otherwise {@code
-     *         false}
+     * false}
      */
     public boolean isAttributeDistributable(String name, Object value);
 }

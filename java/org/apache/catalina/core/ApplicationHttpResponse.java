@@ -47,7 +47,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      *
      * @param response The servlet response being wrapped
      * @param included <code>true</code> if this response is being processed
-     *  by a <code>RequestDispatcher.include()</code> call
+     *                 by a <code>RequestDispatcher.include()</code> call
      */
     public ApplicationHttpResponse(HttpServletResponse response,
                                    boolean included) {
@@ -73,8 +73,8 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>reset()</code> calls on a included response.
      *
-     * @exception IllegalStateException if the response has already
-     *  been committed
+     * @throws IllegalStateException if the response has already
+     *                               been committed
      */
     @Override
     public void reset() {
@@ -176,7 +176,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>addDateHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -191,7 +191,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>addHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -206,7 +206,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>addIntHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -222,8 +222,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * Disallow <code>sendError()</code> calls on an included response.
      *
      * @param sc The new status code
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void sendError(int sc) throws IOException {
@@ -237,10 +236,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>sendError()</code> calls on an included response.
      *
-     * @param sc The new status code
+     * @param sc  The new status code
      * @param msg The new message
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void sendError(int sc, String msg) throws IOException {
@@ -255,8 +253,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * Disallow <code>sendRedirect()</code> calls on an included response.
      *
      * @param location The new location
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void sendRedirect(String location) throws IOException {
@@ -270,7 +267,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>setDateHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -285,7 +282,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>setHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -300,7 +297,7 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>setIntHeader()</code> calls on an included response.
      *
-     * @param name The new header name
+     * @param name  The new header name
      * @param value The new header value
      */
     @Override
@@ -329,12 +326,12 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
     /**
      * Disallow <code>setStatus()</code> calls on an included response.
      *
-     * @param sc The new status code
+     * @param sc  The new status code
      * @param msg The new message
      * @deprecated As of version 2.1, due to ambiguous meaning of the message
-     *             parameter. To set a status code use
-     *             <code>setStatus(int)</code>, to send an error with a
-     *             description use <code>sendError(int, String)</code>.
+     * parameter. To set a status code use
+     * <code>setStatus(int)</code>, to send an error with a
+     * description use <code>sendError(int, String)</code>.
      */
     @Deprecated
     @Override

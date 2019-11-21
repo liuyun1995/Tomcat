@@ -34,12 +34,13 @@ import org.apache.tomcat.util.res.StringManager;
  */
 public final class SSIFlastmod implements SSICommand {
     private static final StringManager sm = StringManager.getManager(SSIFlastmod.class);
+
     /**
      * @see SSICommand
      */
     @Override
     public long process(SSIMediator ssiMediator, String commandName,
-            String[] paramNames, String[] paramValues, PrintWriter writer) {
+                        String[] paramNames, String[] paramValues, PrintWriter writer) {
         long lastModified = 0;
         String configErrMsg = ssiMediator.getConfigErrMsg();
         for (int i = 0; i < paramNames.length; i++) {

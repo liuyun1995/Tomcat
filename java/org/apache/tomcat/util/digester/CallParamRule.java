@@ -49,7 +49,7 @@ public class CallParamRule extends Rule {
      * Construct a "call parameter" rule that will save the value of the
      * specified attribute as the parameter value.
      *
-     * @param paramIndex The zero-relative parameter number
+     * @param paramIndex    The zero-relative parameter number
      * @param attributeName The name of the attribute to save
      */
     public CallParamRule(int paramIndex,
@@ -59,7 +59,7 @@ public class CallParamRule extends Rule {
 
 
     private CallParamRule(String attributeName, int paramIndex, int stackIndex,
-            boolean fromStack) {
+                          boolean fromStack) {
         this.attributeName = attributeName;
         this.paramIndex = paramIndex;
         this.stackIndex = stackIndex;
@@ -104,11 +104,11 @@ public class CallParamRule extends Rule {
     /**
      * Process the start of this element.
      *
-     * @param namespace the namespace URI of the matching element, or an
-     *   empty string if the parser is not namespace aware or the element has
-     *   no namespace
-     * @param name the local name if the parser is namespace aware, or just
-     *   the element name otherwise
+     * @param namespace  the namespace URI of the matching element, or an
+     *                   empty string if the parser is not namespace aware or the element has
+     *                   no namespace
+     * @param name       the local name if the parser is namespace aware, or just
+     *                   the element name otherwise
      * @param attributes The attribute list for this element
      */
     @Override
@@ -121,7 +121,7 @@ public class CallParamRule extends Rule {
 
             param = attributes.getValue(attributeName);
 
-        } else if(fromStack) {
+        } else if (fromStack) {
 
             param = digester.peek(stackIndex);
 
@@ -141,7 +141,7 @@ public class CallParamRule extends Rule {
         // the instance variables will be overwritten
         // if this CallParamRule is reused in subsequent nesting.
 
-        if(param != null) {
+        if (param != null) {
             Object parameters[] = (Object[]) digester.peekParams();
             parameters[paramIndex] = param;
         }
@@ -152,11 +152,11 @@ public class CallParamRule extends Rule {
      * Process the body text of this element.
      *
      * @param namespace the namespace URI of the matching element, or an
-     *   empty string if the parser is not namespace aware or the element has
-     *   no namespace
-     * @param name the local name if the parser is namespace aware, or just
-     *   the element name otherwise
-     * @param bodyText The body text of this element
+     *                  empty string if the parser is not namespace aware or the element has
+     *                  no namespace
+     * @param name      the local name if the parser is namespace aware, or just
+     *                  the element name otherwise
+     * @param bodyText  The body text of this element
      */
     @Override
     public void body(String namespace, String name, String bodyText)

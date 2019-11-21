@@ -39,7 +39,7 @@ import org.apache.juli.logging.LogFactory;
  * auto-detect the character set. This may be exploited by an attacker to
  * perform an XSS attack. Internet Explorer has this behaviour by default. Other
  * browsers have an option to enable it.<br>
- *
+ * <p>
  * This filter prevents the attack by explicitly setting a character set. Unless
  * the provided character set is explicitly overridden by the user - in which
  * case they deserve everything they get - the browser will adhere to an
@@ -80,12 +80,12 @@ public class AddDefaultCharsetFilter extends FilterBase {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
 
         // Wrap the response
         if (response instanceof HttpServletResponse) {
             ResponseWrapper wrapped =
-                new ResponseWrapper((HttpServletResponse)response, encoding);
+                    new ResponseWrapper((HttpServletResponse) response, encoding);
             chain.doFilter(request, wrapped);
         } else {
             chain.doFilter(request, response);

@@ -17,7 +17,6 @@
 package org.apache.tomcat.util.descriptor.web;
 
 
-
 /**
  * Representation of a local EJB resource reference for a web application, as
  * represented in a <code>&lt;ejb-local-ref&gt;</code> element in the

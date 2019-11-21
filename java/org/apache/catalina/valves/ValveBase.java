@@ -157,8 +157,8 @@ public abstract class ValveBase extends LifecycleMBeanBase implements Contained,
      * Start this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
@@ -170,8 +170,8 @@ public abstract class ValveBase extends LifecycleMBeanBase implements Contained,
      * Stop this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {
@@ -215,7 +215,7 @@ public abstract class ValveBase extends LifecycleMBeanBase implements Contained,
                 if (valve.getClass() == this.getClass()) {
                     // Duplicate valve earlier in pipeline
                     // increment sequence number
-                    seq ++;
+                    seq++;
                 }
             }
         }

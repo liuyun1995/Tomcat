@@ -365,16 +365,18 @@ public class RemoteIpValve extends ValveBase {
 
     /**
      * Convert a given comma delimited String into an array of String
+     *
      * @param commaDelimitedStrings The string to convert
      * @return array of String (non <code>null</code>)
      */
     protected static String[] commaDelimitedListToStringArray(String commaDelimitedStrings) {
         return (commaDelimitedStrings == null || commaDelimitedStrings.length() == 0) ? new String[0] : commaSeparatedValuesPattern
-            .split(commaDelimitedStrings);
+                .split(commaDelimitedStrings);
     }
 
     /**
      * Convert an array of strings in a comma delimited string
+     *
      * @param stringList The string list to convert
      * @return The concatenated string
      */
@@ -383,7 +385,7 @@ public class RemoteIpValve extends ValveBase {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        for (Iterator<String> it = stringList.iterator(); it.hasNext();) {
+        for (Iterator<String> it = stringList.iterator(); it.hasNext(); ) {
             Object element = it.next();
             if (element != null) {
                 result.append(element);
@@ -418,13 +420,13 @@ public class RemoteIpValve extends ValveBase {
      */
     private Pattern internalProxies = Pattern.compile(
             "10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "192\\.168\\.\\d{1,3}\\.\\d{1,3}|" +
-            "169\\.254\\.\\d{1,3}\\.\\d{1,3}|" +
-            "127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "0:0:0:0:0:0:0:1|::1");
+                    "192\\.168\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "169\\.254\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "0:0:0:0:0:0:0:1|::1");
 
     /**
      * @see #setProtocolHeader(String)
@@ -471,7 +473,7 @@ public class RemoteIpValve extends ValveBase {
      * by {@link Request#getServerName()} and (optionally depending on {link
      * {@link #isChangeLocalName()} {@link Request#getLocalName()}.
      *
-     * @return  The HTTP header name
+     * @return The HTTP header name
      */
     public String getHostHeader() {
         return hostHeader;
@@ -482,7 +484,7 @@ public class RemoteIpValve extends ValveBase {
      * by {@link Request#getServerName()} and (optionally depending on {link
      * {@link #isChangeLocalName()} {@link Request#getLocalName()}.
      *
-     * @param   hostHeader  The HTTP header name
+     * @param hostHeader The HTTP header name
      */
     public void setHostHeader(String hostHeader) {
         this.hostHeader = hostHeader;
@@ -509,7 +511,7 @@ public class RemoteIpValve extends ValveBase {
      * by {@link Request#getServerPort()} and (optionally depending on {link
      * {@link #isChangeLocalPort()} {@link Request#getLocalPort()}.
      *
-     * @return  The HTTP header name
+     * @return The HTTP header name
      */
     public String getPortHeader() {
         return portHeader;
@@ -520,7 +522,7 @@ public class RemoteIpValve extends ValveBase {
      * by {@link Request#getServerPort()} and (optionally depending on {link
      * {@link #isChangeLocalPort()} {@link Request#getLocalPort()}.
      *
-     * @param   portHeader  The HTTP header name
+     * @param portHeader The HTTP header name
      */
     public void setPortHeader(String portHeader) {
         this.portHeader = portHeader;
@@ -535,8 +537,8 @@ public class RemoteIpValve extends ValveBase {
     }
 
     /**
-     * @see #setInternalProxies(String)
      * @return Regular expression that defines the internal proxies
+     * @see #setInternalProxies(String)
      */
     public String getInternalProxies() {
         if (internalProxies == null) {
@@ -546,49 +548,49 @@ public class RemoteIpValve extends ValveBase {
     }
 
     /**
-     * @see #setProtocolHeader(String)
      * @return the protocol header (e.g. "X-Forwarded-Proto")
+     * @see #setProtocolHeader(String)
      */
     public String getProtocolHeader() {
         return protocolHeader;
     }
 
     /**
-     * @see RemoteIpValve#setProtocolHeaderHttpsValue(String)
      * @return the value of the protocol header for incoming https request (e.g. "https")
+     * @see RemoteIpValve#setProtocolHeaderHttpsValue(String)
      */
     public String getProtocolHeaderHttpsValue() {
         return protocolHeaderHttpsValue;
     }
 
     /**
-     * @see #setProxiesHeader(String)
      * @return the proxies header name (e.g. "X-Forwarded-By")
+     * @see #setProxiesHeader(String)
      */
     public String getProxiesHeader() {
         return proxiesHeader;
     }
 
     /**
-     * @see #setRemoteIpHeader(String)
      * @return the remote IP header name (e.g. "X-Forwarded-For")
+     * @see #setRemoteIpHeader(String)
      */
     public String getRemoteIpHeader() {
         return remoteIpHeader;
     }
 
     /**
-     * @see #setRequestAttributesEnabled(boolean)
      * @return <code>true</code> if the attributes will be logged, otherwise
-     *         <code>false</code>
+     * <code>false</code>
+     * @see #setRequestAttributesEnabled(boolean)
      */
     public boolean getRequestAttributesEnabled() {
         return requestAttributesEnabled;
     }
 
     /**
-     * @see #setTrustedProxies(String)
      * @return Regular expression that defines the trusted proxies
+     * @see #setTrustedProxies(String)
      */
     public String getTrustedProxies() {
         if (trustedProxies == null) {
@@ -622,7 +624,7 @@ public class RemoteIpValve extends ValveBase {
             LinkedList<String> proxiesHeaderValue = new LinkedList<>();
             StringBuilder concatRemoteIpHeaderValue = new StringBuilder();
 
-            for (Enumeration<String> e = request.getHeaders(remoteIpHeader); e.hasMoreElements();) {
+            for (Enumeration<String> e = request.getHeaders(remoteIpHeader); e.hasMoreElements(); ) {
                 if (concatRemoteIpHeaderValue.length() > 0) {
                     concatRemoteIpHeaderValue.append(", ");
                 }
@@ -639,7 +641,7 @@ public class RemoteIpValve extends ValveBase {
             for (idx = remoteIpHeaderValue.length - 1; idx >= 0; idx--) {
                 String currentRemoteIp = remoteIpHeaderValue[idx];
                 remoteIp = currentRemoteIp;
-                if (internalProxies !=null && internalProxies.matcher(currentRemoteIp).matches()) {
+                if (internalProxies != null && internalProxies.matcher(currentRemoteIp).matches()) {
                     // do nothing, internalProxies IPs are not appended to the
                 } else if (trustedProxies != null &&
                         trustedProxies.matcher(currentRemoteIp).matches()) {
@@ -715,13 +717,13 @@ public class RemoteIpValve extends ValveBase {
 
             if (log.isDebugEnabled()) {
                 log.debug("Incoming request " + request.getRequestURI() + " with originalRemoteAddr [" + originalRemoteAddr +
-                          "], originalRemoteHost=[" + originalRemoteHost + "], originalSecure=[" + originalSecure +
-                          "], originalScheme=[" + originalScheme + "], originalServerName=[" + originalServerName +
-                          "], originalServerPort=[" + originalServerPort +
-                          "] will be seen as newRemoteAddr=[" + request.getRemoteAddr() +
-                          "], newRemoteHost=[" + request.getRemoteHost() + "], newSecure=[" + request.isSecure() +
-                          "], newScheme=[" + request.getScheme() + "], newServerName=[" + request.getServerName() +
-                          "], newServerPort=[" + request.getServerPort() + "]");
+                        "], originalRemoteHost=[" + originalRemoteHost + "], originalSecure=[" + originalSecure +
+                        "], originalScheme=[" + originalScheme + "], originalServerName=[" + originalServerName +
+                        "], originalServerPort=[" + originalServerPort +
+                        "] will be seen as newRemoteAddr=[" + request.getRemoteAddr() +
+                        "], newRemoteHost=[" + request.getRemoteHost() + "], newSecure=[" + request.isSecure() +
+                        "], newScheme=[" + request.getScheme() + "], newServerName=[" + request.getServerName() +
+                        "], newServerPort=[" + request.getServerPort() + "]");
             }
         } else {
             if (log.isDebugEnabled()) {
@@ -819,6 +821,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : 80
      * </p>
+     *
      * @param httpServerPort The server port
      */
     public void setHttpServerPort(int httpServerPort) {
@@ -832,6 +835,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : 443
      * </p>
+     *
      * @param httpsServerPort The server port
      */
     public void setHttpsServerPort(int httpsServerPort) {
@@ -845,6 +849,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : 10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|169\.254.\d{1,3}.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3}|0:0:0:0:0:0:0:1
      * </p>
+     *
      * @param internalProxies The proxy regular expression
      */
     public void setInternalProxies(String internalProxies) {
@@ -863,6 +868,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : <code>null</code>
      * </p>
+     *
      * @param protocolHeader The header name
      */
     public void setProtocolHeader(String protocolHeader) {
@@ -876,6 +882,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : <code>https</code>
      * </p>
+     *
      * @param protocolHeaderHttpsValue The header name
      */
     public void setProtocolHeaderHttpsValue(String protocolHeaderHttpsValue) {
@@ -897,6 +904,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : <code>X-Forwarded-By</code>
      * </p>
+     *
      * @param proxiesHeader The header name
      */
     public void setProxiesHeader(String proxiesHeader) {
@@ -925,7 +933,7 @@ public class RemoteIpValve extends ValveBase {
      * protocol and port used for the request? This are typically used in
      * conjunction with the {@link AccessLog} which will otherwise log the
      * original values. Default is <code>true</code>.
-     *
+     * <p>
      * The attributes set are:
      * <ul>
      * <li>org.apache.catalina.AccessLog.RemoteAddr</li>
@@ -935,9 +943,9 @@ public class RemoteIpValve extends ValveBase {
      * <li>org.apache.tomcat.remoteAddr</li>
      * </ul>
      *
-     * @param requestAttributesEnabled  <code>true</code> causes the attributes
-     *                                  to be set, <code>false</code> disables
-     *                                  the setting of the attributes.
+     * @param requestAttributesEnabled <code>true</code> causes the attributes
+     *                                 to be set, <code>false</code> disables
+     *                                 the setting of the attributes.
      */
     public void setRequestAttributesEnabled(boolean requestAttributesEnabled) {
         this.requestAttributesEnabled = requestAttributesEnabled;
@@ -951,6 +959,7 @@ public class RemoteIpValve extends ValveBase {
      * <p>
      * Default value : empty list, no external proxy is trusted.
      * </p>
+     *
      * @param trustedProxies The regular expression
      */
     public void setTrustedProxies(String trustedProxies) {

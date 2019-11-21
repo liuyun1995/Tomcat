@@ -138,7 +138,7 @@ public class Stream {
                 }
             }
 
-            @SuppressWarnings({ "rawtypes", "unchecked" })
+            @SuppressWarnings({"rawtypes", "unchecked"})
             private final void sort() {
                 List list = new ArrayList<>();
                 while (iterator.hasNext()) {
@@ -168,7 +168,7 @@ public class Stream {
                 }
             }
 
-            @SuppressWarnings({ "rawtypes", "unchecked" })
+            @SuppressWarnings({"rawtypes", "unchecked"})
             private final void sort(LambdaExpression le) {
                 List list = new ArrayList<>();
                 Comparator<Object> c = new LambdaExpressionComparator(le);
@@ -343,7 +343,7 @@ public class Stream {
 
         while (iterator.hasNext()) {
             iterator.next();
-            count ++;
+            count++;
         }
 
         return Long.valueOf(count);
@@ -404,7 +404,7 @@ public class Stream {
     }
 
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private Optional compare(boolean isMax) {
         Comparable result = null;
 

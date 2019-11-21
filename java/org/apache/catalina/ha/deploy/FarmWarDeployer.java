@@ -67,7 +67,7 @@ public class FarmWarDeployer extends ClusterListener
     protected boolean started = false;
 
     protected final HashMap<String, FileMessageFactory> fileFactories =
-        new HashMap<>();
+            new HashMap<>();
 
     /**
      * Deployment directory.
@@ -138,18 +138,18 @@ public class FarmWarDeployer extends ClusterListener
         if (started)
             return;
         Container hcontainer = getCluster().getContainer();
-        if(!(hcontainer instanceof Host)) {
+        if (!(hcontainer instanceof Host)) {
             log.error(sm.getString("farmWarDeployer.hostOnly"));
-            return ;
+            return;
         }
         host = (Host) hcontainer;
 
         // Check to correct engine and host setup
         Container econtainer = host.getParent();
-        if(!(econtainer instanceof Engine)) {
+        if (!(econtainer instanceof Engine)) {
             log.error(sm.getString("farmWarDeployer.hostParentEngine",
                     host.getName()));
-            return ;
+            return;
         }
         Engine engine = (Engine) econtainer;
         String hostname = null;
@@ -159,7 +159,7 @@ public class FarmWarDeployer extends ClusterListener
                     + hostname);
         } catch (Exception e) {
             log.error(sm.getString("farmWarDeployer.mbeanNameFail",
-                    engine.getName(), hostname),e);
+                    engine.getName(), hostname), e);
             return;
         }
         if (watchEnabled) {
@@ -207,8 +207,7 @@ public class FarmWarDeployer extends ClusterListener
      * Callback from the cluster, when a message is received, The cluster will
      * broadcast it invoking the messageReceived on the receiver.
      *
-     * @param msg
-     *            ClusterMessage - the message received from the cluster
+     * @param msg ClusterMessage - the message received from the cluster
      */
     @Override
     public void messageReceived(ClusterMessage msg) {
@@ -292,7 +291,7 @@ public class FarmWarDeployer extends ClusterListener
      * @param msg The file
      * @return Factory for all app message (war files)
      * @throws java.io.FileNotFoundException Missing file error
-     * @throws java.io.IOException Other IO error
+     * @throws java.io.IOException           Other IO error
      */
     public synchronized FileMessageFactory getFactory(FileMessage msg)
             throws java.io.FileNotFoundException, java.io.IOException {
@@ -322,8 +321,8 @@ public class FarmWarDeployer extends ClusterListener
      *
      * @param msg ClusterMessage
      * @return boolean - returns true to indicate that messageReceived should be
-     *         invoked. If false is returned, the messageReceived method will
-     *         not be invoked.
+     * invoked. If false is returned, the messageReceived method will
+     * not be invoked.
      */
     @Override
     public boolean accept(ClusterMessage msg) {
@@ -339,20 +338,14 @@ public class FarmWarDeployer extends ClusterListener
      * of type <code>INSTALL_EVENT</code> will be sent to all registered
      * listeners, with the newly created <code>Context</code> as an argument.
      *
-     * @param contextName
-     *            The context name to which this application should be installed
-     *            (must be unique)
-     * @param webapp
-     *            A WAR file or unpacked directory structure containing the web
-     *            application to be installed
-     *
-     * @exception IllegalArgumentException
-     *                if the specified context name is malformed
-     * @exception IllegalStateException
-     *                if the specified context name is already deployed
-     * @exception IOException
-     *                if an input/output error was encountered during
-     *                installation
+     * @param contextName The context name to which this application should be installed
+     *                    (must be unique)
+     * @param webapp      A WAR file or unpacked directory structure containing the web
+     *                    application to be installed
+     * @throws IllegalArgumentException if the specified context name is malformed
+     * @throws IllegalStateException    if the specified context name is already deployed
+     * @throws IOException              if an input/output error was encountered during
+     *                                  installation
      */
     @Override
     public void install(String contextName, File webapp) throws IOException {
@@ -361,10 +354,10 @@ public class FarmWarDeployer extends ClusterListener
 
         Member localMember = getCluster().getLocalMember();
         FileMessageFactory factory =
-            FileMessageFactory.getInstance(webapp, false);
+                FileMessageFactory.getInstance(webapp, false);
         FileMessage msg = new FileMessage(localMember, webapp.getName(),
                 contextName);
-        if(log.isDebugEnabled())
+        if (log.isDebugEnabled())
             log.debug(sm.getString("farmWarDeployer.sendStart", contextName,
                     webapp));
         msg = factory.readMessage(msg);
@@ -377,7 +370,7 @@ public class FarmWarDeployer extends ClusterListener
             }
             msg = factory.readMessage(msg);
         }
-        if(log.isDebugEnabled())
+        if (log.isDebugEnabled())
             log.debug(sm.getString(
                     "farmWarDeployer.sendEnd", contextName, webapp));
     }
@@ -390,18 +383,12 @@ public class FarmWarDeployer extends ClusterListener
      * Deletes the web application war file and/or directory if they exist in
      * the Host's appBase.
      *
-     * @param contextName
-     *            The context name of the application to be removed
-     * @param undeploy
-     *            boolean flag to remove web application from server
-     *
-     * @exception IllegalArgumentException
-     *                if the specified context name is malformed
-     * @exception IllegalArgumentException
-     *                if the specified context name does not identify a
-     *                currently installed web application
-     * @exception IOException
-     *                if an input/output error occurs during removal
+     * @param contextName The context name of the application to be removed
+     * @param undeploy    boolean flag to remove web application from server
+     * @throws IllegalArgumentException if the specified context name is malformed
+     * @throws IllegalArgumentException if the specified context name does not identify a
+     *                                  currently installed web application
+     * @throws IOException              if an input/output error occurs during removal
      */
     @Override
     public void remove(String contextName, boolean undeploy)
@@ -496,6 +483,7 @@ public class FarmWarDeployer extends ClusterListener
 
     /**
      * Invoke the remove method on the deployer.
+     *
      * @param contextName The context to remove
      * @throws Exception If an error occurs removing the context
      */
@@ -504,7 +492,7 @@ public class FarmWarDeployer extends ClusterListener
         // Stop the context first to be nicer
         Context context = (Context) host.findChild(contextName);
         if (context != null) {
-            if(log.isDebugEnabled())
+            if (log.isDebugEnabled())
                 log.debug(sm.getString("farmWarDeployer.undeployLocal",
                         contextName));
             context.stop();
@@ -533,8 +521,7 @@ public class FarmWarDeployer extends ClusterListener
      * Delete the specified directory, including all of its contents and
      * subdirectories recursively.
      *
-     * @param dir
-     *            File object representing the directory to be deleted
+     * @param dir File object representing the directory to be deleted
      */
     protected void undeployDir(File dir) {
 
@@ -580,24 +567,26 @@ public class FarmWarDeployer extends ClusterListener
 
     /**
      * Check a context for deployment operations.
+     *
      * @param name The context name
      * @throws Exception Error invoking the deployer
      */
     protected void check(String name) throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "check", params, signature);
     }
 
     /**
      * Verified if a context is being services.
+     *
      * @param name The context name
      * @return <code>true</code> if the context is being serviced
      * @throws Exception Error invoking the deployer
      */
     protected boolean isServiced(String name) throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         Boolean result = (Boolean) mBeanServer.invoke(oname, "isServiced",
                 params, signature);
         return result.booleanValue();
@@ -605,23 +594,25 @@ public class FarmWarDeployer extends ClusterListener
 
     /**
      * Mark a context as being services.
+     *
      * @param name The context name
      * @throws Exception Error invoking the deployer
      */
     protected void addServiced(String name) throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "addServiced", params, signature);
     }
 
     /**
      * Mark a context as no longer being serviced.
+     *
      * @param name The context name
      * @throws Exception Error invoking the deployer
      */
     protected void removeServiced(String name) throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "removeServiced", params, signature);
     }
 
@@ -706,8 +697,7 @@ public class FarmWarDeployer extends ClusterListener
     /**
      * Set the watcher checks frequency.
      *
-     * @param processExpiresFrequency
-     *            the new manager checks frequency
+     * @param processExpiresFrequency the new manager checks frequency
      */
     public void setProcessDeployFrequency(int processExpiresFrequency) {
 
@@ -727,6 +717,7 @@ public class FarmWarDeployer extends ClusterListener
 
     /**
      * Copy a file to the specified temp directory.
+     *
      * @param from copy from temp
      * @param to   to host appBase directory
      * @return true, copy successful
@@ -746,7 +737,7 @@ public class FarmWarDeployer extends ClusterListener
         }
 
         try (java.io.FileInputStream is = new java.io.FileInputStream(from);
-                java.io.FileOutputStream os = new java.io.FileOutputStream(to, false)) {
+             java.io.FileOutputStream os = new java.io.FileOutputStream(to, false)) {
             byte[] buf = new byte[4096];
             while (true) {
                 int len = is.read(buf);

@@ -60,7 +60,7 @@ public class WsHttpUpgradeHandler implements InternalHttpUpgradeHandler {
     private List<Extension> negotiatedExtensions;
     private String subProtocol;
     private Transformation transformation;
-    private Map<String,String> pathParameters;
+    private Map<String, String> pathParameters;
     private boolean secure;
     private WebConnection connection;
 
@@ -81,10 +81,10 @@ public class WsHttpUpgradeHandler implements InternalHttpUpgradeHandler {
 
 
     public void preInit(Endpoint ep, ServerEndpointConfig serverEndpointConfig,
-            WsServerContainer wsc, WsHandshakeRequest handshakeRequest,
-            List<Extension> negotiatedExtensionsPhase2, String subProtocol,
-            Transformation transformation, Map<String,String> pathParameters,
-            boolean secure) {
+                        WsServerContainer wsc, WsHandshakeRequest handshakeRequest,
+                        List<Extension> negotiatedExtensionsPhase2, String subProtocol,
+                        Transformation transformation, Map<String, String> pathParameters,
+                        boolean secure) {
         this.ep = ep;
         this.serverEndpointConfig = serverEndpointConfig;
         this.webSocketContainer = wsc;
@@ -106,7 +106,7 @@ public class WsHttpUpgradeHandler implements InternalHttpUpgradeHandler {
 
         String httpSessionId = null;
         Object session = handshakeRequest.getHttpSession();
-        if (session != null ) {
+        if (session != null) {
             httpSessionId = ((HttpSession) session).getId();
         }
 

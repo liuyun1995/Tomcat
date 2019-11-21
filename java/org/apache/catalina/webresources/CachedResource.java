@@ -58,7 +58,7 @@ public class CachedResource implements WebResource {
 
 
     public CachedResource(Cache cache, StandardRoot root, String path, long ttl,
-            int objectMaxSizeBytes, boolean usesClassLoaderResources) {
+                          int objectMaxSizeBytes, boolean usesClassLoaderResources) {
         this.cache = cache;
         this.root = root;
         this.webAppPath = path;

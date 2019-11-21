@@ -82,7 +82,7 @@ public class MultipartDef implements Serializable {
         result = prime
                 * result
                 + ((fileSizeThreshold == null) ? 0 : fileSizeThreshold
-                        .hashCode());
+                .hashCode());
         result = prime * result
                 + ((location == null) ? 0 : location.hashCode());
         result = prime * result

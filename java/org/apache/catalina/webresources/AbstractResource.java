@@ -68,7 +68,7 @@ public abstract class AbstractResource implements WebResource {
                     long lastModified = getLastModified();
                     if ((contentLength >= 0) || (lastModified >= 0)) {
                         weakETag = "W/\"" + contentLength + "-" +
-                                   lastModified + "\"";
+                                lastModified + "\"";
                     }
                 }
             }

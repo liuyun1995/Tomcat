@@ -28,6 +28,7 @@ public class SessionConfig {
     /**
      * Determine the name to use for the session cookie for the provided
      * context.
+     *
      * @param context The context
      * @return the cookie name for the context
      */
@@ -45,6 +46,7 @@ public class SessionConfig {
     /**
      * Determine the name to use for the session path parameter for the provided
      * context.
+     *
      * @param context The context
      * @return the parameter name for the session
      */
@@ -73,7 +75,7 @@ public class SessionConfig {
             }
 
             SessionCookieConfig scc =
-                context.getServletContext().getSessionCookieConfig();
+                    context.getServletContext().getSessionCookieConfig();
             cookieName = scc.getName();
             if (cookieName != null && cookieName.length() > 0) {
                 return cookieName;

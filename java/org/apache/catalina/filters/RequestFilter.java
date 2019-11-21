@@ -163,16 +163,15 @@ public abstract class RequestFilter extends FilterBase {
      * <code>process()</code> method to perform the actual filtering.
      * This method must be implemented by a concrete subclass.
      *
-     * @param request The servlet request to be processed
+     * @param request  The servlet request to be processed
      * @param response The servlet response to be created
-     * @param chain The filter chain
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @param chain    The filter chain
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     @Override
     public abstract void doFilter(ServletRequest request,
-            ServletResponse response, FilterChain chain) throws IOException,
+                                  ServletResponse response, FilterChain chain) throws IOException,
             ServletException;
 
 
@@ -190,15 +189,14 @@ public abstract class RequestFilter extends FilterBase {
      * against the specified request property.
      *
      * @param property The request property on which to filter
-     * @param request The servlet request to be processed
+     * @param request  The servlet request to be processed
      * @param response The servlet response to be processed
-     * @param chain The filter chain
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @param chain    The filter chain
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     protected void process(String property, ServletRequest request,
-            ServletResponse response, FilterChain chain)
+                           ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         if (isAllowed(property)) {
@@ -220,9 +218,9 @@ public abstract class RequestFilter extends FilterBase {
     /**
      * Process the allow and deny rules for the provided property.
      *
-     * @param property  The property to test against the allow and deny lists
-     * @return          <code>true</code> if this request should be allowed,
-     *                  <code>false</code> otherwise
+     * @param property The property to test against the allow and deny lists
+     * @return <code>true</code> if this request should be allowed,
+     * <code>false</code> otherwise
      */
     private boolean isAllowed(String property) {
         if (deny != null && deny.matcher(property).matches()) {

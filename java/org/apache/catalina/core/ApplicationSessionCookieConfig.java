@@ -154,17 +154,17 @@ public class ApplicationSessionCookieConfig implements SessionCookieConfig {
     /**
      * Creates a new session cookie for the given session ID
      *
-     * @param context     The Context for the web application
-     * @param sessionId   The ID of the session for which the cookie will be
-     *                    created
-     * @param secure      Should session cookie be configured as secure
+     * @param context   The Context for the web application
+     * @param sessionId The ID of the session for which the cookie will be
+     *                  created
+     * @param secure    Should session cookie be configured as secure
      * @return the cookie for the session
      */
     public static Cookie createSessionCookie(Context context,
-            String sessionId, boolean secure) {
+                                             String sessionId, boolean secure) {
 
         SessionCookieConfig scc =
-            context.getServletContext().getSessionCookieConfig();
+                context.getServletContext().getSessionCookieConfig();
 
         // NOTE: The priority order for session cookie configuration is:
         //       1. Context level configuration

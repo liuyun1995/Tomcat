@@ -224,7 +224,6 @@ public class MemoryUserDatabase implements UserDatabase {
     }
 
 
-
     public void setWatchSource(boolean watchSource) {
         this.watchSource = watchSource;
     }
@@ -263,7 +262,7 @@ public class MemoryUserDatabase implements UserDatabase {
     /**
      * Finalize access to this user database.
      *
-     * @exception Exception if any exception is thrown during closing
+     * @throws Exception if any exception is thrown during closing
      */
     @Override
     public void close() throws Exception {
@@ -283,7 +282,7 @@ public class MemoryUserDatabase implements UserDatabase {
     /**
      * Create and return a new {@link Group} defined in this user database.
      *
-     * @param groupname The group name of the new group (must be unique)
+     * @param groupname   The group name of the new group (must be unique)
      * @param description The description of this group
      */
     @Override
@@ -308,7 +307,7 @@ public class MemoryUserDatabase implements UserDatabase {
     /**
      * Create and return a new {@link Role} defined in this user database.
      *
-     * @param rolename The role name of the new group (must be unique)
+     * @param rolename    The role name of the new group (must be unique)
      * @param description The description of this group
      */
     @Override
@@ -411,7 +410,7 @@ public class MemoryUserDatabase implements UserDatabase {
     /**
      * Initialize access to this user database.
      *
-     * @exception Exception if any exception is thrown during opening
+     * @throws Exception if any exception is thrown during opening
      */
     @Override
     public void open() throws Exception {
@@ -542,7 +541,7 @@ public class MemoryUserDatabase implements UserDatabase {
      * Save any updated information to the persistent storage location for this
      * user database.
      *
-     * @exception Exception if any exception is thrown during saving
+     * @throws Exception if any exception is thrown during saving
      */
     @Override
     public void save() throws Exception {
@@ -566,8 +565,8 @@ public class MemoryUserDatabase implements UserDatabase {
         writeLock.lock();
         try {
             try (FileOutputStream fos = new FileOutputStream(fileNew);
-                    OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-                    PrintWriter writer = new PrintWriter(osw)) {
+                 OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+                 PrintWriter writer = new PrintWriter(osw)) {
 
                 // Print the file prolog
                 writer.println("<?xml version='1.0' encoding='utf-8'?>");

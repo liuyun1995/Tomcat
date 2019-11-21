@@ -112,6 +112,7 @@ public class NotificationInfo extends FeatureInfo {
     /**
      * Create and return a <code>ModelMBeanNotificationInfo</code> object that
      * corresponds to the attribute described by this instance.
+     *
      * @return the notification info
      */
     public MBeanNotificationInfo createNotificationInfo() {
@@ -122,7 +123,7 @@ public class NotificationInfo extends FeatureInfo {
 
         // Create and return a new information object
         info = new MBeanNotificationInfo
-            (getNotifTypes(), getName(), getDescription());
+                (getNotifTypes(), getName(), getDescription());
         //Descriptor descriptor = info.getDescriptor();
         //addFields(descriptor);
         //info.setDescriptor(descriptor);

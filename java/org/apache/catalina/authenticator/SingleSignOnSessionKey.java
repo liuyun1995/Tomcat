@@ -26,7 +26,6 @@ import org.apache.catalina.Session;
  * actual session to facilitate the replication of the SSO information
  * across a cluster where replicating the entire session would generate
  * significant, unnecessary overhead.
- *
  */
 public class SingleSignOnSessionKey implements Serializable {
 

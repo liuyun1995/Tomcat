@@ -31,7 +31,7 @@ import javax.net.ssl.SSLParameters;
 import org.apache.tomcat.util.compat.JreCompat;
 import org.apache.tomcat.util.net.openssl.ciphers.Cipher;
 
-public abstract class AbstractJsseEndpoint<S,U> extends AbstractEndpoint<S,U> {
+public abstract class AbstractJsseEndpoint<S, U> extends AbstractEndpoint<S, U> {
 
     private String sslImplementationName = null;
     private int sniParseLimit = 64 * 1024;
@@ -105,7 +105,7 @@ public abstract class AbstractJsseEndpoint<S,U> extends AbstractEndpoint<S,U> {
 
 
     protected SSLEngine createSSLEngine(String sniHostName, List<Cipher> clientRequestedCiphers,
-            List<String> clientRequestedApplicationProtocols) {
+                                        List<String> clientRequestedApplicationProtocols) {
         SSLHostConfig sslHostConfig = getSSLHostConfig(sniHostName);
 
         SSLHostConfigCertificate certificate = selectCertificate(sslHostConfig, clientRequestedCiphers);
@@ -118,17 +118,17 @@ public abstract class AbstractJsseEndpoint<S,U> extends AbstractEndpoint<S,U> {
 
         SSLEngine engine = sslContext.createSSLEngine();
         switch (sslHostConfig.getCertificateVerification()) {
-        case NONE:
-            engine.setNeedClientAuth(false);
-            engine.setWantClientAuth(false);
-            break;
-        case OPTIONAL:
-        case OPTIONAL_NO_CA:
-            engine.setWantClientAuth(true);
-            break;
-        case REQUIRED:
-            engine.setNeedClientAuth(true);
-            break;
+            case NONE:
+                engine.setNeedClientAuth(false);
+                engine.setWantClientAuth(false);
+                break;
+            case OPTIONAL:
+            case OPTIONAL_NO_CA:
+                engine.setWantClientAuth(true);
+                break;
+            case REQUIRED:
+                engine.setNeedClientAuth(true);
+                break;
         }
         engine.setUseClientMode(false);
         engine.setEnabledCipherSuites(sslHostConfig.getEnabledCiphers());

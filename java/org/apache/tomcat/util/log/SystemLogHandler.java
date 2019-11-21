@@ -24,7 +24,7 @@ import java.util.Stack;
 /**
  * This helper class may be used to do sophisticated redirection of
  * System.out and System.err on a per Thread basis.
- *
+ * <p>
  * A stack is implemented per Thread so that nested startCapture
  * and stopCapture can be used.
  *
@@ -121,6 +121,7 @@ public class SystemLogHandler extends PrintStream {
 
     /**
      * Find PrintStream to which the output must be written to.
+     *
      * @return the print stream
      */
     protected PrintStream findStream() {
@@ -168,7 +169,7 @@ public class SystemLogHandler extends PrintStream {
 
     @Override
     public void write(byte[] b)
-        throws IOException {
+            throws IOException {
         findStream().write(b);
     }
 

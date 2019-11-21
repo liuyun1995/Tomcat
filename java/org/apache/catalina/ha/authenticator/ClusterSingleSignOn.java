@@ -59,8 +59,12 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
     // -------------------------------------------------------------- Properties
 
     private CatalinaCluster cluster = null;
+
     @Override
-    public CatalinaCluster getCluster() { return cluster; }
+    public CatalinaCluster getCluster() {
+        return cluster;
+    }
+
     @Override
     public void setCluster(CatalinaCluster cluster) {
         this.cluster = cluster;
@@ -68,9 +72,11 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
 
 
     private long rpcTimeout = 15000;
+
     public long getRpcTimeout() {
         return rpcTimeout;
     }
+
     public void setRpcTimeout(long rpcTimeout) {
         this.rpcTimeout = rpcTimeout;
     }
@@ -78,15 +84,18 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
 
     private int mapSendOptions =
             Channel.SEND_OPTIONS_SYNCHRONIZED_ACK | Channel.SEND_OPTIONS_USE_ACK;
+
     public int getMapSendOptions() {
         return mapSendOptions;
     }
+
     public void setMapSendOptions(int mapSendOptions) {
         this.mapSendOptions = mapSendOptions;
     }
 
 
     private boolean terminateOnStartFailure = false;
+
     public boolean getTerminateOnStartFailure() {
         return terminateOnStartFailure;
     }
@@ -96,6 +105,7 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
     }
 
     private long accessTimeout = 5000;
+
     public long getAccessTimeout() {
         return accessTimeout;
     }
@@ -110,17 +120,17 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
     protected boolean associate(String ssoId, Session session) {
         boolean result = super.associate(ssoId, session);
         if (result) {
-            ((ReplicatedMap<String,SingleSignOnEntry>) cache).replicate(ssoId, true);
+            ((ReplicatedMap<String, SingleSignOnEntry>) cache).replicate(ssoId, true);
         }
         return result;
     }
 
     @Override
     protected boolean update(String ssoId, Principal principal, String authType,
-            String username, String password) {
+                             String username, String password) {
         boolean result = super.update(ssoId, principal, authType, username, password);
         if (result) {
-            ((ReplicatedMap<String,SingleSignOnEntry>) cache).replicate(ssoId, true);
+            ((ReplicatedMap<String, SingleSignOnEntry>) cache).replicate(ssoId, true);
         }
         return result;
     }
@@ -145,18 +155,18 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
      * Start this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
 
         // Load the cluster component, if any
         try {
-            if(cluster == null) {
+            if (cluster == null) {
                 Container host = getContainer();
-                if(host instanceof Host) {
-                    if(host.getCluster() instanceof CatalinaCluster) {
+                if (host instanceof Host) {
+                    if (host.getCluster() instanceof CatalinaCluster) {
                         setCluster((CatalinaCluster) host.getCluster());
                     }
                 }
@@ -165,9 +175,9 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
                 throw new LifecycleException(sm.getString("clusterSingleSignOn.nocluster"));
             }
 
-            ClassLoader[] cls = new ClassLoader[] { this.getClass().getClassLoader() };
+            ClassLoader[] cls = new ClassLoader[]{this.getClass().getClassLoader()};
 
-            ReplicatedMap<String,SingleSignOnEntry> cache = new ReplicatedMap<>(
+            ReplicatedMap<String, SingleSignOnEntry> cache = new ReplicatedMap<>(
                     this, cluster.getChannel(), rpcTimeout, cluster.getClusterName() + "-SSO-cache",
                     cls, terminateOnStartFailure);
             cache.setChannelSendOptions(mapSendOptions);
@@ -186,8 +196,8 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
      * Stop this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {
@@ -195,7 +205,7 @@ public class ClusterSingleSignOn extends SingleSignOn implements ClusterValve, M
         super.stopInternal();
 
         if (getCluster() != null) {
-            ((ReplicatedMap<?,?>) cache).breakdown();
+            ((ReplicatedMap<?, ?>) cache).breakdown();
         }
     }
 }

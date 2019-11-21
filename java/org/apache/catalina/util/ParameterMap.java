@@ -34,16 +34,15 @@ import org.apache.tomcat.util.res.StringManager;
  *
  * @param <K> The type of Key
  * @param <V> The type of Value
- *
  * @author Craig R. McClanahan
  */
-public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
+public final class ParameterMap<K, V> implements Map<K, V>, Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    private final Map<K,V> delegatedMap;
+    private final Map<K, V> delegatedMap;
 
-    private final Map<K,V> unmodifiableDelegatedMap;
+    private final Map<K, V> unmodifiableDelegatedMap;
 
 
     /**
@@ -73,7 +72,7 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
      * load factor.
      *
      * @param initialCapacity The initial capacity of this map
-     * @param loadFactor The load factor of this map
+     * @param loadFactor      The load factor of this map
      */
     public ParameterMap(int initialCapacity, float loadFactor) {
         delegatedMap = new LinkedHashMap<>(initialCapacity, loadFactor);
@@ -86,7 +85,7 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
      *
      * @param map Map whose contents are duplicated in the new map
      */
-    public ParameterMap(Map<K,V> map) {
+    public ParameterMap(Map<K, V> map) {
         delegatedMap = new LinkedHashMap<>(map);
         unmodifiableDelegatedMap = Collections.unmodifiableMap(delegatedMap);
     }
@@ -125,7 +124,7 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
     /**
      * {@inheritDoc}
      *
-     * @exception IllegalStateException if this map is currently locked
+     * @throws IllegalStateException if this map is currently locked
      */
     @Override
     public void clear() {
@@ -137,7 +136,7 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
     /**
      * {@inheritDoc}
      *
-     * @exception IllegalStateException if this map is currently locked
+     * @throws IllegalStateException if this map is currently locked
      */
     @Override
     public V put(K key, V value) {
@@ -149,10 +148,10 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
     /**
      * {@inheritDoc}
      *
-     * @exception IllegalStateException if this map is currently locked
+     * @throws IllegalStateException if this map is currently locked
      */
     @Override
-    public void putAll(Map<? extends K,? extends V> map) {
+    public void putAll(Map<? extends K, ? extends V> map) {
         checkLocked();
         delegatedMap.putAll(map);
     }
@@ -161,7 +160,7 @@ public final class ParameterMap<K,V> implements Map<K,V>, Serializable {
     /**
      * {@inheritDoc}
      *
-     * @exception IllegalStateException if this map is currently locked
+     * @throws IllegalStateException if this map is currently locked
      */
     @Override
     public V remove(Object key) {

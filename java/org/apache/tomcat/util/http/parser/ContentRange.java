@@ -59,9 +59,7 @@ public class ContentRange {
      * Parses a Content-Range header from an HTTP header.
      *
      * @param input a reader over the header text
-     *
      * @return the range parsed from the input, or null if not valid
-     *
      * @throws IOException if there was a problem reading the input
      */
     public static ContentRange parse(StringReader input) throws IOException {

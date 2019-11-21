@@ -75,7 +75,7 @@ public class VoidOutputFilter implements OutputFilter {
 
 
     @Override
-    public void  end() throws IOException {
+    public void end() throws IOException {
         buffer.end();
     }
 }

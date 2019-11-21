@@ -43,7 +43,7 @@ public class RpcMessage implements Externalizable {
     }
 
     @Override
-    public void readExternal(ObjectInput in) throws IOException,ClassNotFoundException {
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         reply = in.readBoolean();
         int length = in.readInt();
         uuid = new byte[length];
@@ -51,7 +51,7 @@ public class RpcMessage implements Externalizable {
         length = in.readInt();
         rpcId = new byte[length];
         in.readFully(rpcId);
-        message = (Serializable)in.readObject();
+        message = (Serializable) in.readObject();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class RpcMessage implements Externalizable {
         }
 
         public NoRpcChannelReply(byte[] rpcid, byte[] uuid) {
-            super(rpcid,uuid,null);
+            super(rpcid, uuid, null);
             reply = true;
         }
 

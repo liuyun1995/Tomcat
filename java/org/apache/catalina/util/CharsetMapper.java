@@ -26,7 +26,6 @@ import org.apache.tomcat.util.ExceptionUtils;
 import org.apache.tomcat.util.compat.JreCompat;
 
 
-
 /**
  * Utility class that attempts to map from a Locale to the corresponding
  * character set to be used for interpreting input text (or generating
@@ -47,7 +46,7 @@ public class CharsetMapper {
      * Default properties resource name.
      */
     public static final String DEFAULT_RESOURCE =
-      "/org/apache/catalina/util/CharsetMapperDefault.properties";
+            "/org/apache/catalina/util/CharsetMapperDefault.properties";
 
 
     // ---------------------------------------------------------- Constructors
@@ -65,9 +64,8 @@ public class CharsetMapper {
      * Construct a new CharsetMapper using the specified properties resource.
      *
      * @param name Name of a properties resource to be loaded
-     *
-     * @exception IllegalArgumentException if the specified properties
-     *  resource could not be loaded for any reason.
+     * @throws IllegalArgumentException if the specified properties
+     *                                  resource could not be loaded for any reason.
      */
     public CharsetMapper(String name) {
         if (JreCompat.isGraalAvailable()) {
@@ -125,7 +123,7 @@ public class CharsetMapper {
      * webapp's desired mapping from locale to charset.  This method
      * gets called when processing the web.xml file for a context
      *
-     * @param locale The locale for a character set
+     * @param locale  The locale for a character set
      * @param charset The charset to be associated with the locale
      */
     public void addCharsetMappingFromDeploymentDescriptor(String locale, String charset) {

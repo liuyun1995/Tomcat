@@ -44,7 +44,7 @@ public class TransactionRef extends AbstractRef {
     /**
      * Resource Reference.
      *
-     * @param factory The factory class
+     * @param factory         The factory class
      * @param factoryLocation The factory location
      */
     public TransactionRef(String factory, String factoryLocation) {

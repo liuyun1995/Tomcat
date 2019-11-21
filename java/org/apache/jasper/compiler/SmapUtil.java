@@ -62,15 +62,15 @@ public class SmapUtil {
      * Generates an appropriate SMAP representing the current compilation
      * context.  (JSR-045.)
      *
-     * @param ctxt Current compilation context
+     * @param ctxt      Current compilation context
      * @param pageNodes The current JSP page
      * @return a SMAP for the page
      * @throws IOException Error writing SMAP
      */
-    public static Map<String,SmapStratum> generateSmap(JspCompilationContext ctxt,
-            Node.Nodes pageNodes) throws IOException {
+    public static Map<String, SmapStratum> generateSmap(JspCompilationContext ctxt,
+                                                        Node.Nodes pageNodes) throws IOException {
 
-        Map<String,SmapStratum> smapInfo = new HashMap<>();
+        Map<String, SmapStratum> smapInfo = new HashMap<>();
 
         // Scan the nodes for presence of Jasper generated inner classes
         PreScanVisitor psVisitor = new PreScanVisitor();
@@ -96,10 +96,10 @@ public class SmapUtil {
         if (ctxt.getOptions().isSmapDumped()) {
             File outSmap = new File(classFileName + ".smap");
             PrintWriter so =
-                new PrintWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(outSmap),
-                        SMAP_ENCODING));
+                    new PrintWriter(
+                            new OutputStreamWriter(
+                                    new FileOutputStream(outSmap),
+                                    SMAP_ENCODING));
             so.print(s.getSmapString());
             so.close();
         }
@@ -110,8 +110,8 @@ public class SmapUtil {
             s.optimizeLineSection();
             s.setOutputFileName(unqualify(ctxt.getServletJavaFileName()));
             String innerClassFileName =
-                classFileName.substring(0, classFileName.indexOf(".class")) +
-                '$' + innerClass + ".class";
+                    classFileName.substring(0, classFileName.indexOf(".class")) +
+                            '$' + innerClass + ".class";
             s.setClassFileName(innerClassFileName);
 
             smapInfo.put(ctxt.getFQCN() + "." + innerClass, s);
@@ -119,10 +119,10 @@ public class SmapUtil {
             if (ctxt.getOptions().isSmapDumped()) {
                 File outSmap = new File(innerClassFileName + ".smap");
                 PrintWriter so =
-                    new PrintWriter(
-                        new OutputStreamWriter(
-                            new FileOutputStream(outSmap),
-                            SMAP_ENCODING));
+                        new PrintWriter(
+                                new OutputStreamWriter(
+                                        new FileOutputStream(outSmap),
+                                        SMAP_ENCODING));
                 so.print(s.getSmapString());
                 so.close();
             }
@@ -131,13 +131,13 @@ public class SmapUtil {
         return smapInfo;
     }
 
-    public static void installSmap(Map<String,SmapStratum> smapInfo)
-        throws IOException {
+    public static void installSmap(Map<String, SmapStratum> smapInfo)
+            throws IOException {
         if (smapInfo == null) {
             return;
         }
 
-        for (Map.Entry<String,SmapStratum> entry : smapInfo.entrySet()) {
+        for (Map.Entry<String, SmapStratum> entry : smapInfo.entrySet()) {
             File outServlet = new File(entry.getValue().getClassFileName());
             SDEInstaller.install(outServlet,
                     entry.getValue().getSmapString().getBytes(StandardCharsets.ISO_8859_1));
@@ -187,7 +187,7 @@ public class SmapUtil {
         }
 
         SDEInstaller(File inClassFile, byte[] sdeAttr)
-            throws IOException {
+                throws IOException {
             if (!inClassFile.exists()) {
                 throw new FileNotFoundException(Localizer.getMessage("jsp.error.noFile", inClassFile));
             }
@@ -209,7 +209,7 @@ public class SmapUtil {
         }
 
         static byte[] readWhole(File input) throws IOException {
-            int len = (int)input.length();
+            int len = (int) input.length();
             byte[] bytes = new byte[len];
             try (FileInputStream inStream = new FileInputStream(input)) {
                 if (inStream.read(bytes, 0, len) != len) {
@@ -335,7 +335,7 @@ public class SmapUtil {
         }
 
         void writeU1(int val) {
-            gen[genPos++] = (byte)val;
+            gen[genPos++] = (byte) val;
         }
 
         void writeU2(int val) {
@@ -369,44 +369,44 @@ public class SmapUtil {
         }
 
         int copyConstantPool(int constantPoolCount)
-            throws UnsupportedEncodingException, IOException {
+                throws UnsupportedEncodingException, IOException {
             int sdeIndex = -1;
             // copy const pool index zero not in class file
             for (int i = 1; i < constantPoolCount; ++i) {
                 int tag = readU1();
                 writeU1(tag);
                 switch (tag) {
-                    case 7 :  // Class
-                    case 8 :  // String
-                    case 16 : // MethodType
+                    case 7:  // Class
+                    case 8:  // String
+                    case 16: // MethodType
                         if (log.isDebugEnabled())
                             log.debug(i + " copying 2 bytes");
                         copy(2);
                         break;
-                    case 15 : // MethodHandle
+                    case 15: // MethodHandle
                         if (log.isDebugEnabled())
                             log.debug(i + " copying 3 bytes");
                         copy(3);
                         break;
-                    case 9 :  // Field
-                    case 10 : // Method
-                    case 11 : // InterfaceMethod
-                    case 3 :  // Integer
-                    case 4 :  // Float
-                    case 12 : // NameAndType
-                    case 18 : // InvokeDynamic
+                    case 9:  // Field
+                    case 10: // Method
+                    case 11: // InterfaceMethod
+                    case 3:  // Integer
+                    case 4:  // Float
+                    case 12: // NameAndType
+                    case 18: // InvokeDynamic
                         if (log.isDebugEnabled())
                             log.debug(i + " copying 4 bytes");
                         copy(4);
                         break;
-                    case 5 : // Long
-                    case 6 : // Double
+                    case 5: // Long
+                    case 6: // Double
                         if (log.isDebugEnabled())
                             log.debug(i + " copying 8 bytes");
                         copy(8);
                         i++;
                         break;
-                    case 1 : // Utf8
+                    case 1: // Utf8
                         int len = readU2();
                         writeU2(len);
                         byte[] utf8 = readBytes(len);
@@ -418,7 +418,7 @@ public class SmapUtil {
                         }
                         writeBytes(utf8);
                         break;
-                    default :
+                    default:
                         throw new IOException(Localizer.getMessage(
                                 "jsp.error.unexpectedTag", Integer.valueOf(tag)));
                 }
@@ -437,10 +437,10 @@ public class SmapUtil {
     }
 
     public static void evaluateNodes(
-        Node.Nodes nodes,
-        SmapStratum s,
-        HashMap<String, SmapStratum> innerClassMap,
-        boolean breakAtLF) {
+            Node.Nodes nodes,
+            SmapStratum s,
+            HashMap<String, SmapStratum> innerClassMap,
+            boolean breakAtLF) {
         try {
             nodes.visit(new SmapGenVisitor(s, breakAtLF, innerClassMap));
         } catch (JasperException ex) {
@@ -587,9 +587,9 @@ public class SmapUtil {
             //Add a LineInfo that corresponds to the beginning of this node
             int iInputStartLine = mark.getLineNumber();
             int iOutputStartLine = n.getBeginJavaLine();
-            int iOutputLineIncrement = breakAtLF? 1: 0;
+            int iOutputLineIncrement = breakAtLF ? 1 : 0;
             smap.addLineData(iInputStartLine, fileName, 1, iOutputStartLine,
-                             iOutputLineIncrement);
+                    iOutputLineIncrement);
 
             // Output additional mappings in the text
             java.util.ArrayList<Integer> extraSmap = n.getExtraSmap();
@@ -598,20 +598,20 @@ public class SmapUtil {
                 for (int i = 0; i < extraSmap.size(); i++) {
                     iOutputStartLine += iOutputLineIncrement;
                     smap.addLineData(
-                        iInputStartLine+extraSmap.get(i).intValue(),
-                        fileName,
-                        1,
-                        iOutputStartLine,
-                        iOutputLineIncrement);
+                            iInputStartLine + extraSmap.get(i).intValue(),
+                            fileName,
+                            1,
+                            iOutputStartLine,
+                            iOutputLineIncrement);
                 }
             }
         }
 
         private void doSmap(
-            Node n,
-            int inLineCount,
-            int outIncrement,
-            int skippedLines) {
+                Node n,
+                int inLineCount,
+                int outIncrement,
+                int skippedLines) {
             Mark mark = n.getStart();
             if (mark == null) {
                 return;
@@ -620,11 +620,11 @@ public class SmapUtil {
             String unqualifiedName = unqualify(mark.getFile());
             smap.addFile(unqualifiedName, mark.getFile());
             smap.addLineData(
-                mark.getLineNumber() + skippedLines,
-                mark.getFile(),
-                inLineCount - skippedLines,
-                n.getBeginJavaLine() + skippedLines,
-                outIncrement);
+                    mark.getLineNumber() + skippedLines,
+                    mark.getFile(),
+                    inLineCount - skippedLines,
+                    n.getBeginJavaLine() + skippedLines,
+                    outIncrement);
         }
 
         private void doSmap(Node n) {
@@ -762,12 +762,12 @@ public class SmapUtil {
 
         InputStream is = null;
         try {
-            is = cl.getResourceAsStream(className.replaceAll("\\.","/") + ".smap");
+            is = cl.getResourceAsStream(className.replaceAll("\\.", "/") + ".smap");
             if (is != null) {
                 encoding = SMAP_ENCODING;
                 found = true;
             } else {
-                is = cl.getResourceAsStream(className.replaceAll("\\.","/") + ".class");
+                is = cl.getResourceAsStream(className.replaceAll("\\.", "/") + ".class");
                 // Alternative approach would be to read the class file as per the
                 // JLS. That would require duplicating a lot of BCEL functionality.
                 int b = is.read();
@@ -796,7 +796,7 @@ public class SmapUtil {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
                 byte[] buf = new byte[1024];
                 int numRead;
-                while ( (numRead = is.read(buf) ) >= 0) {
+                while ((numRead = is.read(buf)) >= 0) {
                     baos.write(buf, 0, numRead);
                 }
 

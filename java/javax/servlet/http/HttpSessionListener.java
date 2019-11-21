@@ -33,8 +33,7 @@ public interface HttpSessionListener extends EventListener {
      * Notification that a session was created.
      * The default implementation is a NO-OP.
      *
-     * @param se
-     *            the notification event
+     * @param se the notification event
      */
     public default void sessionCreated(HttpSessionEvent se) {
     }
@@ -43,8 +42,7 @@ public interface HttpSessionListener extends EventListener {
      * Notification that a session is about to be invalidated.
      * The default implementation is a NO-OP.
      *
-     * @param se
-     *            the notification event
+     * @param se the notification event
      */
     public default void sessionDestroyed(HttpSessionEvent se) {
     }

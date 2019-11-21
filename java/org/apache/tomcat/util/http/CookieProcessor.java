@@ -35,9 +35,8 @@ public interface CookieProcessor {
      * Generate the {@code Set-Cookie} HTTP header value for the given Cookie.
      *
      * @param cookie The cookie for which the header will be generated
-     *
      * @return The header value in a form that can be added directly to the
-     *         response
+     * response
      */
     String generateHeader(Cookie cookie);
 

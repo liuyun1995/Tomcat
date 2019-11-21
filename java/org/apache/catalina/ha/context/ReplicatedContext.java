@@ -51,24 +51,24 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
      * Start this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
         super.startInternal();
         try {
-            CatalinaCluster catclust = (CatalinaCluster)this.getCluster();
-            if ( catclust != null ) {
-                ReplicatedMap<String,Object> map = new ReplicatedMap<>(
-                        this, catclust.getChannel(),DEFAULT_REPL_TIMEOUT,
-                        getName(),getClassLoaders());
+            CatalinaCluster catclust = (CatalinaCluster) this.getCluster();
+            if (catclust != null) {
+                ReplicatedMap<String, Object> map = new ReplicatedMap<>(
+                        this, catclust.getChannel(), DEFAULT_REPL_TIMEOUT,
+                        getName(), getClassLoaders());
                 map.setChannelSendOptions(mapSendOptions);
-                ((ReplApplContext)this.context).setAttributeMap(map);
+                ((ReplApplContext) this.context).setAttributeMap(map);
             }
-        }  catch ( Exception x ) {
-            log.error(sm.getString("replicatedContext.startUnable", getName()),x);
-            throw new LifecycleException(sm.getString("replicatedContext.startFailed", getName()),x);
+        } catch (Exception x) {
+            log.error(sm.getString("replicatedContext.startUnable", getName()), x);
+            throw new LifecycleException(sm.getString("replicatedContext.startFailed", getName()), x);
         }
     }
 
@@ -76,8 +76,8 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
      * Stop this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {
@@ -107,11 +107,11 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
         ClassLoader classLoader = null;
         loader = this.getLoader();
         if (loader != null) classLoader = loader.getClassLoader();
-        if ( classLoader == null ) classLoader = Thread.currentThread().getContextClassLoader();
-        if ( classLoader == Thread.currentThread().getContextClassLoader() ) {
-            return new ClassLoader[] {classLoader};
+        if (classLoader == null) classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader == Thread.currentThread().getContextClassLoader()) {
+            return new ClassLoader[]{classLoader};
         } else {
-            return new ClassLoader[] {classLoader,Thread.currentThread().getContextClassLoader()};
+            return new ClassLoader[]{classLoader, Thread.currentThread().getContextClassLoader()};
         }
     }
 
@@ -120,10 +120,10 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
         if (context == null) {
             context = new ReplApplContext(this);
             if (getAltDDName() != null)
-                context.setAttribute(Globals.ALT_DD_ATTR,getAltDDName());
+                context.setAttribute(Globals.ALT_DD_ATTR, getAltDDName());
         }
 
-        return ((ReplApplContext)context).getFacade();
+        return ((ReplApplContext) context).getFacade();
 
     }
 
@@ -136,18 +136,19 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
         }
 
         protected ReplicatedContext getParent() {
-            return (ReplicatedContext)getContext();
+            return (ReplicatedContext) getContext();
         }
 
         @Override
         protected ServletContext getFacade() {
-             return super.getFacade();
+            return super.getFacade();
         }
 
-        public Map<String,Object> getAttributeMap() {
+        public Map<String, Object> getAttributeMap() {
             return this.attributes;
         }
-        public void setAttributeMap(Map<String,Object> map) {
+
+        public void setAttributeMap(Map<String, Object> map) {
             this.attributes = map;
         }
 
@@ -167,10 +168,10 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
                 removeAttribute(name);
                 return;
             }
-            if ( (!getParent().getState().isAvailable()) || "org.apache.jasper.runtime.JspApplicationContextImpl".equals(name) ){
-                tomcatAttributes.put(name,value);
+            if ((!getParent().getState().isAvailable()) || "org.apache.jasper.runtime.JspApplicationContextImpl".equals(name)) {
+                tomcatAttributes.put(name, value);
             } else
-                super.setAttribute(name,value);
+                super.setAttribute(name, value);
         }
 
         @Override
@@ -189,28 +190,31 @@ public class ReplicatedContext extends StandardContext implements MapOwner {
             Set<String> names = new HashSet<>();
             names.addAll(attributes.keySet());
 
-            return new MultiEnumeration<>(new Enumeration[] {
+            return new MultiEnumeration<>(new Enumeration[]{
                     super.getAttributeNames(),
-                    Collections.enumeration(names) });
+                    Collections.enumeration(names)});
         }
     }
 
     protected static class MultiEnumeration<T> implements Enumeration<T> {
         private final Enumeration<T>[] e;
+
         public MultiEnumeration(Enumeration<T>[] lists) {
             e = lists;
         }
+
         @Override
         public boolean hasMoreElements() {
-            for ( int i=0; i<e.length; i++ ) {
-                if ( e[i].hasMoreElements() ) return true;
+            for (int i = 0; i < e.length; i++) {
+                if (e[i].hasMoreElements()) return true;
             }
             return false;
         }
+
         @Override
         public T nextElement() {
-            for ( int i=0; i<e.length; i++ ) {
-                if ( e[i].hasMoreElements() ) return e[i].nextElement();
+            for (int i = 0; i < e.length; i++) {
+                if (e[i].hasMoreElements()) return e[i].nextElement();
             }
             return null;
 

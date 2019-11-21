@@ -224,7 +224,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * The string manager for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
 
     /**
@@ -294,16 +294,15 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Process a GET request for the specified resource.
      *
-     * @param request The servlet request we are processing
+     * @param request  The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet-specified error occurs
      */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         StringManager smClient = StringManager.getManager(
                 Constants.Package, request.getLocales());
@@ -329,7 +328,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         String tag = request.getParameter("tag");
         boolean update = false;
         if ((request.getParameter("update") != null)
-            && (request.getParameter("update").equals("true"))) {
+                && (request.getParameter("update").equals("true"))) {
             update = true;
         }
         String tlsHostName = request.getParameter("tlsHostName");
@@ -408,16 +407,15 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Process a PUT request for the specified resource.
      *
-     * @param request The servlet request we are processing
+     * @param request  The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet-specified error occurs
      */
     @Override
     public void doPut(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         StringManager smClient = StringManager.getManager(
                 Constants.Package, request.getLocales());
@@ -435,12 +433,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         String tag = request.getParameter("tag");
         boolean update = false;
         if ((request.getParameter("update") != null)
-            && (request.getParameter("update").equals("true"))) {
+                && (request.getParameter("update").equals("true"))) {
             update = true;
         }
 
         // Prepare our output writer to generate the response message
-        response.setContentType("text/plain;charset="+Constants.CHARSET);
+        response.setContentType("text/plain;charset=" + Constants.CHARSET);
         // Stop older versions of IE thinking they know best. We set text/plain
         // in the line above for a reason. IE's behaviour is unwanted at best
         // and dangerous at worst.
@@ -485,14 +483,14 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         }
 
         // Acquire global JNDI resources if available
-        Server server = ((Engine)host.getParent()).getService().getServer();
+        Server server = ((Engine) host.getParent()).getService().getServer();
         if (server != null) {
             global = server.getGlobalNamingContext();
         }
 
         // Calculate the directory into which we will be deploying applications
         versioned = (File) getServletContext().getAttribute
-            (ServletContext.TEMPDIR);
+                (ServletContext.TEMPDIR);
 
         configBase = new File(context.getCatalinaBase(), "conf");
         Container container = context;
@@ -516,14 +514,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         // Log debugging messages as necessary
         if (debug >= 1) {
             log("init: Associated with Deployer '" +
-                oname + "'");
+                    oname + "'");
             if (global != null) {
                 log("init: Global resources are available");
             }
         }
 
     }
-
 
 
     // -------------------------------------------------------- Private Methods
@@ -533,11 +530,11 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * Find potential memory leaks caused by web application reload.
      *
      * @param statusLine Print a status line
-     * @param writer The output writer
-     * @param smClient StringManager for the client's locale
+     * @param writer     The output writer
+     * @param smClient   StringManager for the client's locale
      */
     protected void findleaks(boolean statusLine, PrintWriter writer,
-            StringManager smClient) {
+                             StringManager smClient) {
 
         if (!(host instanceof StandardHost)) {
             writer.println(smClient.getString("managerServlet.findleaksFail"));
@@ -545,7 +542,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         }
 
         String[] results =
-            ((StandardHost) host).findReloadedContextMemoryLeaks();
+                ((StandardHost) host).findReloadedContextMemoryLeaks();
 
         if (results.length > 0) {
             if (statusLine) {
@@ -602,12 +599,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Write some VM info.
      *
-     * @param writer The output writer
-     * @param smClient StringManager for the client's locale
+     * @param writer           The output writer
+     * @param smClient         StringManager for the client's locale
      * @param requestedLocales the client's locales
      */
     protected void vmInfo(PrintWriter writer, StringManager smClient,
-            Enumeration<Locale> requestedLocales) {
+                          Enumeration<Locale> requestedLocales) {
         writer.println(smClient.getString("managerServlet.vminfo"));
         writer.print(Diagnostics.getVMInfo(requestedLocales));
     }
@@ -615,12 +612,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Write a JVM thread dump.
      *
-     * @param writer The output writer
-     * @param smClient StringManager for the client's locale
+     * @param writer           The output writer
+     * @param smClient         StringManager for the client's locale
      * @param requestedLocales the client's locales
      */
     protected void threadDump(PrintWriter writer, StringManager smClient,
-            Enumeration<Locale> requestedLocales) {
+                              Enumeration<Locale> requestedLocales) {
         writer.println(smClient.getString("managerServlet.threaddump"));
         writer.print(Diagnostics.getThreadDump(requestedLocales));
     }
@@ -628,8 +625,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
     protected void sslConnectorCiphers(PrintWriter writer, StringManager smClient) {
         writer.println(smClient.getString("managerServlet.sslConnectorCiphers"));
-        Map<String,List<String>> connectorCiphers = getConnectorCiphers(smClient);
-        for (Map.Entry<String,List<String>> entry : connectorCiphers.entrySet()) {
+        Map<String, List<String>> connectorCiphers = getConnectorCiphers(smClient);
+        for (Map.Entry<String, List<String>> entry : connectorCiphers.entrySet()) {
             writer.println(entry.getKey());
             for (String cipher : entry.getValue()) {
                 writer.print("  ");
@@ -641,8 +638,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
     private void sslConnectorCerts(PrintWriter writer, StringManager smClient) {
         writer.println(smClient.getString("managerServlet.sslConnectorCerts"));
-        Map<String,List<String>> connectorCerts = getConnectorCerts(smClient);
-        for (Map.Entry<String,List<String>> entry : connectorCerts.entrySet()) {
+        Map<String, List<String>> connectorCerts = getConnectorCerts(smClient);
+        for (Map.Entry<String, List<String>> entry : connectorCerts.entrySet()) {
             writer.println(entry.getKey());
             for (String cert : entry.getValue()) {
                 writer.println(cert);
@@ -653,8 +650,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
     private void sslConnectorTrustedCerts(PrintWriter writer, StringManager smClient) {
         writer.println(smClient.getString("managerServlet.sslConnectorTrustedCerts"));
-        Map<String,List<String>> connectorTrustedCerts = getConnectorTrustedCerts(smClient);
-        for (Map.Entry<String,List<String>> entry : connectorTrustedCerts.entrySet()) {
+        Map<String, List<String>> connectorTrustedCerts = getConnectorTrustedCerts(smClient);
+        for (Map.Entry<String, List<String>> entry : connectorTrustedCerts.entrySet()) {
             writer.println(entry.getKey());
             for (String cert : entry.getValue()) {
                 writer.println(cert);
@@ -711,8 +708,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
             }
             try {
                 mBeanServer.invoke(storeConfigOname, "store",
-                        new Object[] {context},
-                        new String [] { "java.lang.String"});
+                        new Object[]{context},
+                        new String[]{"java.lang.String"});
                 writer.println(smClient.getString("managerServlet.savedContext",
                         path));
             } catch (Exception e) {
@@ -733,14 +730,14 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @param cn       Name of the application to be installed
      * @param tag      Tag to be associated with the webapp
      * @param update   Flag that indicates that any existing app should be
-     *                   replaced
+     *                 replaced
      * @param request  Servlet request we are processing
      * @param smClient i18n messages using the locale of the client
      */
     protected synchronized void deploy
-        (PrintWriter writer, String config, ContextName cn,
-         String tag, boolean update, HttpServletRequest request,
-         StringManager smClient) {
+    (PrintWriter writer, String config, ContextName cn,
+     String tag, boolean update, HttpServletRequest request,
+     StringManager smClient) {
 
         if (config != null && config.length() == 0) {
             config = null;
@@ -815,7 +812,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
                     if (config != null) {
                         if (!configBase.mkdirs() && !configBase.isDirectory()) {
                             writer.println(smClient.getString(
-                                    "managerServlet.mkdirFail",configBase));
+                                    "managerServlet.mkdirFail", configBase));
                             return;
                         }
                         if (ExpandWar.copy(new File(config),
@@ -863,13 +860,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * Install an application for the specified path from the specified
      * web application archive.
      *
-     * @param writer    Writer to render results to
-     * @param tag       Revision tag to deploy from
-     * @param cn        Name of the application to be installed
-     * @param smClient  i18n messages using the locale of the client
+     * @param writer   Writer to render results to
+     * @param tag      Revision tag to deploy from
+     * @param cn       Name of the application to be installed
+     * @param smClient i18n messages using the locale of the client
      */
     protected void deploy(PrintWriter writer, ContextName cn, String tag,
-            StringManager smClient) {
+                          StringManager smClient) {
 
         // NOTE: It is assumed that update is always true in this method.
 
@@ -921,15 +918,15 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * Install an application for the specified path from the specified
      * web application archive.
      *
-     * @param writer    Writer to render results to
-     * @param config    URL of the context configuration file to be installed
-     * @param cn        Name of the application to be installed
-     * @param war       URL of the web application archive to be installed
-     * @param update    true to override any existing webapp on the path
-     * @param smClient  i18n messages using the locale of the client
+     * @param writer   Writer to render results to
+     * @param config   URL of the context configuration file to be installed
+     * @param cn       Name of the application to be installed
+     * @param war      URL of the web application archive to be installed
+     * @param update   true to override any existing webapp on the path
+     * @param smClient i18n messages using the locale of the client
      */
     protected void deploy(PrintWriter writer, String config, ContextName cn,
-            String war, boolean update, StringManager smClient) {
+                          String war, boolean update, StringManager smClient) {
 
         if (config != null && config.length() == 0) {
             config = null;
@@ -961,7 +958,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
             return;
         }
         @SuppressWarnings("null") // checked in call above
-        String name = cn.getName();
+                String name = cn.getName();
         String baseName = cn.getBaseName();
         String displayPath = cn.getDisplayName();
 
@@ -990,7 +987,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
                     if (config != null) {
                         if (!configBase.mkdirs() && !configBase.isDirectory()) {
                             writer.println(smClient.getString(
-                                    "managerServlet.mkdirFail",configBase));
+                                    "managerServlet.mkdirFail", configBase));
                             return;
                         }
                         File localConfig = new File(configBase, baseName + ".xml");
@@ -1033,13 +1030,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
 
     private void writeDeployResult(PrintWriter writer, StringManager smClient,
-            String name, String displayPath) {
+                                   String name, String displayPath) {
         Context deployed = (Context) host.findChild(name);
         if (deployed != null && deployed.getConfigured() &&
                 deployed.getState().isAvailable()) {
             writer.println(smClient.getString(
                     "managerServlet.deployed", displayPath));
-        } else if (deployed!=null && !deployed.getState().isAvailable()) {
+        } else if (deployed != null && !deployed.getState().isAvailable()) {
             writer.println(smClient.getString(
                     "managerServlet.deployedButNotStarted", displayPath));
         } else {
@@ -1053,23 +1050,23 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Render a list of the currently active Contexts in our virtual host.
      *
-     * @param writer Writer to render to
+     * @param writer   Writer to render to
      * @param smClient i18n support for current client's locale
      */
     protected void list(PrintWriter writer, StringManager smClient) {
 
         if (debug >= 1)
             log("list: Listing contexts for virtual host '" +
-                host.getName() + "'");
+                    host.getName() + "'");
 
         writer.println(smClient.getString("managerServlet.listed",
-                                    host.getName()));
+                host.getName()));
         Container[] contexts = host.findChildren();
         for (int i = 0; i < contexts.length; i++) {
             Context context = (Context) contexts[i];
-            if (context != null ) {
+            if (context != null) {
                 String displayPath = context.getPath();
-                if( displayPath.equals("") )
+                if (displayPath.equals(""))
                     displayPath = "/";
                 if (context.getState().isAvailable()) {
                     writer.println(smClient.getString("managerServlet.listitem",
@@ -1092,12 +1089,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Reload the web application at the specified context path.
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to be restarted
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to be restarted
      * @param smClient i18n support for current client's locale
      */
     protected void reload(PrintWriter writer, ContextName cn,
-            StringManager smClient) {
+                          StringManager smClient) {
 
         if (debug >= 1)
             log("restart: Reloading web application '" + cn + "'");
@@ -1134,13 +1131,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Render a list of available global JNDI resources.
      *
-     * @param writer Writer to render to
-     * @param type Fully qualified class name of the resource type of interest,
-     *  or <code>null</code> to list resources of all types
+     * @param writer   Writer to render to
+     * @param type     Fully qualified class name of the resource type of interest,
+     *                 or <code>null</code> to list resources of all types
      * @param smClient i18n support for current client's locale
      */
     protected void resources(PrintWriter writer, String type,
-            StringManager smClient) {
+                             StringManager smClient) {
 
         if (debug >= 1) {
             if (type != null) {
@@ -1172,34 +1169,34 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * List the resources of the given context.
      *
-     * @param writer Writer to render to
-     * @param prefix Path for recursion
+     * @param writer        Writer to render to
+     * @param prefix        Path for recursion
      * @param namingContext The naming context for lookups
-     * @param type Fully qualified class name of the resource type of interest,
-     *  or <code>null</code> to list resources of all types
-     * @param clazz Unused
-     * @param smClient i18n support for current client's locale
-     *
+     * @param type          Fully qualified class name of the resource type of interest,
+     *                      or <code>null</code> to list resources of all types
+     * @param clazz         Unused
+     * @param smClient      i18n support for current client's locale
      * @deprecated Use {@link #printResources(PrintWriter, String,
-     *             javax.naming.Context, String, StringManager)}
-     *             This method will be removed in Tomcat 10.x onwards
+     * javax.naming.Context, String, StringManager)}
+     * This method will be removed in Tomcat 10.x onwards
      */
     @Deprecated
     protected void printResources(PrintWriter writer, String prefix,
-            javax.naming.Context namingContext,
-            String type, Class<?> clazz, StringManager smClient) {
+                                  javax.naming.Context namingContext,
+                                  String type, Class<?> clazz, StringManager smClient) {
         printResources(writer, prefix, namingContext, type, smClient);
     }
 
 
     /**
      * List the resources of the given context.
-     * @param writer Writer to render to
-     * @param prefix Path for recursion
+     *
+     * @param writer        Writer to render to
+     * @param prefix        Path for recursion
      * @param namingContext The naming context for lookups
-     * @param type Fully qualified class name of the resource type of interest,
-     *  or <code>null</code> to list resources of all types
-     * @param smClient i18n support for current client's locale
+     * @param type          Fully qualified class name of the resource type of interest,
+     *                      or <code>null</code> to list resources of all types
+     * @param smClient      i18n support for current client's locale
      */
     protected void printResources(PrintWriter writer, String prefix,
                                   javax.naming.Context namingContext,
@@ -1236,10 +1233,11 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
     /**
      * Writes System OS and JVM properties.
-     * @param writer Writer to render to
+     *
+     * @param writer   Writer to render to
      * @param smClient i18n support for current client's locale
-    */
-    protected void serverinfo(PrintWriter writer,  StringManager smClient) {
+     */
+    protected void serverinfo(PrintWriter writer, StringManager smClient) {
         if (debug >= 1)
             log("serverinfo");
         try {
@@ -1259,13 +1257,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * Displays a profile of session thisAccessedTime listing number
      * of sessions for each 10 minute interval up to 10 hours.
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to list session information for
-     * @param idle Expire all sessions with idle time &gt; idle for this context
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to list session information for
+     * @param idle     Expire all sessions with idle time &gt; idle for this context
      * @param smClient i18n support for current client's locale
      */
     protected void sessions(PrintWriter writer, ContextName cn, int idle,
-            StringManager smClient) {
+                            StringManager smClient) {
 
         if (debug >= 1) {
             log("sessions: Session information for web application '" + cn + "'");
@@ -1286,8 +1284,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
                         Escape.htmlElementContent(displayPath)));
                 return;
             }
-            Manager manager = context.getManager() ;
-            if(manager == null) {
+            Manager manager = context.getManager();
+            if (manager == null) {
                 writer.println(smClient.getString("managerServlet.noManager",
                         Escape.htmlElementContent(displayPath)));
                 return;
@@ -1311,17 +1309,17 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
             writer.println(smClient.getString(
                     "managerServlet.sessiondefaultmax",
                     "" + maxInactiveInterval));
-            Session [] sessions = manager.findSessions();
+            Session[] sessions = manager.findSessions();
             int[] timeout = new int[maxCount + 1];
             int notimeout = 0;
             int expired = 0;
             for (int i = 0; i < sessions.length; i++) {
                 int time = (int) (sessions[i].getIdleTimeInternal() / 1000L);
-                if (idle >= 0 && time >= idle*60) {
+                if (idle >= 0 && time >= idle * 60) {
                     sessions[i].expire();
                     expired++;
                 }
-                time=time/60/histoInterval;
+                time = time / 60 / histoInterval;
                 if (time < 0)
                     notimeout++;
                 else if (time >= maxCount)
@@ -1337,13 +1335,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
                 if (timeout[i] > 0)
                     writer.println(smClient.getString(
                             "managerServlet.sessiontimeout",
-                            "" + (i)*histoInterval + " - <" + (i+1)*histoInterval,
+                            "" + (i) * histoInterval + " - <" + (i + 1) * histoInterval,
                             "" + timeout[i]));
             }
             if (timeout[maxCount] > 0) {
                 writer.println(smClient.getString(
                         "managerServlet.sessiontimeout",
-                        ">=" + maxCount*histoInterval,
+                        ">=" + maxCount * histoInterval,
                         "" + timeout[maxCount]));
             }
             if (notimeout > 0)
@@ -1353,7 +1351,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
             if (idle >= 0)
                 writer.println(smClient.getString(
                         "managerServlet.sessiontimeout.expired",
-                        ">" + idle,"" + expired));
+                        ">" + idle, "" + expired));
         } catch (Throwable t) {
             ExceptionUtils.handleThrowable(t);
             log(sm.getString("managerServlet.error.sessions", displayPath), t);
@@ -1367,13 +1365,13 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Extract the expiration request parameter
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to list session information for
-     * @param req The Servlet request
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to list session information for
+     * @param req      The Servlet request
      * @param smClient i18n support for current client's locale
      */
     protected void expireSessions(PrintWriter writer, ContextName cn,
-            HttpServletRequest req, StringManager smClient) {
+                                  HttpServletRequest req, StringManager smClient) {
         int idle = -1;
         String idleParam = req.getParameter("idle");
         if (idleParam != null) {
@@ -1389,12 +1387,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Start the web application at the specified context path.
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to be started
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to be started
      * @param smClient i18n support for current client's locale
      */
     protected void start(PrintWriter writer, ContextName cn,
-            StringManager smClient) {
+                         StringManager smClient) {
 
         if (debug >= 1)
             log("start: Starting web application '" + cn + "'");
@@ -1434,12 +1432,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Stop the web application at the specified context path.
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to be stopped
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to be stopped
      * @param smClient i18n support for current client's locale
      */
     protected void stop(PrintWriter writer, ContextName cn,
-            StringManager smClient) {
+                        StringManager smClient) {
 
         if (debug >= 1)
             log("stop: Stopping web application '" + cn + "'");
@@ -1478,12 +1476,12 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     /**
      * Undeploy the web application at the specified context path.
      *
-     * @param writer Writer to render to
-     * @param cn Name of the application to be removed
+     * @param writer   Writer to render to
+     * @param cn       Name of the application to be removed
      * @param smClient i18n support for current client's locale
      */
     protected void undeploy(PrintWriter writer, ContextName cn,
-            StringManager smClient) {
+                            StringManager smClient) {
 
         if (debug >= 1)
             log("undeploy: Undeploying web application at '" + cn + "'");
@@ -1568,11 +1566,11 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @throws Exception Propagate JMX invocation error
      */
     protected boolean isDeployed(String name)
-        throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+            throws Exception {
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         Boolean result =
-            (Boolean) mBeanServer.invoke(oname, "isDeployed", params, signature);
+                (Boolean) mBeanServer.invoke(oname, "isDeployed", params, signature);
         return result.booleanValue();
     }
 
@@ -1584,9 +1582,9 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @throws Exception Propagate JMX invocation error
      */
     protected void check(String name)
-        throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+            throws Exception {
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "check", params, signature);
     }
 
@@ -1599,11 +1597,11 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @throws Exception Propagate JMX invocation error
      */
     protected boolean isServiced(String name)
-        throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+            throws Exception {
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         Boolean result =
-            (Boolean) mBeanServer.invoke(oname, "isServiced", params, signature);
+                (Boolean) mBeanServer.invoke(oname, "isServiced", params, signature);
         return result.booleanValue();
     }
 
@@ -1615,9 +1613,9 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @throws Exception Propagate JMX invocation error
      */
     protected void addServiced(String name)
-        throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+            throws Exception {
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "addServiced", params, signature);
     }
 
@@ -1629,9 +1627,9 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * @throws Exception Propagate JMX invocation error
      */
     protected void removeServiced(String name)
-        throws Exception {
-        String[] params = { name };
-        String[] signature = { "java.lang.String" };
+            throws Exception {
+        String[] params = {name};
+        String[] signature = {"java.lang.String"};
         mBeanServer.invoke(oname, "removeServiced", params, signature);
     }
 
@@ -1640,16 +1638,15 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
      * Upload the WAR file included in this request, and store it at the
      * specified file location.
      *
-     * @param writer    Writer to render to
-     * @param request   The servlet request we are processing
-     * @param war       The file into which we should store the uploaded WAR
-     * @param smClient  The StringManager used to construct i18n messages based
-     *                  on the Locale of the client
-     *
-     * @exception IOException if an I/O error occurs during processing
+     * @param writer   Writer to render to
+     * @param request  The servlet request we are processing
+     * @param war      The file into which we should store the uploaded WAR
+     * @param smClient The StringManager used to construct i18n messages based
+     *                 on the Locale of the client
+     * @throws IOException if an I/O error occurs during processing
      */
     protected void uploadWar(PrintWriter writer, HttpServletRequest request,
-            File war, StringManager smClient) throws IOException {
+                             File war, StringManager smClient) throws IOException {
 
         if (war.exists() && !war.delete()) {
             String msg = smClient.getString("managerServlet.deleteFail", war);
@@ -1657,7 +1654,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         }
 
         try (ServletInputStream istream = request.getInputStream();
-                OutputStream ostream = new FileOutputStream(war)) {
+             OutputStream ostream = new FileOutputStream(war)) {
             IOTools.flow(istream, ostream);
         } catch (IOException e) {
             if (war.exists() && !war.delete()) {
@@ -1670,7 +1667,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
 
 
     protected static boolean validateContextName(ContextName cn,
-            PrintWriter writer, StringManager smClient) {
+                                                 PrintWriter writer, StringManager smClient) {
 
         // ContextName should be non-null with a path that is empty or starts
         // with /
@@ -1687,8 +1684,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
         return false;
     }
 
-    protected Map<String,List<String>> getConnectorCiphers(StringManager smClient) {
-        Map<String,List<String>> result = new HashMap<>();
+    protected Map<String, List<String>> getConnectorCiphers(StringManager smClient) {
+        Map<String, List<String>> result = new HashMap<>();
 
         Connector connectors[] = getConnectors();
         for (Connector connector : connectors) {
@@ -1698,7 +1695,7 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
                     String name = connector.toString() + "-" + sslHostConfig.getHostName();
                     /* Add cipher list, keep order but remove duplicates */
                     result.put(name, new ArrayList<>(new LinkedHashSet<>(
-                        Arrays.asList(sslHostConfig.getEnabledCiphers()))));
+                            Arrays.asList(sslHostConfig.getEnabledCiphers()))));
                 }
             } else {
                 ArrayList<String> cipherList = new ArrayList<>(1);
@@ -1710,8 +1707,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     }
 
 
-    protected Map<String,List<String>> getConnectorCerts(StringManager smClient) {
-        Map<String,List<String>> result = new HashMap<>();
+    protected Map<String, List<String>> getConnectorCerts(StringManager smClient) {
+        Map<String, List<String>> result = new HashMap<>();
 
         Connector connectors[] = getConnectors();
         for (Connector connector : connectors) {
@@ -1759,8 +1756,8 @@ public class ManagerServlet extends HttpServlet implements ContainerServlet {
     }
 
 
-    protected Map<String,List<String>> getConnectorTrustedCerts(StringManager smClient) {
-        Map<String,List<String>> result = new HashMap<>();
+    protected Map<String, List<String>> getConnectorTrustedCerts(StringManager smClient) {
+        Map<String, List<String>> result = new HashMap<>();
 
         Connector connectors[] = getConnectors();
         for (Connector connector : connectors) {

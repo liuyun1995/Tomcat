@@ -59,13 +59,13 @@ public class CertificateStreamProvider extends AbstractStreamProvider {
     private static KeyManager[] configureClientCert(String clientCertFile, String clientKeyFile, char[] clientKeyPassword, String clientKeyAlgo) throws Exception {
         try (InputStream certInputStream = new FileInputStream(clientCertFile)) {
             CertificateFactory certFactory = CertificateFactory.getInstance("X509");
-            X509Certificate cert = (X509Certificate)certFactory.generateCertificate(certInputStream);
+            X509Certificate cert = (X509Certificate) certFactory.generateCertificate(certInputStream);
 
             PEMFile pemFile = new PEMFile(clientKeyFile, new String(clientKeyPassword), clientKeyAlgo);
             PrivateKey privKey = pemFile.getPrivateKey();
 
             KeyStore keyStore = KeyStore.getInstance("JKS");
-            keyStore.load(null,  null);
+            keyStore.load(null, null);
 
             String alias = cert.getSubjectX500Principal().getName();
             keyStore.setKeyEntry(alias, privKey, clientKeyPassword, new Certificate[]{cert});

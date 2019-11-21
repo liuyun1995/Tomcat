@@ -31,7 +31,6 @@ import org.apache.tomcat.util.res.StringManager;
  * <ul>
  * <li>differentiate between closed (normal) and closed caused by reset</li>
  * </ul>
- *
  */
 class StreamStateMachine {
 
@@ -86,7 +85,7 @@ class StreamStateMachine {
      * </ul>
      *
      * @throws IllegalStateException If the stream is in a state that does not
-     *         permit resets
+     *                               permit resets
      */
     public synchronized void sendReset() {
         if (state == State.IDLE) {
@@ -162,52 +161,52 @@ class StreamStateMachine {
 
 
     private enum State {
-        IDLE               (false, false, false, true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.HEADERS,
-                                                       FrameType.PRIORITY),
-        OPEN               (true,  true,  true,  true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.DATA,
-                                                       FrameType.HEADERS,
-                                                       FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.PUSH_PROMISE,
-                                                       FrameType.WINDOW_UPDATE),
-        RESERVED_LOCAL     (false, false, true,  true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.WINDOW_UPDATE),
-        RESERVED_REMOTE    (false,  true, true,  true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.HEADERS,
-                                                       FrameType.PRIORITY,
-                                                       FrameType.RST),
-        HALF_CLOSED_LOCAL  (true,  false, true,  true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.DATA,
-                                                       FrameType.HEADERS,
-                                                       FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.PUSH_PROMISE,
-                                                       FrameType.WINDOW_UPDATE),
-        HALF_CLOSED_REMOTE (false, true,  true,  true,
-                            Http2Error.STREAM_CLOSED,  FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.WINDOW_UPDATE),
-        CLOSED_RX          (false, false, false, true,
-                            Http2Error.STREAM_CLOSED,  FrameType.PRIORITY),
-        CLOSED_TX          (false, false, false, true,
-                            Http2Error.STREAM_CLOSED,  FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.WINDOW_UPDATE),
-        CLOSED_RST_RX      (false, false, false, false,
-                            Http2Error.STREAM_CLOSED,  FrameType.PRIORITY),
-        CLOSED_RST_TX      (false, false, false, false,
-                            Http2Error.STREAM_CLOSED,  FrameType.DATA,
-                                                       FrameType.HEADERS,
-                                                       FrameType.PRIORITY,
-                                                       FrameType.RST,
-                                                       FrameType.PUSH_PROMISE,
-                                                       FrameType.WINDOW_UPDATE),
-        CLOSED_FINAL       (false, false, false, true,
-                            Http2Error.PROTOCOL_ERROR, FrameType.PRIORITY);
+        IDLE(false, false, false, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.HEADERS,
+                FrameType.PRIORITY),
+        OPEN(true, true, true, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.DATA,
+                FrameType.HEADERS,
+                FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.PUSH_PROMISE,
+                FrameType.WINDOW_UPDATE),
+        RESERVED_LOCAL(false, false, true, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.WINDOW_UPDATE),
+        RESERVED_REMOTE(false, true, true, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.HEADERS,
+                FrameType.PRIORITY,
+                FrameType.RST),
+        HALF_CLOSED_LOCAL(true, false, true, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.DATA,
+                FrameType.HEADERS,
+                FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.PUSH_PROMISE,
+                FrameType.WINDOW_UPDATE),
+        HALF_CLOSED_REMOTE(false, true, true, true,
+                Http2Error.STREAM_CLOSED, FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.WINDOW_UPDATE),
+        CLOSED_RX(false, false, false, true,
+                Http2Error.STREAM_CLOSED, FrameType.PRIORITY),
+        CLOSED_TX(false, false, false, true,
+                Http2Error.STREAM_CLOSED, FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.WINDOW_UPDATE),
+        CLOSED_RST_RX(false, false, false, false,
+                Http2Error.STREAM_CLOSED, FrameType.PRIORITY),
+        CLOSED_RST_TX(false, false, false, false,
+                Http2Error.STREAM_CLOSED, FrameType.DATA,
+                FrameType.HEADERS,
+                FrameType.PRIORITY,
+                FrameType.RST,
+                FrameType.PUSH_PROMISE,
+                FrameType.WINDOW_UPDATE),
+        CLOSED_FINAL(false, false, false, true,
+                Http2Error.PROTOCOL_ERROR, FrameType.PRIORITY);
 
         private final boolean canRead;
         private final boolean canWrite;
@@ -217,8 +216,8 @@ class StreamStateMachine {
         private final Set<FrameType> frameTypesPermitted = new HashSet<>();
 
         private State(boolean canRead, boolean canWrite, boolean canReset,
-                boolean connectionErrorForInvalidFrame, Http2Error errorCode,
-                FrameType... frameTypes) {
+                      boolean connectionErrorForInvalidFrame, Http2Error errorCode,
+                      FrameType... frameTypes) {
             this.canRead = canRead;
             this.canWrite = canWrite;
             this.canReset = canReset;

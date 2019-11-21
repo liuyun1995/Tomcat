@@ -35,22 +35,24 @@ import java.sql.SQLException;
  */
 public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
-    /** My delegate {@link DatabaseMetaData} */
+    /**
+     * My delegate {@link DatabaseMetaData}
+     */
     private final DatabaseMetaData databaseMetaData;
 
-    /** The connection that created me. **/
+    /**
+     * The connection that created me.
+     **/
     private final DelegatingConnection<?> connection;
 
     /**
      * Constructs a new instance for the given delegating connection and database meta data.
      *
-     * @param connection
-     *            the delegating connection
-     * @param databaseMetaData
-     *            the database meta data
+     * @param connection       the delegating connection
+     * @param databaseMetaData the database meta data
      */
     public DelegatingDatabaseMetaData(final DelegatingConnection<?> connection,
-            final DatabaseMetaData databaseMetaData) {
+                                      final DatabaseMetaData databaseMetaData) {
         super();
         this.connection = connection;
         this.databaseMetaData = databaseMetaData;
@@ -139,7 +141,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getAttributes(final String catalog, final String schemaPattern, final String typeNamePattern,
-            final String attributeNamePattern) throws SQLException {
+                                   final String attributeNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -152,7 +154,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getBestRowIdentifier(final String catalog, final String schema, final String table,
-            final int scope, final boolean nullable) throws SQLException {
+                                          final int scope, final boolean nullable) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -207,7 +209,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getColumnPrivileges(final String catalog, final String schema, final String table,
-            final String columnNamePattern) throws SQLException {
+                                         final String columnNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -220,7 +222,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getColumns(final String catalog, final String schemaPattern, final String tableNamePattern,
-            final String columnNamePattern) throws SQLException {
+                                final String columnNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -238,7 +240,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getCrossReference(final String parentCatalog, final String parentSchema, final String parentTable,
-            final String foreignCatalog, final String foreignSchema, final String foreignTable) throws SQLException {
+                                       final String foreignCatalog, final String foreignSchema, final String foreignTable) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection, databaseMetaData.getCrossReference(parentCatalog,
@@ -363,7 +365,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getFunctionColumns(final String catalog, final String schemaPattern,
-            final String functionNamePattern, final String columnNamePattern) throws SQLException {
+                                        final String functionNamePattern, final String columnNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection, databaseMetaData.getFunctionColumns(catalog,
@@ -412,7 +414,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getIndexInfo(final String catalog, final String schema, final String table, final boolean unique,
-            final boolean approximate) throws SQLException {
+                                  final boolean approximate) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -705,7 +707,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getProcedureColumns(final String catalog, final String schemaPattern,
-            final String procedureNamePattern, final String columnNamePattern) throws SQLException {
+                                         final String procedureNamePattern, final String columnNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection, databaseMetaData.getProcedureColumns(catalog,
@@ -741,7 +743,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getPseudoColumns(final String catalog, final String schemaPattern, final String tableNamePattern,
-            final String columnNamePattern) throws SQLException {
+                                      final String columnNamePattern) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection, Jdbc41Bridge.getPseudoColumns(databaseMetaData,
@@ -895,7 +897,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getTables(final String catalog, final String schemaPattern, final String tableNamePattern,
-            final String[] types) throws SQLException {
+                               final String[] types) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,
@@ -940,7 +942,7 @@ public class DelegatingDatabaseMetaData implements DatabaseMetaData {
 
     @Override
     public ResultSet getUDTs(final String catalog, final String schemaPattern, final String typeNamePattern,
-            final int[] types) throws SQLException {
+                             final int[] types) throws SQLException {
         connection.checkOpen();
         try {
             return DelegatingResultSet.wrapResultSet(connection,

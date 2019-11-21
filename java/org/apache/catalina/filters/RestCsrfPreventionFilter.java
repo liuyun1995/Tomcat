@@ -101,12 +101,12 @@ public class RestCsrfPreventionFilter extends CsrfPreventionFilterBase {
 
             RestCsrfPreventionStrategy strategy;
             switch (mType) {
-            case NON_MODIFYING_METHOD:
-                strategy = new FetchRequest();
-                break;
-            default:
-                strategy = new StateChangingRequest();
-                break;
+                case NON_MODIFYING_METHOD:
+                    strategy = new FetchRequest();
+                    break;
+                default:
+                    strategy = new StateChangingRequest();
+                    break;
             }
 
             if (!strategy.apply((HttpServletRequest) request, (HttpServletResponse) response)) {
@@ -222,9 +222,8 @@ public class RestCsrfPreventionFilter extends CsrfPreventionFilterBase {
      * parameter with the same name in the request. Request parameters cannot be
      * used to fetch new nonce, only header.
      *
-     * @param pathsList
-     *            Comma separated list of URLs to be configured as paths
-     *            accepting request parameters with nonce information.
+     * @param pathsList Comma separated list of URLs to be configured as paths
+     *                  accepting request parameters with nonce information.
      */
     public void setPathsAcceptingParams(String pathsList) {
         if (Objects.nonNull(pathsList)) {

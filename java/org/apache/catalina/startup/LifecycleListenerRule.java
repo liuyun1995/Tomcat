@@ -50,9 +50,9 @@ public class LifecycleListenerRule extends Rule {
      * Construct a new instance of this Rule.
      *
      * @param listenerClass Default name of the LifecycleListener
-     *  implementation class to be created
+     *                      implementation class to be created
      * @param attributeName Name of the attribute that optionally
-     *  includes an override name of the LifecycleListener class
+     *                      includes an override name of the LifecycleListener class
      */
     public LifecycleListenerRule(String listenerClass, String attributeName) {
 
@@ -85,12 +85,11 @@ public class LifecycleListenerRule extends Rule {
      * Handle the beginning of an XML element.
      *
      * @param attributes The attributes of this element
-     *
-     * @exception Exception if a processing error occurs
+     * @throws Exception if a processing error occurs
      */
     @Override
     public void begin(String namespace, String name, Attributes attributes)
-        throws Exception {
+            throws Exception {
 
         Container c = (Container) digester.peek();
         Container p = null;
@@ -111,7 +110,7 @@ public class LifecycleListenerRule extends Rule {
         // Check the container's parent for the specified attribute
         if (p != null && className == null) {
             String configClass =
-                (String) IntrospectionUtils.getProperty(p, attributeName);
+                    (String) IntrospectionUtils.getProperty(p, attributeName);
             if (configClass != null && configClass.length() > 0) {
                 className = configClass;
             }

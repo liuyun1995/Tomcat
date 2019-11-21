@@ -52,7 +52,7 @@ class StreamProcessor extends AbstractProcessor {
 
 
     StreamProcessor(Http2UpgradeHandler handler, Stream stream, Adapter adapter,
-            SocketWrapperBase<?> socketWrapper) {
+                    SocketWrapperBase<?> socketWrapper) {
         super(adapter, stream.getCoyoteRequest(), stream.getCoyoteResponse());
         this.handler = handler;
         this.stream = stream;
@@ -137,7 +137,7 @@ class StreamProcessor extends AbstractProcessor {
     // Static so it can be used by Stream to build the MimeHeaders required for
     // an ACK. For that use case coyoteRequest, protocol and stream will be null.
     static void prepareHeaders(Request coyoteRequest, Response coyoteResponse, boolean noSendfile,
-            Http2Protocol protocol, Stream stream) {
+                               Http2Protocol protocol, Stream stream) {
         MimeHeaders headers = coyoteResponse.getMimeHeaders();
         int statusCode = coyoteResponse.getStatus();
 

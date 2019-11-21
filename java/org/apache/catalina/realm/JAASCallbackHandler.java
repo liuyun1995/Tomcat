@@ -56,7 +56,7 @@ public class JAASCallbackHandler implements CallbackHandler {
      * Note that if the <code>JAASRealm</code> instance specifies digested passwords,
      * the <code>password</code> parameter will be pre-digested here.
      *
-     * @param realm Our associated JAASRealm instance
+     * @param realm    Our associated JAASRealm instance
      * @param username Username to be authenticated with
      * @param password Password to be authenticated with
      */
@@ -71,17 +71,17 @@ public class JAASCallbackHandler implements CallbackHandler {
     /**
      * Construct a callback handler for DIGEST authentication.
      *
-     * @param realm         Our associated JAASRealm instance
-     * @param username      Username to be authenticated with
-     * @param password      Password to be authenticated with
-     * @param nonce         Server generated nonce
-     * @param nc            Nonce count
-     * @param cnonce        Client generated nonce
-     * @param qop           Quality of protection applied to the message
-     * @param realmName     Realm name
-     * @param md5a2         Second MD5 digest used to calculate the digest
-     *                      MD5(Method + ":" + uri)
-     * @param authMethod    The authentication method in use
+     * @param realm      Our associated JAASRealm instance
+     * @param username   Username to be authenticated with
+     * @param password   Password to be authenticated with
+     * @param nonce      Server generated nonce
+     * @param nc         Nonce count
+     * @param cnonce     Client generated nonce
+     * @param qop        Quality of protection applied to the message
+     * @param realmName  Realm name
+     * @param md5a2      Second MD5 digest used to calculate the digest
+     *                   MD5(Method + ":" + uri)
+     * @param authMethod The authentication method in use
      */
     public JAASCallbackHandler(JAASRealm realm, String username,
                                String password, String nonce, String nc,
@@ -92,8 +92,7 @@ public class JAASCallbackHandler implements CallbackHandler {
 
         if (password != null && realm.hasMessageDigest()) {
             this.password = realm.getCredentialHandler().mutate(password);
-        }
-        else {
+        } else {
             this.password = password;
         }
         this.nonce = nonce;
@@ -174,14 +173,13 @@ public class JAASCallbackHandler implements CallbackHandler {
      * parameters required for DIGEST authentication.
      *
      * @param callbacks The set of <code>Callback</code>s to be processed
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception UnsupportedCallbackException if the login method requests
-     *  an unsupported callback type
+     * @throws IOException                  if an input/output error occurs
+     * @throws UnsupportedCallbackException if the login method requests
+     *                                      an unsupported callback type
      */
     @Override
     public void handle(Callback callbacks[])
-        throws IOException, UnsupportedCallbackException {
+            throws IOException, UnsupportedCallbackException {
 
         for (int i = 0; i < callbacks.length; i++) {
 
@@ -197,7 +195,7 @@ public class JAASCallbackHandler implements CallbackHandler {
                     passwordcontents = new char[0];
                 }
                 ((PasswordCallback) callbacks[i]).setPassword
-                    (passwordcontents);
+                        (passwordcontents);
             } else if (callbacks[i] instanceof TextInputCallback) {
                 TextInputCallback cb = ((TextInputCallback) callbacks[i]);
                 if (cb.getPrompt().equals("nonce")) {

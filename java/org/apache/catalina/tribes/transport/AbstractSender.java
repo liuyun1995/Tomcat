@@ -53,8 +53,9 @@ public abstract class AbstractSender implements DataSender {
 
     /**
      * transfers sender properties from one sender to another
+     *
      * @param from AbstractSender
-     * @param to AbstractSender
+     * @param to   AbstractSender
      */
     public static void transferProperties(AbstractSender from, AbstractSender to) {
         to.rxBufSize = from.rxBufSize;
@@ -87,15 +88,14 @@ public abstract class AbstractSender implements DataSender {
     /**
      * connect
      *
-     * @throws IOException
-     * TODO Implement this org.apache.catalina.tribes.transport.DataSender method
+     * @throws IOException TODO Implement this org.apache.catalina.tribes.transport.DataSender method
      */
     @Override
     public abstract void connect() throws IOException;
 
     /**
      * disconnect
-     *
+     * <p>
      * TODO Implement this org.apache.catalina.tribes.transport.DataSender method
      */
     @Override
@@ -111,13 +111,13 @@ public abstract class AbstractSender implements DataSender {
     public boolean keepalive() {
         boolean disconnect = false;
         if (isUdpBased()) disconnect = true; //always disconnect UDP, TODO optimize the keepalive handling
-        else if ( keepAliveCount >= 0 && requestCount>keepAliveCount ) disconnect = true;
-        else if ( keepAliveTime >= 0 && (System.currentTimeMillis()-connectTime)>keepAliveTime ) disconnect = true;
-        if ( disconnect ) disconnect();
+        else if (keepAliveCount >= 0 && requestCount > keepAliveCount) disconnect = true;
+        else if (keepAliveTime >= 0 && (System.currentTimeMillis() - connectTime) > keepAliveTime) disconnect = true;
+        if (disconnect) disconnect();
         return disconnect;
     }
 
-    protected void setConnected(boolean connected){
+    protected void setConnected(boolean connected) {
         this.connected = connected;
     }
 

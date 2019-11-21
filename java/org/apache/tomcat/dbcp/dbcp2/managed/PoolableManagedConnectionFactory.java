@@ -40,16 +40,16 @@ import org.apache.tomcat.dbcp.pool2.impl.GenericKeyedObjectPoolConfig;
  */
 public class PoolableManagedConnectionFactory extends PoolableConnectionFactory {
 
-    /** Transaction registry associated with connections created by this factory */
+    /**
+     * Transaction registry associated with connections created by this factory
+     */
     private final TransactionRegistry transactionRegistry;
 
     /**
      * Creates a PoolableManagedConnectionFactory and attach it to a connection pool.
      *
-     * @param connFactory
-     *            XAConnectionFactory
-     * @param dataSourceJmxName
-     *            The data source name.
+     * @param connFactory       XAConnectionFactory
+     * @param dataSourceJmxName The data source name.
      */
     public PoolableManagedConnectionFactory(final XAConnectionFactory connFactory, final ObjectName dataSourceJmxName) {
         super(connFactory, dataSourceJmxName);

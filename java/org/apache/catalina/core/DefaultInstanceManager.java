@@ -59,13 +59,13 @@ public class DefaultInstanceManager implements InstanceManager {
 
     // Used when there are no annotations in a class
     private static final AnnotationCacheEntry[] ANNOTATIONS_EMPTY
-        = new AnnotationCacheEntry[0];
+            = new AnnotationCacheEntry[0];
 
     /**
      * The string manager for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
     private static final boolean EJB_PRESENT;
     private static final boolean JPA_PRESENT;
@@ -111,9 +111,9 @@ public class DefaultInstanceManager implements InstanceManager {
     private final Map<String, String> preDestroyMethods;
 
     public DefaultInstanceManager(Context context,
-            Map<String, Map<String, String>> injectionMap,
-            org.apache.catalina.Context catalinaContext,
-            ClassLoader containerClassLoader) {
+                                  Map<String, Map<String, String>> injectionMap,
+                                  org.apache.catalina.Context catalinaContext,
+                                  ClassLoader containerClassLoader) {
         classLoader = catalinaContext.getLoader().getClassLoader();
         privileged = catalinaContext.getPrivileged();
         this.containerClassLoader = containerClassLoader;
@@ -204,9 +204,8 @@ public class DefaultInstanceManager implements InstanceManager {
      *
      * @param instance object to call postconstruct methods on
      * @param clazz    (super) class to examine for postConstruct annotation.
-     * @throws IllegalAccessException if postConstruct method is inaccessible.
-     * @throws java.lang.reflect.InvocationTargetException
-     *                                if call fails
+     * @throws IllegalAccessException                      if postConstruct method is inaccessible.
+     * @throws java.lang.reflect.InvocationTargetException if call fails
      */
     protected void postConstruct(Object instance, final Class<?> clazz)
             throws IllegalAccessException, InvocationTargetException {
@@ -243,9 +242,8 @@ public class DefaultInstanceManager implements InstanceManager {
      *
      * @param instance object to call preDestroy methods on
      * @param clazz    (super) class to examine for preDestroy annotation.
-     * @throws IllegalAccessException if preDestroy method is inaccessible.
-     * @throws java.lang.reflect.InvocationTargetException
-     *                                if call fails
+     * @throws IllegalAccessException                      if preDestroy method is inaccessible.
+     * @throws java.lang.reflect.InvocationTargetException if call fails
      */
     protected void preDestroy(Object instance, final Class<?> clazz)
             throws IllegalAccessException, InvocationTargetException {
@@ -285,16 +283,15 @@ public class DefaultInstanceManager implements InstanceManager {
      * Make sure that the annotations cache has been populated for the provided
      * class.
      *
-     * @param clazz         clazz to populate annotations for
-     * @param injections    map of injections for this class from xml deployment
-     *                      descriptor
-     * @throws IllegalAccessException       if injection target is inaccessible
-     * @throws javax.naming.NamingException if value cannot be looked up in jndi
-     * @throws java.lang.reflect.InvocationTargetException
-     *                                      if injection fails
+     * @param clazz      clazz to populate annotations for
+     * @param injections map of injections for this class from xml deployment
+     *                   descriptor
+     * @throws IllegalAccessException                      if injection target is inaccessible
+     * @throws javax.naming.NamingException                if value cannot be looked up in jndi
+     * @throws java.lang.reflect.InvocationTargetException if injection fails
      */
     protected void populateAnnotationsCache(Class<?> clazz,
-            Map<String, String> injections) throws IllegalAccessException,
+                                            Map<String, String> injections) throws IllegalAccessException,
             InvocationTargetException, NamingException {
 
         List<AnnotationCacheEntry> annotations = null;
@@ -384,7 +381,7 @@ public class DefaultInstanceManager implements InstanceManager {
                             AnnotationCacheEntryType.POST_CONSTRUCT));
                 } else if (postConstructFromXml != null) {
                     throw new IllegalArgumentException(sm.getString("defaultInstanceManager.postConstructNotFound",
-                        postConstructFromXml, clazz.getName()));
+                            postConstructFromXml, clazz.getName()));
                 }
                 if (preDestroy != null) {
                     annotations.add(new AnnotationCacheEntry(
@@ -393,7 +390,7 @@ public class DefaultInstanceManager implements InstanceManager {
                             AnnotationCacheEntryType.PRE_DESTROY));
                 } else if (preDestroyFromXml != null) {
                     throw new IllegalArgumentException(sm.getString("defaultInstanceManager.preDestroyNotFound",
-                        preDestroyFromXml, clazz.getName()));
+                            preDestroyFromXml, clazz.getName()));
                 }
 
                 if (context != null) {
@@ -460,10 +457,9 @@ public class DefaultInstanceManager implements InstanceManager {
      *
      * @param instance   instance to inject into
      * @param injections map of injections for this class from xml deployment descriptor
-     * @throws IllegalAccessException       if injection target is inaccessible
-     * @throws javax.naming.NamingException if value cannot be looked up in jndi
-     * @throws java.lang.reflect.InvocationTargetException
-     *                                      if injection fails
+     * @throws IllegalAccessException                      if injection target is inaccessible
+     * @throws javax.naming.NamingException                if value cannot be looked up in jndi
+     * @throws java.lang.reflect.InvocationTargetException if injection fails
      */
     protected void processAnnotations(Object instance, Map<String, String> injections)
             throws IllegalAccessException, InvocationTargetException, NamingException {
@@ -504,7 +500,7 @@ public class DefaultInstanceManager implements InstanceManager {
 
 
     protected Class<?> loadClassMaybePrivileged(final String className,
-            final ClassLoader classLoader) throws ClassNotFoundException {
+                                                final ClassLoader classLoader) throws ClassNotFoundException {
         Class<?> clazz;
         if (SecurityUtil.isPackageProtectionEnabled()) {
             try {
@@ -569,7 +565,7 @@ public class DefaultInstanceManager implements InstanceManager {
      * @throws javax.naming.NamingException if value is not accessible in naming context
      */
     protected static void lookupFieldResource(Context context,
-            Object instance, Field field, String name, Class<?> clazz)
+                                              Object instance, Field field, String name, Class<?> clazz)
             throws NamingException, IllegalAccessException {
 
         Object lookedupResource;
@@ -581,7 +577,7 @@ public class DefaultInstanceManager implements InstanceManager {
             lookedupResource = context.lookup(normalizedName);
         } else {
             lookedupResource =
-                context.lookup(clazz.getName() + "/" + field.getName());
+                    context.lookup(clazz.getName() + "/" + field.getName());
         }
 
         synchronized (field) {
@@ -600,13 +596,12 @@ public class DefaultInstanceManager implements InstanceManager {
      * @param method   field target for injection
      * @param name     jndi name value is bound under
      * @param clazz    class annotation is defined in
-     * @throws IllegalAccessException       if method is inaccessible
-     * @throws javax.naming.NamingException if value is not accessible in naming context
-     * @throws java.lang.reflect.InvocationTargetException
-     *                                      if setter call fails
+     * @throws IllegalAccessException                      if method is inaccessible
+     * @throws javax.naming.NamingException                if value is not accessible in naming context
+     * @throws java.lang.reflect.InvocationTargetException if setter call fails
      */
     protected static void lookupMethodResource(Context context,
-            Object instance, Method method, String name, Class<?> clazz)
+                                               Object instance, Method method, String name, Class<?> clazz)
             throws NamingException, IllegalAccessException, InvocationTargetException {
 
         if (!Introspection.isValidSetter(method)) {
@@ -635,7 +630,7 @@ public class DefaultInstanceManager implements InstanceManager {
     }
 
     private static void loadProperties(Set<String> classNames, String resourceName,
-            String messageKey, Log log) {
+                                       String messageKey, Log log) {
         Properties properties = new Properties();
         ClassLoader cl = DefaultInstanceManager.class.getClassLoader();
         try (InputStream is = cl.getResourceAsStream(resourceName)) {
@@ -661,15 +656,15 @@ public class DefaultInstanceManager implements InstanceManager {
         }
     }
 
-    private static String normalize(String jndiName){
-        if(jndiName != null && jndiName.startsWith("java:comp/env/")){
+    private static String normalize(String jndiName) {
+        if (jndiName != null && jndiName.startsWith("java:comp/env/")) {
             return jndiName.substring(14);
         }
         return jndiName;
     }
 
     private static Method getMethod(final Class<?> clazz,
-            final AnnotationCacheEntry entry) {
+                                    final AnnotationCacheEntry entry) {
         Method result = null;
         if (Globals.IS_SECURITY_ENABLED) {
             result = AccessController.doPrivileged(new PrivilegedGetMethod(clazz, entry));
@@ -685,7 +680,7 @@ public class DefaultInstanceManager implements InstanceManager {
     }
 
     private static Field getField(final Class<?> clazz,
-            final AnnotationCacheEntry entry) {
+                                  final AnnotationCacheEntry entry) {
         Field result = null;
         if (Globals.IS_SECURITY_ENABLED) {
             result = AccessController.doPrivileged(new PrivilegedGetField(clazz, entry));
@@ -701,20 +696,20 @@ public class DefaultInstanceManager implements InstanceManager {
 
 
     private static Method findPostConstruct(Method currentPostConstruct,
-            String postConstructFromXml, Method method) {
+                                            String postConstructFromXml, Method method) {
         return findLifecycleCallback(currentPostConstruct,
-            postConstructFromXml, method, PostConstruct.class);
+                postConstructFromXml, method, PostConstruct.class);
     }
 
     private static Method findPreDestroy(Method currentPreDestroy,
-        String preDestroyFromXml, Method method) {
+                                         String preDestroyFromXml, Method method) {
         return findLifecycleCallback(currentPreDestroy,
-            preDestroyFromXml, method, PreDestroy.class);
+                preDestroyFromXml, method, PreDestroy.class);
     }
 
     private static Method findLifecycleCallback(Method currentMethod,
-            String methodNameFromXml, Method method,
-            Class<? extends Annotation> annotation) {
+                                                String methodNameFromXml, Method method,
+                                                Class<? extends Annotation> annotation) {
         Method result = currentMethod;
         if (methodNameFromXml != null) {
             if (method.getName().equals(methodNameFromXml)) {
@@ -743,8 +738,8 @@ public class DefaultInstanceManager implements InstanceManager {
         private final AnnotationCacheEntryType type;
 
         public AnnotationCacheEntry(String accessibleObjectName,
-                Class<?>[] paramTypes, String name,
-                AnnotationCacheEntryType type) {
+                                    Class<?>[] paramTypes, String name,
+                                    AnnotationCacheEntryType type) {
             this.accessibleObjectName = accessibleObjectName;
             this.paramTypes = paramTypes;
             this.name = name;
@@ -762,6 +757,7 @@ public class DefaultInstanceManager implements InstanceManager {
         public String getName() {
             return name;
         }
+
         public AnnotationCacheEntryType getType() {
             return type;
         }

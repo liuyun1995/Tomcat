@@ -92,7 +92,7 @@ public class HttpHeaderSecurityFilter extends FilterBase {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
 
         if (response instanceof HttpServletResponse) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;

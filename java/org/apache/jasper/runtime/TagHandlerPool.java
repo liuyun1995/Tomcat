@@ -90,11 +90,9 @@ public class TagHandlerPool {
      * Gets the next available tag handler from this tag handler pool,
      * instantiating one if this tag handler pool is empty.
      *
-     * @param handlerClass
-     *            Tag handler class
+     * @param handlerClass Tag handler class
      * @return Reused or newly instantiated tag handler
-     * @throws JspException
-     *             if a tag handler cannot be instantiated
+     * @throws JspException if a tag handler cannot be instantiated
      */
     public Tag get(Class<? extends Tag> handlerClass) throws JspException {
         Tag handler;
@@ -128,8 +126,7 @@ public class TagHandlerPool {
      * handler pool has already reached its capacity, in which case the tag
      * handler's release() method is called.
      *
-     * @param handler
-     *            Tag handler to add to this tag handler pool
+     * @param handler Tag handler to add to this tag handler pool
      */
     public void reuse(Tag handler) {
         synchronized (this) {
@@ -154,7 +151,7 @@ public class TagHandlerPool {
 
 
     protected static String getOption(ServletConfig config, String name,
-            String defaultV) {
+                                      String defaultV) {
         if (config == null)
             return defaultV;
 

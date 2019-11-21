@@ -29,7 +29,9 @@ public class AjpAprProtocol extends AbstractAjpProtocol<Long> {
     private static final Log log = LogFactory.getLog(AjpAprProtocol.class);
 
     @Override
-    protected Log getLog() { return log; }
+    protected Log getLog() {
+        return log;
+    }
 
 
     @Override
@@ -49,8 +51,13 @@ public class AjpAprProtocol extends AbstractAjpProtocol<Long> {
 
     // --------------------------------------------------------- Public Methods
 
-    public int getPollTime() { return ((AprEndpoint)getEndpoint()).getPollTime(); }
-    public void setPollTime(int pollTime) { ((AprEndpoint)getEndpoint()).setPollTime(pollTime); }
+    public int getPollTime() {
+        return ((AprEndpoint) getEndpoint()).getPollTime();
+    }
+
+    public void setPollTime(int pollTime) {
+        ((AprEndpoint) getEndpoint()).setPollTime(pollTime);
+    }
 
 
     // ----------------------------------------------------- JMX related methods

@@ -45,7 +45,7 @@ class ApplicationResponse extends ServletResponseWrapper {
      *
      * @param response The servlet response being wrapped
      * @param included <code>true</code> if this response is being processed
-     *  by a <code>RequestDispatcher.include()</code> call
+     *                 by a <code>RequestDispatcher.include()</code> call
      */
     public ApplicationResponse(ServletResponse response, boolean included) {
 
@@ -71,8 +71,8 @@ class ApplicationResponse extends ServletResponseWrapper {
     /**
      * Disallow <code>reset()</code> calls on a included response.
      *
-     * @exception IllegalStateException if the response has already
-     *  been committed
+     * @throws IllegalStateException if the response has already
+     *                               been committed
      */
     @Override
     public void reset() {

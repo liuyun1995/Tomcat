@@ -80,7 +80,7 @@ public class Cookie implements Cloneable, Serializable {
                                     "org.apache.catalina.STRICT_SERVLET_COMPLIANCE"));
                         }
                     }
-                ).booleanValue();
+            ).booleanValue();
             propStrictNaming = AccessController.doPrivileged(
                     new PrivilegedAction<String>() {
                         @Override
@@ -89,7 +89,7 @@ public class Cookie implements Cloneable, Serializable {
                                     "org.apache.tomcat.util.http.ServerCookie.STRICT_NAMING");
                         }
                     }
-                );
+            );
             propFwdSlashIsSeparator = AccessController.doPrivileged(
                     new PrivilegedAction<String>() {
                         @Override
@@ -98,7 +98,7 @@ public class Cookie implements Cloneable, Serializable {
                                     "org.apache.tomcat.util.http.ServerCookie.FWD_SLASH_IS_SEPARATOR");
                         }
                     }
-                );
+            );
         }
 
         if (propStrictNaming == null) {
@@ -153,14 +153,11 @@ public class Cookie implements Cloneable, Serializable {
      * specification. The version can be changed with the
      * <code>setVersion</code> method.
      *
-     * @param name
-     *            a <code>String</code> specifying the name of the cookie
-     * @param value
-     *            a <code>String</code> specifying the value of the cookie
-     * @throws IllegalArgumentException
-     *             if the cookie name contains illegal characters (for example,
-     *             a comma, space, or semicolon) or it is one of the tokens
-     *             reserved for use by the cookie protocol
+     * @param name  a <code>String</code> specifying the name of the cookie
+     * @param value a <code>String</code> specifying the value of the cookie
+     * @throws IllegalArgumentException if the cookie name contains illegal characters (for example,
+     *                                  a comma, space, or semicolon) or it is one of the tokens
+     *                                  reserved for use by the cookie protocol
      * @see #setValue
      * @see #setVersion
      */
@@ -175,9 +172,8 @@ public class Cookie implements Cloneable, Serializable {
      * useful if the browser presents the cookie to the user. Comments are not
      * supported by Netscape Version 0 cookies.
      *
-     * @param purpose
-     *            a <code>String</code> specifying the comment to display to the
-     *            user
+     * @param purpose a <code>String</code> specifying the comment to display to the
+     *                user
      * @see #getComment
      */
     public void setComment(String purpose) {
@@ -189,7 +185,7 @@ public class Cookie implements Cloneable, Serializable {
      * <code>null</code> if the cookie has no comment.
      *
      * @return a <code>String</code> containing the comment, or
-     *         <code>null</code> if none
+     * <code>null</code> if none
      * @see #setComment
      */
     public String getComment() {
@@ -205,9 +201,8 @@ public class Cookie implements Cloneable, Serializable {
      * example, <code>www.foo.com</code>, but not <code>a.b.foo.com</code>). By
      * default, cookies are only returned to the server that sent them.
      *
-     * @param pattern
-     *            a <code>String</code> containing the domain name within which
-     *            this cookie is visible; form is according to RFC 2109
+     * @param pattern a <code>String</code> containing the domain name within which
+     *                this cookie is visible; form is according to RFC 2109
      * @see #getDomain
      */
     public void setDomain(String pattern) {
@@ -236,10 +231,9 @@ public class Cookie implements Cloneable, Serializable {
      * will be deleted when the Web browser exits. A zero value causes the
      * cookie to be deleted.
      *
-     * @param expiry
-     *            an integer specifying the maximum age of the cookie in
-     *            seconds; if negative, means the cookie is not stored; if zero,
-     *            deletes the cookie
+     * @param expiry an integer specifying the maximum age of the cookie in
+     *               seconds; if negative, means the cookie is not stored; if zero,
+     *               deletes the cookie
      * @see #getMaxAge
      */
     public void setMaxAge(int expiry) {
@@ -252,7 +246,7 @@ public class Cookie implements Cloneable, Serializable {
      * shutdown.
      *
      * @return an integer specifying the maximum age of the cookie in seconds; if
-     *         negative, means the cookie persists until browser shutdown
+     * negative, means the cookie persists until browser shutdown
      * @see #setMaxAge
      */
     public int getMaxAge() {
@@ -272,8 +266,7 @@ public class Cookie implements Cloneable, Serializable {
      * Consult RFC 2109 (available on the Internet) for more information on
      * setting path names for cookies.
      *
-     * @param uri
-     *            a <code>String</code> specifying a path
+     * @param uri a <code>String</code> specifying a path
      * @see #getPath
      */
     public void setPath(String uri) {
@@ -285,7 +278,7 @@ public class Cookie implements Cloneable, Serializable {
      * The cookie is visible to all subpaths on the server.
      *
      * @return a <code>String</code> specifying a path that contains a servlet
-     *         name, for example, <i>/catalog</i>
+     * name, for example, <i>/catalog</i>
      * @see #setPath
      */
     public String getPath() {
@@ -298,10 +291,9 @@ public class Cookie implements Cloneable, Serializable {
      * <p>
      * The default value is <code>false</code>.
      *
-     * @param flag
-     *            if <code>true</code>, sends the cookie from the browser to the
-     *            server only when using a secure protocol; if
-     *            <code>false</code>, sent on any protocol
+     * @param flag if <code>true</code>, sends the cookie from the browser to the
+     *             server only when using a secure protocol; if
+     *             <code>false</code>, sent on any protocol
      * @see #getSecure
      */
     public void setSecure(boolean flag) {
@@ -314,7 +306,7 @@ public class Cookie implements Cloneable, Serializable {
      * using any protocol.
      *
      * @return <code>true</code> if the browser uses a secure protocol;
-     *         otherwise, <code>true</code>
+     * otherwise, <code>true</code>
      * @see #setSecure
      */
     public boolean getSecure() {
@@ -340,8 +332,7 @@ public class Cookie implements Cloneable, Serializable {
      * marks, at signs, colons, and semicolons. Empty values may not behave the
      * same way on all browsers.
      *
-     * @param newValue
-     *            a <code>String</code> specifying the new value
+     * @param newValue a <code>String</code> specifying the new value
      * @see #getValue
      * @see Cookie
      */
@@ -367,7 +358,7 @@ public class Cookie implements Cloneable, Serializable {
      * identify the browser's cookie version.
      *
      * @return 0 if the cookie complies with the original Netscape specification;
-     *         1 if the cookie complies with RFC 2109
+     * 1 if the cookie complies with RFC 2109
      * @see #setVersion
      */
     public int getVersion() {
@@ -382,9 +373,8 @@ public class Cookie implements Cloneable, Serializable {
      * Since RFC 2109 is still somewhat new, consider version 1 as experimental;
      * do not use it yet on production sites.
      *
-     * @param v
-     *            0 if the cookie should comply with the original Netscape
-     *            specification; 1 if the cookie should comply with RFC 2109
+     * @param v 0 if the cookie should comply with the original Netscape
+     *          specification; 1 if the cookie should comply with RFC 2109
      * @see #getVersion
      */
     public void setVersion(int v) {
@@ -408,8 +398,7 @@ public class Cookie implements Cloneable, Serializable {
      * Sets the flag that controls if this cookie will be hidden from scripts on
      * the client side.
      *
-     * @param httpOnly  The new value of the flag
-     *
+     * @param httpOnly The new value of the flag
      * @since Servlet 3.0
      */
     public void setHttpOnly(boolean httpOnly) {
@@ -420,8 +409,8 @@ public class Cookie implements Cloneable, Serializable {
      * Gets the flag that controls if this cookie will be hidden from scripts on
      * the client side.
      *
-     * @return  <code>true</code> if the cookie is hidden from scripts, else
-     *          <code>false</code>
+     * @return <code>true</code> if the cookie is hidden from scripts, else
+     * <code>false</code>
      * @since Servlet 3.0
      */
     public boolean isHttpOnly() {

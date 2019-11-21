@@ -54,7 +54,6 @@ public final class RemoteAddrValve extends RequestFilterValve {
     }
 
 
-
     @Override
     protected Log getLog() {
         return log;

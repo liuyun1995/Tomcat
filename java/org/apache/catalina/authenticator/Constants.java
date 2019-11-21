@@ -37,13 +37,13 @@ public class Constants {
             "java.security.auth.login.config";
     public static final String DEFAULT_JAAS_CONF = "conf/jaas.conf";
     public static final String DEFAULT_LOGIN_MODULE_NAME =
-        "com.sun.security.jgss.krb5.accept";
+            "com.sun.security.jgss.krb5.accept";
 
     // Cookie name for single sign on support
     public static final String SINGLE_SIGN_ON_COOKIE =
-        System.getProperty(
-                "org.apache.catalina.authenticator.Constants.SSO_SESSION_COOKIE_NAME",
-                "JSESSIONIDSSO");
+            System.getProperty(
+                    "org.apache.catalina.authenticator.Constants.SSO_SESSION_COOKIE_NAME",
+                    "JSESSIONIDSSO");
 
 
     // --------------------------------------------------------- Request Notes
@@ -75,14 +75,14 @@ public class Constants {
      * The notes key for the password used to authenticate this user.
      */
     public static final String SESS_PASSWORD_NOTE =
-      "org.apache.catalina.session.PASSWORD";
+            "org.apache.catalina.session.PASSWORD";
 
 
     /**
      * The notes key for the username used to authenticate this user.
      */
     public static final String SESS_USERNAME_NOTE =
-      "org.apache.catalina.session.USERNAME";
+            "org.apache.catalina.session.USERNAME";
 
 
     /**
@@ -95,7 +95,7 @@ public class Constants {
      * The previously authenticated principal (if caching is disabled).
      */
     public static final String FORM_PRINCIPAL_NOTE =
-        "org.apache.catalina.authenticator.PRINCIPAL";
+            "org.apache.catalina.authenticator.PRINCIPAL";
 
 
     /**
@@ -103,7 +103,7 @@ public class Constants {
      * redirected if authentication succeeds.
      */
     public static final String FORM_REQUEST_NOTE =
-        "org.apache.catalina.authenticator.REQUEST";
+            "org.apache.catalina.authenticator.REQUEST";
 
 
 }

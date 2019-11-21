@@ -30,12 +30,12 @@ public class Acceptor<U> implements Runnable {
     private static final int INITIAL_ERROR_DELAY = 50;
     private static final int MAX_ERROR_DELAY = 1600;
 
-    private final AbstractEndpoint<?,U> endpoint;
+    private final AbstractEndpoint<?, U> endpoint;
     private String threadName;
     protected volatile AcceptorState state = AcceptorState.NEW;
 
 
-    public Acceptor(AbstractEndpoint<?,U> endpoint) {
+    public Acceptor(AbstractEndpoint<?, U> endpoint) {
         this.endpoint = endpoint;
     }
 
@@ -134,7 +134,7 @@ public class Acceptor<U> implements Runnable {
                         log.error(msg, t);
                     }
                 } else {
-                        log.error(msg, t);
+                    log.error(msg, t);
                 }
             }
         }
@@ -149,7 +149,7 @@ public class Acceptor<U> implements Runnable {
      * files is reached.
      *
      * @param currentErrorDelay The current delay being applied on failure
-     * @return  The delay to apply on the next failure
+     * @return The delay to apply on the next failure
      */
     protected int handleExceptionWithDelay(int currentErrorDelay) {
         // Don't delay on first exception

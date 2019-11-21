@@ -19,8 +19,7 @@ package org.apache.catalina.tribes.transport;
 
 import org.apache.catalina.tribes.io.ListenCallback;
 
-public abstract class AbstractRxTask implements Runnable
-{
+public abstract class AbstractRxTask implements Runnable {
 
     public static final int OPTION_DIRECT_BUFFER = ReceiverBase.OPTION_DIRECT_BUFFER;
 
@@ -51,7 +50,6 @@ public abstract class AbstractRxTask implements Runnable
      * Sets doRun field which is unused.
      *
      * @param doRun New value
-     *
      * @deprecated Will be removed in Tomcat 10
      */
     @Deprecated
@@ -75,7 +73,6 @@ public abstract class AbstractRxTask implements Runnable
      * Gets doRun field which is unused.
      *
      * @return Current field value
-     *
      * @deprecated Will be removed in Tomcat 10
      */
     @Deprecated

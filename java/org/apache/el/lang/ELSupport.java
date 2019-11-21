@@ -48,7 +48,7 @@ public class ELSupport {
         String coerceToZeroStr;
         if (System.getSecurityManager() != null) {
             coerceToZeroStr = AccessController.doPrivileged(
-                    new PrivilegedAction<String>(){
+                    new PrivilegedAction<String>() {
                         @Override
                         public String run() {
                             return System.getProperty(
@@ -66,20 +66,20 @@ public class ELSupport {
 
     /**
      * Compare two objects, after coercing to the same type if appropriate.
-     *
+     * <p>
      * If the objects are identical, or they are equal according to
      * {@link #equals(ELContext, Object, Object)} then return 0.
-     *
+     * <p>
      * If either object is a BigDecimal, then coerce both to BigDecimal first.
      * Similarly for Double(Float), BigInteger, and Long(Integer, Char, Short, Byte).
-     *
+     * <p>
      * Otherwise, check that the first object is an instance of Comparable, and compare
      * against the second object. If that is null, return 1, otherwise
      * return the result of comparing against the second object.
-     *
+     * <p>
      * Similarly, if the second object is Comparable, if the first is null, return -1,
      * else return the result of comparing against the first object.
-     *
+     * <p>
      * A null object is considered as:
      * <ul>
      * <li>ZERO when compared with Numbers</li>
@@ -87,11 +87,11 @@ public class ELSupport {
      * <li>Otherwise null is considered to be lower than anything else.</li>
      * </ul>
      *
-     * @param ctx the context in which this comparison is taking place
+     * @param ctx  the context in which this comparison is taking place
      * @param obj0 first object
      * @param obj1 second object
      * @return -1, 0, or 1 if this object is less than, equal to, or greater than val.
-     * @throws ELException if neither object is Comparable
+     * @throws ELException        if neither object is Comparable
      * @throws ClassCastException if the objects are not mutually comparable
      */
     public static final int compare(final ELContext ctx, final Object obj0, final Object obj1)
@@ -137,14 +137,14 @@ public class ELSupport {
 
     /**
      * Compare two objects for equality, after coercing to the same type if appropriate.
-     *
+     * <p>
      * If the objects are identical (including both null) return true.
      * If either object is null, return false.
      * If either object is Boolean, coerce both to Boolean and check equality.
      * Similarly for Enum, String, BigDecimal, Double(Float), Long(Integer, Short, Byte, Character)
      * Otherwise default to using Object.equals().
      *
-     * @param ctx the context in which this equality test is taking place
+     * @param ctx  the context in which this equality test is taking place
      * @param obj0 the first object
      * @param obj1 the second object
      * @return true if the objects are equal
@@ -168,7 +168,7 @@ public class ELSupport {
             BigInteger bi0 = (BigInteger) coerceToNumber(ctx, obj0, BigInteger.class);
             BigInteger bi1 = (BigInteger) coerceToNumber(ctx, obj1, BigInteger.class);
             return bi0.equals(bi1);
-        } else         if (isLongOp(obj0, obj1)) {
+        } else if (isLongOp(obj0, obj1)) {
             Long l0 = (Long) coerceToNumber(ctx, obj0, Long.class);
             Long l1 = (Long) coerceToNumber(ctx, obj1, Long.class);
             return l0.equals(l1);
@@ -191,7 +191,7 @@ public class ELSupport {
     // but I couldn't find it
     @SuppressWarnings("unchecked")
     public static final Enum<?> coerceToEnum(final ELContext ctx, final Object obj,
-            @SuppressWarnings("rawtypes") Class type) {
+                                             @SuppressWarnings("rawtypes") Class type) {
 
         if (ctx != null) {
             boolean originalIsPropertyResolved = ctx.isPropertyResolved();
@@ -219,7 +219,7 @@ public class ELSupport {
 
         Enum<?> result;
         try {
-             result = Enum.valueOf(type, (String) obj);
+            result = Enum.valueOf(type, (String) obj);
         } catch (IllegalArgumentException iae) {
             throw new ELException(MessageFactory.get("error.convert",
                     obj, obj.getClass(), type));
@@ -230,15 +230,16 @@ public class ELSupport {
     /**
      * Convert an object to Boolean.
      * Null and empty string are false.
-     * @param ctx the context in which this conversion is taking place
-     * @param obj the object to convert
+     *
+     * @param ctx       the context in which this conversion is taking place
+     * @param obj       the object to convert
      * @param primitive is the target a primitive in which case coercion to null
      *                  is not permitted
      * @return the Boolean value of the object
      * @throws ELException if object is not Boolean or String
      */
     public static final Boolean coerceToBoolean(final ELContext ctx, final Object obj,
-            boolean primitive) throws ELException {
+                                                boolean primitive) throws ELException {
 
         if (ctx != null) {
             boolean originalIsPropertyResolved = ctx.isPropertyResolved();
@@ -306,7 +307,7 @@ public class ELSupport {
     }
 
     protected static final Number coerceToNumber(final Number number,
-            final Class<?> type) throws ELException {
+                                                 final Class<?> type) throws ELException {
         if (Long.TYPE == type || Long.class.equals(type)) {
             return Long.valueOf(number.longValue());
         }
@@ -352,7 +353,7 @@ public class ELSupport {
     }
 
     public static final Number coerceToNumber(final ELContext ctx, final Object obj,
-            final Class<?> type) throws ELException {
+                                              final Class<?> type) throws ELException {
 
         if (ctx != null) {
             boolean originalIsPropertyResolved = ctx.isPropertyResolved();
@@ -392,7 +393,7 @@ public class ELSupport {
     }
 
     protected static final Number coerceToNumber(final String val,
-            final Class<?> type) throws ELException {
+                                                 final Class<?> type) throws ELException {
         if (Long.TYPE == type || Long.class.equals(type)) {
             try {
                 return Long.valueOf(val);
@@ -464,6 +465,7 @@ public class ELSupport {
 
     /**
      * Coerce an object to a string.
+     *
      * @param ctx the context in which this conversion is taking place
      * @param obj the object to convert
      * @return the String value of the object
@@ -494,7 +496,7 @@ public class ELSupport {
     }
 
     public static final Object coerceToType(final ELContext ctx, final Object obj,
-            final Class<?> type) throws ELException {
+                                            final Class<?> type) throws ELException {
 
         if (ctx != null) {
             boolean originalIsPropertyResolved = ctx.isPropertyResolved();
@@ -578,7 +580,7 @@ public class ELSupport {
     }
 
     private static Object coerceToArray(final ELContext ctx, final Object obj,
-            final Class<?> type) {
+                                        final Class<?> type) {
         // Note: Nested arrays will result in nested calls to this method.
 
         // Note: Calling method has checked the obj is an array.
@@ -599,12 +601,12 @@ public class ELSupport {
     }
 
     public static final boolean isBigDecimalOp(final Object obj0,
-            final Object obj1) {
+                                               final Object obj1) {
         return (obj0 instanceof BigDecimal || obj1 instanceof BigDecimal);
     }
 
     public static final boolean isBigIntegerOp(final Object obj0,
-            final Object obj1) {
+                                               final Object obj1) {
         return (obj0 instanceof BigInteger || obj1 instanceof BigInteger);
     }
 
@@ -633,12 +635,12 @@ public class ELSupport {
         if (len > 1) {
             for (int i = 0; i < len; i++) {
                 switch (str.charAt(i)) {
-                case 'E':
-                    return true;
-                case 'e':
-                    return true;
-                case '.':
-                    return true;
+                    case 'E':
+                        return true;
+                    case 'e':
+                        return true;
+                    case '.':
+                        return true;
                 }
             }
         }

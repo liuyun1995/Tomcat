@@ -28,7 +28,7 @@ import javax.servlet.jsp.JspWriter;
 
 /**
  * ServletResponseWrapper used by the JSP 'include' action.
- *
+ * <p>
  * This wrapper response object is passed to RequestDispatcher.include(), so
  * that the output of the included resource is appended to that of the
  * including page.
@@ -47,7 +47,7 @@ public class ServletResponseWrapperInclude extends HttpServletResponseWrapper {
 
     public ServletResponseWrapperInclude(ServletResponse response,
                                          JspWriter jspWriter) {
-        super((HttpServletResponse)response);
+        super((HttpServletResponse) response);
         this.printWriter = new PrintWriter(jspWriter);
         this.jspWriter = jspWriter;
     }

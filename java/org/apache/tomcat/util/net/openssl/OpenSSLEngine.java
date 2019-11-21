@@ -76,7 +76,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
                 SSLContext.setCipherSuite(sslCtx, "ALL");
                 final long ssl = SSL.newSSL(sslCtx, true);
                 try {
-                    for (String c: SSL.getCiphers(ssl)) {
+                    for (String c : SSL.getCiphers(ssl)) {
                         // Filter out bad input.
                         if (c == null || c.length() == 0 || availableCipherSuites.contains(c)) {
                             continue;
@@ -136,7 +136,8 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
     private long ssl;
     private long networkBIO;
 
-    private enum Accepted { NOT, IMPLICIT, EXPLICIT }
+    private enum Accepted {NOT, IMPLICIT, EXPLICIT}
+
     private Accepted accepted = Accepted.NOT;
     private boolean handshakeFinished;
     private int currentHandshake;
@@ -173,39 +174,39 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
     /**
      * Creates a new instance
      *
-     * @param sslCtx an OpenSSL {@code SSL_CTX} object
+     * @param sslCtx                      an OpenSSL {@code SSL_CTX} object
      * @param fallbackApplicationProtocol the fallback application protocol
-     * @param clientMode {@code true} if this is used for clients, {@code false}
-     * otherwise
-     * @param sessionContext the {@link OpenSSLSessionContext} this
-     * {@link SSLEngine} belongs to.
-     * @param alpn {@code true} if alpn should be used, {@code false}
-     * otherwise
+     * @param clientMode                  {@code true} if this is used for clients, {@code false}
+     *                                    otherwise
+     * @param sessionContext              the {@link OpenSSLSessionContext} this
+     *                                    {@link SSLEngine} belongs to.
+     * @param alpn                        {@code true} if alpn should be used, {@code false}
+     *                                    otherwise
      */
     OpenSSLEngine(long sslCtx, String fallbackApplicationProtocol,
-            boolean clientMode, OpenSSLSessionContext sessionContext,
-            boolean alpn) {
+                  boolean clientMode, OpenSSLSessionContext sessionContext,
+                  boolean alpn) {
         this(sslCtx, fallbackApplicationProtocol, clientMode, sessionContext,
-             alpn, false);
+                alpn, false);
     }
 
     /**
      * Creates a new instance
      *
-     * @param sslCtx an OpenSSL {@code SSL_CTX} object
+     * @param sslCtx                      an OpenSSL {@code SSL_CTX} object
      * @param fallbackApplicationProtocol the fallback application protocol
-     * @param clientMode {@code true} if this is used for clients, {@code false}
-     * otherwise
-     * @param sessionContext the {@link OpenSSLSessionContext} this
-     * {@link SSLEngine} belongs to.
-     * @param alpn {@code true} if alpn should be used, {@code false}
-     * otherwise
-     * @param initialized {@code true} if this instance gets its protocol,
-     * cipher and client verification from the {@code SSL_CTX} {@code sslCtx}
+     * @param clientMode                  {@code true} if this is used for clients, {@code false}
+     *                                    otherwise
+     * @param sessionContext              the {@link OpenSSLSessionContext} this
+     *                                    {@link SSLEngine} belongs to.
+     * @param alpn                        {@code true} if alpn should be used, {@code false}
+     *                                    otherwise
+     * @param initialized                 {@code true} if this instance gets its protocol,
+     *                                    cipher and client verification from the {@code SSL_CTX} {@code sslCtx}
      */
     OpenSSLEngine(long sslCtx, String fallbackApplicationProtocol,
-            boolean clientMode, OpenSSLSessionContext sessionContext, boolean alpn,
-            boolean initialized) {
+                  boolean clientMode, OpenSSLSessionContext sessionContext, boolean alpn,
+                  boolean initialized) {
         if (sslCtx == 0) {
             throw new IllegalArgumentException(sm.getString("engine.noSSLContext"));
         }
@@ -243,7 +244,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
 
     /**
      * Write plain text data to the OpenSSL internal BIO
-     *
+     * <p>
      * Calling this function with src.remaining == 0 is undefined.
      */
     private static int writePlaintextData(final long ssl, final ByteBuffer src) {
@@ -878,22 +879,22 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
             throw new SSLException(sm.getString("engine.engineClosed"));
         }
         switch (accepted) {
-        case NOT:
-            handshake();
-            accepted = Accepted.EXPLICIT;
-            break;
-        case IMPLICIT:
-            // A user did not start handshake by calling this method by him/herself,
-            // but handshake has been started already by wrap() or unwrap() implicitly.
-            // Because it's the user's first time to call this method, it is unfair to
-            // raise an exception.  From the user's standpoint, he or she never asked
-            // for renegotiation.
+            case NOT:
+                handshake();
+                accepted = Accepted.EXPLICIT;
+                break;
+            case IMPLICIT:
+                // A user did not start handshake by calling this method by him/herself,
+                // but handshake has been started already by wrap() or unwrap() implicitly.
+                // Because it's the user's first time to call this method, it is unfair to
+                // raise an exception.  From the user's standpoint, he or she never asked
+                // for renegotiation.
 
-            accepted = Accepted.EXPLICIT; // Next time this method is invoked by the user, we should raise an exception.
-            break;
-        case EXPLICIT:
-            renegotiate();
-            break;
+                accepted = Accepted.EXPLICIT; // Next time this method is invoked by the user, we should raise an exception.
+                break;
+            case EXPLICIT:
+                renegotiate();
+                break;
         }
     }
 

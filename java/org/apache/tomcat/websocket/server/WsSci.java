@@ -132,7 +132,7 @@ public class WsSci implements ServletContainerInitializer {
 
 
     static WsServerContainer init(ServletContext servletContext,
-            boolean initBySciMechanism) {
+                                  boolean initBySciMechanism) {
 
         WsServerContainer sc = new WsServerContainer(servletContext);
 

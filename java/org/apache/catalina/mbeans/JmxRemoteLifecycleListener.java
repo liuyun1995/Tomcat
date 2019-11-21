@@ -86,6 +86,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
     /**
      * Get the inet address on which the Platform RMI server is exported.
+     *
      * @return The textual representation of inet address
      */
     public String getRmiBindAddress() {
@@ -94,6 +95,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
     /**
      * Set the inet address on which the Platform RMI server is exported.
+     *
      * @param theRmiBindAddress The textual representation of inet address
      */
     public void setRmiBindAddress(String theRmiBindAddress) {
@@ -103,6 +105,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
     /**
      * Get the port on which the Platform RMI server is exported. This is the
      * port that is normally chosen by the RMI stack.
+     *
      * @return The port number
      */
     public int getRmiServerPortPlatform() {
@@ -112,6 +115,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
     /**
      * Set the port on which the Platform RMI server is exported. This is the
      * port that is normally chosen by the RMI stack.
+     *
      * @param theRmiServerPortPlatform The port number
      */
     public void setRmiServerPortPlatform(int theRmiServerPortPlatform) {
@@ -120,6 +124,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
     /**
      * Get the port on which the Platform RMI registry is exported.
+     *
      * @return The port number
      */
     public int getRmiRegistryPortPlatform() {
@@ -128,6 +133,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
     /**
      * Set the port on which the Platform RMI registry is exported.
+     *
      * @param theRmiRegistryPortPlatform The port number
      */
     public void setRmiRegistryPortPlatform(int theRmiRegistryPortPlatform) {
@@ -138,6 +144,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
      * Get the flag that indicates that local ports should be used for all
      * connections. If using SSH tunnels, or similar, this should be set to
      * true to ensure the RMI client uses the tunnel.
+     *
      * @return <code>true</code> if local ports should be used
      */
     public boolean getUseLocalPorts() {
@@ -148,6 +155,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
      * Set the flag that indicates that local ports should be used for all
      * connections. If using SSH tunnels, or similar, this should be set to
      * true to ensure the RMI client uses the tunnel.
+     *
      * @param useLocalPorts Set to <code>true</code> if local ports should be
      *                      used
      */
@@ -322,7 +330,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
             System.setProperty("java.rmi.server.randomIDs", "true");
 
             // Create the environment
-            Map<String,Object> env = new HashMap<>();
+            Map<String, Object> env = new HashMap<>();
 
             RMIClientSocketFactory registryCsf = null;
             RMIServerSocketFactory registrySsf = null;
@@ -381,9 +389,9 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
                 serverCsf = new RmiClientLocalhostSocketFactory(serverCsf);
             }
 
-            env.put("jmx.remote.rmi.server.credential.types", new String[] {
+            env.put("jmx.remote.rmi.server.credential.types", new String[]{
                     String[].class.getName(),
-                    String.class.getName() });
+                    String.class.getName()});
 
             // Populate the env properties used to create the server
             if (serverCsf != null) {
@@ -412,10 +420,10 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
 
     private JMXConnectorServer createServer(String serverName,
-            String bindAddress, int theRmiRegistryPort, int theRmiServerPort,
-            Map<String,Object> theEnv,
-            RMIClientSocketFactory registryCsf, RMIServerSocketFactory registrySsf,
-            RMIClientSocketFactory serverCsf, RMIServerSocketFactory serverSsf) {
+                                            String bindAddress, int theRmiRegistryPort, int theRmiServerPort,
+                                            Map<String, Object> theEnv,
+                                            RMIClientSocketFactory registryCsf, RMIServerSocketFactory registrySsf,
+                                            RMIClientSocketFactory serverCsf, RMIServerSocketFactory serverSsf) {
 
         // Create the RMI registry
         Registry registry;
@@ -463,14 +471,14 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
 
 
     private void destroyServer(String serverName,
-            JMXConnectorServer theConnectorServer) {
+                               JMXConnectorServer theConnectorServer) {
         if (theConnectorServer != null) {
             try {
                 theConnectorServer.stop();
             } catch (IOException e) {
                 log.error(sm.getString(
                         "jmxRemoteLifecycleListener.destroyServerFailed",
-                        serverName),e);
+                        serverName), e);
             }
         }
     }
@@ -518,7 +526,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
         }
 
         @Override
-        public ServerSocket createServerSocket(int port) throws IOException  {
+        public ServerSocket createServerSocket(int port) throws IOException {
             return new ServerSocket(port, 0, bindAddress);
         }
     }
@@ -530,7 +538,7 @@ public class JmxRemoteLifecycleListener extends SSLHostConfig implements Lifecyc
         private final SSLContext sslContext;
 
         public SslRmiServerBindSocketFactory(SSLContext sslContext, String[] enabledCipherSuites,
-                String[] enabledProtocols, boolean needClientAuth, String address) {
+                                             String[] enabledProtocols, boolean needClientAuth, String address) {
             super(sslContext, enabledCipherSuites, enabledProtocols, needClientAuth);
             this.sslContext = sslContext;
             InetAddress bindAddress = null;

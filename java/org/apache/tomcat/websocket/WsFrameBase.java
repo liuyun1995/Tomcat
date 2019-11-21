@@ -140,7 +140,7 @@ public abstract class WsFrameBase {
 
     /**
      * @return <code>true</code> if sufficient data was present to process all
-     *         of the initial header
+     * of the initial header
      */
     private boolean processInitialHeader() throws IOException {
         // Need at least two bytes of data to do this
@@ -229,12 +229,13 @@ public abstract class WsFrameBase {
 
 
     protected abstract boolean isMasked();
+
     protected abstract Log getLog();
 
 
     /**
      * @return <code>true</code> if sufficient data was present to complete the
-     *         processing of the header
+     * processing of the header
      */
     private boolean processRemainingHeader() throws IOException {
         // Ignore the 2 bytes already read. 4 for the mask
@@ -695,36 +696,36 @@ public abstract class WsFrameBase {
 
     /**
      * WAITING            - not suspended
-     *                      Server case: waiting for a notification that data
-     *                      is ready to be read from the socket, the socket is
-     *                      registered to the poller
-     *                      Client case: data has been read from the socket and
-     *                      is waiting for data to be processed
+     * Server case: waiting for a notification that data
+     * is ready to be read from the socket, the socket is
+     * registered to the poller
+     * Client case: data has been read from the socket and
+     * is waiting for data to be processed
      * PROCESSING         - not suspended
-     *                      Server case: reading from the socket and processing
-     *                      the data
-     *                      Client case: processing the data if such has
-     *                      already been read and more data will be read from
-     *                      the socket
+     * Server case: reading from the socket and processing
+     * the data
+     * Client case: processing the data if such has
+     * already been read and more data will be read from
+     * the socket
      * SUSPENDING_WAIT    - suspended, a call to suspend() was made while in
-     *                      WAITING state. A call to resume() will do nothing
-     *                      and will transition to WAITING state
+     * WAITING state. A call to resume() will do nothing
+     * and will transition to WAITING state
      * SUSPENDING_PROCESS - suspended, a call to suspend() was made while in
-     *                      PROCESSING state. A call to resume() will do
-     *                      nothing and will transition to PROCESSING state
+     * PROCESSING state. A call to resume() will do
+     * nothing and will transition to PROCESSING state
      * SUSPENDED          - suspended
-     *                      Server case: processing data finished
-     *                      (SUSPENDING_PROCESS) / a notification was received
-     *                      that data is ready to be read from the socket
-     *                      (SUSPENDING_WAIT), socket is not registered to the
-     *                      poller
-     *                      Client case: processing data finished
-     *                      (SUSPENDING_PROCESS) / data has been read from the
-     *                      socket and is available for processing
-     *                      (SUSPENDING_WAIT)
-     *                      A call to resume() will:
-     *                      Server case: register the socket to the poller
-     *                      Client case: resume data processing
+     * Server case: processing data finished
+     * (SUSPENDING_PROCESS) / a notification was received
+     * that data is ready to be read from the socket
+     * (SUSPENDING_WAIT), socket is not registered to the
+     * poller
+     * Client case: processing data finished
+     * (SUSPENDING_PROCESS) / data has been read from the
+     * socket and is available for processing
+     * (SUSPENDING_WAIT)
+     * A call to resume() will:
+     * Server case: register the socket to the poller
+     * Client case: resume data processing
      * CLOSING            - not suspended, a close will be send
      *
      * <pre>
@@ -750,12 +751,12 @@ public abstract class WsFrameBase {
      * </pre>
      */
     protected enum ReadState {
-        WAITING           (false),
-        PROCESSING        (false),
-        SUSPENDING_WAIT   (true),
+        WAITING(false),
+        PROCESSING(false),
+        SUSPENDING_WAIT(true),
         SUSPENDING_PROCESS(true),
-        SUSPENDED         (true),
-        CLOSING           (false);
+        SUSPENDED(true),
+        CLOSING(false);
 
         private final boolean isSuspended;
 
@@ -771,49 +772,49 @@ public abstract class WsFrameBase {
     public void suspend() {
         while (true) {
             switch (readState) {
-            case WAITING:
-                if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.WAITING,
-                        ReadState.SUSPENDING_WAIT)) {
-                    continue;
-                }
-                return;
-            case PROCESSING:
-                if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.PROCESSING,
-                        ReadState.SUSPENDING_PROCESS)) {
-                    continue;
-                }
-                return;
-            case SUSPENDING_WAIT:
-                if (readState != ReadState.SUSPENDING_WAIT) {
-                    continue;
-                } else {
-                    if (getLog().isWarnEnabled()) {
-                        getLog().warn(sm.getString("wsFrame.suspendRequested"));
+                case WAITING:
+                    if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.WAITING,
+                            ReadState.SUSPENDING_WAIT)) {
+                        continue;
                     }
-                }
-                return;
-            case SUSPENDING_PROCESS:
-                if (readState != ReadState.SUSPENDING_PROCESS) {
-                    continue;
-                } else {
-                    if (getLog().isWarnEnabled()) {
-                        getLog().warn(sm.getString("wsFrame.suspendRequested"));
+                    return;
+                case PROCESSING:
+                    if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.PROCESSING,
+                            ReadState.SUSPENDING_PROCESS)) {
+                        continue;
                     }
-                }
-                return;
-            case SUSPENDED:
-                if (readState != ReadState.SUSPENDED) {
-                    continue;
-                } else {
-                    if (getLog().isWarnEnabled()) {
-                        getLog().warn(sm.getString("wsFrame.alreadySuspended"));
+                    return;
+                case SUSPENDING_WAIT:
+                    if (readState != ReadState.SUSPENDING_WAIT) {
+                        continue;
+                    } else {
+                        if (getLog().isWarnEnabled()) {
+                            getLog().warn(sm.getString("wsFrame.suspendRequested"));
+                        }
                     }
-                }
-                return;
-            case CLOSING:
-                return;
-            default:
-                throw new IllegalStateException(sm.getString("wsFrame.illegalReadState", state));
+                    return;
+                case SUSPENDING_PROCESS:
+                    if (readState != ReadState.SUSPENDING_PROCESS) {
+                        continue;
+                    } else {
+                        if (getLog().isWarnEnabled()) {
+                            getLog().warn(sm.getString("wsFrame.suspendRequested"));
+                        }
+                    }
+                    return;
+                case SUSPENDED:
+                    if (readState != ReadState.SUSPENDED) {
+                        continue;
+                    } else {
+                        if (getLog().isWarnEnabled()) {
+                            getLog().warn(sm.getString("wsFrame.alreadySuspended"));
+                        }
+                    }
+                    return;
+                case CLOSING:
+                    return;
+                default:
+                    throw new IllegalStateException(sm.getString("wsFrame.illegalReadState", state));
             }
         }
     }
@@ -821,47 +822,47 @@ public abstract class WsFrameBase {
     public void resume() {
         while (true) {
             switch (readState) {
-            case WAITING:
-                if (readState != ReadState.WAITING) {
-                    continue;
-                } else {
-                    if (getLog().isWarnEnabled()) {
-                        getLog().warn(sm.getString("wsFrame.alreadyResumed"));
+                case WAITING:
+                    if (readState != ReadState.WAITING) {
+                        continue;
+                    } else {
+                        if (getLog().isWarnEnabled()) {
+                            getLog().warn(sm.getString("wsFrame.alreadyResumed"));
+                        }
                     }
-                }
-                return;
-            case PROCESSING:
-                if (readState != ReadState.PROCESSING) {
-                    continue;
-                } else {
-                    if (getLog().isWarnEnabled()) {
-                        getLog().warn(sm.getString("wsFrame.alreadyResumed"));
+                    return;
+                case PROCESSING:
+                    if (readState != ReadState.PROCESSING) {
+                        continue;
+                    } else {
+                        if (getLog().isWarnEnabled()) {
+                            getLog().warn(sm.getString("wsFrame.alreadyResumed"));
+                        }
                     }
-                }
-                return;
-            case SUSPENDING_WAIT:
-                if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDING_WAIT,
-                        ReadState.WAITING)) {
-                    continue;
-                }
-                return;
-            case SUSPENDING_PROCESS:
-                if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDING_PROCESS,
-                        ReadState.PROCESSING)) {
-                    continue;
-                }
-                return;
-            case SUSPENDED:
-                if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDED,
-                        ReadState.WAITING)) {
-                    continue;
-                }
-                resumeProcessing();
-                return;
-            case CLOSING:
-                return;
-            default:
-                throw new IllegalStateException(sm.getString("wsFrame.illegalReadState", state));
+                    return;
+                case SUSPENDING_WAIT:
+                    if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDING_WAIT,
+                            ReadState.WAITING)) {
+                        continue;
+                    }
+                    return;
+                case SUSPENDING_PROCESS:
+                    if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDING_PROCESS,
+                            ReadState.PROCESSING)) {
+                        continue;
+                    }
+                    return;
+                case SUSPENDED:
+                    if (!READ_STATE_UPDATER.compareAndSet(this, ReadState.SUSPENDED,
+                            ReadState.WAITING)) {
+                        continue;
+                    }
+                    resumeProcessing();
+                    return;
+                case CLOSING:
+                    return;
+                default:
+                    throw new IllegalStateException(sm.getString("wsFrame.illegalReadState", state));
             }
         }
     }
@@ -937,7 +938,7 @@ public abstract class WsFrameBase {
 
         @Override
         public TransformationResult getMoreData(byte opCode, boolean fin, int rsv,
-                ByteBuffer dest) {
+                                                ByteBuffer dest) {
             // opCode is ignored as the transformation is the same for all
             // opCodes
             // rsv is ignored as it known to be zero at this point
@@ -978,7 +979,7 @@ public abstract class WsFrameBase {
 
         @Override
         public TransformationResult getMoreData(byte opCode, boolean fin, int rsv,
-                ByteBuffer dest) {
+                                                ByteBuffer dest) {
             // opCode is ignored as the transformation is the same for all
             // opCodes
             // rsv is ignored as it known to be zero at this point

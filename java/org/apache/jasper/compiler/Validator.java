@@ -70,21 +70,21 @@ class Validator {
         private final ErrorDispatcher err;
 
         private static final JspUtil.ValidAttribute[] pageDirectiveAttrs = {
-            new JspUtil.ValidAttribute("language"),
-            new JspUtil.ValidAttribute("extends"),
-            new JspUtil.ValidAttribute("import"),
-            new JspUtil.ValidAttribute("session"),
-            new JspUtil.ValidAttribute("buffer"),
-            new JspUtil.ValidAttribute("autoFlush"),
-            new JspUtil.ValidAttribute("isThreadSafe"),
-            new JspUtil.ValidAttribute("info"),
-            new JspUtil.ValidAttribute("errorPage"),
-            new JspUtil.ValidAttribute("isErrorPage"),
-            new JspUtil.ValidAttribute("contentType"),
-            new JspUtil.ValidAttribute("pageEncoding"),
-            new JspUtil.ValidAttribute("isELIgnored"),
-            new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"),
-            new JspUtil.ValidAttribute("trimDirectiveWhitespaces")
+                new JspUtil.ValidAttribute("language"),
+                new JspUtil.ValidAttribute("extends"),
+                new JspUtil.ValidAttribute("import"),
+                new JspUtil.ValidAttribute("session"),
+                new JspUtil.ValidAttribute("buffer"),
+                new JspUtil.ValidAttribute("autoFlush"),
+                new JspUtil.ValidAttribute("isThreadSafe"),
+                new JspUtil.ValidAttribute("info"),
+                new JspUtil.ValidAttribute("errorPage"),
+                new JspUtil.ValidAttribute("isErrorPage"),
+                new JspUtil.ValidAttribute("contentType"),
+                new JspUtil.ValidAttribute("pageEncoding"),
+                new JspUtil.ValidAttribute("isELIgnored"),
+                new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"),
+                new JspUtil.ValidAttribute("trimDirectiveWhitespaces")
         };
 
         private boolean pageEncodingSeen = false;
@@ -334,7 +334,7 @@ class Validator {
          * @throws JasperException in case of page encoding mismatch
          */
         private String comparePageEncodings(String thePageDirEnc,
-                Node.PageDirective pageDir) throws JasperException {
+                                            Node.PageDirective pageDir) throws JasperException {
 
             Node.Root root = pageDir.getRoot();
             String configEnc = root.getJspConfigPageEncoding();
@@ -350,7 +350,7 @@ class Validator {
                 configEnc = configEnc.toUpperCase(Locale.ENGLISH);
                 if (!pageDirEnc.equals(configEnc)
                         && (!pageDirEnc.startsWith("UTF-16") || !configEnc
-                                .startsWith("UTF-16"))) {
+                        .startsWith("UTF-16"))) {
                     err.jspError(pageDir,
                             "jsp.error.config_pagedir_encoding_mismatch",
                             configEnc, pageDirEnc);
@@ -370,7 +370,7 @@ class Validator {
                 String pageEnc = root.getPageEncoding().toUpperCase(Locale.ENGLISH);
                 if (!pageDirEnc.equals(pageEnc)
                         && (!pageDirEnc.startsWith("UTF-16") || !pageEnc
-                                .startsWith("UTF-16"))) {
+                        .startsWith("UTF-16"))) {
                     err.jspError(pageDir,
                             "jsp.error.prolog_pagedir_encoding_mismatch",
                             pageEnc, pageDirEnc);
@@ -392,7 +392,7 @@ class Validator {
          * @throws JasperException in case of page encoding mismatch
          */
         private void compareTagEncodings(String thePageDirEnc,
-                Node.TagDirective pageDir) throws JasperException {
+                                         Node.TagDirective pageDir) throws JasperException {
 
             Node.Root root = pageDir.getRoot();
             String pageDirEnc = thePageDirEnc.toUpperCase(Locale.ENGLISH);
@@ -407,7 +407,7 @@ class Validator {
                 String pageEnc = root.getPageEncoding().toUpperCase(Locale.ENGLISH);
                 if (!pageDirEnc.equals(pageEnc)
                         && (!pageDirEnc.startsWith("UTF-16") || !pageEnc
-                                .startsWith("UTF-16"))) {
+                        .startsWith("UTF-16"))) {
                     err.jspError(pageDir,
                             "jsp.error.prolog_pagedir_encoding_mismatch",
                             pageEnc, pageDirEnc);
@@ -436,43 +436,43 @@ class Validator {
 
         private static final JspUtil.ValidAttribute[] jspRootAttrs = {
                 new JspUtil.ValidAttribute("xsi:schemaLocation"),
-                new JspUtil.ValidAttribute("version", true) };
+                new JspUtil.ValidAttribute("version", true)};
 
-        private static final JspUtil.ValidAttribute[] includeDirectiveAttrs = { new JspUtil.ValidAttribute(
-                "file", true) };
+        private static final JspUtil.ValidAttribute[] includeDirectiveAttrs = {new JspUtil.ValidAttribute(
+                "file", true)};
 
         private static final JspUtil.ValidAttribute[] taglibDirectiveAttrs = {
                 new JspUtil.ValidAttribute("uri"),
                 new JspUtil.ValidAttribute("tagdir"),
-                new JspUtil.ValidAttribute("prefix", true) };
+                new JspUtil.ValidAttribute("prefix", true)};
 
         private static final JspUtil.ValidAttribute[] includeActionAttrs = {
                 new JspUtil.ValidAttribute("page", true),
-                new JspUtil.ValidAttribute("flush") };
+                new JspUtil.ValidAttribute("flush")};
 
         private static final JspUtil.ValidAttribute[] paramActionAttrs = {
                 new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("value", true) };
+                new JspUtil.ValidAttribute("value", true)};
 
         private static final JspUtil.ValidAttribute[] forwardActionAttrs = {
-                new JspUtil.ValidAttribute("page", true) };
+                new JspUtil.ValidAttribute("page", true)};
 
         private static final JspUtil.ValidAttribute[] getPropertyAttrs = {
                 new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("property", true) };
+                new JspUtil.ValidAttribute("property", true)};
 
         private static final JspUtil.ValidAttribute[] setPropertyAttrs = {
                 new JspUtil.ValidAttribute("name", true),
                 new JspUtil.ValidAttribute("property", true),
                 new JspUtil.ValidAttribute("value", false),
-                new JspUtil.ValidAttribute("param") };
+                new JspUtil.ValidAttribute("param")};
 
         private static final JspUtil.ValidAttribute[] useBeanAttrs = {
                 new JspUtil.ValidAttribute("id", true),
                 new JspUtil.ValidAttribute("scope"),
                 new JspUtil.ValidAttribute("class"),
                 new JspUtil.ValidAttribute("type"),
-                new JspUtil.ValidAttribute("beanName", false) };
+                new JspUtil.ValidAttribute("beanName", false)};
 
         private static final JspUtil.ValidAttribute[] plugInAttrs = {
                 new JspUtil.ValidAttribute("type", true),
@@ -487,7 +487,7 @@ class Validator {
                 new JspUtil.ValidAttribute("vspace"),
                 new JspUtil.ValidAttribute("width", false),
                 new JspUtil.ValidAttribute("nspluginurl"),
-                new JspUtil.ValidAttribute("iepluginurl") };
+                new JspUtil.ValidAttribute("iepluginurl")};
 
         private static final JspUtil.ValidAttribute[] attributeAttrs = {
                 new JspUtil.ValidAttribute("name", true),
@@ -498,18 +498,18 @@ class Validator {
                 new JspUtil.ValidAttribute("fragment", true),
                 new JspUtil.ValidAttribute("var"),
                 new JspUtil.ValidAttribute("varReader"),
-                new JspUtil.ValidAttribute("scope") };
+                new JspUtil.ValidAttribute("scope")};
 
         private static final JspUtil.ValidAttribute[] doBodyAttrs = {
                 new JspUtil.ValidAttribute("var"),
                 new JspUtil.ValidAttribute("varReader"),
-                new JspUtil.ValidAttribute("scope") };
+                new JspUtil.ValidAttribute("scope")};
 
         private static final JspUtil.ValidAttribute[] jspOutputAttrs = {
                 new JspUtil.ValidAttribute("omit-xml-declaration"),
                 new JspUtil.ValidAttribute("doctype-root-element"),
                 new JspUtil.ValidAttribute("doctype-public"),
-                new JspUtil.ValidAttribute("doctype-system") };
+                new JspUtil.ValidAttribute("doctype-system")};
 
         private final ExpressionFactory expressionFactory;
 
@@ -523,8 +523,8 @@ class Validator {
             // Get the cached EL expression factory for this context
             expressionFactory =
                     JspFactory.getDefaultFactory().getJspApplicationContext(
-                    compiler.getCompilationContext().getServletContext()).
-                    getExpressionFactory();
+                            compiler.getCompilationContext().getServletContext()).
+                            getExpressionFactory();
         }
 
         @Override
@@ -803,7 +803,7 @@ class Validator {
             boolean prevCharIsEscape = false;
             while (i < value.length()) {
                 char c = value.charAt(i);
-                if (c == '#' && (i+1) < len && value.charAt(i+1) == '{' && !prevCharIsEscape) {
+                if (c == '#' && (i + 1) < len && value.charAt(i + 1) == '{' && !prevCharIsEscape) {
                     return true;
                 } else if (c == '\\') {
                     prevCharIsEscape = true;
@@ -829,7 +829,7 @@ class Validator {
              */
             if (n.implementsSimpleTag()
                     && tagInfo.getBodyContent().equalsIgnoreCase(
-                            TagInfo.BODY_CONTENT_JSP)) {
+                    TagInfo.BODY_CONTENT_JSP)) {
                 err.jspError(n, "jsp.error.simpletag.badbodycontent", tagInfo
                         .getTagClassName());
             }
@@ -915,7 +915,7 @@ class Validator {
                 err.jspError(n, "jsp.error.jspelement.missing.name");
             }
             @SuppressWarnings("null") // Exception will have been thrown above
-            int xmlAttrLen = attrs.getLength();
+                    int xmlAttrLen = attrs.getLength();
 
             Node.Nodes namedAttrs = n.getNamedAttributeNodes();
 
@@ -1081,7 +1081,7 @@ class Validator {
          * considered a dynamic attribute.
          */
         private void checkXmlAttributes(Node.CustomTag n,
-                Node.JspAttribute[] jspAttrs, Hashtable<String, Object> tagDataAttrs)
+                                        Node.JspAttribute[] jspAttrs, Hashtable<String, Object> tagDataAttrs)
                 throws JasperException {
 
             TagInfo tagInfo = n.getTagInfo();
@@ -1098,8 +1098,8 @@ class Validator {
                 double libraryVersion = Double.parseDouble(
                         tagInfo.getTagLibrary().getRequiredVersion());
                 boolean deferredSyntaxAllowedAsLiteral =
-                    pageInfo.isDeferredSyntaxAllowedAsLiteral() ||
-                    libraryVersion < 2.1;
+                        pageInfo.isDeferredSyntaxAllowedAsLiteral() ||
+                                libraryVersion < 2.1;
 
                 String xmlAttributeValue = attrs.getValue(i);
 
@@ -1149,8 +1149,8 @@ class Validator {
                 for (int j = 0; tldAttrs != null && j < tldAttrs.length; j++) {
                     if (attrs.getLocalName(i).equals(tldAttrs[j].getName())
                             && (attrs.getURI(i) == null
-                                    || attrs.getURI(i).length() == 0 || attrs
-                                    .getURI(i).equals(n.getURI()))) {
+                            || attrs.getURI(i).length() == 0 || attrs
+                            .getURI(i).equals(n.getURI()))) {
 
                         TagAttributeInfo tldAttr = tldAttrs[j];
                         if (tldAttr.canBeRequestTime()
@@ -1192,8 +1192,8 @@ class Validator {
                                         expectedClass = JspUtil.toClass(expectedType, loader);
                                     } catch (ClassNotFoundException e) {
                                         err.jspError
-                                            (n, "jsp.error.unknown_attribute_type",
-                                             tldAttr.getName(), expectedType);
+                                                (n, "jsp.error.unknown_attribute_type",
+                                                        tldAttr.getName(), expectedType);
                                     }
                                     // Check casting - not possible for all types
                                     if (String.class.equals(expectedClass) ||
@@ -1213,8 +1213,8 @@ class Validator {
                                             expressionFactory.coerceToType(textAttributeValue, expectedClass);
                                         } catch (Exception e) {
                                             err.jspError
-                                                (n, "jsp.error.coerce_to_type",
-                                                 tldAttr.getName(), expectedType, textAttributeValue);
+                                                    (n, "jsp.error.coerce_to_type",
+                                                            tldAttr.getName(), expectedType, textAttributeValue);
                                         }
                                     }
                                 }
@@ -1248,7 +1248,7 @@ class Validator {
                             // Make sure its value does not contain any.
                             if (expression) {
                                 err.jspError(n, "jsp.error.attribute.custom.non_rt_with_expr",
-                                                tldAttr.getName());
+                                        tldAttr.getName());
                             }
                             jspAttrs[i] = new Node.JspAttribute(tldAttr,
                                     attrs.getQName(i), attrs.getURI(i),
@@ -1284,8 +1284,8 @@ class Validator {
          * attributes
          */
         private void checkNamedAttributes(Node.CustomTag n,
-                Node.JspAttribute[] jspAttrs, int start,
-                Hashtable<String, Object> tagDataAttrs)
+                                          Node.JspAttribute[] jspAttrs, int start,
+                                          Hashtable<String, Object> tagDataAttrs)
                 throws JasperException {
 
             TagInfo tagInfo = n.getTagInfo();
@@ -1308,7 +1308,7 @@ class Validator {
                     String attrPrefix = na.getPrefix();
                     if (na.getLocalName().equals(tldAttrs[j].getName())
                             && (attrPrefix == null || attrPrefix.length() == 0 || attrPrefix
-                                    .equals(n.getPrefix()))) {
+                            .equals(n.getPrefix()))) {
                         jspAttrs[start + i] = new Node.JspAttribute(na,
                                 tldAttrs[j], false);
                         NamedAttributeVisitor nav = null;
@@ -1347,11 +1347,11 @@ class Validator {
          * NamedAttribute node.
          *
          * @param el EL expression, if already parsed by the caller (so that we
-         *  can skip re-parsing it)
+         *           can skip re-parsing it)
          */
         private Node.JspAttribute getJspAttribute(TagAttributeInfo tai,
-                String qName, String uri, String localName, String value,
-                Node n, ELNode.Nodes el, boolean dynamic)
+                                                  String qName, String uri, String localName, String value,
+                                                  Node n, ELNode.Nodes el, boolean dynamic)
                 throws JasperException {
 
             Node.JspAttribute result = null;
@@ -1380,7 +1380,7 @@ class Validator {
                         // expression(s)
                         if (el == null) {
                             el = ELParser.parse(value,
-                                pageInfo.isDeferredSyntaxAllowedAsLiteral());
+                                    pageInfo.isDeferredSyntaxAllowedAsLiteral());
                         }
 
                         if (el.containsEL()) {
@@ -1513,7 +1513,7 @@ class Validator {
          * requires a static value.
          */
         private void throwErrorIfExpression(Node n, String attrName,
-                String actionName) throws JasperException {
+                                            String actionName) throws JasperException {
             if (n.getAttributes() != null
                     && n.getAttributes().getValue(attrName) != null
                     && isExpression(n, n.getAttributes().getValue(attrName), true)) {
@@ -1701,7 +1701,7 @@ class Validator {
 
                 @Override
                 public void mapFunction(String prefix, String localName,
-                        Method method) {
+                                        Method method) {
                     fnmap.put(prefix + ":" + localName, method);
                 }
 
@@ -1788,7 +1788,7 @@ class Validator {
             }
 
             @SuppressWarnings("null") // tagInfo can't be null here
-            ValidationMessage[] errors = tagInfo.validate(n.getTagData());
+                    ValidationMessage[] errors = tagInfo.validate(n.getTagData());
             if (errors != null && errors.length != 0) {
                 StringBuilder errMsg = new StringBuilder();
                 errMsg.append("<h3>");
@@ -1818,7 +1818,7 @@ class Validator {
     }
 
     public static void validateExDirectives(Compiler compiler, Node.Nodes page)
-        throws JasperException {
+            throws JasperException {
         // Determine the default output content type
         PageInfo pageInfo = compiler.getPageInfo();
         String contentType = pageInfo.getContentType();
@@ -1884,7 +1884,7 @@ class Validator {
         ErrorDispatcher errDisp = compiler.getErrorDispatcher();
 
         for (Iterator<TagLibraryInfo> iter =
-            compiler.getPageInfo().getTaglibs().iterator(); iter.hasNext();) {
+             compiler.getPageInfo().getTaglibs().iterator(); iter.hasNext(); ) {
 
             Object o = iter.next();
             if (!(o instanceof TagLibraryInfoImpl))

@@ -43,7 +43,7 @@ import org.apache.tomcat.util.file.ConfigFileLoader;
  *
  * @author Craig R. McClanahan
  */
-public class MemoryRealm  extends RealmBase {
+public class MemoryRealm extends RealmBase {
 
     private static final Log log = LogFactory.getLog(MemoryRealm.class);
 
@@ -66,7 +66,7 @@ public class MemoryRealm  extends RealmBase {
     /**
      * The set of valid Principals for this Realm, keyed by user name.
      */
-    private final Map<String,GenericPrincipal> principals = new HashMap<>();
+    private final Map<String, GenericPrincipal> principals = new HashMap<>();
 
 
     // ------------------------------------------------------------- Properties
@@ -101,9 +101,9 @@ public class MemoryRealm  extends RealmBase {
      * Return the Principal associated with the specified username and
      * credentials, if there is one; otherwise return <code>null</code>.
      *
-     * @param username Username of the Principal to look up
+     * @param username    Username of the Principal to look up
      * @param credentials Password or other credentials to use in
-     *  authenticating this username
+     *                    authenticating this username
      * @return the associated principal, or <code>null</code> if there is none.
      */
     @Override
@@ -119,7 +119,7 @@ public class MemoryRealm  extends RealmBase {
 
         GenericPrincipal principal = principals.get(username);
 
-        if(principal == null || principal.getPassword() == null) {
+        if (principal == null || principal.getPassword() == null) {
             // User was not found in the database or the password was null
             // Waste a bit of time as not to reveal that the user does not exist.
             getCredentialHandler().mutate(credentials);
@@ -151,7 +151,7 @@ public class MemoryRealm  extends RealmBase {
      *
      * @param username User's username
      * @param password User's password (clear text)
-     * @param roles Comma-delimited set of roles associated with this user
+     * @param roles    Comma-delimited set of roles associated with this user
      */
     void addUser(String username, String password, String roles) {
 
@@ -169,7 +169,7 @@ public class MemoryRealm  extends RealmBase {
 
         // Construct and cache the Principal for this user
         GenericPrincipal principal =
-            new GenericPrincipal(username, password, list);
+                new GenericPrincipal(username, password, list);
         principals.put(username, principal);
 
     }
@@ -233,8 +233,8 @@ public class MemoryRealm  extends RealmBase {
      * component and implement the requirements of
      * {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected void startInternal() throws LifecycleException {

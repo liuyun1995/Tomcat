@@ -44,12 +44,12 @@ public class Cache {
 
     private long ttl = 5000;
     private long maxSize = 10 * 1024 * 1024;
-    private int objectMaxSize = (int) maxSize/OBJECT_MAX_SIZE_FACTOR;
+    private int objectMaxSize = (int) maxSize / OBJECT_MAX_SIZE_FACTOR;
 
     private AtomicLong lookupCount = new AtomicLong(0);
     private AtomicLong hitCount = new AtomicLong(0);
 
-    private final ConcurrentMap<String,CachedResource> resourceCache =
+    private final ConcurrentMap<String, CachedResource> resourceCache =
             new ConcurrentHashMap<>();
 
     public Cache(StandardRoot root) {
@@ -294,7 +294,7 @@ public class Cache {
         }
         if (objectMaxSize > limit) {
             log.warn(sm.getString("cache.objectMaxSizeTooBig",
-                    Integer.valueOf(objectMaxSize / 1024), Integer.valueOf((int)limit / 1024)));
+                    Integer.valueOf(objectMaxSize / 1024), Integer.valueOf((int) limit / 1024)));
             objectMaxSize = (int) limit;
         }
     }

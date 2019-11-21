@@ -54,9 +54,7 @@ import java.util.concurrent.Executor;
  * connections is nearing exhaustion and this connection's last usage is older than the removeAbandonedTimeout.
  * </p>
  *
- * @param <C>
- *            the Connection type
- *
+ * @param <C> the Connection type
  * @since 2.0
  */
 public class DelegatingConnection<C extends Connection> extends AbandonedTrace implements Connection {
@@ -64,7 +62,9 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
     private static final Map<String, ClientInfoStatus> EMPTY_FAILED_PROPERTIES = Collections
             .<String, ClientInfoStatus>emptyMap();
 
-    /** My delegate {@link Connection}. */
+    /**
+     * My delegate {@link Connection}.
+     */
     private volatile C connection;
 
     private volatile boolean closed;
@@ -77,8 +77,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
     /**
      * Creates a wrapper for the Connection which traces this Connection in the AbandonedObjectPool.
      *
-     * @param c
-     *            the {@link Connection} to delegate all calls to.
+     * @param c the {@link Connection} to delegate all calls to.
      */
     public DelegatingConnection(final C c) {
         super();
@@ -135,8 +134,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
     /**
      * Compares innermost delegate to the given connection.
      *
-     * @param c
-     *            connection to compare innermost delegate with
+     * @param c connection to compare innermost delegate with
      * @return true if innermost delegate equals <code>c</code>
      */
     @SuppressWarnings("resource")
@@ -187,8 +185,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
     /**
      * Sets my delegate.
      *
-     * @param connection
-     *            my delegate.
+     * @param connection my delegate.
      */
     public void setDelegate(final C connection) {
         this.connection = connection;
@@ -501,8 +498,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
      * Sets the default query timeout that will be used for {@link Statement}s created from this connection.
      * <code>null</code> means that the driver default will be used.
      *
-     * @param defaultQueryTimeoutSeconds
-     *            the new query timeout limit in seconds; zero means there is no limit
+     * @param defaultQueryTimeoutSeconds the new query timeout limit in seconds; zero means there is no limit
      */
     public void setDefaultQueryTimeout(final Integer defaultQueryTimeoutSeconds) {
         this.defaultQueryTimeoutSeconds = defaultQueryTimeoutSeconds;
@@ -511,8 +507,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
     /**
      * Sets the state caching flag.
      *
-     * @param cacheState
-     *            The new value for the state caching flag
+     * @param cacheState The new value for the state caching flag
      */
     public void setCacheState(final boolean cacheState) {
         this.cacheState = cacheState;
@@ -715,7 +710,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
 
     @Override
     public Statement createStatement(final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) throws SQLException {
+                                     final int resultSetHoldability) throws SQLException {
         checkOpen();
         try {
             final DelegatingStatement ds = new DelegatingStatement(this,
@@ -730,7 +725,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
 
     @Override
     public PreparedStatement prepareStatement(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) throws SQLException {
+                                              final int resultSetHoldability) throws SQLException {
         checkOpen();
         try {
             final DelegatingPreparedStatement dps = new DelegatingPreparedStatement(this,
@@ -745,7 +740,7 @@ public class DelegatingConnection<C extends Connection> extends AbandonedTrace i
 
     @Override
     public CallableStatement prepareCall(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) throws SQLException {
+                                         final int resultSetHoldability) throws SQLException {
         checkOpen();
         try {
             final DelegatingCallableStatement dcs = new DelegatingCallableStatement(this,

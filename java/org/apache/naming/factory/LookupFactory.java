@@ -56,7 +56,7 @@ public class LookupFactory implements ObjectFactory {
      */
     @Override
     public Object getObjectInstance(Object obj, Name name, Context nameCtx,
-            Hashtable<?, ?> environment) throws Exception {
+                                    Hashtable<?, ?> environment) throws Exception {
 
         String lookupName = null;
         Object result = null;

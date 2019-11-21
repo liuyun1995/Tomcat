@@ -73,10 +73,10 @@ public interface AccessLog {
      * Add the request/response to the access log using the specified processing
      * time.
      *
-     * @param request   Request (associated with the response) to log
-     * @param response  Response (associated with the request) to log
-     * @param time      Time taken to process the request/response in
-     *                  milliseconds (use 0 if not known)
+     * @param request  Request (associated with the response) to log
+     * @param response Response (associated with the request) to log
+     * @param time     Time taken to process the request/response in
+     *                 milliseconds (use 0 if not known)
      */
     public void log(Request request, Response response, long time);
 
@@ -85,7 +85,7 @@ public interface AccessLog {
      * protocol and port used for the request? This are typically used in
      * conjunction with the {@link org.apache.catalina.valves.AccessLogValve}
      * which will otherwise log the original values.
-     *
+     * <p>
      * The attributes set are:
      * <ul>
      * <li>org.apache.catalina.RemoteAddr</li>
@@ -94,16 +94,16 @@ public interface AccessLog {
      * <li>org.apache.catalina.ServerPost</li>
      * </ul>
      *
-     * @param requestAttributesEnabled  <code>true</code> causes the attributes
-     *                                  to be set, <code>false</code> disables
-     *                                  the setting of the attributes.
+     * @param requestAttributesEnabled <code>true</code> causes the attributes
+     *                                 to be set, <code>false</code> disables
+     *                                 the setting of the attributes.
      */
     public void setRequestAttributesEnabled(boolean requestAttributesEnabled);
 
     /**
-     * @see #setRequestAttributesEnabled(boolean)
      * @return <code>true</code> if the attributes will be logged, otherwise
-     *         <code>false</code>
+     * <code>false</code>
+     * @see #setRequestAttributesEnabled(boolean)
      */
     public boolean getRequestAttributesEnabled();
 }

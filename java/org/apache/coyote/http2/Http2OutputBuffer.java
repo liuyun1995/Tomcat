@@ -37,7 +37,7 @@ public class Http2OutputBuffer implements HttpOutputBuffer {
      * method on the next HttpOutputBuffer in the chain until the call reaches
      * the StreamOutputBuffer.
      *
-     * @param filter    The filter to add to the start of the processing chain
+     * @param filter The filter to add to the start of the processing chain
      */
     public void addFilter(OutputFilter filter) {
         filter.setBuffer(next);

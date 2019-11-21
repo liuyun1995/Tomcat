@@ -32,7 +32,7 @@ public class AccessLogAdapter implements AccessLog {
 
     public AccessLogAdapter(AccessLog log) {
         Objects.requireNonNull(log);
-        logs = new AccessLog[] { log };
+        logs = new AccessLog[]{log};
     }
 
     public void add(AccessLog log) {
@@ -44,7 +44,7 @@ public class AccessLogAdapter implements AccessLog {
 
     @Override
     public void log(Request request, Response response, long time) {
-        for (AccessLog log: logs) {
+        for (AccessLog log : logs) {
             log.log(request, response, time);
         }
     }

@@ -67,7 +67,7 @@ public class ApplicationPushBuilder implements PushBuilder {
     private final boolean addSessionCookie;
     private final boolean addSessionPathParameter;
 
-    private final Map<String,List<String>> headers = new CaseInsensitiveKeyMap<>();
+    private final Map<String, List<String>> headers = new CaseInsensitiveKeyMap<>();
     private final List<Cookie> cookies = new ArrayList<>();
     private String method = "GET";
     private String path;
@@ -318,7 +318,7 @@ public class ApplicationPushBuilder implements PushBuilder {
         pushTarget.scheme().setString(baseRequest.getScheme());
 
         // Copy headers
-        for (Map.Entry<String,List<String>> header : headers.entrySet()) {
+        for (Map.Entry<String, List<String>> header : headers.entrySet()) {
             for (String value : header.getValue()) {
                 pushTarget.getMimeHeaders().addValue(header.getKey()).setString(value);
             }
@@ -366,7 +366,7 @@ public class ApplicationPushBuilder implements PushBuilder {
         } else if (pushQueryString != null && queryString == null) {
             pushTarget.queryString().setString(pushQueryString);
         } else if (pushQueryString != null && queryString != null) {
-            pushTarget.queryString().setString(pushQueryString + "&" +queryString);
+            pushTarget.queryString().setString(pushQueryString + "&" + queryString);
         }
 
         // Authorization
@@ -401,7 +401,7 @@ public class ApplicationPushBuilder implements PushBuilder {
             result.append(input.substring(end, start));
             // Advance the end 3 characters: %nn
             end = start + 3;
-            while (end <input.length() && input.charAt(end) == '%') {
+            while (end < input.length() && input.charAt(end) == '%') {
                 end += 3;
             }
             result.append(decodePercentSequence(input.substring(start, end), charset));
@@ -415,7 +415,7 @@ public class ApplicationPushBuilder implements PushBuilder {
 
 
     private static String decodePercentSequence(String sequence, Charset charset) {
-        byte[] bytes = new byte[sequence.length()/3];
+        byte[] bytes = new byte[sequence.length() / 3];
         for (int i = 0; i < bytes.length; i += 3) {
             bytes[i] = (byte) ((HexUtils.getDec(sequence.charAt(1 + 3 * i)) << 4) +
                     HexUtils.getDec(sequence.charAt(2 + 3 * i)));

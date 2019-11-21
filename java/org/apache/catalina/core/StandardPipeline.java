@@ -106,9 +106,9 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
 
     @Override
     public boolean isAsyncSupported() {
-        Valve valve = (first!=null)?first:basic;
+        Valve valve = (first != null) ? first : basic;
         boolean supported = true;
-        while (supported && valve!=null) {
+        while (supported && valve != null) {
             supported = supported & valve.isAsyncSupported();
             valve = valve.getNext();
         }
@@ -118,7 +118,7 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
 
     @Override
     public void findNonAsyncValves(Set<String> result) {
-        Valve valve = (first!=null) ? first : basic;
+        Valve valve = (first != null) ? first : basic;
         while (valve != null) {
             if (!valve.isAsyncSupported()) {
                 result.add(valve.getClass().getName());
@@ -160,8 +160,8 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
      * Start {@link Valve}s) in this pipeline and implement the requirements
      * of {@link LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
@@ -185,8 +185,8 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
      * Stop {@link Valve}s) in this pipeline and implement the requirements
      * of {@link LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {
@@ -316,13 +316,12 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
      * if it is already associated with a different Container.</p>
      *
      * @param valve Valve to be added
-     *
-     * @exception IllegalArgumentException if this Container refused to
-     *  accept the specified Valve
-     * @exception IllegalArgumentException if the specified Valve refuses to be
-     *  associated with this Container
-     * @exception IllegalStateException if the specified Valve is already
-     *  associated with a different Container
+     * @throws IllegalArgumentException if this Container refused to
+     *                                  accept the specified Valve
+     * @throws IllegalArgumentException if the specified Valve refuses to be
+     *                                  associated with this Container
+     * @throws IllegalStateException    if the specified Valve is already
+     *                                  associated with a different Container
      */
     @Override
     public void addValve(Valve valve) {
@@ -414,7 +413,7 @@ public class StandardPipeline extends LifecycleBase implements Pipeline {
     public void removeValve(Valve valve) {
 
         Valve current;
-        if(first == valve) {
+        if (first == valve) {
             first = first.getNext();
             current = null;
         } else {

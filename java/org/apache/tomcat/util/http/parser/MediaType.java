@@ -26,12 +26,12 @@ public class MediaType {
 
     private final String type;
     private final String subtype;
-    private final LinkedHashMap<String,String> parameters;
+    private final LinkedHashMap<String, String> parameters;
     private final String charset;
     private volatile String noCharset;
     private volatile String withCharset;
 
-    protected MediaType(String type, String subtype, LinkedHashMap<String,String> parameters) {
+    protected MediaType(String type, String subtype, LinkedHashMap<String, String> parameters) {
         this.type = type;
         this.subtype = subtype;
         this.parameters = parameters;
@@ -148,7 +148,7 @@ public class MediaType {
             return null;
         }
 
-        LinkedHashMap<String,String> parameters = new LinkedHashMap<>();
+        LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
 
         SkipResult lookForSemiColon = HttpParser.skipConstant(input, ";");
         if (lookForSemiColon == SkipResult.NOT_FOUND) {

@@ -101,7 +101,7 @@ public class ResolverImpl extends Resolver {
             return "tomcat";
         } else if (key.equals("THE_REQUEST")) {
             return request.getMethod() + " " + request.getRequestURI()
-            + " " + request.getProtocol();
+                    + " " + request.getProtocol();
         } else if (key.equals("REQUEST_URI")) {
             return request.getRequestURI();
         } else if (key.equals("REQUEST_FILENAME")) {
@@ -158,14 +158,14 @@ public class ResolverImpl extends Resolver {
             return false;
         } else {
             switch (type) {
-            case 0:
-                return resource.isDirectory();
-            case 1:
-                return resource.isFile();
-            case 2:
-                return resource.isFile() && resource.getContentLength() > 0;
-            default:
-                return false;
+                case 0:
+                    return resource.isDirectory();
+                case 1:
+                    return resource.isFile();
+                case 2:
+                    return resource.isFile() && resource.getContentLength() > 0;
+                default:
+                    return false;
             }
         }
     }

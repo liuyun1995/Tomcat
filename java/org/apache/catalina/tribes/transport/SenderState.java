@@ -66,7 +66,6 @@ public class SenderState {
     }
 
     /**
-     *
      * @return boolean
      */
     public boolean isSuspect() {

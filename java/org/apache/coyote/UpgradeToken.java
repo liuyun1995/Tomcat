@@ -32,7 +32,7 @@ public final class UpgradeToken {
     private final InstanceManager instanceManager;
 
     public UpgradeToken(HttpUpgradeHandler httpUpgradeHandler,
-            ContextBind contextBind, InstanceManager instanceManager) {
+                        ContextBind contextBind, InstanceManager instanceManager) {
         this.contextBind = contextBind;
         this.httpUpgradeHandler = httpUpgradeHandler;
         this.instanceManager = instanceManager;

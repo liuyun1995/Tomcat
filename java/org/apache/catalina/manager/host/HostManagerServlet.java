@@ -89,7 +89,7 @@ import org.apache.tomcat.util.res.StringManager;
  * @author Remy Maucherat
  */
 public class HostManagerServlet
-    extends HttpServlet implements ContainerServlet {
+        extends HttpServlet implements ContainerServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -124,7 +124,7 @@ public class HostManagerServlet
      * The string manager for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
 
     /**
@@ -183,16 +183,15 @@ public class HostManagerServlet
     /**
      * Process a GET request for the specified resource.
      *
-     * @param request The servlet request we are processing
+     * @param request  The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet-specified error occurs
      */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         StringManager smClient = StringManager.getManager(
                 Constants.Package, request.getLocales());
@@ -228,7 +227,7 @@ public class HostManagerServlet
             persist(writer, smClient);
         } else {
             writer.println(smClient.getString("hostManagerServlet.unknownCommand",
-                                        command));
+                    command));
         }
 
         // Finish up the response
@@ -240,14 +239,14 @@ public class HostManagerServlet
     /**
      * Add host with the given parameters.
      *
-     * @param request The request
-     * @param writer The output writer
-     * @param name The host name
+     * @param request  The request
+     * @param writer   The output writer
+     * @param name     The host name
      * @param htmlMode Flag value
      * @param smClient StringManager for the client's locale
-    */
+     */
     protected void add(HttpServletRequest request, PrintWriter writer,
-            String name, boolean htmlMode, StringManager smClient) {
+                       String name, boolean htmlMode, StringManager smClient) {
         String aliases = request.getParameter("aliases");
         String appBase = request.getParameter("appBase");
         boolean manager = booleanParameter(request, "manager", false, htmlMode);
@@ -257,25 +256,26 @@ public class HostManagerServlet
         boolean unpackWARs = booleanParameter(request, "unpackWARs", true, htmlMode);
         boolean copyXML = booleanParameter(request, "copyXML", false, htmlMode);
         add(writer, name, aliases, appBase, manager,
-            autoDeploy,
-            deployOnStartup,
-            deployXML,
-            unpackWARs,
-            copyXML,
-            smClient);
+                autoDeploy,
+                deployOnStartup,
+                deployXML,
+                unpackWARs,
+                copyXML,
+                smClient);
     }
 
 
     /**
      * Extract boolean value from checkbox with default.
-     * @param request The Servlet request
-     * @param parameter The parameter name
+     *
+     * @param request    The Servlet request
+     * @param parameter  The parameter name
      * @param theDefault Default value
-     * @param htmlMode Flag value
+     * @param htmlMode   Flag value
      * @return the boolean value for the parameter
      */
     protected boolean booleanParameter(HttpServletRequest request,
-            String parameter, boolean theDefault, boolean htmlMode) {
+                                       String parameter, boolean theDefault, boolean htmlMode) {
         String value = request.getParameter(parameter);
         boolean booleanValue = theDefault;
         if (value != null) {
@@ -302,7 +302,7 @@ public class HostManagerServlet
         // Ensure that our ContainerServlet properties have been set
         if ((wrapper == null) || (context == null))
             throw new UnavailableException
-                (sm.getString("hostManagerServlet.noWrapper"));
+                    (sm.getString("hostManagerServlet.noWrapper"));
 
         // Set our properties from the initialization parameters
         String value = null;
@@ -316,34 +316,33 @@ public class HostManagerServlet
     }
 
 
-
     // -------------------------------------------------------- Private Methods
 
 
     /**
      * Add a host using the specified parameters.
      *
-     * @param writer Writer to render results to
-     * @param name host name
-     * @param aliases comma separated alias list
-     * @param appBase application base for the host
-     * @param manager should the manager webapp be deployed to the new host ?
-     * @param autoDeploy Flag value
+     * @param writer          Writer to render results to
+     * @param name            host name
+     * @param aliases         comma separated alias list
+     * @param appBase         application base for the host
+     * @param manager         should the manager webapp be deployed to the new host ?
+     * @param autoDeploy      Flag value
      * @param deployOnStartup Flag value
-     * @param deployXML Flag value
-     * @param unpackWARs Flag value
-     * @param copyXML Flag value
-     * @param smClient StringManager for the client's locale
+     * @param deployXML       Flag value
+     * @param unpackWARs      Flag value
+     * @param copyXML         Flag value
+     * @param smClient        StringManager for the client's locale
      */
     protected synchronized void add
-        (PrintWriter writer, String name, String aliases, String appBase,
-         boolean manager,
-         boolean autoDeploy,
-         boolean deployOnStartup,
-         boolean deployXML,
-         boolean unpackWARs,
-         boolean copyXML,
-         StringManager smClient) {
+    (PrintWriter writer, String name, String aliases, String appBase,
+     boolean manager,
+     boolean autoDeploy,
+     boolean deployOnStartup,
+     boolean deployXML,
+     boolean unpackWARs,
+     boolean copyXML,
+     StringManager smClient) {
         if (debug >= 1) {
             log(sm.getString("hostManagerServlet.add", name));
         }
@@ -446,12 +445,12 @@ public class HostManagerServlet
     /**
      * Remove the specified host.
      *
-     * @param writer Writer to render results to
-     * @param name host name
+     * @param writer   Writer to render results to
+     * @param name     host name
      * @param smClient StringManager for the client's locale
      */
     protected synchronized void remove(PrintWriter writer, String name,
-            StringManager smClient) {
+                                       StringManager smClient) {
 
         if (debug >= 1) {
             log(sm.getString("hostManagerServlet.remove", name));
@@ -483,7 +482,7 @@ public class HostManagerServlet
         try {
             Container child = engine.findChild(name);
             engine.removeChild(child);
-            if ( child instanceof ContainerBase ) child.destroy();
+            if (child instanceof ContainerBase) child.destroy();
         } catch (Exception e) {
             writer.println(smClient.getString("hostManagerServlet.exception",
                     e.toString()));
@@ -506,7 +505,7 @@ public class HostManagerServlet
     /**
      * Render a list of the currently active Contexts in our virtual host.
      *
-     * @param writer Writer to render to
+     * @param writer   Writer to render to
      * @param smClient StringManager for the client's locale
      */
     protected void list(PrintWriter writer, StringManager smClient) {
@@ -531,12 +530,12 @@ public class HostManagerServlet
     /**
      * Start the host with the specified name.
      *
-     * @param writer Writer to render to
-     * @param name Host name
+     * @param writer   Writer to render to
+     * @param name     Host name
      * @param smClient StringManager for the client's locale
      */
     protected void start(PrintWriter writer, String name,
-            StringManager smClient) {
+                         StringManager smClient) {
 
         if (debug >= 1) {
             log(sm.getString("hostManagerServlet.start", name));
@@ -579,7 +578,7 @@ public class HostManagerServlet
                     "hostManagerServlet.started", name));
         } catch (Exception e) {
             getServletContext().log
-                (sm.getString("hostManagerServlet.startFailed", name), e);
+                    (sm.getString("hostManagerServlet.startFailed", name), e);
             writer.println(smClient.getString(
                     "hostManagerServlet.startFailed", name));
             writer.println(smClient.getString(
@@ -591,12 +590,12 @@ public class HostManagerServlet
     /**
      * Stop the host with the specified name.
      *
-     * @param writer Writer to render to
-     * @param name Host name
+     * @param writer   Writer to render to
+     * @param name     Host name
      * @param smClient StringManager for the client's locale
      */
     protected void stop(PrintWriter writer, String name,
-            StringManager smClient) {
+                        StringManager smClient) {
 
         if (debug >= 1) {
             log(sm.getString("hostManagerServlet.stop", name));
@@ -651,7 +650,7 @@ public class HostManagerServlet
     /**
      * Persist the current configuration to server.xml.
      *
-     * @param writer Writer to render to
+     * @param writer   Writer to render to
      * @param smClient i18n resources localized for the client
      */
     protected void persist(PrintWriter writer, StringManager smClient) {
@@ -683,6 +682,7 @@ public class HostManagerServlet
 
     /**
      * Get config base.
+     *
      * @param hostName The host name
      * @return the config base for the host
      */

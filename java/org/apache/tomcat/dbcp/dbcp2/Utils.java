@@ -38,7 +38,9 @@ public final class Utils {
      */
     public static final boolean IS_SECURITY_ENABLED = System.getSecurityManager() != null;
 
-    /** Any SQL_STATE starting with this value is considered a fatal disconnect */
+    /**
+     * Any SQL_STATE starting with this value is considered a fatal disconnect
+     */
     public static final String DISCONNECTION_SQL_CODE_PREFIX = "08";
 
     /**
@@ -67,8 +69,7 @@ public final class Utils {
     /**
      * Clones the given char[] if not null.
      *
-     * @param value
-     *            may be null.
+     * @param value may be null.
      * @return a cloned char[] or null.
      */
     public static char[] clone(final char[] value) {
@@ -78,8 +79,7 @@ public final class Utils {
     /**
      * Closes the AutoCloseable (which may be null).
      *
-     * @param autoCloseable
-     *            an AutoCloseable, may be {@code null}
+     * @param autoCloseable an AutoCloseable, may be {@code null}
      * @since 2.6.0
      */
     public static void closeQuietly(final AutoCloseable autoCloseable) {
@@ -95,8 +95,7 @@ public final class Utils {
     /**
      * Gets the correct i18n message for the given key.
      *
-     * @param key
-     *            The key to look up an i18n message.
+     * @param key The key to look up an i18n message.
      * @return The i18n message.
      */
     public static String getMessage(final String key) {
@@ -106,10 +105,8 @@ public final class Utils {
     /**
      * Gets the correct i18n message for the given key with placeholders replaced by the supplied arguments.
      *
-     * @param key
-     *            A message key.
-     * @param args
-     *            The message arguments.
+     * @param key  A message key.
+     * @param args The message arguments.
      * @return An i18n message.
      */
     public static String getMessage(final String key, final Object... args) {
@@ -124,8 +121,7 @@ public final class Utils {
     /**
      * Converts the given String to a char[].
      *
-     * @param value
-     *            may be null.
+     * @param value may be null.
      * @return a char[] or null.
      */
     public static char[] toCharArray(final String value) {
@@ -135,8 +131,7 @@ public final class Utils {
     /**
      * Converts the given char[] to a String.
      *
-     * @param value
-     *            may be null.
+     * @param value may be null.
      * @return a String or null.
      */
     public static String toString(final char[] value) {

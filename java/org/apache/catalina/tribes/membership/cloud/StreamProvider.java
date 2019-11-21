@@ -24,10 +24,11 @@ import java.util.Map;
 public interface StreamProvider {
     /**
      * Open stream to the specified URL.
-     * @param url the url
-     * @param headers the headers map
+     *
+     * @param url            the url
+     * @param headers        the headers map
      * @param connectTimeout connection timeout in ms
-     * @param readTimeout read timeout in ms
+     * @param readTimeout    read timeout in ms
      * @return the stream
      * @throws IOException when an error occurs
      */

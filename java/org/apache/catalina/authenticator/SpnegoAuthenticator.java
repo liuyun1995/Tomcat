@@ -58,23 +58,28 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
     private static final String AUTH_HEADER_VALUE_NEGOTIATE = "Negotiate";
 
     private String loginConfigName = Constants.DEFAULT_LOGIN_MODULE_NAME;
+
     public String getLoginConfigName() {
         return loginConfigName;
     }
+
     public void setLoginConfigName(String loginConfigName) {
         this.loginConfigName = loginConfigName;
     }
 
     private boolean storeDelegatedCredential = true;
+
     public boolean isStoreDelegatedCredential() {
         return storeDelegatedCredential;
     }
+
     public void setStoreDelegatedCredential(
             boolean storeDelegatedCredential) {
         this.storeDelegatedCredential = storeDelegatedCredential;
     }
 
     private Pattern noKeepAliveUserAgents = null;
+
     public String getNoKeepAliveUserAgents() {
         Pattern p = noKeepAliveUserAgents;
         if (p == null) {
@@ -83,6 +88,7 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
             return p.pattern();
         }
     }
+
     public void setNoKeepAliveUserAgents(String noKeepAliveUserAgents) {
         if (noKeepAliveUserAgents == null ||
                 noKeepAliveUserAgents.length() == 0) {
@@ -93,9 +99,11 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
     }
 
     private boolean applyJava8u40Fix = true;
+
     public boolean getApplyJava8u40Fix() {
         return applyJava8u40Fix;
     }
+
     public void setApplyJava8u40Fix(boolean applyJava8u40Fix) {
         this.applyJava8u40Fix = applyJava8u40Fix;
     }
@@ -142,8 +150,8 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
         }
 
         MessageBytes authorization =
-            request.getCoyoteRequest().getMimeHeaders()
-            .getValue("authorization");
+                request.getCoyoteRequest().getMimeHeaders()
+                        .getValue("authorization");
 
         if (authorization == null) {
             if (log.isDebugEnabled()) {
@@ -216,15 +224,15 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
                 credentialLifetime = GSSCredential.DEFAULT_LIFETIME;
             }
             final PrivilegedExceptionAction<GSSCredential> action =
-                new PrivilegedExceptionAction<GSSCredential>() {
-                    @Override
-                    public GSSCredential run() throws GSSException {
-                        return manager.createCredential(null,
-                                credentialLifetime,
-                                new Oid("1.3.6.1.5.5.2"),
-                                GSSCredential.ACCEPT_ONLY);
-                    }
-                };
+                    new PrivilegedExceptionAction<GSSCredential>() {
+                        @Override
+                        public GSSCredential run() throws GSSException {
+                            return manager.createCredential(null,
+                                    credentialLifetime,
+                                    new Oid("1.3.6.1.5.5.2"),
+                                    GSSCredential.ACCEPT_ONLY);
+                        }
+                    };
             gssContext = manager.createContext(Subject.doAs(subject, action));
 
             outToken = Subject.doAs(lc.getSubject(), new AcceptAction(gssContext, decoded));
@@ -333,7 +341,7 @@ public class SpnegoAuthenticator extends AuthenticatorBase {
         private final boolean storeDelegatedCredential;
 
         public AuthenticateAction(Realm realm, GSSContext gssContext,
-                boolean storeDelegatedCredential) {
+                                  boolean storeDelegatedCredential) {
             this.realm = realm;
             this.gssContext = gssContext;
             this.storeDelegatedCredential = storeDelegatedCredential;

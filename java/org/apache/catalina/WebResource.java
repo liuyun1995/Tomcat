@@ -98,7 +98,7 @@ public interface WebResource {
      * Return the strong ETag if available (currently not supported) else return
      * the weak ETag calculated from the content length and last modified.
      *
-     * @return  The ETag for this resource
+     * @return The ETag for this resource
      */
     String getETag();
 
@@ -117,15 +117,15 @@ public interface WebResource {
     /**
      * Obtain an InputStream based on the contents of this resource.
      *
-     * @return  An InputStream based on the contents of this resource or
-     *          <code>null</code> if the resource does not exist or does not
-     *          represent a file
+     * @return An InputStream based on the contents of this resource or
+     * <code>null</code> if the resource does not exist or does not
+     * represent a file
      */
     InputStream getInputStream();
 
     /**
      * @return the binary content of this resource or {@code null} if it is not
-     *         available in a byte[] because, for example, it is too big.
+     * available in a byte[] because, for example, it is too big.
      */
     byte[] getContent();
 
@@ -157,14 +157,12 @@ public interface WebResource {
     /**
      * @return the certificates that were used to sign this resource to verify
      * it or @null if none.
-     *
      * @see java.util.jar.JarEntry#getCertificates()
      */
     Certificate[] getCertificates();
 
     /**
      * @return the manifest associated with this resource or @null if none.
-     *
      * @see java.util.jar.JarFile#getManifest()
      */
     Manifest getManifest();

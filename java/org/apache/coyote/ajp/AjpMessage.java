@@ -107,7 +107,7 @@ public class AjpMessage {
 
         buf[0] = (byte) 0x41;
         buf[1] = (byte) 0x42;
-        buf[2] = (byte) ((dLen>>>8) & 0xFF);
+        buf[2] = (byte) ((dLen >>> 8) & 0xFF);
         buf[3] = (byte) (dLen & 0xFF);
     }
 
@@ -217,8 +217,8 @@ public class AjpMessage {
      * terminating \0 (which is <B>not</B> included in the encoded
      * length).
      *
-     * @param b The array from which to copy bytes.
-     * @param off The offset into the array at which to start copying
+     * @param b        The array from which to copy bytes.
+     * @param off      The offset into the array at which to start copying
      * @param numBytes The number of bytes to copy.
      */
     public void appendBytes(byte[] b, int off, int numBytes) {
@@ -278,15 +278,15 @@ public class AjpMessage {
         int b1 = buf[pos++] & 0xFF;
         int b2 = buf[pos++] & 0xFF;
         validatePos(pos);
-        return (b1<<8) + b2;
+        return (b1 << 8) + b2;
     }
 
 
     public int peekInt() {
         validatePos(pos + 2);
         int b1 = buf[pos] & 0xFF;
-        int b2 = buf[pos+1] & 0xFF;
-        return (b1<<8) + b2;
+        int b2 = buf[pos + 1] & 0xFF;
+        return (b1 << 8) + b2;
     }
 
 
@@ -339,10 +339,10 @@ public class AjpMessage {
         b1 |= (buf[pos++] & 0xFF);
         b1 <<= 8;
         b1 |= (buf[pos++] & 0xFF);
-        b1 <<=8;
+        b1 <<= 8;
         b1 |= (buf[pos++] & 0xFF);
         validatePos(pos);
-        return  b1;
+        return b1;
     }
 
 
@@ -359,7 +359,7 @@ public class AjpMessage {
             }
             return -1;
         }
-        if (log.isDebugEnabled())  {
+        if (log.isDebugEnabled()) {
             log.debug("Received " + len + " " + buf[0]);
         }
         return len;
@@ -368,11 +368,11 @@ public class AjpMessage {
 
     private void dump(String prefix) {
         if (log.isDebugEnabled()) {
-            log.debug(prefix + ": " + HexUtils.toHexString(buf) + " " + pos +"/" + (len + 4));
+            log.debug(prefix + ": " + HexUtils.toHexString(buf) + " " + pos + "/" + (len + 4));
         }
         int max = pos;
         if (len + 4 > pos)
-            max = len+4;
+            max = len + 4;
         if (max > 1000)
             max = 1000;
         if (log.isDebugEnabled()) {
@@ -395,7 +395,7 @@ public class AjpMessage {
 
     protected static String hexLine(byte buf[], int start, int len) {
         StringBuilder sb = new StringBuilder();
-        for (int i = start; i < start + 16 ; i++) {
+        for (int i = start; i < start + 16; i++) {
             if (i < len + 4) {
                 sb.append(hex(buf[i]) + " ");
             } else {

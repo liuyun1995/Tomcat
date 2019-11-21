@@ -53,9 +53,9 @@ public class ContextHandler extends ResourceBase {
     /**
      * A list of QName specifying the SOAP Headers the handler will work on.
      * -namespace and localpart values must be found inside the WSDL.
-     *
+     * <p>
      * A service-qname is composed by a namespaceURI and a localpart.
-     *
+     * <p>
      * soapHeader[0] : namespaceURI
      * soapHeader[1] : localpart
      */
@@ -75,7 +75,8 @@ public class ContextHandler extends ResourceBase {
 
     /**
      * Set a configured property.
-     * @param name The property name
+     *
+     * @param name  The property name
      * @param value The property value
      */
     public void setProperty(String name, String value) {

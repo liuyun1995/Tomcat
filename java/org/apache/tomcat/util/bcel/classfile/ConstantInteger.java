@@ -26,7 +26,7 @@ import org.apache.tomcat.util.bcel.Const;
  * This class is derived from the abstract {@link Constant}
  * and represents a reference to an int object.
  *
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantInteger extends Constant {
 

@@ -56,7 +56,7 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
     /**
      * Construct a new security collection instance with specified values.
      *
-     * @param name Name of this security collection
+     * @param name        Name of this security collection
      * @param description Description of this security collection
      */
     public SecurityCollection(String name, String description) {
@@ -155,6 +155,7 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
 
     /**
      * Set if this constraint was defined in a deployment descriptor.
+     *
      * @param isFromDescriptor <code>true</code> was declared in a descriptor
      */
     public void setFromDescriptor(boolean isFromDescriptor) {
@@ -168,6 +169,7 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
     /**
      * Add an HTTP request method to be explicitly part of this web resource
      * collection.
+     *
      * @param method The method
      */
     public void addMethod(String method) {
@@ -184,6 +186,7 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
     /**
      * Add an HTTP request method to the methods explicitly excluded from this
      * web resource collection.
+     *
      * @param method The method
      */
     public void addOmittedMethod(String method) {
@@ -196,11 +199,13 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
 
     /**
      * Add a URL pattern to be part of this web resource collection.
+     *
      * @param pattern The pattern
      */
     public void addPattern(String pattern) {
         addPatternDecoded(UDecoder.URLDecode(pattern, StandardCharsets.UTF_8));
     }
+
     public void addPatternDecoded(String pattern) {
 
         if (pattern == null)
@@ -215,6 +220,7 @@ public class SecurityCollection extends XmlEncodingBase implements Serializable 
 
     /**
      * Check if the collection applies to the specified method.
+     *
      * @param method Request method to check
      * @return <code>true</code> if the specified HTTP request method is
      * part of this web resource collection.

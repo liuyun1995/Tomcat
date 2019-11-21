@@ -60,10 +60,11 @@ public class NamingResourcesMBean extends BaseModelMBean {
     /**
      * Return the MBean Names of the set of defined environment entries for
      * this web application
+     *
      * @return an array of object names as strings
      */
     public String[] getEnvironments() {
-        ContextEnvironment[] envs = ((NamingResourcesImpl)this.resource).findEnvironments();
+        ContextEnvironment[] envs = ((NamingResourcesImpl) this.resource).findEnvironments();
         List<String> results = new ArrayList<>();
         for (int i = 0; i < envs.length; i++) {
             try {
@@ -83,10 +84,11 @@ public class NamingResourcesMBean extends BaseModelMBean {
     /**
      * Return the MBean Names of all the defined resource references for this
      * application.
+     *
      * @return an array of object names as strings
      */
     public String[] getResources() {
-        ContextResource[] resources = ((NamingResourcesImpl)this.resource).findResources();
+        ContextResource[] resources = ((NamingResourcesImpl) this.resource).findResources();
         List<String> results = new ArrayList<>();
         for (int i = 0; i < resources.length; i++) {
             try {
@@ -106,11 +108,12 @@ public class NamingResourcesMBean extends BaseModelMBean {
     /**
      * Return the MBean Names of all the defined resource link references for
      * this application.
+     *
      * @return an array of object names as strings
      */
     public String[] getResourceLinks() {
         ContextResourceLink[] resourceLinks =
-                ((NamingResourcesImpl)this.resource).findResourceLinks();
+                ((NamingResourcesImpl) this.resource).findResourceLinks();
         List<String> results = new ArrayList<>();
         for (int i = 0; i < resourceLinks.length; i++) {
             try {
@@ -134,8 +137,8 @@ public class NamingResourcesMBean extends BaseModelMBean {
      * Add an environment entry for this web application.
      *
      * @param envName New environment entry name
-     * @param type The type of the new environment entry
-     * @param value The value of the new environment entry
+     * @param type    The type of the new environment entry
+     * @param value   The value of the new environment entry
      * @return the object name of the new environment entry
      * @throws MalformedObjectNameException if the object name was invalid
      */
@@ -167,7 +170,7 @@ public class NamingResourcesMBean extends BaseModelMBean {
      * Add a resource reference for this web application.
      *
      * @param resourceName New resource reference name
-     * @param type New resource reference type
+     * @param type         New resource reference type
      * @return the object name of the new resource
      * @throws MalformedObjectNameException if the object name was invalid
      */
@@ -198,19 +201,19 @@ public class NamingResourcesMBean extends BaseModelMBean {
      * Add a resource link reference for this web application.
      *
      * @param resourceLinkName New resource link reference name
-     * @param type New resource link reference type
+     * @param type             New resource link reference type
      * @return the object name of the new resource link
      * @throws MalformedObjectNameException if the object name was invalid
      */
     public String addResourceLink(String resourceLinkName, String type)
-        throws MalformedObjectNameException {
+            throws MalformedObjectNameException {
 
         NamingResourcesImpl nresources = (NamingResourcesImpl) this.resource;
         if (nresources == null) {
             return null;
         }
         ContextResourceLink resourceLink =
-                            nresources.findResourceLink(resourceLinkName);
+                nresources.findResourceLink(resourceLinkName);
         if (resourceLink != null) {
             throw new IllegalArgumentException(sm.getString("namingResourcesMBean.addAlreadyExists.resourceLink", resourceLinkName));
         }

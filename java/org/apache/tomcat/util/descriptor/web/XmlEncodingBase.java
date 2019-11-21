@@ -38,7 +38,7 @@ public abstract class XmlEncodingBase {
      * populated this object.
      *
      * @return The character encoding of the associated XML source or
-     *         <code>UTF-8</code> if the encoding could not be determined
+     * <code>UTF-8</code> if the encoding could not be determined
      */
     public Charset getCharset() {
         return charset;

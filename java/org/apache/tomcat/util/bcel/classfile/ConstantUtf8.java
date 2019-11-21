@@ -26,7 +26,7 @@ import org.apache.tomcat.util.bcel.Const;
  * <A HREF="org.apache.tomcat.util.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to a Utf8 encoded string.
  *
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantUtf8 extends Constant {
 

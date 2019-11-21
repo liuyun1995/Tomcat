@@ -47,8 +47,8 @@ import org.apache.tomcat.util.file.ConfigurationSource.Resource;
  *       </Registry>
  * }
  * </pre>
- *
- *
+ * <p>
+ * <p>
  * Convention:
  * <ul>
  * <li>Factories at subpackage <i>org.apache.catalina.core.storeconfig.xxxSF
@@ -78,7 +78,7 @@ public class StoreLoader {
 
     private StoreRegistry registry;
 
-    private URL registryResource ;
+    private URL registryResource;
 
     /**
      * @return Returns the registry.
@@ -88,8 +88,7 @@ public class StoreLoader {
     }
 
     /**
-     * @param registry
-     *            The registry to set.
+     * @param registry The registry to set.
      */
     public void setRegistry(StoreRegistry registry) {
         this.registry = registry;
@@ -98,6 +97,7 @@ public class StoreLoader {
     /**
      * Create and configure the Digester we will be using for setup store
      * registry.
+     *
      * @return the XML digester that will be used to parse the configuration
      */
     protected static Digester createDigester() {
@@ -111,8 +111,8 @@ public class StoreLoader {
                 "org.apache.catalina.storeconfig.StoreRegistry", "className");
         digester.addSetProperties("Registry");
         digester.addObjectCreate("Registry/Description",
-                        "org.apache.catalina.storeconfig.StoreDescription",
-                        "className");
+                "org.apache.catalina.storeconfig.StoreDescription",
+                "className");
         digester.addSetProperties("Registry/Description");
         digester.addRule("Registry/Description", new StoreFactoryRule(
                 "org.apache.catalina.storeconfig.StoreFactoryBase",
@@ -134,14 +134,14 @@ public class StoreLoader {
      * Load registry configuration.
      *
      * @param path Path to the configuration file, may be null to use the default
-     *  name server-registry.xml
+     *             name server-registry.xml
      * @throws Exception when the configuration file isn't found or a parse error occurs
      */
     public void load(String path) throws Exception {
         try (Resource resource = (path == null) ?
                 ConfigFileLoader.getSource().getConfResource("server-registry.xml")
                 : ConfigFileLoader.getSource().getResource(path);
-                InputStream is = resource.getInputStream()) {
+             InputStream is = resource.getInputStream()) {
             registryResource = resource.getURI().toURL();
             synchronized (digester) {
                 registry = (StoreRegistry) digester.parse(is);

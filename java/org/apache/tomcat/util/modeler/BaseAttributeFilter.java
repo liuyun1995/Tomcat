@@ -46,7 +46,7 @@ public class BaseAttributeFilter implements NotificationFilter {
      * name.
      *
      * @param name Name of the attribute to be accepted by this filter, or
-     *  <code>null</code> to accept all attribute names
+     *             <code>null</code> to accept all attribute names
      */
     public BaseAttributeFilter(String name) {
 
@@ -101,6 +101,7 @@ public class BaseAttributeFilter implements NotificationFilter {
      * Return the set of names that are accepted by this filter.  If this
      * filter accepts all attribute names, a zero length array will be
      * returned.
+     *
      * @return the array of names
      */
     public String[] getNames() {
@@ -130,7 +131,7 @@ public class BaseAttributeFilter implements NotificationFilter {
         if (!(notification instanceof AttributeChangeNotification))
             return false;
         AttributeChangeNotification acn =
-            (AttributeChangeNotification) notification;
+                (AttributeChangeNotification) notification;
         if (!AttributeChangeNotification.ATTRIBUTE_CHANGE.equals(acn.getType()))
             return false;
         synchronized (names) {

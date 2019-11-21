@@ -119,7 +119,7 @@ public class TldScanner {
      *
      * @return the map of TldResourcePath to parsed XML files
      */
-    public Map<TldResourcePath,TaglibXml> getTldResourcePathTaglibXmlMap() {
+    public Map<TldResourcePath, TaglibXml> getTldResourcePathTaglibXmlMap() {
         return tldResourcePathTaglibXmlMap;
     }
 
@@ -151,7 +151,8 @@ public class TldScanner {
 
     /**
      * Scan for TLDs defined in &lt;jsp-config&gt;.
-     * @throws IOException Error reading resources
+     *
+     * @throws IOException  Error reading resources
      * @throws SAXException XML parsing error
      */
     protected void scanJspConfig() throws IOException, SAXException {
@@ -300,8 +301,8 @@ public class TldScanner {
             URL jarFileUrl = jar.getJarFileURL();
             jar.nextEntry();
             for (String entryName = jar.getEntryName();
-                entryName != null;
-                jar.nextEntry(), entryName = jar.getEntryName()) {
+                 entryName != null;
+                 jar.nextEntry(), entryName = jar.getEntryName()) {
                 if (!(entryName.startsWith("META-INF/") &&
                         entryName.endsWith(TLD_EXT))) {
                     continue;

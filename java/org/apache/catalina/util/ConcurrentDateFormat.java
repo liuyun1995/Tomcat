@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * to satisfy the concurrency requirements.
  *
  * @deprecated Unused. This will be removed in Tomcat 10.
- *             Use {@link org.apache.tomcat.util.http.ConcurrentDateFormat}
+ * Use {@link org.apache.tomcat.util.http.ConcurrentDateFormat}
  */
 @Deprecated
 public class ConcurrentDateFormat {
@@ -53,7 +53,7 @@ public class ConcurrentDateFormat {
     }
 
     public ConcurrentDateFormat(String format, Locale locale,
-            TimeZone timezone) {
+                                TimeZone timezone) {
         this.format = format;
         this.locale = locale;
         this.timezone = timezone;

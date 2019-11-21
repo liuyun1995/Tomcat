@@ -39,7 +39,7 @@ public class WsFrameClient extends WsFrameBase {
     private volatile ByteBuffer response;
 
     public WsFrameClient(ByteBuffer response, AsyncChannelWrapper channel, WsSession wsSession,
-            Transformation transformation) {
+                         Transformation transformation) {
         super(wsSession, transformation);
         this.response = response;
         this.channel = channel;
@@ -59,58 +59,58 @@ public class WsFrameClient extends WsFrameBase {
     private void processSocketRead() throws IOException {
         while (true) {
             switch (getReadState()) {
-            case WAITING:
-                if (!changeReadState(ReadState.WAITING, ReadState.PROCESSING)) {
-                    continue;
-                }
-                while (response.hasRemaining()) {
-                    if (isSuspended()) {
-                        if (!changeReadState(ReadState.SUSPENDING_PROCESS, ReadState.SUSPENDED)) {
-                            continue;
-                        }
-                        // There is still data available in the response buffer
-                        // Return here so that the response buffer will not be
-                        // cleared and there will be no data read from the
-                        // socket. Thus when the read operation is resumed first
-                        // the data left in the response buffer will be consumed
-                        // and then a new socket read will be performed
-                        return;
+                case WAITING:
+                    if (!changeReadState(ReadState.WAITING, ReadState.PROCESSING)) {
+                        continue;
                     }
-                    inputBuffer.mark();
-                    inputBuffer.position(inputBuffer.limit()).limit(inputBuffer.capacity());
+                    while (response.hasRemaining()) {
+                        if (isSuspended()) {
+                            if (!changeReadState(ReadState.SUSPENDING_PROCESS, ReadState.SUSPENDED)) {
+                                continue;
+                            }
+                            // There is still data available in the response buffer
+                            // Return here so that the response buffer will not be
+                            // cleared and there will be no data read from the
+                            // socket. Thus when the read operation is resumed first
+                            // the data left in the response buffer will be consumed
+                            // and then a new socket read will be performed
+                            return;
+                        }
+                        inputBuffer.mark();
+                        inputBuffer.position(inputBuffer.limit()).limit(inputBuffer.capacity());
 
-                    int toCopy = Math.min(response.remaining(), inputBuffer.remaining());
+                        int toCopy = Math.min(response.remaining(), inputBuffer.remaining());
 
-                    // Copy remaining bytes read in HTTP phase to input buffer used by
-                    // frame processing
+                        // Copy remaining bytes read in HTTP phase to input buffer used by
+                        // frame processing
 
-                    int orgLimit = response.limit();
-                    response.limit(response.position() + toCopy);
-                    inputBuffer.put(response);
-                    response.limit(orgLimit);
+                        int orgLimit = response.limit();
+                        response.limit(response.position() + toCopy);
+                        inputBuffer.put(response);
+                        response.limit(orgLimit);
 
-                    inputBuffer.limit(inputBuffer.position()).reset();
+                        inputBuffer.limit(inputBuffer.position()).reset();
 
-                    // Process the data we have
-                    processInputBuffer();
-                }
-                response.clear();
+                        // Process the data we have
+                        processInputBuffer();
+                    }
+                    response.clear();
 
-                // Get some more data
-                if (isOpen()) {
-                    channel.read(response, null, handler);
-                } else {
-                    changeReadState(ReadState.CLOSING);
-                }
-                return;
-            case SUSPENDING_WAIT:
-                if (!changeReadState(ReadState.SUSPENDING_WAIT, ReadState.SUSPENDED)) {
-                    continue;
-                }
-                return;
-            default:
-                throw new IllegalStateException(
-                        sm.getString("wsFrameServer.illegalReadState", getReadState()));
+                    // Get some more data
+                    if (isOpen()) {
+                        channel.read(response, null, handler);
+                    } else {
+                        changeReadState(ReadState.CLOSING);
+                    }
+                    return;
+                case SUSPENDING_WAIT:
+                    if (!changeReadState(ReadState.SUSPENDING_WAIT, ReadState.SUSPENDED)) {
+                        continue;
+                    }
+                    return;
+                default:
+                    throw new IllegalStateException(
+                            sm.getString("wsFrameServer.illegalReadState", getReadState()));
             }
         }
     }
@@ -179,20 +179,20 @@ public class WsFrameClient extends WsFrameBase {
         private void doResumeProcessing(boolean checkOpenOnError) {
             while (true) {
                 switch (getReadState()) {
-                case PROCESSING:
-                    if (!changeReadState(ReadState.PROCESSING, ReadState.WAITING)) {
-                        continue;
-                    }
-                    resumeProcessing(checkOpenOnError);
-                    return;
-                case SUSPENDING_PROCESS:
-                    if (!changeReadState(ReadState.SUSPENDING_PROCESS, ReadState.SUSPENDED)) {
-                        continue;
-                    }
-                    return;
-                default:
-                    throw new IllegalStateException(
-                            sm.getString("wsFrame.illegalReadState", getReadState()));
+                    case PROCESSING:
+                        if (!changeReadState(ReadState.PROCESSING, ReadState.WAITING)) {
+                            continue;
+                        }
+                        resumeProcessing(checkOpenOnError);
+                        return;
+                    case SUSPENDING_PROCESS:
+                        if (!changeReadState(ReadState.SUSPENDING_PROCESS, ReadState.SUSPENDED)) {
+                            continue;
+                        }
+                        return;
+                    default:
+                        throw new IllegalStateException(
+                                sm.getString("wsFrame.illegalReadState", getReadState()));
                 }
             }
         }

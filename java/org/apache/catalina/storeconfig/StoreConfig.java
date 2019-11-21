@@ -109,16 +109,16 @@ public class StoreConfig implements IStoreConfig {
     /**
      * Store Server from Object Name (Catalina:type=Server).
      *
-     * @param aServerName Server ObjectName
-     * @param backup <code>true</code> to backup existing configuration files
-     *  before rewriting them
+     * @param aServerName     Server ObjectName
+     * @param backup          <code>true</code> to backup existing configuration files
+     *                        before rewriting them
      * @param externalAllowed <code>true</code> to allow saving webapp
-     *  configuration for webapps that are not inside the host's app
-     *  directory
+     *                        configuration for webapps that are not inside the host's app
+     *                        directory
      * @throws MalformedObjectNameException Bad MBean name
      */
     public synchronized void storeServer(String aServerName, boolean backup,
-            boolean externalAllowed) throws MalformedObjectNameException {
+                                         boolean externalAllowed) throws MalformedObjectNameException {
         if (aServerName == null || aServerName.length() == 0) {
             log.error(sm.getString("config.emptyObjectName"));
             return;
@@ -159,16 +159,16 @@ public class StoreConfig implements IStoreConfig {
     /**
      * Store a Context from ObjectName.
      *
-     * @param aContextName MBean ObjectName
-     * @param backup <code>true</code> to backup existing configuration files
-     *  before rewriting them
+     * @param aContextName    MBean ObjectName
+     * @param backup          <code>true</code> to backup existing configuration files
+     *                        before rewriting them
      * @param externalAllowed <code>true</code> to allow saving webapp
-     *  configuration for webapps that are not inside the host's app
-     *  directory
+     *                        configuration for webapps that are not inside the host's app
+     *                        directory
      * @throws MalformedObjectNameException Bad MBean name
      */
     public synchronized void storeContext(String aContextName, boolean backup,
-            boolean externalAllowed) throws MalformedObjectNameException {
+                                          boolean externalAllowed) throws MalformedObjectNameException {
         if (aContextName == null || aContextName.length() == 0) {
             log.error(sm.getString("config.emptyObjectName"));
             return;
@@ -194,7 +194,7 @@ public class StoreConfig implements IStoreConfig {
                             desc.setBackup(backup);
                             desc.setExternalAllowed(externalAllowed);
                             desc.getStoreFactory()
-                            .store(null, -2, aContext);
+                                    .store(null, -2, aContext);
                         } finally {
                             desc.setStoreSeparate(oldSeparate);
                             desc.setBackup(oldBackup);
@@ -267,11 +267,11 @@ public class StoreConfig implements IStoreConfig {
 
     /**
      * @see org.apache.catalina.storeconfig.IStoreConfig#store(java.io.PrintWriter,
-     *      int, org.apache.catalina.Context)
+     * int, org.apache.catalina.Context)
      */
     @Override
     public void store(PrintWriter aWriter, int indent,
-            Context aContext) throws Exception {
+                      Context aContext) throws Exception {
         boolean oldSeparate = true;
         StoreDescription desc = null;
         try {
@@ -287,7 +287,7 @@ public class StoreConfig implements IStoreConfig {
 
     /**
      * @see org.apache.catalina.storeconfig.IStoreConfig#store(java.io.PrintWriter,
-     *      int, org.apache.catalina.Host)
+     * int, org.apache.catalina.Host)
      */
     @Override
     public void store(PrintWriter aWriter, int indent, Host aHost)
@@ -299,11 +299,11 @@ public class StoreConfig implements IStoreConfig {
 
     /**
      * @see org.apache.catalina.storeconfig.IStoreConfig#store(java.io.PrintWriter,
-     *      int, org.apache.catalina.Service)
+     * int, org.apache.catalina.Service)
      */
     @Override
     public void store(PrintWriter aWriter, int indent,
-            Service aService) throws Exception {
+                      Service aService) throws Exception {
         StoreDescription desc = getRegistry().findDescription(
                 aService.getClass());
         desc.getStoreFactory().store(aWriter, indent, aService);
@@ -311,11 +311,11 @@ public class StoreConfig implements IStoreConfig {
 
     /**
      * @see org.apache.catalina.storeconfig.IStoreConfig#store(java.io.PrintWriter,
-     *      int, org.apache.catalina.Server)
+     * int, org.apache.catalina.Server)
      */
     @Override
     public void store(PrintWriter writer, int indent,
-            Server aServer) throws Exception {
+                      Server aServer) throws Exception {
         StoreDescription desc = getRegistry().findDescription(
                 aServer.getClass());
         desc.getStoreFactory().store(writer, indent, aServer);

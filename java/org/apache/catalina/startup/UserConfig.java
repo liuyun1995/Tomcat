@@ -47,7 +47,7 @@ import org.apache.tomcat.util.res.StringManager;
  * @author Craig R. McClanahan
  */
 public final class UserConfig
-    implements LifecycleListener {
+        implements LifecycleListener {
 
 
     private static final Log log = LogFactory.getLog(UserConfig.class);
@@ -90,14 +90,14 @@ public final class UserConfig
      * The string resources for this package.
      */
     private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
 
     /**
      * The Java class name of the user database class we should use.
      */
     private String userClass =
-        "org.apache.catalina.startup.PasswdUserDatabase";
+            "org.apache.catalina.startup.PasswdUserDatabase";
 
     /**
      * A regular expression defining user who deployment is allowed.
@@ -194,6 +194,7 @@ public final class UserConfig
 
     /**
      * Set the user database class name for this component.
+     *
      * @param userClass The user database class name
      */
     public void setUserClass(String userClass) {
@@ -381,7 +382,7 @@ public final class UserConfig
      * Test allow and deny rules for the provided user.
      *
      * @return <code>true</code> if this user is allowed to deploy,
-     *         <code>false</code> otherwise
+     * <code>false</code> otherwise
      */
     private boolean isDeployAllowed(String user) {
         if (deny != null && deny.matcher(user).matches()) {
@@ -406,7 +407,7 @@ public final class UserConfig
         public DeployUserDirectory(UserConfig config, String user, String home) {
             this.config = config;
             this.user = user;
-            this.home= home;
+            this.home = home;
         }
 
         @Override

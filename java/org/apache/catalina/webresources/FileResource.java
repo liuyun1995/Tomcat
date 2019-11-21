@@ -43,6 +43,7 @@ public class FileResource extends AbstractResource {
     private static final Log log = LogFactory.getLog(FileResource.class);
 
     private static final boolean PROPERTIES_NEED_CONVERT;
+
     static {
         boolean isEBCDIC = false;
         try {
@@ -64,8 +65,8 @@ public class FileResource extends AbstractResource {
     private final boolean needConvert;
 
     public FileResource(WebResourceRoot root, String webAppPath,
-            File resource, boolean readOnly, Manifest manifest) {
-        super(root,webAppPath);
+                        File resource, boolean readOnly, Manifest manifest) {
+        super(root, webAppPath);
         this.resource = resource;
 
         if (webAppPath.charAt(webAppPath.length() - 1) == '/') {

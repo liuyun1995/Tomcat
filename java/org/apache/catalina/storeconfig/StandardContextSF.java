@@ -63,7 +63,7 @@ public class StandardContextSF extends StoreFactoryBase {
      * filename can be relative to catalina.base.
      *
      * @see org.apache.catalina.storeconfig.IStoreFactory#store(java.io.PrintWriter,
-     *      int, java.lang.Object)
+     * int, java.lang.Object)
      */
     @Override
     public void store(PrintWriter aWriter, int indent, Object aContext)
@@ -110,13 +110,13 @@ public class StandardContextSF extends StoreFactoryBase {
      * Store a Context without backup add separate file or when configFile =
      * null a aWriter.
      *
-     * @param aWriter Current output writer
-     * @param indent Indentation level
+     * @param aWriter  Current output writer
+     * @param indent   Indentation level
      * @param aContext The context which will be stored
      * @throws Exception Configuration storing error
      */
     protected void storeContextSeparate(PrintWriter aWriter, int indent,
-            StandardContext aContext) throws Exception {
+                                        StandardContext aContext) throws Exception {
         URL configFile = aContext.getConfigFile();
         if (configFile != null) {
             File config = new File(configFile.toURI());
@@ -124,15 +124,15 @@ public class StandardContextSF extends StoreFactoryBase {
                 config = new File(System.getProperty("catalina.base"),
                         config.getPath());
             }
-            if( (!config.isFile()) || (!config.canWrite())) {
+            if ((!config.isFile()) || (!config.canWrite())) {
                 throw new IOException(sm.getString("standardContextSF.cannotWriteFile", configFile));
             }
             if (log.isInfoEnabled()) {
                 log.info(sm.getString("standardContextSF.storeContext", aContext.getPath(), config));
             }
             try (FileOutputStream fos = new FileOutputStream(config);
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(
-                            fos , getRegistry().getEncoding()))) {
+                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(
+                         fos, getRegistry().getEncoding()))) {
                 storeXMLHead(writer);
                 super.store(writer, -2, aContext);
             }
@@ -154,7 +154,7 @@ public class StandardContextSF extends StoreFactoryBase {
             if ((mover.getConfigOld() == null)
                     || (mover.getConfigOld().isDirectory())
                     || (mover.getConfigOld().exists() &&
-                            !mover.getConfigOld().canWrite())) {
+                    !mover.getConfigOld().canWrite())) {
                 throw new IOException(sm.getString("standardContextSF.moveFailed", mover.getConfigOld()));
             }
             File dir = mover.getConfigSave().getParentFile();
@@ -200,15 +200,15 @@ public class StandardContextSF extends StoreFactoryBase {
     /**
      * Store the specified context element children.
      *
-     * @param aWriter Current output writer
-     * @param indent Indentation level
-     * @param aContext Context to store
+     * @param aWriter    Current output writer
+     * @param indent     Indentation level
+     * @param aContext   Context to store
      * @param parentDesc The element description
      * @throws Exception Configuration storing error
      */
     @Override
     public void storeChildren(PrintWriter aWriter, int indent, Object aContext,
-            StoreDescription parentDesc) throws Exception {
+                              StoreDescription parentDesc) throws Exception {
         if (aContext instanceof StandardContext) {
             StandardContext context = (StandardContext) aContext;
             // Store nested <Listener> elements
@@ -288,6 +288,7 @@ public class StandardContextSF extends StoreFactoryBase {
     /**
      * Return a File object representing the "configuration root" directory for
      * our associated Host.
+     *
      * @param context The context instance
      * @return a file to the configuration base path
      */
@@ -315,17 +316,17 @@ public class StandardContextSF extends StoreFactoryBase {
     /**
      * Filter out the default watched resources, to remove standard ones.
      *
-     * @param context The context instance
+     * @param context    The context instance
      * @param wresources The raw watched resources list
      * @return The filtered watched resources
      * @throws Exception Configuration storing error
-     * TODO relative watched resources
-     * TODO absolute handling configFile
-     * TODO Filename case handling for Windows?
-     * TODO digester variable substitution $catalina.base, $catalina.home
+     *                   TODO relative watched resources
+     *                   TODO absolute handling configFile
+     *                   TODO Filename case handling for Windows?
+     *                   TODO digester variable substitution $catalina.base, $catalina.home
      */
     protected String[] filterWatchedResources(StandardContext context,
-            String[] wresources) throws Exception {
+                                              String[] wresources) throws Exception {
         File configBase = configBase(context);
         String confContext = new File(System.getProperty("catalina.base"),
                 "conf/context.xml").getCanonicalPath();

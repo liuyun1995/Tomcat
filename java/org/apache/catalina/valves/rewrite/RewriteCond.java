@@ -59,14 +59,14 @@ public class RewriteCond {
         public boolean evaluate(String value, Resolver resolver) {
             int result = value.compareTo(condition);
             switch (type) {
-            case -1:
-                return (result < 0);
-            case 0:
-                return (result == 0);
-            case 1:
-                return (result > 0);
-            default:
-                return false;
+                case -1:
+                    return (result < 0);
+                case 0:
+                    return (result == 0);
+                case 1:
+                    return (result > 0);
+                default:
+                    return false;
             }
 
         }
@@ -199,8 +199,8 @@ public class RewriteCond {
     /**
      * Evaluate the condition based on the context
      *
-     * @param rule corresponding matched rule
-     * @param cond last matched condition
+     * @param rule     corresponding matched rule
+     * @param cond     last matched condition
      * @param resolver Property resolver
      * @return <code>true</code> if the condition matches
      */

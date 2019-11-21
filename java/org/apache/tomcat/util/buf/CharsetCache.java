@@ -26,12 +26,12 @@ import java.util.concurrent.ConcurrentMap;
 public class CharsetCache {
 
     /* Note: Package private to enable testing without reflection */
-    static final String[] INITIAL_CHARSETS = new String[] { "iso-8859-1", "utf-8" };
+    static final String[] INITIAL_CHARSETS = new String[]{"iso-8859-1", "utf-8"};
 
     /*
      *  Note: Package private to enable testing without reflection
      */
-    static final String[] LAZY_CHARSETS = new String[] {
+    static final String[] LAZY_CHARSETS = new String[]{
             // Initial set from Oracle JDK 8 u192
             "037", "1006", "1025", "1026", "1046", "1047", "1089", "1097", "1098", "1112", "1122", "1123", "1124",
             "1140", "1141", "1142", "1143", "1144", "1145", "1146", "1147", "1148", "1149", "1166", "1364", "1381",
@@ -150,11 +150,11 @@ public class CharsetCache {
             "ibm-1146", "ibm-1147", "ibm-1148", "ibm-1149", "ibm-29626c", "ibm-858", "ibm-eucjp", "ibm1140", "ibm1141",
             "ibm1142", "ibm1143", "ibm1144", "ibm1145", "ibm1146", "ibm1147", "ibm1148", "ibm1149", "ibm29626c",
             "ibm858", "x-ibm29626c"
-            };
+    };
 
-    private static final Charset DUMMY_CHARSET = new DummyCharset("Dummy",  null);
+    private static final Charset DUMMY_CHARSET = new DummyCharset("Dummy", null);
 
-    private ConcurrentMap<String,Charset> cache = new ConcurrentHashMap<>();
+    private ConcurrentMap<String, Charset> cache = new ConcurrentHashMap<>();
 
     public CharsetCache() {
         // Pre-populate the cache

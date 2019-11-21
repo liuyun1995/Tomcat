@@ -44,17 +44,17 @@ import java.nio.charset.StandardCharsets;
 /**
  * This class is used to represent a chunk of bytes, and utilities to manipulate
  * byte[].
- *
+ * <p>
  * The buffer can be modified and used for both input and output.
- *
+ * <p>
  * There are 2 modes: The chunk can be associated with a sink - ByteInputChannel
  * or ByteOutputChannel, which will be used when the buffer is empty (on input)
  * or filled (on output). For output, it can also grow. This operating mode is
  * selected by calling setLimit() or allocate(initial, limit) with limit != -1.
- *
+ * <p>
  * Various search and append method are defined - similar with String and
  * StringBuffer, but operating on bytes.
- *
+ * <p>
  * This is important because it allows processing the http headers directly on
  * the received bytes, without converting to chars and Strings until the strings
  * are needed. In addition, the charset is determined later, from headers or
@@ -71,7 +71,7 @@ public final class ByteChunk extends AbstractChunk {
 
     /**
      * Input interface, used when the buffer is empty.
-     *
+     * <p>
      * Same as java.nio.channels.ReadableByteChannel
      */
     public static interface ByteInputChannel {
@@ -80,7 +80,6 @@ public final class ByteChunk extends AbstractChunk {
          * Read new bytes.
          *
          * @return The number of bytes read
-         *
          * @throws IOException If an I/O error occurs during reading
          */
         public int realReadBytes() throws IOException;
@@ -89,7 +88,7 @@ public final class ByteChunk extends AbstractChunk {
     /**
      * When we need more space we'll either grow the buffer ( up to the limit )
      * or send it to a channel.
-     *
+     * <p>
      * Same as java.nio.channel.WritableByteChannel.
      */
     public static interface ByteOutputChannel {
@@ -189,7 +188,7 @@ public final class ByteChunk extends AbstractChunk {
     /**
      * Sets the buffer to the specified subarray of bytes.
      *
-     * @param b the ascii bytes
+     * @param b   the ascii bytes
      * @param off the start offset of the bytes
      * @param len the length of the bytes
      */
@@ -453,11 +452,10 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param to the ByteBuffer into which bytes are to be written.
      * @return an integer specifying the actual number of bytes read, or -1 if
-     *         the end of the stream is reached
+     * the end of the stream is reached
      * @throws IOException if an input or output exception has occurred
-     *
      * @deprecated Use {@link #subtract(ByteBuffer)}.
-     *             This method will be removed in Tomcat 10
+     * This method will be removed in Tomcat 10
      */
     @Deprecated
     public int substract(ByteBuffer to) throws IOException {
@@ -473,7 +471,7 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param to the ByteBuffer into which bytes are to be written.
      * @return an integer specifying the actual number of bytes read, or -1 if
-     *         the end of the stream is reached
+     * the end of the stream is reached
      * @throws IOException if an input or output exception has occurred
      */
     public int subtract(ByteBuffer to) throws IOException {
@@ -618,7 +616,7 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param s the String to compare
      * @return <code>true</code> if the comparison succeeded, <code>false</code>
-     *         otherwise
+     * otherwise
      */
     public boolean equals(String s) {
         // XXX ENCODING - this only works if encoding is UTF8-compat
@@ -644,7 +642,7 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param s the String to compare
      * @return <code>true</code> if the comparison succeeded, <code>false</code>
-     *         otherwise
+     * otherwise
      */
     public boolean equalsIgnoreCase(String s) {
         byte[] b = buff;
@@ -720,9 +718,8 @@ public final class ByteChunk extends AbstractChunk {
      * Returns true if the buffer starts with the specified string when tested
      * in a case sensitive manner.
      *
-     * @param s the string
+     * @param s   the string
      * @param pos The position
-     *
      * @return <code>true</code> if the start matches
      */
     public boolean startsWith(String s, int pos) {
@@ -745,9 +742,8 @@ public final class ByteChunk extends AbstractChunk {
      * Returns true if the buffer starts with the specified string when tested
      * in a case insensitive manner.
      *
-     * @param s the string
+     * @param s   the string
      * @param pos The position
-     *
      * @return <code>true</code> if the start matches
      */
     public boolean startsWithIgnoreCase(String s, int pos) {
@@ -778,10 +774,10 @@ public final class ByteChunk extends AbstractChunk {
      * returned. <br>
      * NOTE: This only works for characters in the range 0-127.
      *
-     * @param c The character
+     * @param c        The character
      * @param starting The start position
      * @return The position of the first instance of the character or -1 if the
-     *         character is not found.
+     * character is not found.
      */
     public int indexOf(char c, int starting) {
         int ret = indexOf(buff, start + starting, end, c);
@@ -796,10 +792,10 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param bytes The array to search
      * @param start The point to start searching from in the array
-     * @param end The point to stop searching in the array
-     * @param s The character to search for
+     * @param end   The point to stop searching in the array
+     * @param s     The character to search for
      * @return The position of the first instance of the character or -1 if the
-     *         character is not found.
+     * character is not found.
      */
     public static int indexOf(byte bytes[], int start, int end, char s) {
         int offset = start;
@@ -821,10 +817,10 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param bytes The byte array to search
      * @param start The point to start searching from in the byte array
-     * @param end The point to stop searching in the byte array
-     * @param b The byte to search for
+     * @param end   The point to stop searching in the byte array
+     * @param b     The byte to search for
      * @return The position of the first instance of the byte or -1 if the byte
-     *         is not found.
+     * is not found.
      */
     public static int findByte(byte bytes[], int start, int end, byte b) {
         int offset = start;
@@ -844,10 +840,10 @@ public final class ByteChunk extends AbstractChunk {
      *
      * @param bytes The byte array to search
      * @param start The point to start searching from in the byte array
-     * @param end The point to stop searching in the byte array
-     * @param b The array of bytes to search for
+     * @param end   The point to stop searching in the byte array
+     * @param b     The array of bytes to search for
      * @return The position of the first instance of the byte or -1 if the byte
-     *         is not found.
+     * is not found.
      */
     public static int findBytes(byte bytes[], int start, int end, byte b[]) {
         int blen = b.length;

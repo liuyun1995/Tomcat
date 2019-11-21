@@ -53,7 +53,6 @@ import org.apache.tomcat.util.scan.JarFactory;
  * Provider classes will be loaded using the context's ClassLoader.
  *
  * @param <T> The type of service to load
- *
  * @see javax.servlet.ServletContainerInitializer
  * @see java.util.ServiceLoader
  */
@@ -162,8 +161,8 @@ public class WebappServiceLoader<T> {
     void parseConfigFile(LinkedHashSet<String> servicesFound, URL url)
             throws IOException {
         try (InputStream is = url.openStream();
-            InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(in)) {
+             InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(in)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 int i = line.indexOf('#');

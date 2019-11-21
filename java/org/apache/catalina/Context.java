@@ -76,7 +76,7 @@ public interface Context extends Container, ContextBind {
     /**
      * Container event for clearing welcome files.
      */
-    public static final String  CLEAR_WELCOME_FILES_EVENT = "clearWelcomeFiles";
+    public static final String CLEAR_WELCOME_FILES_EVENT = "clearWelcomeFiles";
 
     /**
      * Container event for changing the ID of a session.
@@ -91,20 +91,20 @@ public interface Context extends Container, ContextBind {
      * "multipart config" to parse multipart/form-data requests anyway.
      *
      * @return <code>true</code> if requests mapped to servlets without
-     *    "multipart config" to parse multipart/form-data requests,
-     *    <code>false</code> otherwise.
+     * "multipart config" to parse multipart/form-data requests,
+     * <code>false</code> otherwise.
      */
     public boolean getAllowCasualMultipartParsing();
 
 
-   /**
+    /**
      * Set to <code>true</code> to allow requests mapped to servlets that
      * do not explicitly declare @MultipartConfig or have
      * &lt;multipart-config&gt; specified in web.xml to parse
      * multipart/form-data requests.
      *
      * @param allowCasualMultipartParsing <code>true</code> to allow such
-     *        casual parsing, <code>false</code> otherwise.
+     *                                    casual parsing, <code>false</code> otherwise.
      */
     public void setAllowCasualMultipartParsing(boolean allowCasualMultipartParsing);
 
@@ -113,8 +113,8 @@ public interface Context extends Container, ContextBind {
      * Obtain the registered application event listeners.
      *
      * @return An array containing the application event listener instances for
-     *         this web application in the order they were specified in the web
-     *         application deployment descriptor
+     * this web application in the order they were specified in the web
+     * application deployment descriptor
      */
     public Object[] getApplicationEventListeners();
 
@@ -133,8 +133,8 @@ public interface Context extends Container, ContextBind {
      * Obtain the registered application lifecycle listeners.
      *
      * @return An array containing the application lifecycle listener instances
-     *         for this web application in the order they were specified in the
-     *         web application deployment descriptor
+     * for this web application in the order they were specified in the
+     * web application deployment descriptor
      */
     public Object[] getApplicationLifecycleListeners();
 
@@ -156,7 +156,6 @@ public interface Context extends Container, ContextBind {
      *
      * @param locale The locale for which the mapped character set should be
      *               returned
-     *
      * @return The name of the character set to use with the given Locale
      */
     public String getCharset(Locale locale);
@@ -182,7 +181,7 @@ public interface Context extends Container, ContextBind {
      * Return the "correctly configured" flag for this Context.
      *
      * @return <code>true</code> if the Context has been correctly configured,
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     public boolean getConfigured();
 
@@ -201,8 +200,8 @@ public interface Context extends Container, ContextBind {
      * Return the "use cookies for session ids" flag.
      *
      * @return <code>true</code> if it is permitted to use cookies to track
-     *         session IDs for this web application, otherwise
-     *         <code>false</code>
+     * session IDs for this web application, otherwise
+     * <code>false</code>
      */
     public boolean getCookies();
 
@@ -219,8 +218,8 @@ public interface Context extends Container, ContextBind {
      * Gets the name to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @return  The value of the default session cookie name or null if not
-     *          specified
+     * @return The value of the default session cookie name or null if not
+     * specified
      */
     public String getSessionCookieName();
 
@@ -229,7 +228,7 @@ public interface Context extends Container, ContextBind {
      * Sets the name to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @param sessionCookieName   The name to use
+     * @param sessionCookieName The name to use
      */
     public void setSessionCookieName(String sessionCookieName);
 
@@ -238,7 +237,7 @@ public interface Context extends Container, ContextBind {
      * Gets the value of the use HttpOnly cookies for session cookies flag.
      *
      * @return <code>true</code> if the HttpOnly flag should be set on session
-     *         cookies
+     * cookies
      */
     public boolean getUseHttpOnly();
 
@@ -246,8 +245,8 @@ public interface Context extends Container, ContextBind {
     /**
      * Sets the use HttpOnly cookies for session cookies flag.
      *
-     * @param useHttpOnly   Set to <code>true</code> to use HttpOnly cookies
-     *                          for session cookies
+     * @param useHttpOnly Set to <code>true</code> to use HttpOnly cookies
+     *                    for session cookies
      */
     public void setUseHttpOnly(boolean useHttpOnly);
 
@@ -256,8 +255,8 @@ public interface Context extends Container, ContextBind {
      * Gets the domain to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @return  The value of the default session cookie domain or null if not
-     *          specified
+     * @return The value of the default session cookie domain or null if not
+     * specified
      */
     public String getSessionCookieDomain();
 
@@ -266,7 +265,7 @@ public interface Context extends Container, ContextBind {
      * Sets the domain to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @param sessionCookieDomain   The domain to use
+     * @param sessionCookieDomain The domain to use
      */
     public void setSessionCookieDomain(String sessionCookieDomain);
 
@@ -275,8 +274,8 @@ public interface Context extends Container, ContextBind {
      * Gets the path to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @return  The value of the default session cookie path or null if not
-     *          specified
+     * @return The value of the default session cookie path or null if not
+     * specified
      */
     public String getSessionCookiePath();
 
@@ -285,7 +284,7 @@ public interface Context extends Container, ContextBind {
      * Sets the path to use for session cookies. Overrides any setting that
      * may be specified by the application.
      *
-     * @param sessionCookiePath   The path to use
+     * @param sessionCookiePath The path to use
      */
     public void setSessionCookiePath(String sessionCookiePath);
 
@@ -296,7 +295,7 @@ public interface Context extends Container, ContextBind {
      * requests intended for context /foobar.
      *
      * @return <code>true</code> if the slash is added, otherwise
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean getSessionCookiePathUsesTrailingSlash();
 
@@ -306,9 +305,9 @@ public interface Context extends Container, ContextBind {
      * ensure browsers, particularly IE, don't send a session cookie for context
      * /foo with requests intended for context /foobar.
      *
-     * @param sessionCookiePathUsesTrailingSlash   <code>true</code> if the
-     *                                             slash is should be added,
-     *                                             otherwise <code>false</code>
+     * @param sessionCookiePathUsesTrailingSlash <code>true</code> if the
+     *                                           slash is should be added,
+     *                                           otherwise <code>false</code>
      */
     public void setSessionCookiePathUsesTrailingSlash(
             boolean sessionCookiePathUsesTrailingSlash);
@@ -318,7 +317,7 @@ public interface Context extends Container, ContextBind {
      * Return the "allow crossing servlet contexts" flag.
      *
      * @return <code>true</code> if cross-contest requests are allowed from this
-     *         web applications, otherwise <code>false</code>
+     * web applications, otherwise <code>false</code>
      */
     public boolean getCrossContext();
 
@@ -336,7 +335,7 @@ public interface Context extends Container, ContextBind {
      *
      * @param altDDName The new name
      */
-    public void setAltDDName(String altDDName) ;
+    public void setAltDDName(String altDDName);
 
 
     /**
@@ -399,7 +398,7 @@ public interface Context extends Container, ContextBind {
      * Obtain the document root for this Context.
      *
      * @return An absolute pathname or a relative (to the Host's appBase)
-     *         pathname.
+     * pathname.
      */
     public String getDocBase();
 
@@ -426,7 +425,7 @@ public interface Context extends Container, ContextBind {
      * Determine if annotations parsing is currently disabled
      *
      * @return {@code true} if annotation parsing is disabled for this web
-     *         application
+     * application
      */
     public boolean getIgnoreAnnotations();
 
@@ -567,7 +566,7 @@ public interface Context extends Container, ContextBind {
      * (swallowed) even the request violates a data size constraint.
      *
      * @return <code>true</code> if data will be swallowed (default),
-     *    <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public boolean getSwallowAbortedUploads();
 
@@ -577,7 +576,7 @@ public interface Context extends Container, ContextBind {
      * after an upload was aborted due to size constraints.
      *
      * @param swallowAbortedUploads <code>false</code> to disable
-     *        swallowing, <code>true</code> otherwise (default).
+     *                              swallowing, <code>true</code> otherwise (default).
      */
     public void setSwallowAbortedUploads(boolean swallowAbortedUploads);
 
@@ -689,20 +688,22 @@ public interface Context extends Container, ContextBind {
     /**
      * Get the Jar Scanner to be used to scan for JAR resources for this
      * context.
-     * @return  The Jar Scanner configured for this context.
+     *
+     * @return The Jar Scanner configured for this context.
      */
     public JarScanner getJarScanner();
 
     /**
      * Set the Jar Scanner to be used to scan for JAR resources for this
      * context.
-     * @param jarScanner    The Jar Scanner to be used for this context.
+     *
+     * @param jarScanner The Jar Scanner to be used for this context.
      */
     public void setJarScanner(JarScanner jarScanner);
 
     /**
      * @return the {@link Authenticator} that is used by this context. This is
-     *         always non-{@code null} for a started Context
+     * always non-{@code null} for a started Context
      */
     public Authenticator getAuthenticator();
 
@@ -711,7 +712,7 @@ public interface Context extends Container, ContextBind {
      * logged on context start.
      *
      * @param logEffectiveWebXml set to <code>true</code> to log the complete
-     *        web.xml that will be used for the webapp
+     *                           web.xml that will be used for the webapp
      */
     public void setLogEffectiveWebXml(boolean logEffectiveWebXml);
 
@@ -719,7 +720,7 @@ public interface Context extends Container, ContextBind {
      * Should the effective web.xml for this context be logged on context start?
      *
      * @return true if the reconstructed web.xml that will be used for the
-     *   webapp should be logged
+     * webapp should be logged
      */
     public boolean getLogEffectiveWebXml();
 
@@ -756,7 +757,7 @@ public interface Context extends Container, ContextBind {
      * provided SCI for it to be filtered out.
      *
      * @return The regular expression against which the fully qualified class
-     *         name of each container provided SCI will be checked
+     * name of each container provided SCI will be checked
      */
     public String getContainerSciFilter();
 
@@ -816,10 +817,9 @@ public interface Context extends Container, ContextBind {
      * deployment descriptor but after any other mappings added via this method.
      *
      * @param filterMap The filter mapping to be added
-     *
-     * @exception IllegalArgumentException if the specified filter name
-     *  does not match an existing filter definition, or the filter mapping
-     *  is malformed
+     * @throws IllegalArgumentException if the specified filter name
+     *                                  does not match an existing filter definition, or the filter mapping
+     *                                  is malformed
      */
     public void addFilterMapBefore(FilterMap filterMap);
 
@@ -827,7 +827,7 @@ public interface Context extends Container, ContextBind {
     /**
      * Add a Locale Encoding Mapping (see Sec 5.4 of Servlet spec 2.4)
      *
-     * @param locale locale to map an encoding for
+     * @param locale   locale to map an encoding for
      * @param encoding encoding to be used for a give locale
      */
     public void addLocaleEncodingMappingParameter(String locale, String encoding);
@@ -838,7 +838,7 @@ public interface Context extends Container, ContextBind {
      * the specified extension.
      *
      * @param extension Filename extension being mapped
-     * @param mimeType Corresponding MIME type
+     * @param mimeType  Corresponding MIME type
      */
     public void addMimeMapping(String extension, String mimeType);
 
@@ -847,7 +847,7 @@ public interface Context extends Container, ContextBind {
      * Add a new context initialization parameter, replacing any existing
      * value for the specified name.
      *
-     * @param name Name of the new parameter
+     * @param name  Name of the new parameter
      * @param value Value of the new  parameter
      */
     public void addParameter(String name, String value);
@@ -875,7 +875,7 @@ public interface Context extends Container, ContextBind {
      * the specified pattern.
      *
      * @param pattern URL pattern to be mapped
-     * @param name Name of the corresponding servlet to execute
+     * @param name    Name of the corresponding servlet to execute
      */
     public default void addServletMappingDecoded(String pattern, String name) {
         addServletMappingDecoded(pattern, name, false);
@@ -886,13 +886,13 @@ public interface Context extends Container, ContextBind {
      * Add a new servlet mapping, replacing any existing mapping for
      * the specified pattern.
      *
-     * @param pattern URL pattern to be mapped
-     * @param name Name of the corresponding servlet to execute
+     * @param pattern     URL pattern to be mapped
+     * @param name        Name of the corresponding servlet to execute
      * @param jspWildcard true if name identifies the JspServlet
-     * and pattern contains a wildcard; false otherwise
+     *                    and pattern contains a wildcard; false otherwise
      */
     public void addServletMappingDecoded(String pattern, String name,
-            boolean jspWildcard);
+                                         boolean jspWildcard);
 
 
     /**
@@ -934,6 +934,7 @@ public interface Context extends Container, ContextBind {
      * Factory method to create and return a new InstanceManager
      * instance. This can be used for framework integration or easier
      * configuration with custom Context implementations.
+     *
      * @return the instance manager
      */
     public InstanceManager createInstanceManager();
@@ -970,22 +971,19 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param errorCode Error code to look up
      * @return the error page entry for the specified HTTP error code,
      * if any; otherwise return <code>null</code>.
-     *
-     * @param errorCode Error code to look up
      */
     public ErrorPage findErrorPage(int errorCode);
 
 
     /**
      * @param exceptionType Exception type to look up
-     *
      * @return the error page entry for the specified Java exception type,
-     *         if any; otherwise return {@code null}.
-     *
+     * if any; otherwise return {@code null}.
      * @deprecated Unused. Will be removed in Tomcat 10.
-     *             Use {@link #findErrorPage(Throwable)} instead.
+     * Use {@link #findErrorPage(Throwable)} instead.
      */
     @Deprecated
     public ErrorPage findErrorPage(String exceptionType);
@@ -998,9 +996,8 @@ public interface Context extends Container, ContextBind {
      * found, return <code>null</code>.
      *
      * @param throwable The exception type for which to find an ErrorPage
-     *
      * @return the error page entry for the specified Java exception type,
-     *         if any; otherwise return {@code null}.
+     * if any; otherwise return {@code null}.
      */
     public ErrorPage findErrorPage(Throwable throwable);
 
@@ -1013,10 +1010,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param filterName Filter name to look up
      * @return the filter definition for the specified filter name, if any;
      * otherwise return <code>null</code>.
-     *
-     * @param filterName Filter name to look up
      */
     public FilterDef findFilterDef(String filterName);
 
@@ -1034,10 +1030,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param extension Extension to map to a MIME type
      * @return the MIME type to which the specified extension is mapped,
      * if any; otherwise return <code>null</code>.
-     *
-     * @param extension Extension to map to a MIME type
      */
     public String findMimeMapping(String extension);
 
@@ -1050,10 +1045,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param name Name of the parameter to return
      * @return the value for the specified context initialization
      * parameter name, if any; otherwise return <code>null</code>.
-     *
-     * @param name Name of the parameter to return
      */
     public String findParameter(String name);
 
@@ -1078,10 +1072,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param role Security role to verify
      * @return <code>true</code> if the specified security role is defined
      * for this application; otherwise return <code>false</code>.
-     *
-     * @param role Security role to verify
      */
     public boolean findSecurityRole(String role);
 
@@ -1094,10 +1087,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param pattern Pattern for which a mapping is requested
      * @return the servlet name mapped by the specified pattern (if any);
      * otherwise return <code>null</code>.
-     *
-     * @param pattern Pattern for which a mapping is requested
      */
     public String findServletMapping(String pattern);
 
@@ -1110,13 +1102,11 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param status HTTP status code to look up
      * @return the context-relative URI of the error page for the specified
      * HTTP status code, if any; otherwise return <code>null</code>.
-     *
-     * @param status HTTP status code to look up
-     *
      * @deprecated Unused. Will be removed in Tomcat 10.
-     *             Use {@link #findErrorPage(int)} instead.
+     * Use {@link #findErrorPage(int)} instead.
      */
     @Deprecated
     public String findStatusPage(int status);
@@ -1126,9 +1116,8 @@ public interface Context extends Container, ContextBind {
      * @return the set of HTTP status codes for which error pages have
      * been specified.  If none are specified, a zero-length array
      * is returned.
-     *
      * @deprecated Unused. Will be removed in Tomcat 10.
-     *             Use {@link #findErrorPages()} instead.
+     * Use {@link #findErrorPages()} instead.
      */
     @Deprecated
     public int[] findStatusPages();
@@ -1144,7 +1133,7 @@ public interface Context extends Container, ContextBind {
      * Get the associated ThreadBindingListener.
      *
      * @param threadBindingListener Set the listener that will receive
-     *       notifications when entering and exiting the application scope
+     *                              notifications when entering and exiting the application scope
      */
     public void setThreadBindingListener(ThreadBindingListener threadBindingListener);
 
@@ -1157,10 +1146,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param name Welcome file to verify
      * @return <code>true</code> if the specified welcome file is defined
      * for this Context; otherwise return <code>false</code>.
-     *
-     * @param name Welcome file to verify
      */
     public boolean findWelcomeFile(String name);
 
@@ -1192,7 +1180,7 @@ public interface Context extends Container, ContextBind {
      *
      * @param request The request object that will be passed to the listener
      * @return <code>true</code> if the listeners fire successfully, else
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean fireRequestInitEvent(ServletRequest request);
 
@@ -1202,15 +1190,15 @@ public interface Context extends Container, ContextBind {
      *
      * @param request The request object that will be passed to the listener
      * @return <code>true</code> if the listeners fire successfully, else
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean fireRequestDestroyEvent(ServletRequest request);
 
     /**
      * Reload this web application, if reloading is supported.
      *
-     * @exception IllegalStateException if the <code>reloadable</code>
-     *  property is set to <code>false</code>.
+     * @throws IllegalStateException if the <code>reloadable</code>
+     *                               property is set to <code>false</code>.
      */
     public void reload();
 
@@ -1347,10 +1335,9 @@ public interface Context extends Container, ContextBind {
 
 
     /**
+     * @param path The path to the desired resource
      * @return the real path for a given virtual path, if possible; otherwise
      * return <code>null</code>.
-     *
-     * @param path The path to the desired resource
      */
     public String getRealPath(String path);
 
@@ -1404,9 +1391,9 @@ public interface Context extends Container, ContextBind {
     /**
      * Add a ServletContainerInitializer instance to this web application.
      *
-     * @param sci       The instance to add
-     * @param classes   The classes in which the initializer expressed an
-     *                  interest
+     * @param sci     The instance to add
+     * @param classes The classes in which the initializer expressed an
+     *                interest
      */
     public void addServletContainerInitializer(
             ServletContainerInitializer sci, Set<Class<?>> classes);
@@ -1429,13 +1416,14 @@ public interface Context extends Container, ContextBind {
     /**
      * Notification that Servlet security has been dynamically set in a
      * {@link javax.servlet.ServletRegistration.Dynamic}
-     * @param registration Servlet security was modified for
+     *
+     * @param registration           Servlet security was modified for
      * @param servletSecurityElement new security constraints for this Servlet
      * @return urls currently mapped to this registration that are already
-     *         present in web.xml
+     * present in web.xml
      */
     Set<String> addServletSecurity(ServletRegistration.Dynamic registration,
-            ServletSecurityElement servletSecurityElement);
+                                   ServletSecurityElement servletSecurityElement);
 
     /**
      * Sets the (comma separated) list of Servlets that expect a resource to be
@@ -1449,16 +1437,16 @@ public interface Context extends Container, ContextBind {
     /**
      * Obtains the list of Servlets that expect a resource to be present.
      *
-     * @return  A comma separated list of Servlet names as used in web.xml
+     * @return A comma separated list of Servlet names as used in web.xml
      */
     public String getResourceOnlyServlets();
 
     /**
      * Checks the named Servlet to see if it expects a resource to be present.
      *
-     * @param servletName   Name of the Servlet (as per web.xml) to check
-     * @return              <code>true</code> if the Servlet expects a resource,
-     *                      otherwise <code>false</code>
+     * @param servletName Name of the Servlet (as per web.xml) to check
+     * @return <code>true</code> if the Servlet expects a resource,
+     * otherwise <code>false</code>
      */
     public boolean isResourceOnlyServlet(String servletName);
 
@@ -1474,7 +1462,7 @@ public interface Context extends Container, ContextBind {
      * deployment.
      *
      * @param webappVersion The webapp version associated with the context,
-     *    which should be unique
+     *                      which should be unique
      */
     public void setWebappVersion(String webappVersion);
 
@@ -1505,7 +1493,7 @@ public interface Context extends Container, ContextBind {
      * resource.
      *
      * @param enable <code>true</code> to perform authentication even outside
-     *    security constraints
+     *               security constraints
      */
     public void setPreemptiveAuthentication(boolean enable);
 
@@ -1589,13 +1577,11 @@ public interface Context extends Container, ContextBind {
      * an existing definition for the specified class - IllegalArgumentException
      * will be thrown.
      *
-     * @param clazz Fully qualified class name
-     * @param method
-     *            Post construct method name
-     * @throws IllegalArgumentException
-     *             if the fully qualified class name or method name are
-     *             <code>NULL</code>; if there is already post construct method
-     *             definition for the given class
+     * @param clazz  Fully qualified class name
+     * @param method Post construct method name
+     * @throws IllegalArgumentException if the fully qualified class name or method name are
+     *                                  <code>NULL</code>; if there is already post construct method
+     *                                  definition for the given class
      */
     public void addPostConstructMethod(String clazz, String method);
 
@@ -1604,13 +1590,11 @@ public interface Context extends Container, ContextBind {
      * existing definition for the specified class - IllegalArgumentException
      * will be thrown.
      *
-     * @param clazz Fully qualified class name
-     * @param method
-     *            Post construct method name
-     * @throws IllegalArgumentException
-     *             if the fully qualified class name or method name are
-     *             <code>NULL</code>; if there is already pre destroy method
-     *             definition for the given class
+     * @param clazz  Fully qualified class name
+     * @param method Post construct method name
+     * @throws IllegalArgumentException if the fully qualified class name or method name are
+     *                                  <code>NULL</code>; if there is already pre destroy method
+     *                                  definition for the given class
      */
     public void addPreDestroyMethod(String clazz, String method);
 
@@ -1618,8 +1602,7 @@ public interface Context extends Container, ContextBind {
      * Removes the post construct method definition for the given class, if it
      * exists; otherwise, no action is taken.
      *
-     * @param clazz
-     *            Fully qualified class name
+     * @param clazz Fully qualified class name
      */
     public void removePostConstructMethod(String clazz);
 
@@ -1627,8 +1610,7 @@ public interface Context extends Container, ContextBind {
      * Removes the pre destroy method definition for the given class, if it
      * exists; otherwise, no action is taken.
      *
-     * @param clazz
-     *            Fully qualified class name
+     * @param clazz Fully qualified class name
      */
     public void removePreDestroyMethod(String clazz);
 
@@ -1637,12 +1619,10 @@ public interface Context extends Container, ContextBind {
      * the given class, if it exists; otherwise <code>NULL</code> will be
      * returned.
      *
-     * @param clazz
-     *            Fully qualified class name
-     *
+     * @param clazz Fully qualified class name
      * @return the method name that is specified as post construct method for
-     *         the given class, if it exists; otherwise <code>NULL</code> will
-     *         be returned.
+     * the given class, if it exists; otherwise <code>NULL</code> will
+     * be returned.
      */
     public String findPostConstructMethod(String clazz);
 
@@ -1650,12 +1630,10 @@ public interface Context extends Container, ContextBind {
      * Returns the method name that is specified as pre destroy method for the
      * given class, if it exists; otherwise <code>NULL</code> will be returned.
      *
-     * @param clazz
-     *            Fully qualified class name
-     *
+     * @param clazz Fully qualified class name
      * @return the method name that is specified as pre destroy method for the
-     *         given class, if it exists; otherwise <code>NULL</code> will be
-     *         returned.
+     * given class, if it exists; otherwise <code>NULL</code> will be
+     * returned.
      */
     public String findPreDestroyMethod(String clazz);
 
@@ -1665,8 +1643,8 @@ public interface Context extends Container, ContextBind {
      * names. If there are no such classes an empty map will be returned.
      *
      * @return a map with keys - fully qualified class names of the classes that
-     *         have post construct methods and the values are the corresponding
-     *         method names.
+     * have post construct methods and the values are the corresponding
+     * method names.
      */
     public Map<String, String> findPostConstructMethods();
 
@@ -1676,13 +1654,13 @@ public interface Context extends Container, ContextBind {
      * names. If there are no such classes an empty map will be returned.
      *
      * @return a map with keys - fully qualified class names of the classes that
-     *         have pre destroy methods and the values are the corresponding
-     *         method names.
+     * have pre destroy methods and the values are the corresponding
+     * method names.
      */
     public Map<String, String> findPreDestroyMethods();
 
     /**
-     * @return  the token necessary for operations on the associated JNDI naming
+     * @return the token necessary for operations on the associated JNDI naming
      * context.
      */
     public Object getNamingToken();
@@ -1691,10 +1669,9 @@ public interface Context extends Container, ContextBind {
      * Sets the {@link CookieProcessor} that will be used to process cookies
      * for this Context.
      *
-     * @param cookieProcessor   The new cookie processor
-     *
+     * @param cookieProcessor The new cookie processor
      * @throws IllegalArgumentException If a {@code null} CookieProcessor is
-     *         specified
+     *                                  specified
      */
     public void setCookieProcessor(CookieProcessor cookieProcessor);
 
@@ -1718,8 +1695,7 @@ public interface Context extends Container, ContextBind {
      * <li>The session cookie has a path of {@code /}</li>
      * </ul>
      *
-     * @param validateClientProvidedNewSessionId
-     *          {@code true} if validation should be applied
+     * @param validateClientProvidedNewSessionId {@code true} if validation should be applied
      */
     public void setValidateClientProvidedNewSessionId(boolean validateClientProvidedNewSessionId);
 
@@ -1728,7 +1704,7 @@ public interface Context extends Container, ContextBind {
      * #setValidateClientProvidedNewSessionId(boolean)}) before use?
      *
      * @return {@code true} if validation will be applied. Otherwise, {@code
-     *         false}
+     * false}
      */
     public boolean getValidateClientProvidedNewSessionId();
 
@@ -1749,7 +1725,7 @@ public interface Context extends Container, ContextBind {
      * valid.
      *
      * @return {@code true} if the Mapper level redirect is enabled for this
-     *         Context.
+     * Context.
      */
     public boolean getMapperContextRootRedirectEnabled();
 
@@ -1768,7 +1744,7 @@ public interface Context extends Container, ContextBind {
      * side effect of confirming that the directory is valid.
      *
      * @return {@code true} if the Mapper level redirect is enabled for this
-     *         Context.
+     * Context.
      */
     public boolean getMapperDirectoryRedirectEnabled();
 
@@ -1798,8 +1774,7 @@ public interface Context extends Container, ContextBind {
      * relative or absolute redirects.
      *
      * @return {@code true} if relative redirects will be used {@code false} if
-     *         absolute redirects are used.
-     *
+     * absolute redirects are used.
      * @see #setUseRelativeRedirects(boolean)
      */
     public boolean getUseRelativeRedirects();
@@ -1811,7 +1786,7 @@ public interface Context extends Container, ContextBind {
      * dispatchers internally.
      *
      * @param dispatchersUseEncodedPaths {@code true} to use encoded paths,
-     *        otherwise {@code false}
+     *                                   otherwise {@code false}
      */
     public void setDispatchersUseEncodedPaths(boolean dispatchersUseEncodedPaths);
 
@@ -1822,7 +1797,7 @@ public interface Context extends Container, ContextBind {
      * dispatchers internally.
      *
      * @return {@code true} if encoded paths will be used, otherwise
-     *         {@code false}
+     * {@code false}
      */
     public boolean getDispatchersUseEncodedPaths();
 
@@ -1870,7 +1845,7 @@ public interface Context extends Container, ContextBind {
      * contain multiple leading '/' characters?
      *
      * @return <code>true</code> if multiple leading '/' characters are allowed,
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     public boolean getAllowMultipleLeadingForwardSlashInPath();
 
@@ -1887,7 +1862,7 @@ public interface Context extends Container, ContextBind {
      * attempts to use it.
      *
      * @param createUploadTargets {@code true} if Tomcat should attempt to
-     *          create the upload target, otherwise {@code false}
+     *                            create the upload target, otherwise {@code false}
      */
     public void setCreateUploadTargets(boolean createUploadTargets);
 
@@ -1898,7 +1873,7 @@ public interface Context extends Container, ContextBind {
      * it?
      *
      * @return {@code true} if Tomcat will attempt to create an upload target
-     *         otherwise {@code false}
+     * otherwise {@code false}
      */
     public boolean getCreateUploadTargets();
 }

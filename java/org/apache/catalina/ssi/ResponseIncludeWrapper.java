@@ -54,11 +54,11 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * Initialize our wrapper with the current HttpServletResponse and
      * ServletOutputStream.
      *
-     * @param response The response to use
+     * @param response                   The response to use
      * @param captureServletOutputStream The ServletOutputStream to use
      */
     public ResponseIncludeWrapper(HttpServletResponse response,
-            ServletOutputStream captureServletOutputStream) {
+                                  ServletOutputStream captureServletOutputStream) {
         super(response);
         this.captureServletOutputStream = captureServletOutputStream;
     }
@@ -68,6 +68,7 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * Flush the servletOutputStream or printWriter ( only one will be non-null )
      * This must be called after a requestDispatcher.include, since we can't
      * assume that the included servlet flushed its stream.
+     *
      * @throws IOException an IO error occurred
      */
     public void flushOutputStreamOrWriter() throws IOException {
@@ -85,8 +86,7 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * been returned.
      *
      * @return a PrintWriter object
-     * @exception java.io.IOException
-     *                if the outputstream already been called
+     * @throws java.io.IOException if the outputstream already been called
      */
     @Override
     public PrintWriter getWriter() throws java.io.IOException {
@@ -95,7 +95,7 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
                 setCharacterEncoding(getCharacterEncoding());
                 printWriter = new PrintWriter(
                         new OutputStreamWriter(captureServletOutputStream,
-                                               getCharacterEncoding()));
+                                getCharacterEncoding()));
             }
             return printWriter;
         }
@@ -108,8 +108,7 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * been returned.
      *
      * @return an OutputStream object
-     * @exception java.io.IOException
-     *                if the printwriter already been called
+     * @throws java.io.IOException if the printwriter already been called
      */
     @Override
     public ServletOutputStream getOutputStream() throws java.io.IOException {
@@ -128,8 +127,8 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * result is the number of milliseconds since January 1, 1970 GMT.
      *
      * @return the date the resource referenced by this
-     *   <code>ResponseIncludeWrapper</code> was last modified, or -1 if not
-     *   known.
+     * <code>ResponseIncludeWrapper</code> was last modified, or -1 if not
+     * known.
      */
     public long getLastModified() {
         return lastModified;

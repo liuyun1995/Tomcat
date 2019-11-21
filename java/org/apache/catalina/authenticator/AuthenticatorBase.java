@@ -255,7 +255,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * Return the cache authenticated Principals flag.
      *
      * @return <code>true</code> if authenticated Principals will be cached,
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     public boolean getCache() {
         return this.cache;
@@ -264,8 +264,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the cache authenticated Principals flag.
      *
-     * @param cache
-     *            The new cache flag
+     * @param cache The new cache flag
      */
     public void setCache(boolean cache) {
         this.cache = cache;
@@ -282,8 +281,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the Container to which this Valve is attached.
      *
-     * @param container
-     *            The container to which we are attached
+     * @param container The container to which we are attached
      */
     @Override
     public void setContainer(Container container) {
@@ -302,7 +300,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * proxies.
      *
      * @return <code>true</code> if the headers will be added, otherwise
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean getDisableProxyCaching() {
         return disableProxyCaching;
@@ -312,9 +310,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * Set the value of the flag that states if we add headers to disable
      * caching by proxies.
      *
-     * @param nocache
-     *            <code>true</code> if we add headers to disable proxy caching,
-     *            <code>false</code> if we leave the headers alone.
+     * @param nocache <code>true</code> if we add headers to disable proxy caching,
+     *                <code>false</code> if we leave the headers alone.
      */
     public void setDisableProxyCaching(boolean nocache) {
         disableProxyCaching = nocache;
@@ -325,7 +322,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * we add to disable the caching.
      *
      * @return <code>true</code> if a Pragma header should be used, otherwise
-     *         <code>false</code>
+     * <code>false</code>
      */
     public boolean getSecurePagesWithPragma() {
         return securePagesWithPragma;
@@ -335,10 +332,9 @@ public abstract class AuthenticatorBase extends ValveBase
      * Set the value of the flag that states what headers we add to disable
      * proxy caching.
      *
-     * @param securePagesWithPragma
-     *            <code>true</code> if we add headers which are incompatible
-     *            with downloading office documents in IE under SSL but which
-     *            fix a caching problem in Mozilla.
+     * @param securePagesWithPragma <code>true</code> if we add headers which are incompatible
+     *                              with downloading office documents in IE under SSL but which
+     *                              fix a caching problem in Mozilla.
      */
     public void setSecurePagesWithPragma(boolean securePagesWithPragma) {
         this.securePagesWithPragma = securePagesWithPragma;
@@ -349,7 +345,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * existing session upon successful authentication.
      *
      * @return <code>true</code> to change session ID upon successful
-     *         authentication, <code>false</code> to do not perform the change.
+     * authentication, <code>false</code> to do not perform the change.
      */
     public boolean getChangeSessionIdOnAuthentication() {
         return changeSessionIdOnAuthentication;
@@ -360,8 +356,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * of an existing session upon successful authentication.
      *
      * @param changeSessionIdOnAuthentication <code>true</code> to change
-     *            session ID upon successful authentication, <code>false</code>
-     *            to do not perform the change.
+     *                                        session ID upon successful authentication, <code>false</code>
+     *                                        to do not perform the change.
      */
     public void setChangeSessionIdOnAuthentication(boolean changeSessionIdOnAuthentication) {
         this.changeSessionIdOnAuthentication = changeSessionIdOnAuthentication;
@@ -371,7 +367,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * Return the secure random number generator class name.
      *
      * @return The fully qualified name of the SecureRandom implementation to
-     *         use
+     * use
      */
     public String getSecureRandomClass() {
         return this.secureRandomClass;
@@ -380,8 +376,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the secure random number generator class name.
      *
-     * @param secureRandomClass
-     *            The new secure random number generator class name
+     * @param secureRandomClass The new secure random number generator class name
      */
     public void setSecureRandomClass(String secureRandomClass) {
         this.secureRandomClass = secureRandomClass;
@@ -399,8 +394,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the secure random number generator algorithm name.
      *
-     * @param secureRandomAlgorithm
-     *            The new secure random number generator algorithm name
+     * @param secureRandomAlgorithm The new secure random number generator algorithm name
      */
     public void setSecureRandomAlgorithm(String secureRandomAlgorithm) {
         this.secureRandomAlgorithm = secureRandomAlgorithm;
@@ -418,8 +412,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the secure random number generator provider name.
      *
-     * @param secureRandomProvider
-     *            The new secure random number generator provider name
+     * @param secureRandomProvider The new secure random number generator provider name
      */
     public void setSecureRandomProvider(String secureRandomProvider) {
         this.secureRandomProvider = secureRandomProvider;
@@ -437,8 +430,7 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Set the JASPIC callback handler class name
      *
-     * @param jaspicCallbackHandlerClass
-     *            The new JASPIC callback handler class name
+     * @param jaspicCallbackHandlerClass The new JASPIC callback handler class name
      */
     public void setJaspicCallbackHandlerClass(String jaspicCallbackHandlerClass) {
         this.jaspicCallbackHandlerClass = jaspicCallbackHandlerClass;
@@ -471,15 +463,10 @@ public abstract class AuthenticatorBase extends ValveBase
      * Enforce the security restrictions in the web application deployment
      * descriptor of our associated Context.
      *
-     * @param request
-     *            Request to be processed
-     * @param response
-     *            Response to be processed
-     *
-     * @exception IOException
-     *                if an input/output error occurs
-     * @exception ServletException
-     *                if thrown by a processing element
+     * @param request  Request to be processed
+     * @param response Response to be processed
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if thrown by a processing element
      */
     @Override
     public void invoke(Request request, Response response) throws IOException, ServletException {
@@ -684,7 +671,7 @@ public abstract class AuthenticatorBase extends ValveBase
 
 
     private JaspicState getJaspicState(AuthConfigProvider jaspicProvider, Request request,
-            Response response, boolean authMandatory) throws IOException {
+                                       Response response, boolean authMandatory) throws IOException {
         JaspicState jaspicState = new JaspicState();
 
         jaspicState.messageInfo =
@@ -722,7 +709,7 @@ public abstract class AuthenticatorBase extends ValveBase
                 if (clazz == null) {
                     clazz = Class.forName(jaspicCallbackHandlerClass);
                 }
-                callbackHandler = (CallbackHandler)clazz.getConstructor().newInstance();
+                callbackHandler = (CallbackHandler) clazz.getConstructor().newInstance();
             } catch (ReflectiveOperationException e) {
                 throw new SecurityException(e);
             }
@@ -738,13 +725,11 @@ public abstract class AuthenticatorBase extends ValveBase
      * Provided for sub-classes to implement their specific authentication
      * mechanism.
      *
-     * @param request The request that triggered the authentication
+     * @param request  The request that triggered the authentication
      * @param response The response associated with the request
-     *
      * @return {@code true} if the the user was authenticated, otherwise {@code
-     *         false}, in which case an authentication challenge will have been
-     *         written to the response
-     *
+     * false}, in which case an authentication challenge will have been
+     * written to the response
      * @throws IOException If an I/O problem occurred during the authentication
      *                     process
      */
@@ -758,9 +743,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * that started in a previous request?
      *
      * @param request The request currently being processed
-     *
      * @return {@code true} if authenticate() must be called, otherwise
-     *         {@code false}
+     * {@code false}
      */
     protected boolean isContinuationRequired(Request request) {
         return false;
@@ -772,9 +756,7 @@ public abstract class AuthenticatorBase extends ValveBase
      * <code>javax.servlet.request.X509Certificate</code>. If not found, trigger
      * extracting the certificate chain from the Coyote request.
      *
-     * @param request
-     *            Request to be processed
-     *
+     * @param request Request to be processed
      * @return The X509 certificate chain if found, <code>null</code> otherwise.
      */
     protected X509Certificate[] getRequestCertificates(final Request request)
@@ -800,10 +782,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * Associate the specified single sign on identifier with the specified
      * Session.
      *
-     * @param ssoId
-     *            Single sign on identifier
-     * @param session
-     *            Session to be associated
+     * @param ssoId   Single sign on identifier
+     * @param session Session to be associated
      */
     protected void associate(String ssoId, Session session) {
 
@@ -816,7 +796,7 @@ public abstract class AuthenticatorBase extends ValveBase
 
 
     private boolean authenticateJaspic(Request request, Response response, JaspicState state,
-            boolean requirePrincipal) {
+                                       boolean requirePrincipal) {
 
         boolean cachedAuth = checkForCachedAuthentication(request, response, false);
         Subject client = new Subject();
@@ -847,7 +827,7 @@ public abstract class AuthenticatorBase extends ValveBase
                 // Skip registration if authentication credentials were
                 // cached and the Principal did not change.
                 @SuppressWarnings("rawtypes")// JASPIC API uses raw types
-                Map map = state.messageInfo.getMap();
+                        Map map = state.messageInfo.getMap();
                 if (map != null && map.containsKey("javax.servlet.http.registerSession")) {
                     register(request, response, principal, "JASPIC", null, null, true, true);
                 } else {
@@ -880,16 +860,12 @@ public abstract class AuthenticatorBase extends ValveBase
      * processing chain or if there is enough information available to
      * authenticate the user without requiring further user interaction.
      *
-     * @param request
-     *            The current request
-     * @param response
-     *            The current response
-     * @param useSSO
-     *            Should information available from SSO be used to attempt to
-     *            authenticate the current user?
-     *
+     * @param request  The current request
+     * @param response The current response
+     * @param useSSO   Should information available from SSO be used to attempt to
+     *                 authenticate the current user?
      * @return <code>true</code> if the user was authenticated via the cache,
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     protected boolean checkForCachedAuthentication(Request request, HttpServletResponse response, boolean useSSO) {
 
@@ -959,11 +935,9 @@ public abstract class AuthenticatorBase extends ValveBase
      * Attempts reauthentication to the <code>Realm</code> using the credentials
      * included in argument <code>entry</code>.
      *
-     * @param ssoId
-     *            identifier of SingleSignOn session with which the caller is
-     *            associated
-     * @param request
-     *            the request that needs to be authenticated
+     * @param ssoId   identifier of SingleSignOn session with which the caller is
+     *                associated
+     * @param request the request that needs to be authenticated
      * @return <code>true</code> if the reauthentication from SSL occurred
      */
     protected boolean reauthenticateFromSSO(String ssoId, Request request) {
@@ -1001,28 +975,22 @@ public abstract class AuthenticatorBase extends ValveBase
      * SingleSignOn valve, if there is one. Set the appropriate cookie to be
      * returned.
      *
-     * @param request
-     *            The servlet request we are processing
-     * @param response
-     *            The servlet response we are generating
-     * @param principal
-     *            The authenticated Principal to be registered
-     * @param authType
-     *            The authentication type to be registered
-     * @param username
-     *            Username used to authenticate (if any)
-     * @param password
-     *            Password used to authenticate (if any)
+     * @param request   The servlet request we are processing
+     * @param response  The servlet response we are generating
+     * @param principal The authenticated Principal to be registered
+     * @param authType  The authentication type to be registered
+     * @param username  Username used to authenticate (if any)
+     * @param password  Password used to authenticate (if any)
      */
     public void register(Request request, HttpServletResponse response, Principal principal,
-            String authType, String username, String password) {
+                         String authType, String username, String password) {
         register(request, response, principal, authType, username, password, alwaysUseSession, cache);
     }
 
 
     private void register(Request request, HttpServletResponse response, Principal principal,
-            String authType, String username, String password, boolean alwaysUseSession,
-            boolean cache) {
+                          String authType, String username, String password, boolean alwaysUseSession,
+                          boolean cache) {
 
         if (log.isDebugEnabled()) {
             String name = (principal == null) ? "none" : principal.getName();
@@ -1034,7 +1002,7 @@ public abstract class AuthenticatorBase extends ValveBase
         request.setUserPrincipal(principal);
 
         if (sendAuthInfoResponseHeaders
-            && Boolean.TRUE.equals(request.getAttribute(Globals.REQUEST_FORWARDED_ATTRIBUTE))) {
+                && Boolean.TRUE.equals(request.getAttribute(Globals.REQUEST_FORWARDED_ATTRIBUTE))) {
             response.setHeader("remote-user", request.getRemoteUser());
             response.setHeader("auth-type", request.getAuthType());
         }
@@ -1153,15 +1121,11 @@ public abstract class AuthenticatorBase extends ValveBase
     /**
      * Process the login request.
      *
-     * @param request
-     *            Associated request
-     * @param username
-     *            The user
-     * @param password
-     *            The password
+     * @param request  Associated request
+     * @param username The user
+     * @param password The password
      * @return The authenticated Principal
-     * @throws ServletException
-     *             No principal was authenticated with the specified credentials
+     * @throws ServletException No principal was authenticated with the specified credentials
      */
     protected Principal doLogin(Request request, String username, String password)
             throws ServletException {
@@ -1210,9 +1174,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * Start this component and implement the requirements of
      * {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException
-     *                if this component detects a fatal error that prevents this
-     *                component from being used
+     * @throws LifecycleException if this component detects a fatal error that prevents this
+     *                            component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
@@ -1255,9 +1218,8 @@ public abstract class AuthenticatorBase extends ValveBase
      * Stop this component and implement the requirements of
      * {@link org.apache.catalina.util.LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException
-     *                if this component detects a fatal error that prevents this
-     *                component from being used
+     * @throws LifecycleException if this component detects a fatal error that prevents this
+     *                            component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {

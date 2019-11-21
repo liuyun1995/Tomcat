@@ -44,7 +44,7 @@ public class FileItemHeadersImpl implements FileItemHeaders, Serializable {
      * Map of <code>String</code> keys to a <code>List</code> of
      * <code>String</code> instances.
      */
-    private final Map<String,List<String>> headerNameToValueListMap =
+    private final Map<String, List<String>> headerNameToValueListMap =
             new LinkedHashMap<>();
 
     /**
@@ -84,7 +84,7 @@ public class FileItemHeadersImpl implements FileItemHeaders, Serializable {
     /**
      * Method to add header values to this instance.
      *
-     * @param name name of this header
+     * @param name  name of this header
      * @param value value of this header
      */
     public synchronized void addHeader(String name, String value) {

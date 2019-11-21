@@ -17,7 +17,6 @@
 package org.apache.tomcat.util.descriptor.web;
 
 
-
 /**
  * Representation of an EJB resource reference for a web application, as
  * represented in a <code>&lt;ejb-ref&gt;</code> element in the
@@ -31,7 +30,6 @@ public class ContextEjb extends ResourceBase {
     private static final long serialVersionUID = 1L;
 
     // ------------------------------------------------------------- Properties
-
 
 
     /**

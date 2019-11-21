@@ -45,8 +45,8 @@ public class TldCache {
             TldCache.class.getName();
 
     private final ServletContext servletContext;
-    private final Map<String,TldResourcePath> uriTldResourcePathMap = new HashMap<>();
-    private final Map<TldResourcePath,TaglibXmlCacheEntry> tldResourcePathTaglibXmlMap =
+    private final Map<String, TldResourcePath> uriTldResourcePathMap = new HashMap<>();
+    private final Map<TldResourcePath, TaglibXmlCacheEntry> tldResourcePathTaglibXmlMap =
             new HashMap<>();
     private final TldParser tldParser;
 
@@ -61,8 +61,8 @@ public class TldCache {
 
 
     public TldCache(ServletContext servletContext,
-            Map<String, TldResourcePath> uriTldResourcePathMap,
-            Map<TldResourcePath, TaglibXml> tldResourcePathTaglibXmlMap) {
+                    Map<String, TldResourcePath> uriTldResourcePathMap,
+                    Map<TldResourcePath, TaglibXml> tldResourcePathTaglibXmlMap) {
         this.servletContext = servletContext;
         this.uriTldResourcePathMap.putAll(uriTldResourcePathMap);
         for (Entry<TldResourcePath, TaglibXml> entry : tldResourcePathTaglibXmlMap.entrySet()) {
@@ -155,7 +155,7 @@ public class TldCache {
         private volatile long entryLastModified;
 
         public TaglibXmlCacheEntry(TaglibXml taglibXml, long webAppPathLastModified,
-                long entryLastModified) {
+                                   long entryLastModified) {
             this.taglibXml = taglibXml;
             this.webAppPathLastModified = webAppPathLastModified;
             this.entryLastModified = entryLastModified;

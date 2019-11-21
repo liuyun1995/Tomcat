@@ -37,12 +37,12 @@ import org.apache.tomcat.util.res.StringManager;
  *
  * @param <V> Type of values placed in this Map.
  */
-public class CaseInsensitiveKeyMap<V> extends AbstractMap<String,V> {
+public class CaseInsensitiveKeyMap<V> extends AbstractMap<String, V> {
 
     private static final StringManager sm =
             StringManager.getManager(CaseInsensitiveKeyMap.class);
 
-    private final Map<Key,V> map = new HashMap<>();
+    private final Map<Key, V> map = new HashMap<>();
 
 
     @Override
@@ -92,16 +92,16 @@ public class CaseInsensitiveKeyMap<V> extends AbstractMap<String,V> {
     }
 
 
-    private static class EntrySet<V> extends AbstractSet<Entry<String,V>> {
+    private static class EntrySet<V> extends AbstractSet<Entry<String, V>> {
 
-        private final Set<Entry<Key,V>> entrySet;
+        private final Set<Entry<Key, V>> entrySet;
 
-        public EntrySet(Set<Map.Entry<Key,V>> entrySet) {
+        public EntrySet(Set<Map.Entry<Key, V>> entrySet) {
             this.entrySet = entrySet;
         }
 
         @Override
-        public Iterator<Entry<String,V>> iterator() {
+        public Iterator<Entry<String, V>> iterator() {
             return new EntryIterator<>(entrySet.iterator());
         }
 
@@ -112,11 +112,11 @@ public class CaseInsensitiveKeyMap<V> extends AbstractMap<String,V> {
     }
 
 
-    private static class EntryIterator<V> implements Iterator<Entry<String,V>> {
+    private static class EntryIterator<V> implements Iterator<Entry<String, V>> {
 
-        private final Iterator<Entry<Key,V>> iterator;
+        private final Iterator<Entry<Key, V>> iterator;
 
-        public EntryIterator(Iterator<Entry<Key,V>> iterator) {
+        public EntryIterator(Iterator<Entry<Key, V>> iterator) {
             this.iterator = iterator;
         }
 
@@ -126,8 +126,8 @@ public class CaseInsensitiveKeyMap<V> extends AbstractMap<String,V> {
         }
 
         @Override
-        public Entry<String,V> next() {
-            Entry<Key,V> entry = iterator.next();
+        public Entry<String, V> next() {
+            Entry<Key, V> entry = iterator.next();
             return new EntryImpl<>(entry.getKey().getKey(), entry.getValue());
         }
 
@@ -138,7 +138,7 @@ public class CaseInsensitiveKeyMap<V> extends AbstractMap<String,V> {
     }
 
 
-    private static class EntryImpl<V> implements Entry<String,V> {
+    private static class EntryImpl<V> implements Entry<String, V> {
 
         private final String key;
         private final V value;

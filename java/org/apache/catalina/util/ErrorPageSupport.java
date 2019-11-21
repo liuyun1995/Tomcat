@@ -65,9 +65,8 @@ public class ErrorPageSupport {
      * Find the ErrorPage, if any, for the named exception type.
      *
      * @param exceptionType The fully qualified class name of the exception type
-     *
      * @return The ErrorPage for the named exception type, or {@code null} if
-     *         none is configured
+     * none is configured
      */
     public ErrorPage find(String exceptionType) {
         return exceptionPages.get(exceptionType);

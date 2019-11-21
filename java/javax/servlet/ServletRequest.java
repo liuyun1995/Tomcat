@@ -56,10 +56,9 @@ public interface ServletRequest {
      * <code>sun.*</code>, <code>com.sun.*</code>, <code>oracle.*</code> and
      * <code>com.oracle.*</code>) are reserved for use by Oracle Corporation.
      *
-     * @param name
-     *            a <code>String</code> specifying the name of the attribute
+     * @param name a <code>String</code> specifying the name of the attribute
      * @return an <code>Object</code> containing the value of the attribute, or
-     *         <code>null</code> if the attribute does not exist
+     * <code>null</code> if the attribute does not exist
      */
     public Object getAttribute(String name);
 
@@ -70,7 +69,7 @@ public interface ServletRequest {
      * it.
      *
      * @return an <code>Enumeration</code> of strings containing the names of the
-     *         request's attributes
+     * request's attributes
      */
     public Enumeration<String> getAttributeNames();
 
@@ -87,8 +86,8 @@ public interface ServletRequest {
      * </ol>
      *
      * @return a <code>String</code> containing the name of the character
-     *         encoding, or <code>null</code> if the request does not specify a
-     *         character encoding
+     * encoding, or <code>null</code> if the request does not specify a
+     * character encoding
      */
     public String getCharacterEncoding();
 
@@ -97,11 +96,9 @@ public interface ServletRequest {
      * request. This method must be called prior to reading request parameters
      * or reading input using getReader().
      *
-     * @param env
-     *            a <code>String</code> containing the name of the character
+     * @param env a <code>String</code> containing the name of the character
      *            encoding.
-     * @throws java.io.UnsupportedEncodingException
-     *             if this is not a valid encoding
+     * @throws java.io.UnsupportedEncodingException if this is not a valid encoding
      */
     public void setCharacterEncoding(String env)
             throws java.io.UnsupportedEncodingException;
@@ -112,7 +109,7 @@ public interface ServletRequest {
      * same as the value of the CGI variable CONTENT_LENGTH.
      *
      * @return an integer containing the length of the request body or -1 if the
-     *         length is not known or is greater than {@link Integer#MAX_VALUE}
+     * length is not known or is greater than {@link Integer#MAX_VALUE}
      */
     public int getContentLength();
 
@@ -122,7 +119,7 @@ public interface ServletRequest {
      * same as the value of the CGI variable CONTENT_LENGTH.
      *
      * @return a long integer containing the length of the request body or -1 if
-     *         the length is not known
+     * the length is not known
      * @since Servlet 3.1
      */
     public long getContentLengthLong();
@@ -133,7 +130,7 @@ public interface ServletRequest {
      * variable CONTENT_TYPE.
      *
      * @return a <code>String</code> containing the name of the MIME type of the
-     *         request, or null if the type is not known
+     * request, or null if the type is not known
      */
     public String getContentType();
 
@@ -143,12 +140,10 @@ public interface ServletRequest {
      * be called to read the body, not both.
      *
      * @return a {@link ServletInputStream} object containing the body of the
-     *         request
-     * @exception IllegalStateException
-     *                if the {@link #getReader} method has already been called
-     *                for this request
-     * @exception IOException
-     *                if an input or output exception occurred
+     * request
+     * @throws IllegalStateException if the {@link #getReader} method has already been called
+     *                               for this request
+     * @throws IOException           if an input or output exception occurred
      */
     public ServletInputStream getInputStream() throws IOException;
 
@@ -171,10 +166,9 @@ public interface ServletRequest {
      * {@link #getInputStream} or {@link #getReader} can interfere with the
      * execution of this method.
      *
-     * @param name
-     *            a <code>String</code> specifying the name of the parameter
+     * @param name a <code>String</code> specifying the name of the parameter
      * @return a <code>String</code> representing the single value of the
-     *         parameter
+     * parameter
      * @see #getParameterValues
      */
     public String getParameter(String name);
@@ -186,9 +180,9 @@ public interface ServletRequest {
      * <code>Enumeration</code>.
      *
      * @return an <code>Enumeration</code> of <code>String</code> objects, each
-     *         <code>String</code> containing the name of a request parameter;
-     *         or an empty <code>Enumeration</code> if the request has no
-     *         parameters
+     * <code>String</code> containing the name of a request parameter;
+     * or an empty <code>Enumeration</code> if the request has no
+     * parameters
      */
     public Enumeration<String> getParameterNames();
 
@@ -199,11 +193,10 @@ public interface ServletRequest {
      * <p>
      * If the parameter has a single value, the array has a length of 1.
      *
-     * @param name
-     *            a <code>String</code> containing the name of the parameter
-     *            whose value is requested
+     * @param name a <code>String</code> containing the name of the parameter
+     *             whose value is requested
      * @return an array of <code>String</code> objects containing the parameter's
-     *         values
+     * values
      * @see #getParameter
      */
     public String[] getParameterValues(String name);
@@ -215,9 +208,9 @@ public interface ServletRequest {
      * data.
      *
      * @return an immutable java.util.Map containing parameter names as keys and
-     *         parameter values as map values. The keys in the parameter map are
-     *         of type String. The values in the parameter map are of type
-     *         String array.
+     * parameter values as map values. The keys in the parameter map are
+     * of type String. The values in the parameter map are of type
+     * String array.
      */
     public Map<String, String[]> getParameterMap();
 
@@ -228,7 +221,7 @@ public interface ServletRequest {
      * variable <code>SERVER_PROTOCOL</code>.
      *
      * @return a <code>String</code> containing the protocol name and version
-     *         number
+     * number
      */
     public String getProtocol();
 
@@ -238,7 +231,7 @@ public interface ServletRequest {
      * schemes have different rules for constructing URLs, as noted in RFC 1738.
      *
      * @return a <code>String</code> containing the name of the scheme used to
-     *         make this request
+     * make this request
      */
     public String getScheme();
 
@@ -267,14 +260,11 @@ public interface ServletRequest {
      * or {@link #getInputStream} may be called to read the body, not both.
      *
      * @return a <code>BufferedReader</code> containing the body of the request
-     * @exception java.io.UnsupportedEncodingException
-     *                if the character set encoding used is not supported and
-     *                the text cannot be decoded
-     * @exception IllegalStateException
-     *                if {@link #getInputStream} method has been called on this
-     *                request
-     * @exception IOException
-     *                if an input or output exception occurred
+     * @throws java.io.UnsupportedEncodingException if the character set encoding used is not supported and
+     *                                              the text cannot be decoded
+     * @throws IllegalStateException                if {@link #getInputStream} method has been called on this
+     *                                              request
+     * @throws IOException                          if an input or output exception occurred
      * @see #getInputStream
      */
     public BufferedReader getReader() throws IOException;
@@ -285,7 +275,7 @@ public interface ServletRequest {
      * variable <code>REMOTE_ADDR</code>.
      *
      * @return a <code>String</code> containing the IP address of the client
-     *         that sent the request
+     * that sent the request
      */
     public String getRemoteAddr();
 
@@ -297,7 +287,7 @@ public interface ServletRequest {
      * variable <code>REMOTE_HOST</code>.
      *
      * @return a <code>String</code> containing the fully qualified name of the
-     *         client
+     * client
      */
     public String getRemoteHost();
 
@@ -319,10 +309,8 @@ public interface ServletRequest {
      * object set by this method may not be correctly retrieved in the caller
      * servlet.
      *
-     * @param name
-     *            a <code>String</code> specifying the name of the attribute
-     * @param o
-     *            the <code>Object</code> to be stored
+     * @param name a <code>String</code> specifying the name of the attribute
+     * @param o    the <code>Object</code> to be stored
      */
     public void setAttribute(String name, Object o);
 
@@ -337,9 +325,8 @@ public interface ServletRequest {
      * <code>sun.*</code>, <code>com.sun.*</code>, <code>oracle.*</code> and
      * <code>com.oracle.*</code>) are reserved for use by Oracle Corporation.
      *
-     * @param name
-     *            a <code>String</code> specifying the name of the attribute to
-     *            remove
+     * @param name a <code>String</code> specifying the name of the attribute to
+     *             remove
      */
     public void removeAttribute(String name);
 
@@ -362,7 +349,7 @@ public interface ServletRequest {
      * <code>Locale</code>, the default locale for the server.
      *
      * @return an <code>Enumeration</code> of preferred <code>Locale</code>
-     *         objects for the client
+     * objects for the client
      */
     public Enumeration<Locale> getLocales();
 
@@ -371,7 +358,7 @@ public interface ServletRequest {
      * channel, such as HTTPS.
      *
      * @return a boolean indicating if the request was made using a secure
-     *         channel
+     * channel
      */
     public boolean isSecure();
 
@@ -391,13 +378,12 @@ public interface ServletRequest {
      * {@link ServletContext#getRequestDispatcher} is that this method can take
      * a relative path.
      *
-     * @param path
-     *            a <code>String</code> specifying the pathname to the resource.
-     *            If it is relative, it must be relative against the current
-     *            servlet.
+     * @param path a <code>String</code> specifying the pathname to the resource.
+     *             If it is relative, it must be relative against the current
+     *             servlet.
      * @return a <code>RequestDispatcher</code> object that acts as a wrapper for
-     *         the resource at the specified path, or <code>null</code> if the
-     *         servlet container cannot return a <code>RequestDispatcher</code>
+     * the resource at the specified path, or <code>null</code> if the
+     * servlet container cannot return a <code>RequestDispatcher</code>
      * @see RequestDispatcher
      * @see ServletContext#getRequestDispatcher
      */
@@ -407,7 +393,7 @@ public interface ServletRequest {
      * @param path The virtual path to be converted to a real path
      * @return {@link ServletContext#getRealPath(String)}
      * @deprecated As of Version 2.1 of the Java Servlet API, use
-     *             {@link ServletContext#getRealPath} instead.
+     * {@link ServletContext#getRealPath} instead.
      */
     @Deprecated
     public String getRealPath(String path);
@@ -426,7 +412,7 @@ public interface ServletRequest {
      * the request was received.
      *
      * @return a <code>String</code> containing the host name of the IP on which
-     *         the request was received.
+     * the request was received.
      * @since Servlet 2.4
      */
     public String getLocalName();
@@ -436,7 +422,7 @@ public interface ServletRequest {
      * request was received.
      *
      * @return a <code>String</code> containing the IP address on which the
-     *         request was received.
+     * request was received.
      * @since Servlet 2.4
      */
     public String getLocalAddr();
@@ -464,16 +450,16 @@ public interface ServletRequest {
     public AsyncContext startAsync() throws IllegalStateException;
 
     /**
-     * @param servletRequest    The ServletRequest with which to initialise the
-     *                          asynchronous context
-     * @param servletResponse   The ServletResponse with which to initialise the
-     *                          asynchronous context
+     * @param servletRequest  The ServletRequest with which to initialise the
+     *                        asynchronous context
+     * @param servletResponse The ServletResponse with which to initialise the
+     *                        asynchronous context
      * @return TODO
      * @throws IllegalStateException If async is not supported for this request
      * @since Servlet 3.0 TODO SERVLET3 - Add comments
      */
     public AsyncContext startAsync(ServletRequest servletRequest,
-            ServletResponse servletResponse) throws IllegalStateException;
+                                   ServletResponse servletResponse) throws IllegalStateException;
 
     /**
      * @return TODO
@@ -491,10 +477,8 @@ public interface ServletRequest {
      * Get the current AsyncContext.
      *
      * @return The current AsyncContext
-     *
      * @throws IllegalStateException if the request is not in asynchronous mode
-     *         (i.e. @link #isAsyncStarted() is {@code false})
-     *
+     *                               (i.e. @link #isAsyncStarted() is {@code false})
      * @since Servlet 3.0
      */
     public AsyncContext getAsyncContext();

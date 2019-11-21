@@ -25,10 +25,10 @@ import org.apache.jasper.compiler.ELNode.Text;
 
 /**
  * This class implements a parser for EL expressions.
- *
+ * <p>
  * It takes strings of the form xxx${..}yyy${..}zzz etc, and turn it into a
  * ELNode.Nodes.
- *
+ * <p>
  * Currently, it only handles text outside ${..} and functions in ${ ..}.
  *
  * @author Kin-man Chung
@@ -52,9 +52,9 @@ public class ELParser {
 
     private final boolean isDeferredSyntaxAllowedAsLiteral;
 
-    private static final String reservedWords[] = { "and", "div", "empty",
+    private static final String reservedWords[] = {"and", "div", "empty",
             "eq", "false", "ge", "gt", "instanceof", "le", "lt", "mod", "ne",
-            "not", "null", "or", "true" };
+            "not", "null", "or", "true"};
 
     public ELParser(String expression, boolean isDeferredSyntaxAllowedAsLiteral) {
         index = 0;
@@ -66,15 +66,13 @@ public class ELParser {
     /**
      * Parse an EL expression
      *
-     * @param expression
-     *            The input expression string of the form Char* ('${' Char*
-     *            '}')* Char*
-     * @param isDeferredSyntaxAllowedAsLiteral
-     *                      Are deferred expressions treated as literals?
+     * @param expression                       The input expression string of the form Char* ('${' Char*
+     *                                         '}')* Char*
+     * @param isDeferredSyntaxAllowedAsLiteral Are deferred expressions treated as literals?
      * @return Parsed EL expression in ELNode.Nodes
      */
     public static ELNode.Nodes parse(String expression,
-            boolean isDeferredSyntaxAllowedAsLiteral) {
+                                     boolean isDeferredSyntaxAllowedAsLiteral) {
         ELParser parser = new ELParser(expression,
                 isDeferredSyntaxAllowedAsLiteral);
         while (parser.hasNextChar()) {
@@ -95,10 +93,10 @@ public class ELParser {
      * into functions and everything else.
      *
      * @return An ELNode.Nodes representing the EL expression
-     *
+     * <p>
      * Note: This cannot be refactored to use the standard EL implementation as
-     *       the EL API does not provide the level of access required to the
-     *       parsed expression.
+     * the EL API does not provide the level of access required to the
+     * parsed expression.
      */
     private ELNode.Nodes parseEL() {
 
@@ -236,19 +234,18 @@ public class ELParser {
      * {@link #skipUntilEL()} but only for ${ and #{ sequences since escaping
      * for $ and # is optional.
      *
-     * @param input Non-EL input to be escaped
+     * @param input                            Non-EL input to be escaped
      * @param isDeferredSyntaxAllowedAsLiteral
-     *
      * @return The escaped version of the input
      */
     static String escapeLiteralExpression(String input,
-            boolean isDeferredSyntaxAllowedAsLiteral) {
+                                          boolean isDeferredSyntaxAllowedAsLiteral) {
         int len = input.length();
         int lastAppend = 0;
         StringBuilder output = null;
         for (int i = 0; i < len; i++) {
             char ch = input.charAt(i);
-            if (ch =='$' || (!isDeferredSyntaxAllowedAsLiteral && ch == '#')) {
+            if (ch == '$' || (!isDeferredSyntaxAllowedAsLiteral && ch == '#')) {
                 if (i + 1 < len && input.charAt(i + 1) == '{') {
                     if (output == null) {
                         output = new StringBuilder(len + 20);
@@ -274,7 +271,6 @@ public class ELParser {
      * {@link #skipUntilEL()}.
      *
      * @param input Non-EL input to be escaped
-     *
      * @return The escaped version of the input
      */
     private static String escapeELText(String input) {
@@ -577,7 +573,7 @@ public class ELParser {
 
         @Override
         public void visit(Text n) throws JasperException {
-            output.append(escapeLiteralExpression(n.getText(),isDeferredSyntaxAllowedAsLiteral));
+            output.append(escapeLiteralExpression(n.getText(), isDeferredSyntaxAllowedAsLiteral));
         }
 
         @Override

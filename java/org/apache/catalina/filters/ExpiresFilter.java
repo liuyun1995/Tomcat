@@ -496,7 +496,7 @@ public class ExpiresFilter extends FilterBase {
         private final StartingPoint startingPoint;
 
         public ExpiresConfiguration(StartingPoint startingPoint,
-                List<Duration> durations) {
+                                    List<Duration> durations) {
             super();
             this.startingPoint = startingPoint;
             this.durations = durations;
@@ -569,7 +569,7 @@ public class ExpiresFilter extends FilterBase {
         private boolean writeResponseBodyStarted;
 
         public XHttpServletResponse(HttpServletRequest request,
-                HttpServletResponse response) {
+                                    HttpServletResponse response) {
             super(response);
             this.request = request;
         }
@@ -667,7 +667,7 @@ public class ExpiresFilter extends FilterBase {
         private final XHttpServletResponse response;
 
         public XPrintWriter(PrintWriter out, HttpServletRequest request,
-                XHttpServletResponse response) {
+                            XHttpServletResponse response) {
             super(out);
             this.out = out;
             this.request = request;
@@ -882,7 +882,7 @@ public class ExpiresFilter extends FilterBase {
         private final ServletOutputStream servletOutputStream;
 
         public XServletOutputStream(ServletOutputStream servletOutputStream,
-                HttpServletRequest request, XHttpServletResponse response) {
+                                    HttpServletRequest request, XHttpServletResponse response) {
             super();
             this.servletOutputStream = servletOutputStream;
             this.response = response;
@@ -1058,8 +1058,7 @@ public class ExpiresFilter extends FilterBase {
     /**
      * Convert a comma delimited list of numbers into an {@code int[]}.
      *
-     * @param commaDelimitedInts
-     *            can be {@code null}
+     * @param commaDelimitedInts can be {@code null}
      * @return never {@code null} array
      */
     protected static int[] commaDelimitedListToIntArray(
@@ -1091,10 +1090,10 @@ public class ExpiresFilter extends FilterBase {
     }
 
     /**
+     * @param str       String that will be searched
+     * @param searchStr The substring to search
      * @return {@code true} if the given {@code str} contains the given
      * {@code searchStr}.
-     * @param str String that will be searched
-     * @param searchStr The substring to search
      */
     protected static boolean contains(String str, String searchStr) {
         if (str == null || searchStr == null) {
@@ -1105,6 +1104,7 @@ public class ExpiresFilter extends FilterBase {
 
     /**
      * Convert an array of ints into a comma delimited string
+     *
      * @param ints The int array
      * @return a comma separated string
      */
@@ -1143,13 +1143,10 @@ public class ExpiresFilter extends FilterBase {
     }
 
     /**
+     * @param string can be {@code null}
+     * @param prefix can be {@code null}
      * @return {@code true} if the given {@code string} starts with the
      * given {@code prefix} ignoring case.
-     *
-     * @param string
-     *            can be {@code null}
-     * @param prefix
-     *            can be {@code null}
      */
     protected static boolean startsWithIgnoreCase(String string, String prefix) {
         if (string == null || prefix == null) {
@@ -1163,15 +1160,12 @@ public class ExpiresFilter extends FilterBase {
     }
 
     /**
+     * @param str       can be {@code null}
+     * @param separator can be {@code null}
      * @return the subset of the given {@code str} that is before the first
      * occurrence of the given {@code separator}. Return {@code null}
      * if the given {@code str} or the given {@code separator} is
      * null. Return and empty string if the {@code separator} is empty.
-     *
-     * @param str
-     *            can be {@code null}
-     * @param separator
-     *            can be {@code null}
      */
     protected static String substringBefore(String str, String separator) {
         if (str == null || str.isEmpty() || separator == null) {
@@ -1198,7 +1192,7 @@ public class ExpiresFilter extends FilterBase {
      * list of response status code for which the {@link ExpiresFilter} will not
      * generate expiration headers.
      */
-    private int[] excludedResponseStatusCodes = new int[] { HttpServletResponse.SC_NOT_MODIFIED };
+    private int[] excludedResponseStatusCodes = new int[]{HttpServletResponse.SC_NOT_MODIFIED};
 
     /**
      * Expires configuration by content type. Visible for test.
@@ -1207,7 +1201,7 @@ public class ExpiresFilter extends FilterBase {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest &&
                 response instanceof HttpServletResponse) {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -1338,36 +1332,37 @@ public class ExpiresFilter extends FilterBase {
      * <p>
      * {@code protected} for extension.
      * </p>
+     *
      * @param configuration The parsed expires
-     * @param response The Servlet response
+     * @param response      The Servlet response
      * @return the expiration date
      */
     protected Date getExpirationDate(ExpiresConfiguration configuration,
-            XHttpServletResponse response) {
+                                     XHttpServletResponse response) {
         Calendar calendar;
         switch (configuration.getStartingPoint()) {
-        case ACCESS_TIME:
-            calendar = Calendar.getInstance();
-            break;
-        case LAST_MODIFICATION_TIME:
-            if (response.isLastModifiedHeaderSet()) {
-                try {
-                    long lastModified = response.getLastModifiedHeader();
-                    calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(lastModified);
-                } catch (NumberFormatException e) {
-                    // default to now
+            case ACCESS_TIME:
+                calendar = Calendar.getInstance();
+                break;
+            case LAST_MODIFICATION_TIME:
+                if (response.isLastModifiedHeaderSet()) {
+                    try {
+                        long lastModified = response.getLastModifiedHeader();
+                        calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(lastModified);
+                    } catch (NumberFormatException e) {
+                        // default to now
+                        calendar = Calendar.getInstance();
+                    }
+                } else {
+                    // Last-Modified header not found, use now
                     calendar = Calendar.getInstance();
                 }
-            } else {
-                // Last-Modified header not found, use now
-                calendar = Calendar.getInstance();
-            }
-            break;
-        default:
-            throw new IllegalStateException(sm.getString(
-                    "expiresFilter.unsupportedStartingPoint",
-                    configuration.getStartingPoint()));
+                break;
+            default:
+                throw new IllegalStateException(sm.getString(
+                        "expiresFilter.unsupportedStartingPoint",
+                        configuration.getStartingPoint()));
         }
         for (Duration duration : configuration.getDurations()) {
             calendar.add(duration.getUnit().getCalendardField(),
@@ -1388,7 +1383,7 @@ public class ExpiresFilter extends FilterBase {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        for (Enumeration<String> names = filterConfig.getInitParameterNames(); names.hasMoreElements();) {
+        for (Enumeration<String> names = filterConfig.getInitParameterNames(); names.hasMoreElements(); ) {
             String name = names.nextElement();
             String value = filterConfig.getInitParameter(name);
 
@@ -1424,7 +1419,8 @@ public class ExpiresFilter extends FilterBase {
      * <p>
      * {@code protected} for extension.
      * </p>
-     * @param request The Servlet request
+     *
+     * @param request  The Servlet request
      * @param response The Servlet response
      * @return <code>true</code> if an expire header may be added
      */
@@ -1475,11 +1471,12 @@ public class ExpiresFilter extends FilterBase {
      * {@link HttpServletResponse#getContentType()} costs {@code String}
      * objects instantiations (as of Tomcat 7).
      * </p>
-     * @param request The Servlet request
+     *
+     * @param request  The Servlet request
      * @param response The Servlet response
      */
     public void onBeforeWriteResponseBody(HttpServletRequest request,
-            XHttpServletResponse response) {
+                                          XHttpServletResponse response) {
 
         if (!isEligibleToExpirationHeaderGeneration(request, response)) {
             return;

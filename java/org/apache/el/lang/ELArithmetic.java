@@ -26,6 +26,7 @@ import org.apache.el.util.MessageFactory;
 
 /**
  * A helper class of Arithmetic defined by the EL Specification
+ *
  * @author Jacob Hookom [jacob@hookom.net]
  */
 public abstract class ELArithmetic {
@@ -189,7 +190,7 @@ public abstract class ELArithmetic {
                     || obj0 instanceof Float
                     || obj1 instanceof Float
                     || (obj0 instanceof String && ELSupport
-                            .isStringFloat((String) obj0)) || (obj1 instanceof String && ELSupport
+                    .isStringFloat((String) obj0)) || (obj1 instanceof String && ELSupport
                     .isStringFloat((String) obj1)));
         }
     }
@@ -351,9 +352,9 @@ public abstract class ELArithmetic {
 
     public static final boolean isNumberType(final Class<?> type) {
         return type == Long.TYPE || type == Double.TYPE ||
-            type == Byte.TYPE || type == Short.TYPE ||
-            type == Integer.TYPE || type == Float.TYPE ||
-            Number.class.isAssignableFrom(type);
+                type == Byte.TYPE || type == Short.TYPE ||
+                type == Integer.TYPE || type == Float.TYPE ||
+                Number.class.isAssignableFrom(type);
     }
 
     /**

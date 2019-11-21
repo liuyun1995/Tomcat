@@ -43,7 +43,7 @@ public class OpenEjbFactory implements ObjectFactory {
 
 
     protected static final String DEFAULT_OPENEJB_FACTORY =
-        "org.openejb.client.LocalInitialContextFactory";
+            "org.openejb.client.LocalInitialContextFactory";
 
 
     // -------------------------------------------------- ObjectFactory Methods
@@ -56,8 +56,8 @@ public class OpenEjbFactory implements ObjectFactory {
      */
     @Override
     public Object getObjectInstance(Object obj, Name name, Context nameCtx,
-                                    Hashtable<?,?> environment)
-        throws Exception {
+                                    Hashtable<?, ?> environment)
+            throws Exception {
 
         Object beanObj = null;
 

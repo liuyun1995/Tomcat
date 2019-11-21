@@ -53,17 +53,17 @@ public class RequestDumperFilter extends GenericFilter {
     private static final long serialVersionUID = 1L;
 
     private static final String NON_HTTP_REQ_MSG =
-        "Not available. Non-http request.";
+            "Not available. Non-http request.";
     private static final String NON_HTTP_RES_MSG =
-        "Not available. Non-http response.";
+            "Not available. Non-http response.";
 
     private static final ThreadLocal<Timestamp> timestamp =
             new ThreadLocal<Timestamp>() {
-        @Override
-        protected Timestamp initialValue() {
-            return new Timestamp();
-        }
-    };
+                @Override
+                protected Timestamp initialValue() {
+                    return new Timestamp();
+                }
+            };
 
     // Log must be non-static as loggers are created per class-loader and this
     // Filter may be used in multiple class loaders
@@ -77,14 +77,13 @@ public class RequestDumperFilter extends GenericFilter {
      * @param request  The servlet request to be processed
      * @param response The servlet response to be created
      * @param chain    The filter chain being processed
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-        throws IOException, ServletException {
+                         FilterChain chain)
+            throws IOException, ServletException {
 
         HttpServletRequest hRequest = null;
         HttpServletResponse hResponse = null;
@@ -280,8 +279,9 @@ public class RequestDumperFilter extends GenericFilter {
     private static final class Timestamp {
         private final Date date = new Date(0);
         private final SimpleDateFormat format =
-            new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
         private String dateString = format.format(date);
+
         private void update() {
             dateString = format.format(date);
         }

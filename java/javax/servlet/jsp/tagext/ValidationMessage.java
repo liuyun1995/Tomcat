@@ -43,10 +43,8 @@ public class ValidationMessage {
      * value of id must be the value of a jsp:id attribute for the PageData
      * passed into the validate() method.
      *
-     * @param id
-     *            Either null, or the value of a jsp:id attribute.
-     * @param message
-     *            A localized validation message.
+     * @param id      Either null, or the value of a jsp:id attribute.
+     * @param message A localized validation message.
      */
     public ValidationMessage(String id, String message) {
         this.id = id;

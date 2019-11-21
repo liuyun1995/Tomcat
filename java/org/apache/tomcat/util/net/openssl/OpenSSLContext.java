@@ -117,10 +117,10 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
                     if (log.isDebugEnabled())
                         log.debug(sm.getString("openssl.makeConf"));
                     cctx = SSLConf.make(aprPool,
-                                        SSL.SSL_CONF_FLAG_FILE |
-                                        SSL.SSL_CONF_FLAG_SERVER |
-                                        SSL.SSL_CONF_FLAG_CERTIFICATE |
-                                        SSL.SSL_CONF_FLAG_SHOW_ERRORS);
+                            SSL.SSL_CONF_FLAG_FILE |
+                                    SSL.SSL_CONF_FLAG_SERVER |
+                                    SSL.SSL_CONF_FLAG_CERTIFICATE |
+                                    SSL.SSL_CONF_FLAG_SHOW_ERRORS);
                 } catch (Exception e) {
                     throw new SSLException(sm.getString("openssl.errMakeConf"), e);
                 }
@@ -170,7 +170,7 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
             this.negotiableProtocols = negotiableProtocols;
 
             success = true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new SSLException(sm.getString("openssl.errorSSLCtxInit"), e);
         } finally {
             if (!success) {
@@ -202,7 +202,7 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
      *            {@code OpenSSLKeyManager}
      * @param tms Must contain a TrustManager of the type
      *            {@code X509TrustManager}
-     * @param sr Is not used for this implementation.
+     * @param sr  Is not used for this implementation.
      */
     @Override
     public synchronized void init(KeyManager[] kms, TrustManager[] tms, SecureRandom sr) {
@@ -251,18 +251,18 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
             // Client certificate verification
             int value = 0;
             switch (sslHostConfig.getCertificateVerification()) {
-            case NONE:
-                value = SSL.SSL_CVERIFY_NONE;
-                break;
-            case OPTIONAL:
-                value = SSL.SSL_CVERIFY_OPTIONAL;
-                break;
-            case OPTIONAL_NO_CA:
-                value = SSL.SSL_CVERIFY_OPTIONAL_NO_CA;
-                break;
-            case REQUIRED:
-                value = SSL.SSL_CVERIFY_REQUIRE;
-                break;
+                case NONE:
+                    value = SSL.SSL_CVERIFY_NONE;
+                    break;
+                case OPTIONAL:
+                    value = SSL.SSL_CVERIFY_OPTIONAL;
+                    break;
+                case OPTIONAL_NO_CA:
+                    value = SSL.SSL_CVERIFY_OPTIONAL_NO_CA;
+                    break;
+                case REQUIRED:
+                    value = SSL.SSL_CVERIFY_REQUIRE;
+                    break;
             }
             SSLContext.setVerify(ctx, value, sslHostConfig.getCertificateVerificationDepth());
 
@@ -402,7 +402,7 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
             }
             PrivateKey key = x509KeyManager.getPrivateKey(alias);
             StringBuilder sb = new StringBuilder(BEGIN_KEY);
-            sb.append(Base64.getMimeEncoder(64, new byte[] {'\n'}).encodeToString(key.getEncoded()));
+            sb.append(Base64.getMimeEncoder(64, new byte[]{'\n'}).encodeToString(key.getEncoded()));
             sb.append(END_KEY);
             SSLContext.setCertificateRaw(ctx, chain[0].getEncoded(),
                     sb.toString().getBytes(StandardCharsets.US_ASCII),
@@ -435,7 +435,7 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
      * Find a valid alias when none was specified in the config.
      */
     private static String findAlias(X509KeyManager keyManager,
-            SSLHostConfigCertificate certificate) {
+                                    SSLHostConfigCertificate certificate) {
 
         Type type = certificate.getType();
         String result = null;
@@ -452,7 +452,7 @@ public class OpenSSLContext implements org.apache.tomcat.util.net.SSLContext {
 
         Iterator<Type> iter = candidateTypes.iterator();
         while (result == null && iter.hasNext()) {
-            result = keyManager.chooseServerAlias(iter.next().toString(),  null,  null);
+            result = keyManager.chooseServerAlias(iter.next().toString(), null, null);
         }
 
         return result;

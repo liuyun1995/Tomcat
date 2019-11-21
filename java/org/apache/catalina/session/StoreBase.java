@@ -122,8 +122,7 @@ public abstract class StoreBase extends LifecycleBase implements Store {
      * be expired.
      *
      * @return list of session keys, that are to be expired
-     * @throws IOException
-     *             if an input-/output error occurred
+     * @throws IOException if an input-/output error occurred
      */
     public String[] expiredKeys() throws IOException {
         return keys();
@@ -133,12 +132,11 @@ public abstract class StoreBase extends LifecycleBase implements Store {
      * Called by our background reaper thread to check if Sessions
      * saved in our store are subject of being expired. If so expire
      * the Session and remove it from the Store.
-     *
      */
     public void processExpires() {
         String[] keys = null;
 
-        if(!getState().isAvailable()) {
+        if (!getState().isAvailable()) {
             return;
         }
 
@@ -149,7 +147,7 @@ public abstract class StoreBase extends LifecycleBase implements Store {
             return;
         }
         if (manager.getContext().getLogger().isDebugEnabled()) {
-            manager.getContext().getLogger().debug(getStoreName()+ ": processExpires check number of " + keys.length + " sessions" );
+            manager.getContext().getLogger().debug(getStoreName() + ": processExpires check number of " + keys.length + " sessions");
         }
 
         long timeNow = System.currentTimeMillis();
@@ -165,7 +163,7 @@ public abstract class StoreBase extends LifecycleBase implements Store {
                     continue;
                 }
                 if (manager.getContext().getLogger().isDebugEnabled()) {
-                    manager.getContext().getLogger().debug(getStoreName()+ ": processExpires expire store session " + keys[i] );
+                    manager.getContext().getLogger().debug(getStoreName() + ": processExpires expire store session " + keys[i]);
                 }
                 boolean isLoaded = false;
                 if (manager instanceof PersistentManagerBase) {
@@ -188,7 +186,7 @@ public abstract class StoreBase extends LifecycleBase implements Store {
                 }
                 remove(keys[i]);
             } catch (Exception e) {
-                manager.getContext().getLogger().error("Session: "+keys[i]+"; ", e);
+                manager.getContext().getLogger().error("Session: " + keys[i] + "; ", e);
                 try {
                     remove(keys[i]);
                 } catch (IOException e2) {
@@ -208,10 +206,8 @@ public abstract class StoreBase extends LifecycleBase implements Store {
      *
      * @param is The input stream provided by the sub-class that will provide
      *           the data for a session
-     *
      * @return An appropriately configured ObjectInputStream from which the
-     *         session can be read.
-     *
+     * session can be read.
      * @throws IOException if a problem occurs creating the ObjectInputStream
      */
     protected ObjectInputStream getObjectInputStream(InputStream is) throws IOException {
@@ -243,8 +239,8 @@ public abstract class StoreBase extends LifecycleBase implements Store {
      * Start this component and implement the requirements
      * of {@link LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
@@ -257,8 +253,8 @@ public abstract class StoreBase extends LifecycleBase implements Store {
      * Stop this component and implement the requirements
      * of {@link LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {

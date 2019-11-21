@@ -35,6 +35,7 @@ public interface CatalinaCluster extends Cluster {
 
     /**
      * Sends a message to all the members in the cluster
+     *
      * @param msg ClusterMessage
      */
     public void send(ClusterMessage msg);
@@ -42,7 +43,7 @@ public interface CatalinaCluster extends Cluster {
     /**
      * Sends a message to a specific member in the cluster.
      *
-     * @param msg ClusterMessage
+     * @param msg  ClusterMessage
      * @param dest Member
      */
     public void send(ClusterMessage msg, Member dest);
@@ -50,8 +51,8 @@ public interface CatalinaCluster extends Cluster {
     /**
      * Sends a message with the specified sendOptions to a specific member in the cluster.
      *
-     * @param msg ClusterMessage
-     * @param dest Member
+     * @param msg         ClusterMessage
+     * @param dest        Member
      * @param sendOptions sendOptions
      */
     public void send(ClusterMessage msg, Member dest, int sendOptions);
@@ -84,10 +85,11 @@ public interface CatalinaCluster extends Cluster {
     /**
      * @return The map of managers
      */
-    public Map<String,ClusterManager> getManagers();
+    public Map<String, ClusterManager> getManagers();
 
     /**
      * Get Manager
+     *
      * @param name The manager name
      * @return The manager
      */
@@ -95,7 +97,8 @@ public interface CatalinaCluster extends Cluster {
 
     /**
      * Get a new cluster name for a manager.
-     * @param name Override name (optional)
+     *
+     * @param name    Override name (optional)
      * @param manager The manager
      * @return the manager name in the cluster
      */

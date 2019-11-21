@@ -34,6 +34,7 @@ import javax.xml.stream.XMLStreamReader;
 class EncodingDetector {
 
     private static final XMLInputFactory XML_INPUT_FACTORY;
+
     static {
         XML_INPUT_FACTORY = XMLInputFactory.newInstance();
     }
@@ -202,7 +203,7 @@ class EncodingDetector {
         public final String encoding;
         public final int skip;
 
-        public BomResult(String encoding,  int skip) {
+        public BomResult(String encoding, int skip) {
             this.encoding = encoding;
             this.skip = skip;
         }

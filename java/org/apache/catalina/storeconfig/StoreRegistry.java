@@ -62,7 +62,7 @@ public class StoreRegistry {
     private String version;
 
     // Access Information
-    private static Class<?> interfaces[] = { CatalinaCluster.class,
+    private static Class<?> interfaces[] = {CatalinaCluster.class,
             ChannelSender.class, ChannelReceiver.class, Channel.class,
             MembershipService.class, ClusterDeployer.class, Realm.class,
             Manager.class, DirContext.class, LifecycleListener.class,
@@ -70,7 +70,7 @@ public class StoreRegistry {
             DataSender.class, ChannelInterceptor.class, Member.class,
             WebResourceRoot.class, WebResourceSet.class,
             CredentialHandler.class, UpgradeProtocol.class,
-            CookieProcessor.class };
+            CookieProcessor.class};
 
     /**
      * @return the name
@@ -217,6 +217,7 @@ public class StoreRegistry {
 
     /**
      * Set the encoding to use when writing the configuration files.
+     *
      * @param string The encoding
      */
     public void setEncoding(String string) {

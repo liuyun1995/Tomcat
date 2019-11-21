@@ -28,10 +28,8 @@ public abstract class TagLibraryInfo {
      * Constructor. This will invoke the constructors for TagInfo, and
      * TagAttributeInfo after parsing the TLD file.
      *
-     * @param prefix
-     *            the prefix actually used by the taglib directive
-     * @param uri
-     *            the URI actually used by the taglib directive
+     * @param prefix the prefix actually used by the taglib directive
+     * @param uri    the URI actually used by the taglib directive
      */
     protected TagLibraryInfo(String prefix, String uri) {
         this.prefix = prefix;
@@ -106,8 +104,8 @@ public abstract class TagLibraryInfo {
      * An array describing the tags that are defined in this tag library.
      *
      * @return the TagInfo objects corresponding to the tags defined by this tag
-     *         library, or a zero length array if this tag library defines no
-     *         tags
+     * library, or a zero length array if this tag library defines no
+     * tags
      */
     public TagInfo[] getTags() {
         return tags;
@@ -117,8 +115,8 @@ public abstract class TagLibraryInfo {
      * An array describing the tag files that are defined in this tag library.
      *
      * @return the TagFileInfo objects corresponding to the tag files defined by
-     *         this tag library, or a zero length array if this tag library
-     *         defines no tags files
+     * this tag library, or a zero length array if this tag library
+     * defines no tags files
      * @since 2.0
      */
     public TagFileInfo[] getTagFiles() {
@@ -129,10 +127,9 @@ public abstract class TagLibraryInfo {
      * Get the TagInfo for a given tag name, looking through all the tags in
      * this tag library.
      *
-     * @param shortname
-     *            The short name (no prefix) of the tag
+     * @param shortname The short name (no prefix) of the tag
      * @return the TagInfo for the tag with the specified short name, or null if
-     *         no such tag is found
+     * no such tag is found
      */
     public TagInfo getTag(String shortname) {
         TagInfo tags[] = getTags();
@@ -153,10 +150,9 @@ public abstract class TagLibraryInfo {
      * Get the TagFileInfo for a given tag name, looking through all the tag
      * files in this tag library.
      *
-     * @param shortname
-     *            The short name (no prefix) of the tag
+     * @param shortname The short name (no prefix) of the tag
      * @return the TagFileInfo for the specified Tag file, or null if no Tag
-     *         file is found
+     * file is found
      * @since 2.0
      */
     public TagFileInfo getTagFile(String shortname) {
@@ -178,7 +174,7 @@ public abstract class TagLibraryInfo {
      * An array describing the functions that are defined in this tag library.
      *
      * @return the functions defined in this tag library, or a zero length array
-     *         if the tag library defines no functions.
+     * if the tag library defines no functions.
      * @since 2.0
      */
     public FunctionInfo[] getFunctions() {
@@ -189,10 +185,9 @@ public abstract class TagLibraryInfo {
      * Get the FunctionInfo for a given function name, looking through all the
      * functions in this tag library.
      *
-     * @param name
-     *            The name (no prefix) of the function
+     * @param name The name (no prefix) of the function
      * @return the FunctionInfo for the function with the given name, or null if
-     *         no such function exists
+     * no such function exists
      * @since 2.0
      */
     public FunctionInfo getFunction(String name) {
@@ -218,9 +213,9 @@ public abstract class TagLibraryInfo {
      * included in the returned array.
      *
      * @return Array of TagLibraryInfo objects representing the entire set of
-     *         tag libraries (including this TagLibraryInfo) imported by taglib
-     *         directives in the translation unit that references this
-     *         TagLibraryInfo.
+     * tag libraries (including this TagLibraryInfo) imported by taglib
+     * directives in the translation unit that references this
+     * TagLibraryInfo.
      * @since 2.1
      */
     public abstract javax.servlet.jsp.tagext.TagLibraryInfo[] getTagLibraryInfos();

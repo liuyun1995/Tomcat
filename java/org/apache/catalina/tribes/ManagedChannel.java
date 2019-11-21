@@ -27,6 +27,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * Sets the channel sender
+     *
      * @param sender ChannelSender
      * @see ChannelSender
      */
@@ -34,6 +35,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * Sets the channel receiver
+     *
      * @param receiver ChannelReceiver
      * @see ChannelReceiver
      */
@@ -41,6 +43,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * Sets the membership service
+     *
      * @param service MembershipService
      * @see MembershipService
      */
@@ -48,6 +51,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * returns the channel sender
+     *
      * @return ChannelSender
      * @see ChannelSender
      */
@@ -55,6 +59,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * returns the channel receiver
+     *
      * @return ChannelReceiver
      * @see ChannelReceiver
      */
@@ -62,6 +67,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * Returns the membership service
+     *
      * @return MembershipService
      * @see MembershipService
      */
@@ -69,6 +75,7 @@ public interface ManagedChannel extends Channel {
 
     /**
      * Returns the interceptor stack
+     *
      * @return Iterator
      * @see Channel#addInterceptor(ChannelInterceptor)
      */

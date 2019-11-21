@@ -112,7 +112,7 @@ public class DeployTask extends AbstractCatalinaCommandTask {
     /**
      * Execute the requested operation.
      *
-     * @exception BuildException if an error occurs
+     * @throws BuildException if an error occurs
      */
     @Override
     public void execute() throws BuildException {
@@ -122,7 +122,7 @@ public class DeployTask extends AbstractCatalinaCommandTask {
         }
         if ((war == null) && (localWar == null) && (config == null) && (tag == null)) {
             throw new BuildException(
-                            "Must specify either 'war', 'localWar', 'config', or 'tag' attribute");
+                    "Must specify either 'war', 'localWar', 'config', or 'tag' attribute");
         }
         // Building an input stream on the WAR to upload, if any
         BufferedInputStream stream = null;

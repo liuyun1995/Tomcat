@@ -100,15 +100,15 @@ public class StaticMembershipService extends MembershipServiceBase
 
     @Override
     public Member getLocalMember(boolean incAliveTime) {
-        if ( incAliveTime && localMember != null) {
-            localMember.setMemberAliveTime(System.currentTimeMillis()-localMember.getServiceStartTime());
+        if (incAliveTime && localMember != null) {
+            localMember.setMemberAliveTime(System.currentTimeMillis() - localMember.getServiceStartTime());
         }
         return localMember;
     }
 
     @Override
     public void setLocalMemberProperties(String listenHost, int listenPort,
-            int securePort, int udpPort) {
+                                         int securePort, int udpPort) {
         properties.setProperty("tcpListenHost", listenHost);
         properties.setProperty("tcpListenPort", String.valueOf(listenPort));
         try {
@@ -214,19 +214,19 @@ public class StaticMembershipService extends MembershipServiceBase
     protected void setDefaults(Properties properties) {
         // default values
         if (properties.getProperty("expirationTime") == null)
-            properties.setProperty("expirationTime","5000");
+            properties.setProperty("expirationTime", "5000");
         if (properties.getProperty("connectTimeout") == null)
-            properties.setProperty("connectTimeout","500");
+            properties.setProperty("connectTimeout", "500");
         if (properties.getProperty("rpcTimeout") == null)
-            properties.setProperty("rpcTimeout","3000");
+            properties.setProperty("rpcTimeout", "3000");
         if (properties.getProperty("useThread") == null)
-            properties.setProperty("useThread","false");
+            properties.setProperty("useThread", "false");
         if (properties.getProperty("pingInterval") == null)
-            properties.setProperty("pingInterval","1000");
+            properties.setProperty("pingInterval", "1000");
     }
 
     private String getMembershipName() {
-        return channel.getName()+"-"+"StaticMembership";
+        return channel.getName() + "-" + "StaticMembership";
     }
 
     private void findLocalMember() throws IOException {
@@ -242,7 +242,8 @@ public class StaticMembershipService extends MembershipServiceBase
                 break;
             }
         }
-        if (this.localMember == null) throw new IllegalStateException(sm.getString("staticMembershipService.noLocalMember"));
+        if (this.localMember == null)
+            throw new IllegalStateException(sm.getString("staticMembershipService.noLocalMember"));
         staticMembers.remove(this.localMember);
     }
 }

@@ -27,7 +27,7 @@ import org.apache.tomcat.util.res.StringManager;
 
 /**
  * Move server.xml or context.xml as backup
- *
+ * <p>
  * TODO Get Encoding from Registry
  */
 public class StoreFileMover {
@@ -75,8 +75,7 @@ public class StoreFileMover {
     }
 
     /**
-     * @param basename
-     *            The basename to set.
+     * @param basename The basename to set.
      */
     public void setBasename(String basename) {
         this.basename = basename;
@@ -112,6 +111,7 @@ public class StoreFileMover {
 
     /**
      * Calculate file objects for the old and new configuration files.
+     *
      * @param basename The base path
      * @param encoding The encoding of the file
      * @param filename The file name

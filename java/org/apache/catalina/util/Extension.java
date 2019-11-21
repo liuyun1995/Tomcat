@@ -189,7 +189,7 @@ public final class Extension {
         // If specified, available specification version must be >= required
         if (required.getSpecificationVersion() != null) {
             if (!isNewer(specificationVersion,
-                         required.getSpecificationVersion()))
+                    required.getSpecificationVersion()))
                 return false;
         }
 
@@ -205,7 +205,7 @@ public final class Extension {
         // If specified, Implementation version must be >= required
         if (required.getImplementationVersion() != null) {
             if (!isNewer(implementationVersion,
-                         required.getImplementationVersion()))
+                    required.getImplementationVersion()))
                 return false;
         }
 
@@ -250,18 +250,16 @@ public final class Extension {
     // -------------------------------------------------------- Private Methods
 
 
-
     /**
      * Return <code>true</code> if the first version number is greater than
      * or equal to the second; otherwise return <code>false</code>.
      *
-     * @param first First version number (dotted decimal)
+     * @param first  First version number (dotted decimal)
      * @param second Second version number (dotted decimal)
-     *
-     * @exception NumberFormatException on a malformed version number
+     * @throws NumberFormatException on a malformed version number
      */
     private boolean isNewer(String first, String second)
-        throws NumberFormatException {
+            throws NumberFormatException {
 
         if ((first == null) || (second == null))
             return false;

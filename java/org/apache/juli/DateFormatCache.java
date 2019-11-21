@@ -84,7 +84,7 @@ public class DateFormatCache {
         this.format = tidyFormat(format);
         Cache parentCache = null;
         if (parent != null) {
-            synchronized(parent) {
+            synchronized (parent) {
                 parentCache = parent.cache;
             }
         }
@@ -139,7 +139,7 @@ public class DateFormatCache {
 
             /* Second step: Try to locate in cache */
             previousSeconds = seconds;
-            int index = (offset + (int)(seconds - first)) % cacheSize;
+            int index = (offset + (int) (seconds - first)) % cacheSize;
             if (index < 0) {
                 index += cacheSize;
             }
@@ -150,7 +150,7 @@ public class DateFormatCache {
                     return previousFormat;
                 }
 
-            /* Third step: not found in cache, adjust cache and add item */
+                /* Third step: not found in cache, adjust cache and add item */
             } else if (seconds >= last + cacheSize || seconds <= first - cacheSize) {
                 first = seconds;
                 last = first + cacheSize - 1;
@@ -178,7 +178,7 @@ public class DateFormatCache {
             /* Last step: format new timestamp either using
              * parent cache or locally. */
             if (parent != null) {
-                synchronized(parent) {
+                synchronized (parent) {
                     previousFormat = parent.getFormat(time);
                 }
             } else {

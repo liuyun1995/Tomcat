@@ -44,9 +44,9 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
      * specified username and password, with the specified role names
      * (as Strings).
      *
-     * @param name The username of the user represented by this Principal
+     * @param name     The username of the user represented by this Principal
      * @param password Credentials used to authenticate this user
-     * @param roles List of roles (must be Strings) possessed by this user
+     * @param roles    List of roles (must be Strings) possessed by this user
      */
     public GenericPrincipal(String name, String password, List<String> roles) {
         this(name, password, roles, null);
@@ -57,14 +57,14 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
      * specified username and password, with the specified role names
      * (as Strings).
      *
-     * @param name The username of the user represented by this Principal
-     * @param password Credentials used to authenticate this user
-     * @param roles List of roles (must be Strings) possessed by this user
+     * @param name          The username of the user represented by this Principal
+     * @param password      Credentials used to authenticate this user
+     * @param roles         List of roles (must be Strings) possessed by this user
      * @param userPrincipal - the principal to be returned from the request
-     *        getUserPrincipal call if not null; if null, this will be returned
+     *                      getUserPrincipal call if not null; if null, this will be returned
      */
     public GenericPrincipal(String name, String password, List<String> roles,
-            Principal userPrincipal) {
+                            Principal userPrincipal) {
         this(name, password, roles, userPrincipal, null);
     }
 
@@ -73,16 +73,16 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
      * specified username and password, with the specified role names
      * (as Strings).
      *
-     * @param name The username of the user represented by this Principal
-     * @param password Credentials used to authenticate this user
-     * @param roles List of roles (must be Strings) possessed by this user
+     * @param name          The username of the user represented by this Principal
+     * @param password      Credentials used to authenticate this user
+     * @param roles         List of roles (must be Strings) possessed by this user
      * @param userPrincipal - the principal to be returned from the request
-     *        getUserPrincipal call if not null; if null, this will be returned
+     *                      getUserPrincipal call if not null; if null, this will be returned
      * @param loginContext  - If provided, this will be used to log out the user
-     *        at the appropriate time
+     *                      at the appropriate time
      */
     public GenericPrincipal(String name, String password, List<String> roles,
-            Principal userPrincipal, LoginContext loginContext) {
+                            Principal userPrincipal, LoginContext loginContext) {
         this(name, password, roles, userPrincipal, loginContext, null);
     }
 
@@ -91,18 +91,18 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
      * specified username and password, with the specified role names
      * (as Strings).
      *
-     * @param name The username of the user represented by this Principal
-     * @param password Credentials used to authenticate this user
-     * @param roles List of roles (must be Strings) possessed by this user
+     * @param name          The username of the user represented by this Principal
+     * @param password      Credentials used to authenticate this user
+     * @param roles         List of roles (must be Strings) possessed by this user
      * @param userPrincipal - the principal to be returned from the request
-     *        getUserPrincipal call if not null; if null, this will be returned
+     *                      getUserPrincipal call if not null; if null, this will be returned
      * @param loginContext  - If provided, this will be used to log out the user
-     *        at the appropriate time
+     *                      at the appropriate time
      * @param gssCredential - If provided, the user's delegated credentials
      */
     public GenericPrincipal(String name, String password, List<String> roles,
-            Principal userPrincipal, LoginContext loginContext,
-            GSSCredential gssCredential) {
+                            Principal userPrincipal, LoginContext loginContext,
+                            GSSCredential gssCredential) {
         super();
         this.name = name;
         this.password = password;
@@ -185,6 +185,7 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
     public GSSCredential getGssCredential() {
         return this.gssCredential;
     }
+
     protected void setGssCredential(GSSCredential gssCredential) {
         this.gssCredential = gssCredential;
     }
@@ -196,9 +197,8 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
      * Does the user represented by this Principal possess the specified role?
      *
      * @param role Role to be tested
-     *
      * @return <code>true</code> if this Principal has been assigned the given
-     *         role, otherwise <code>false</code>
+     * role, otherwise <code>false</code>
      */
     public boolean hasRole(String role) {
         if ("*".equals(role)) { // Special 2.4 role meaning everyone
@@ -220,8 +220,8 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
         StringBuilder sb = new StringBuilder("GenericPrincipal[");
         sb.append(this.name);
         sb.append("(");
-        for (int i = 0; i < roles.length; i++ ) {
-            sb.append( roles[i]).append(",");
+        for (int i = 0; i < roles.length; i++) {
+            sb.append(roles[i]).append(",");
         }
         sb.append(")]");
         return sb.toString();
@@ -254,7 +254,7 @@ public class GenericPrincipal implements TomcatPrincipal, Serializable {
         private final Principal principal;
 
         public SerializablePrincipal(String name, String password, String[] roles,
-                Principal principal) {
+                                     Principal principal) {
             this.name = name;
             this.password = password;
             this.roles = roles;

@@ -113,7 +113,6 @@ class HpackEncoder {
      *
      * @param headers The headers to encode
      * @param target  The buffer to which to write the encoded headers
-     *
      * @return The state of the encoding process
      */
     State encode(MimeHeaders headers, ByteBuffer target) {
@@ -142,56 +141,56 @@ class HpackEncoder {
                 }
             }
             if (!skip) {
-                    String val = headers.getValue(it).toString();
+                String val = headers.getValue(it).toString();
 
-                    if (log.isDebugEnabled()) {
-                        log.debug(sm.getString("hpackEncoder.encodeHeader", headerName, val));
-                    }
-                    TableEntry tableEntry = findInTable(headerName, val);
+                if (log.isDebugEnabled()) {
+                    log.debug(sm.getString("hpackEncoder.encodeHeader", headerName, val));
+                }
+                TableEntry tableEntry = findInTable(headerName, val);
 
-                    // We use 11 to make sure we have enough room for the
-                    // variable length integers
-                    int required = 11 + headerName.length() + 1 + val.length();
+                // We use 11 to make sure we have enough room for the
+                // variable length integers
+                int required = 11 + headerName.length() + 1 + val.length();
 
-                    if (target.remaining() < required) {
-                        this.headersIterator = it;
-                        return State.UNDERFLOW;
-                    }
-                    // Only index if it will fit
-                    boolean canIndex = hpackHeaderFunction.shouldUseIndexing(headerName, val) &&
-                            (headerName.length() + val.length() + 32) < maxTableSize;
-                    if (tableEntry == null && canIndex) {
-                        //add the entry to the dynamic table
-                        target.put((byte) (1 << 6));
-                        writeHuffmanEncodableName(target, headerName);
-                        writeHuffmanEncodableValue(target, headerName, val);
-                        addToDynamicTable(headerName, val);
-                    } else if (tableEntry == null) {
-                        //literal never indexed
-                        target.put((byte) (1 << 4));
-                        writeHuffmanEncodableName(target, headerName);
-                        writeHuffmanEncodableValue(target, headerName, val);
+                if (target.remaining() < required) {
+                    this.headersIterator = it;
+                    return State.UNDERFLOW;
+                }
+                // Only index if it will fit
+                boolean canIndex = hpackHeaderFunction.shouldUseIndexing(headerName, val) &&
+                        (headerName.length() + val.length() + 32) < maxTableSize;
+                if (tableEntry == null && canIndex) {
+                    //add the entry to the dynamic table
+                    target.put((byte) (1 << 6));
+                    writeHuffmanEncodableName(target, headerName);
+                    writeHuffmanEncodableValue(target, headerName, val);
+                    addToDynamicTable(headerName, val);
+                } else if (tableEntry == null) {
+                    //literal never indexed
+                    target.put((byte) (1 << 4));
+                    writeHuffmanEncodableName(target, headerName);
+                    writeHuffmanEncodableValue(target, headerName, val);
+                } else {
+                    //so we know something is already in the table
+                    if (val.equals(tableEntry.value)) {
+                        //the whole thing is in the table
+                        target.put((byte) (1 << 7));
+                        Hpack.encodeInteger(target, tableEntry.getPosition(), 7);
                     } else {
-                        //so we know something is already in the table
-                        if (val.equals(tableEntry.value)) {
-                            //the whole thing is in the table
-                            target.put((byte) (1 << 7));
-                            Hpack.encodeInteger(target, tableEntry.getPosition(), 7);
-                        } else {
-                            if (canIndex) {
-                                //add the entry to the dynamic table
-                                target.put((byte) (1 << 6));
-                                Hpack.encodeInteger(target, tableEntry.getPosition(), 6);
-                                writeHuffmanEncodableValue(target, headerName, val);
-                                addToDynamicTable(headerName, val);
+                        if (canIndex) {
+                            //add the entry to the dynamic table
+                            target.put((byte) (1 << 6));
+                            Hpack.encodeInteger(target, tableEntry.getPosition(), 6);
+                            writeHuffmanEncodableValue(target, headerName, val);
+                            addToDynamicTable(headerName, val);
 
-                            } else {
-                                target.put((byte) (1 << 4));
-                                Hpack.encodeInteger(target, tableEntry.getPosition(), 4);
-                                writeHuffmanEncodableValue(target, headerName, val);
-                            }
+                        } else {
+                            target.put((byte) (1 << 4));
+                            Hpack.encodeInteger(target, tableEntry.getPosition(), 4);
+                            writeHuffmanEncodableValue(target, headerName, val);
                         }
                     }
+                }
 
             }
             if (++it == currentHeaders.size() && firstPass) {
@@ -206,7 +205,7 @@ class HpackEncoder {
 
     private void writeHuffmanEncodableName(ByteBuffer target, String headerName) {
         if (hpackHeaderFunction.shouldUseHuffman(headerName)) {
-            if(HPackHuffman.encode(target, headerName, true)) {
+            if (HPackHuffman.encode(target, headerName, true)) {
                 return;
             }
         }

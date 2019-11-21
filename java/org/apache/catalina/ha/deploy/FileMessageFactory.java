@@ -135,16 +135,14 @@ public class FileMessageFactory {
      * When openForWrite==false, an input stream is opened, the file has to
      * exist.
      *
-     * @param f
-     *            File - the file to be read/written
-     * @param openForWrite
-     *            boolean - true means we are writing to the file, false means
-     *            we are reading from the file
+     * @param f            File - the file to be read/written
+     * @param openForWrite boolean - true means we are writing to the file, false means
+     *                     we are reading from the file
      * @throws FileNotFoundException -
-     *             if the file to be read doesn't exist
-     * @throws IOException -
-     *             if the system fails to open input/output streams to the file
-     *             or if it fails to create the file to be written to.
+     *                               if the file to be read doesn't exist
+     * @throws IOException           -
+     *                               if the system fails to open input/output streams to the file
+     *                               or if it fails to create the file to be written to.
      */
     private FileMessageFactory(File f, boolean openForWrite)
             throws FileNotFoundException, IOException {
@@ -171,16 +169,14 @@ public class FileMessageFactory {
      * the readMessage can be invoked, and when opening for write the
      * writeMessage can be invoked.
      *
-     * @param f
-     *            File - the file to be read or written
-     * @param openForWrite
-     *            boolean - true, means we are writing to the file, false means
-     *            we are reading from it
-     * @throws FileNotFoundException -
-     *             if the file to be read doesn't exist
-     * @throws IOException -
-     *             if it fails to create the file that is to be written
+     * @param f            File - the file to be read or written
+     * @param openForWrite boolean - true, means we are writing to the file, false means
+     *                     we are reading from it
      * @return FileMessageFactory
+     * @throws FileNotFoundException -
+     *                               if the file to be read doesn't exist
+     * @throws IOException           -
+     *                               if it fails to create the file that is to be written
      */
     public static FileMessageFactory getInstance(File f, boolean openForWrite)
             throws FileNotFoundException, IOException {
@@ -196,14 +192,13 @@ public class FileMessageFactory {
      * factory are thread safe. dont hand off the message to one thread and read
      * the same with another.
      *
-     * @param f
-     *            FileMessage - the message to be populated with file data
-     * @throws IllegalArgumentException -
-     *             if the factory is for writing or is closed
-     * @throws IOException -
-     *             if a file read exception occurs
+     * @param f FileMessage - the message to be populated with file data
      * @return FileMessage - returns the same message passed in as a parameter,
-     *         or null if EOF
+     * or null if EOF
+     * @throws IllegalArgumentException -
+     *                                  if the factory is for writing or is closed
+     * @throws IOException              -
+     *                                  if a file read exception occurs
      */
     public FileMessage readMessage(FileMessage f)
             throws IllegalArgumentException, IOException {
@@ -224,14 +219,13 @@ public class FileMessageFactory {
      * Writes a message to file. If (msg.getMessageNumber() ==
      * msg.getTotalNrOfMsgs()) the output stream will be closed after writing.
      *
-     * @param msg
-     *            FileMessage - message containing data to be written
-     * @throws IllegalArgumentException -
-     *             if the factory is opened for read or closed
-     * @throws IOException -
-     *             if a file write error occurs
+     * @param msg FileMessage - message containing data to be written
      * @return returns true if the file is complete and outputstream is closed,
-     *         false otherwise.
+     * false otherwise.
+     * @throws IllegalArgumentException -
+     *                                  if the factory is opened for read or closed
+     * @throws IOException              -
+     *                                  if a file write error occurs
      */
     public boolean writeMessage(FileMessage msg)
             throws IllegalArgumentException, IOException {
@@ -250,7 +244,7 @@ public class FileMessageFactory {
         }
 
         FileMessage previous =
-            msgBuffer.put(Long.valueOf(msg.getMessageNumber()), msg);
+                msgBuffer.put(Long.valueOf(msg.getMessageNumber()), msg);
         if (previous != null) {
             // Duplicate of message not yet processed
             log.warn(sm.getString("fileMessageFactory.duplicateMessage", msg.getContextName(), msg.getFileName(),
@@ -281,9 +275,9 @@ public class FileMessageFactory {
                 cleanup();
                 return true;
             }
-            synchronized(this) {
+            synchronized (this) {
                 next =
-                    msgBuffer.get(Long.valueOf(lastMessageProcessed.get() + 1));
+                        msgBuffer.get(Long.valueOf(lastMessageProcessed.get() + 1));
                 if (next == null) {
                     isWriting = false;
                 }
@@ -345,9 +339,8 @@ public class FileMessageFactory {
     /**
      * Example usage.
      *
-     * @param args
-     *            String[], args[0] - read from filename, args[1] write to
-     *            filename
+     * @param args String[], args[0] - read from filename, args[1] write to
+     *             filename
      * @throws Exception An error occurred
      * @deprecated
      */

@@ -39,7 +39,7 @@ public abstract class MembershipProviderBase implements MembershipProvider {
 
     @Override
     public boolean hasMembers() {
-        if (membership == null ) return false;
+        if (membership == null) return false;
         return membership.hasMembers();
     }
 

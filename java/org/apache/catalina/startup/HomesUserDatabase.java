@@ -32,7 +32,7 @@ import java.util.Hashtable;
  * @author Craig R. McClanahan
  */
 public final class HomesUserDatabase
-    implements UserDatabase {
+        implements UserDatabase {
 
 
     // --------------------------------------------------------- Constructors
@@ -54,7 +54,7 @@ public final class HomesUserDatabase
     /**
      * The set of home directories for all defined users, keyed by username.
      */
-    private final Hashtable<String,String> homes = new Hashtable<>();
+    private final Hashtable<String, String> homes = new Hashtable<>();
 
 
     /**

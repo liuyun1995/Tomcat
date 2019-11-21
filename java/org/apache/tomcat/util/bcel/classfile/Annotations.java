@@ -28,7 +28,7 @@ public class Annotations {
     private final AnnotationEntry[] annotation_table;
 
     /**
-     * @param input Input stream
+     * @param input         Input stream
      * @param constant_pool Array of constants
      */
     Annotations(final DataInput input, final ConstantPool constant_pool) throws IOException {

@@ -30,7 +30,7 @@ public abstract class HttpFilter extends GenericFilter {
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * This implementation tests the request and response to see if they are
      * instances of {@link HttpServletRequest} and {@link HttpServletResponse}
      * respectively. If they are then they are passed to
@@ -38,7 +38,7 @@ public abstract class HttpFilter extends GenericFilter {
      * If not, a {@link ServletException} is thrown.
      *
      * @throws ServletException If either the request or response are not of the
-     *         expected types or any other error occurs
+     *                          expected types or any other error occurs
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -73,7 +73,7 @@ public abstract class HttpFilter extends GenericFilter {
      * next entity in the filter chain to block the request processing<br>
      * 5. Directly set headers on the response after invocation of the next
      * entity in the filter chain.
-     *
+     * <p>
      * This default implementation simply calls the next filter in the filter
      * chain.
      *
@@ -82,13 +82,12 @@ public abstract class HttpFilter extends GenericFilter {
      * @param chain    Provides access to the next filter in the chain for this
      *                 filter to pass the request and response to for further
      *                 processing
-     *
-     * @throws IOException if an I/O error occurs during this filter's
-     *                     processing of the request
+     * @throws IOException      if an I/O error occurs during this filter's
+     *                          processing of the request
      * @throws ServletException if the processing fails for any other reason
      */
     protected void doFilter(HttpServletRequest request, HttpServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                            FilterChain chain) throws IOException, ServletException {
         chain.doFilter(request, response);
     }
 }

@@ -34,7 +34,7 @@ abstract class ConnectionSettingsBase<T extends Throwable> {
     static final int MAX_WINDOW_SIZE = (1 << 31) - 1;
     static final int MIN_MAX_FRAME_SIZE = 1 << 14;
     static final int MAX_MAX_FRAME_SIZE = (1 << 24) - 1;
-    static final long UNLIMITED = ((long)1 << 32); // Use the maximum possible
+    static final long UNLIMITED = ((long) 1 << 32); // Use the maximum possible
     static final int MAX_HEADER_TABLE_SIZE = 1 << 16;
 
     // Defaults (defined by the specification)
@@ -52,12 +52,12 @@ abstract class ConnectionSettingsBase<T extends Throwable> {
     ConnectionSettingsBase(String connectionId) {
         this.connectionId = connectionId;
         // Set up the defaults
-        current.put(Setting.HEADER_TABLE_SIZE,      Long.valueOf(DEFAULT_HEADER_TABLE_SIZE));
-        current.put(Setting.ENABLE_PUSH,            Long.valueOf(DEFAULT_ENABLE_PUSH ? 1 : 0));
+        current.put(Setting.HEADER_TABLE_SIZE, Long.valueOf(DEFAULT_HEADER_TABLE_SIZE));
+        current.put(Setting.ENABLE_PUSH, Long.valueOf(DEFAULT_ENABLE_PUSH ? 1 : 0));
         current.put(Setting.MAX_CONCURRENT_STREAMS, Long.valueOf(DEFAULT_MAX_CONCURRENT_STREAMS));
-        current.put(Setting.INITIAL_WINDOW_SIZE,    Long.valueOf(DEFAULT_INITIAL_WINDOW_SIZE));
-        current.put(Setting.MAX_FRAME_SIZE,         Long.valueOf(DEFAULT_MAX_FRAME_SIZE));
-        current.put(Setting.MAX_HEADER_LIST_SIZE,   Long.valueOf(DEFAULT_MAX_HEADER_LIST_SIZE));
+        current.put(Setting.INITIAL_WINDOW_SIZE, Long.valueOf(DEFAULT_INITIAL_WINDOW_SIZE));
+        current.put(Setting.MAX_FRAME_SIZE, Long.valueOf(DEFAULT_MAX_FRAME_SIZE));
+        current.put(Setting.MAX_HEADER_LIST_SIZE, Long.valueOf(DEFAULT_MAX_HEADER_LIST_SIZE));
     }
 
 
@@ -67,30 +67,30 @@ abstract class ConnectionSettingsBase<T extends Throwable> {
                     connectionId, getEndpointName(), setting, Long.toString(value)));
         }
 
-        switch(setting) {
-        case HEADER_TABLE_SIZE:
-            validateHeaderTableSize(value);
-            break;
-        case ENABLE_PUSH:
-            validateEnablePush(value);
-            break;
-        case MAX_CONCURRENT_STREAMS:
-            // No further validation required
-            break;
-        case INITIAL_WINDOW_SIZE:
-            validateInitialWindowSize(value);
-            break;
-        case MAX_FRAME_SIZE:
-            validateMaxFrameSize(value);
-            break;
-        case MAX_HEADER_LIST_SIZE:
-            // No further validation required
-            break;
-        case UNKNOWN:
-            // Unrecognised. Ignore it.
-            log.warn(sm.getString("connectionSettings.unknown",
-                    connectionId, setting, Long.toString(value)));
-            return;
+        switch (setting) {
+            case HEADER_TABLE_SIZE:
+                validateHeaderTableSize(value);
+                break;
+            case ENABLE_PUSH:
+                validateEnablePush(value);
+                break;
+            case MAX_CONCURRENT_STREAMS:
+                // No further validation required
+                break;
+            case INITIAL_WINDOW_SIZE:
+                validateInitialWindowSize(value);
+                break;
+            case MAX_FRAME_SIZE:
+                validateMaxFrameSize(value);
+                break;
+            case MAX_HEADER_LIST_SIZE:
+                // No further validation required
+                break;
+            case UNKNOWN:
+                // Unrecognised. Ignore it.
+                log.warn(sm.getString("connectionSettings.unknown",
+                        connectionId, setting, Long.toString(value)));
+                return;
         }
 
         set(setting, Long.valueOf(value));

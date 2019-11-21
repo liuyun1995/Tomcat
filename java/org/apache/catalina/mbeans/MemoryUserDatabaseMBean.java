@@ -126,7 +126,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
     /**
      * Create a new Group and return the corresponding MBean Name.
      *
-     * @param groupname Group name of the new group
+     * @param groupname   Group name of the new group
      * @param description Description of the new group
      * @return the new group object name
      */
@@ -147,7 +147,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
     /**
      * Create a new Role and return the corresponding MBean Name.
      *
-     * @param rolename Group name of the new group
+     * @param rolename    Group name of the new group
      * @param description Description of the new group
      * @return the new role object name
      */

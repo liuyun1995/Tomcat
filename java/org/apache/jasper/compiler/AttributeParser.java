@@ -32,24 +32,23 @@ public class AttributeParser {
      * Parses the provided input String as a JSP attribute and returns an
      * unquoted value.
      *
-     * @param input         The input.
-     * @param quote         The quote character for the attribute or 0 for
-     *                      scripting expressions.
-     * @param isELIgnored   Is expression language being ignored on the page
-     *                      where the JSP attribute is defined.
-     * @param isDeferredSyntaxAllowedAsLiteral
-     *                      Are deferred expressions treated as literals?
-     * @param strict        Should the rules of JSP.1.6 for escaping of quotes
-     *                      be strictly applied?
-     * @param quoteAttributeEL Should the rules of JSP.1.6 for escaping in
-     *                      attributes be applied to EL in attribute values?
-     * @return              An unquoted JSP attribute that, if it contains
-     *                      expression language can be safely passed to the EL
-     *                      processor without fear of ambiguity.
+     * @param input                            The input.
+     * @param quote                            The quote character for the attribute or 0 for
+     *                                         scripting expressions.
+     * @param isELIgnored                      Is expression language being ignored on the page
+     *                                         where the JSP attribute is defined.
+     * @param isDeferredSyntaxAllowedAsLiteral Are deferred expressions treated as literals?
+     * @param strict                           Should the rules of JSP.1.6 for escaping of quotes
+     *                                         be strictly applied?
+     * @param quoteAttributeEL                 Should the rules of JSP.1.6 for escaping in
+     *                                         attributes be applied to EL in attribute values?
+     * @return An unquoted JSP attribute that, if it contains
+     * expression language can be safely passed to the EL
+     * processor without fear of ambiguity.
      */
     public static String getUnquoted(String input, char quote,
-            boolean isELIgnored, boolean isDeferredSyntaxAllowedAsLiteral,
-            boolean strict, boolean quoteAttributeEL) {
+                                     boolean isELIgnored, boolean isDeferredSyntaxAllowedAsLiteral,
+                                     boolean strict, boolean quoteAttributeEL) {
         return new AttributeParser(input, quote, isELIgnored,
                 isDeferredSyntaxAllowedAsLiteral, strict, quoteAttributeEL).getUnquoted();
     }
@@ -92,18 +91,19 @@ public class AttributeParser {
 
     /**
      * For test purposes.
+     *
      * @param input
      * @param quote
      * @param strict
      */
     private AttributeParser(String input, char quote,
-            boolean isELIgnored, boolean isDeferredSyntaxAllowedAsLiteral,
-            boolean strict, boolean quoteAttributeEL) {
+                            boolean isELIgnored, boolean isDeferredSyntaxAllowedAsLiteral,
+                            boolean strict, boolean quoteAttributeEL) {
         this.input = input;
         this.quote = quote;
         this.isELIgnored = isELIgnored;
         this.isDeferredSyntaxAllowedAsLiteral =
-            isDeferredSyntaxAllowedAsLiteral;
+                isDeferredSyntaxAllowedAsLiteral;
         this.strict = strict;
         this.quoteAttributeEL = quoteAttributeEL;
         this.type = getType(input);
@@ -146,14 +146,14 @@ public class AttributeParser {
                     result.append(type);
                     result.append("{'\\\\'}");
                 }
-            } else if (!isELIgnored && ch == '$' && lastChEscaped){
+            } else if (!isELIgnored && ch == '$' && lastChEscaped) {
                 if (type == 0) {
                     result.append("\\$");
                 } else {
                     result.append(type);
                     result.append("{'$'}");
                 }
-            } else if (!isELIgnored && ch == '#' && lastChEscaped){
+            } else if (!isELIgnored && ch == '#' && lastChEscaped) {
                 // Note if isDeferredSyntaxAllowedAsLiteral==true, \# will
                 // not be treated as an escape
                 if (type == 0) {
@@ -162,7 +162,7 @@ public class AttributeParser {
                     result.append(type);
                     result.append("{'#'}");
                 }
-            } else if (ch == type){
+            } else if (ch == type) {
                 if (i < size) {
                     char next = input.charAt(i);
                     if (next == '{') {
@@ -281,7 +281,7 @@ public class AttributeParser {
             // It is safe since <% does not require special treatment for EL
             // or for literals
             result.append('<');
-            i+=3;
+            i += 3;
             return '%';
         } else if (ch == '%' && i + 2 < size && input.charAt(i + 1) == '\\' &&
                 input.charAt(i + 2) == '>') {
@@ -289,11 +289,11 @@ public class AttributeParser {
             // It is safe since %> does not require special treatment for EL
             // or for literals
             result.append('%');
-            i+=3;
+            i += 3;
             return '>';
         } else if (ch == quote && strict) {
             String msg = Localizer.getMessage("jsp.error.attribute.noescape",
-                    input, ""+ quote);
+                    input, "" + quote);
             throw new IllegalArgumentException(msg);
         } else {
             ++i;
@@ -325,7 +325,7 @@ public class AttributeParser {
                 // Escape character - skip a character
                 j++;
             } else if (current == '#' && !isDeferredSyntaxAllowedAsLiteral) {
-                if (j < (len -1) && value.charAt(j + 1) == '{') {
+                if (j < (len - 1) && value.charAt(j + 1) == '{') {
                     return '#';
                 }
             } else if (current == '$') {

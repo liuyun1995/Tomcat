@@ -35,7 +35,7 @@ import org.apache.tomcat.util.res.StringManager;
  * @author Craig R. McClanahan
  */
 public class EngineConfig
-    implements LifecycleListener {
+        implements LifecycleListener {
 
 
     private static final Log log = LogFactory.getLog(EngineConfig.class);
@@ -53,7 +53,7 @@ public class EngineConfig
      * The string resources for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
 
     // --------------------------------------------------------- Public Methods

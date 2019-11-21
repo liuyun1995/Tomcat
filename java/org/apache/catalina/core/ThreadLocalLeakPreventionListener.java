@@ -45,14 +45,13 @@ import org.apache.tomcat.util.threads.ThreadPoolExecutor;
  * pool after executing their task, see
  * {@link org.apache.tomcat.util.threads.ThreadPoolExecutor}.afterExecute().
  * </p>
- *
+ * <p>
  * This listener must be declared in server.xml to be active.
- *
  */
 public class ThreadLocalLeakPreventionListener extends FrameworkListener {
 
     private static final Log log =
-        LogFactory.getLog(ThreadLocalLeakPreventionListener.class);
+            LogFactory.getLog(ThreadLocalLeakPreventionListener.class);
 
     private volatile boolean serverStopping = false;
 
@@ -60,7 +59,7 @@ public class ThreadLocalLeakPreventionListener extends FrameworkListener {
      * The string manager for this package.
      */
     protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
+            StringManager.getManager(Constants.Package);
 
     /**
      * Listens for {@link LifecycleEvent} for the start of the {@link Server} to
@@ -85,9 +84,9 @@ public class ThreadLocalLeakPreventionListener extends FrameworkListener {
             }
         } catch (Exception e) {
             String msg =
-                sm.getString(
-                    "threadLocalLeakPreventionListener.lifecycleEvent.error",
-                    event);
+                    sm.getString(
+                            "threadLocalLeakPreventionListener.lifecycleEvent.error",
+                            event);
             log.error(msg, e);
         }
     }
@@ -98,9 +97,9 @@ public class ThreadLocalLeakPreventionListener extends FrameworkListener {
             super.containerEvent(event);
         } catch (Exception e) {
             String msg =
-                sm.getString(
-                    "threadLocalLeakPreventionListener.containerEvent.error",
-                    event);
+                    sm.getString(
+                            "threadLocalLeakPreventionListener.containerEvent.error",
+                            event);
             log.error(msg, e);
         }
 
@@ -110,17 +109,16 @@ public class ThreadLocalLeakPreventionListener extends FrameworkListener {
      * Updates each ThreadPoolExecutor with the current time, which is the time
      * when a context is being stopped.
      *
-     * @param context
-     *            the context being stopped, used to discover all the Connectors
-     *            of its parent Service.
+     * @param context the context being stopped, used to discover all the Connectors
+     *                of its parent Service.
      */
     private void stopIdleThreads(Context context) {
         if (serverStopping) return;
 
         if (!(context instanceof StandardContext) ||
-            !((StandardContext) context).getRenewThreadsWhenStoppingContext()) {
+                !((StandardContext) context).getRenewThreadsWhenStoppingContext()) {
             log.debug("Not renewing threads when the context is stopping. "
-                + "It is not configured to do it.");
+                    + "It is not configured to do it.");
             return;
         }
 
@@ -137,11 +135,11 @@ public class ThreadLocalLeakPreventionListener extends FrameworkListener {
 
                 if (executor instanceof ThreadPoolExecutor) {
                     ThreadPoolExecutor threadPoolExecutor =
-                        (ThreadPoolExecutor) executor;
+                            (ThreadPoolExecutor) executor;
                     threadPoolExecutor.contextStopping();
                 } else if (executor instanceof StandardThreadExecutor) {
                     StandardThreadExecutor stdThreadExecutor =
-                        (StandardThreadExecutor) executor;
+                            (StandardThreadExecutor) executor;
                     stdThreadExecutor.contextStopping();
                 }
 

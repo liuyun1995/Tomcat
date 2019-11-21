@@ -89,7 +89,7 @@ public class BufferedInputFilter implements InputFilter, ApplicationBufferHandle
                 buffered.limit(buffered.position()).reset();
                 tempRead = null;
             }
-        } catch(IOException | BufferOverflowException ioe) {
+        } catch (IOException | BufferOverflowException ioe) {
             // No need for i18n - this isn't going to get logged anywhere
             throw new IllegalStateException(
                     "Request body too large for buffer");

@@ -130,7 +130,7 @@ public class KubernetesMembershipProvider extends CloudMembershipProvider {
         List<MemberImpl> members = new ArrayList<>();
 
         try (InputStream stream = streamProvider.openStream(url, headers, connectionTimeout, readTimeout);
-                InputStreamReader reader = new InputStreamReader(stream, "UTF-8")) {
+             InputStreamReader reader = new InputStreamReader(stream, "UTF-8")) {
             parsePods(reader, members);
         } catch (IOException e) {
             log.error(sm.getString("kubernetesMembershipProvider.streamError"), e);

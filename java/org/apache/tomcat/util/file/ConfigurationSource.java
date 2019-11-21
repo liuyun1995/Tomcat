@@ -37,20 +37,25 @@ public interface ConfigurationSource {
     public class Resource implements AutoCloseable {
         private final InputStream inputStream;
         private final URI uri;
+
         public Resource(InputStream inputStream, URI uri) {
             this.inputStream = inputStream;
             this.uri = uri;
         }
+
         public InputStream getInputStream() {
             return inputStream;
         }
+
         public URI getURI() {
             return uri;
         }
+
         public long getLastModified()
                 throws MalformedURLException, IOException {
             return uri.toURL().openConnection().getLastModified();
         }
+
         @Override
         public void close() throws IOException {
             if (inputStream != null) {
@@ -61,6 +66,7 @@ public interface ConfigurationSource {
 
     /**
      * Returns the contents of the main conf/server.xml file.
+     *
      * @return the server.xml as an InputStream
      * @throws IOException if an error occurs or if the resource does not exist
      */
@@ -72,6 +78,7 @@ public interface ConfigurationSource {
     /**
      * Returns the contents of the shared conf/web.xml file. This usually
      * contains the declaration of the default and JSP servlets.
+     *
      * @return the web.xml as an InputStream
      * @throws IOException if an error occurs or if the resource does not exist
      */
@@ -82,6 +89,7 @@ public interface ConfigurationSource {
 
     /**
      * Get a resource, based on the conf path.
+     *
      * @param name The resource name
      * @return the resource as an InputStream
      * @throws IOException if an error occurs or if the resource does not exist
@@ -94,6 +102,7 @@ public interface ConfigurationSource {
 
     /**
      * Get a resource, not based on the conf path.
+     *
      * @param name The resource name
      * @return the resource
      * @throws IOException if an error occurs or if the resource does not exist
@@ -104,6 +113,7 @@ public interface ConfigurationSource {
     /**
      * Get a URI to the given resource. Unlike getResource, this will also
      * return URIs to locations where no resource exists.
+     *
      * @param name The resource name
      * @return a URI representing the resource location
      */

@@ -53,10 +53,10 @@ public class NioSelectorPool {
                 }
             }
         }
-        return  sharedSelector;
+        return sharedSelector;
     }
 
-    public Selector get() throws IOException{
+    public Selector get() throws IOException {
         if (shared) {
             return getSharedSelector();
         }
@@ -86,7 +86,6 @@ public class NioSelectorPool {
         }
         return s;
     }
-
 
 
     public void put(Selector s) throws IOException {
@@ -137,14 +136,15 @@ public class NioSelectorPool {
      * selector to block (if blocking is requested). If the
      * <code>selector</code> parameter is null, and blocking is requested then
      * it will perform a busy write that could take up a lot of CPU cycles.
-     * @param buf           The buffer containing the data, we will write as long as <code>(buf.hasRemaining()==true)</code>
-     * @param socket        The socket to write data to
-     * @param selector      The selector to use for blocking, if null then a busy write will be initiated
-     * @param writeTimeout  The timeout for this write operation in milliseconds, -1 means no timeout
+     *
+     * @param buf          The buffer containing the data, we will write as long as <code>(buf.hasRemaining()==true)</code>
+     * @param socket       The socket to write data to
+     * @param selector     The selector to use for blocking, if null then a busy write will be initiated
+     * @param writeTimeout The timeout for this write operation in milliseconds, -1 means no timeout
      * @return the number of bytes written
-     * @throws EOFException if write returns -1
+     * @throws EOFException           if write returns -1
      * @throws SocketTimeoutException if the write times out
-     * @throws IOException if an IO Exception occurs in the underlying socket logic
+     * @throws IOException            if an IO Exception occurs in the underlying socket logic
      */
     public int write(ByteBuffer buf, NioChannel socket, Selector selector, long writeTimeout)
             throws IOException {
@@ -159,7 +159,7 @@ public class NioSelectorPool {
         try {
             while ((!timedout) && buf.hasRemaining()) {
                 int cnt = 0;
-                if ( keycount > 0 ) { //only write if we were registered for a write
+                if (keycount > 0) { //only write if we were registered for a write
                     cnt = socket.write(buf); //write the data
                     if (cnt == -1) {
                         throw new EOFException();
@@ -206,14 +206,15 @@ public class NioSelectorPool {
      * Performs a blocking read using the bytebuffer for data to be read and a selector to block.
      * If the <code>selector</code> parameter is null, then it will perform a busy read that could
      * take up a lot of CPU cycles.
-     * @param buf ByteBuffer - the buffer containing the data, we will read as until we have read at least one byte or we timed out
-     * @param socket SocketChannel - the socket to write data to
-     * @param selector Selector - the selector to use for blocking, if null then a busy read will be initiated
+     *
+     * @param buf         ByteBuffer - the buffer containing the data, we will read as until we have read at least one byte or we timed out
+     * @param socket      SocketChannel - the socket to write data to
+     * @param selector    Selector - the selector to use for blocking, if null then a busy read will be initiated
      * @param readTimeout long - the timeout for this read operation in milliseconds, -1 means no timeout
      * @return the number of bytes read
-     * @throws EOFException if read returns -1
+     * @throws EOFException           if read returns -1
      * @throws SocketTimeoutException if the read times out
-     * @throws IOException if an IO Exception occurs in the underlying socket logic
+     * @throws IOException            if an IO Exception occurs in the underlying socket logic
      */
     public int read(ByteBuffer buf, NioChannel socket, Selector selector, long readTimeout)
             throws IOException {
@@ -246,8 +247,7 @@ public class NioSelectorPool {
                     //register OP_WRITE to the selector
                     if (key == null) {
                         key = socket.getIOChannel().register(selector, SelectionKey.OP_READ);
-                    }
-                    else key.interestOps(SelectionKey.OP_READ);
+                    } else key.interestOps(SelectionKey.OP_READ);
                     if (readTimeout == 0) {
                         timedout = (read == 0);
                     } else if (readTimeout < 0) {
@@ -256,7 +256,7 @@ public class NioSelectorPool {
                         keycount = selector.select(readTimeout);
                     }
                 }
-                if (readTimeout > 0 && (selector == null || keycount == 0) ) {
+                if (readTimeout > 0 && (selector == null || keycount == 0)) {
                     timedout = (System.currentTimeMillis() - time) >= readTimeout;
                 }
             }

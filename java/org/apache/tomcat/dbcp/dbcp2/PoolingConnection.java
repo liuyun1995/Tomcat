@@ -62,14 +62,15 @@ public class PoolingConnection extends DelegatingConnection<Connection>
         PREPARED_STATEMENT
     }
 
-    /** Pool of {@link PreparedStatement}s. and {@link CallableStatement}s */
+    /**
+     * Pool of {@link PreparedStatement}s. and {@link CallableStatement}s
+     */
     private KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pstmtPool;
 
     /**
      * Constructor.
      *
-     * @param connection
-     *            the underlying {@link Connection}.
+     * @param connection the underlying {@link Connection}.
      */
     public PoolingConnection(final Connection connection) {
         super(connection);
@@ -78,10 +79,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * {@link KeyedPooledObjectFactory} method for activating pooled statements.
      *
-     * @param key
-     *            ignored
-     * @param pooledObject
-     *            wrapped pooled statement to be activated
+     * @param key          ignored
+     * @param pooledObject wrapped pooled statement to be activated
      */
     @Override
     public void activateObject(final PStmtKey key, final PooledObject<DelegatingPreparedStatement> pooledObject)
@@ -119,9 +118,7 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     *
+     * @param sql the SQL string used to define the statement
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql) {
@@ -131,11 +128,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param columnIndexes
-     *            column indexes
-     *
+     * @param sql           the SQL string used to define the statement
+     * @param columnIndexes column indexes
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final int columnIndexes[]) {
@@ -149,13 +143,9 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     *
+     * @param sql                  the SQL string used to define the statement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency) {
@@ -165,19 +155,14 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     * @param resultSetHoldability
-     *            result set holdability
-     *
+     * @param sql                  the SQL string used to define the statement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
+     * @param resultSetHoldability result set holdability
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) {
+                                 final int resultSetHoldability) {
         return new PStmtKey(normalizeSQL(sql), getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency,
                 resultSetHoldability);
     }
@@ -185,21 +170,15 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     * @param resultSetHoldability
-     *            result set holdability
-     * @param statementType
-     *            statement type
-     *
+     * @param sql                  the SQL string used to define the statement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
+     * @param resultSetHoldability result set holdability
+     * @param statementType        statement type
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability, final StatementType statementType) {
+                                 final int resultSetHoldability, final StatementType statementType) {
         return new PStmtKey(normalizeSQL(sql), getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency,
                 resultSetHoldability, statementType);
     }
@@ -207,30 +186,22 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     * @param statementType
-     *            statement type
-     *
+     * @param sql                  the SQL string used to define the statement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
+     * @param statementType        statement type
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final StatementType statementType) {
+                                 final StatementType statementType) {
         return new PStmtKey(normalizeSQL(sql), getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, statementType);
     }
 
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param statementType
-     *            statement type
-     *
+     * @param sql           the SQL string used to define the statement
+     * @param statementType statement type
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final StatementType statementType) {
@@ -240,11 +211,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates a PStmtKey for the given arguments.
      *
-     * @param sql
-     *            the SQL string used to define the statement
-     * @param columnNames
-     *            column names
-     *
+     * @param sql         the SQL string used to define the statement
+     * @param columnNames column names
      * @return the PStmtKey created for the given arguments.
      */
     protected PStmtKey createKey(final String sql, final String columnNames[]) {
@@ -255,10 +223,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
      * {@link KeyedPooledObjectFactory} method for destroying PoolablePreparedStatements and PoolableCallableStatements.
      * Closes the underlying statement.
      *
-     * @param key
-     *            ignored
-     * @param pooledObject
-     *            the wrapped pooled statement to be destroyed.
+     * @param key          ignored
+     * @param pooledObject the wrapped pooled statement to be destroyed.
      */
     @Override
     public void destroyObject(final PStmtKey key, final PooledObject<DelegatingPreparedStatement> pooledObject)
@@ -291,8 +257,7 @@ public class PoolingConnection extends DelegatingConnection<Connection>
      * {@link PoolableCallableStatement}s. The <code>stmtType</code> field in the key determines whether a
      * PoolablePreparedStatement or PoolableCallableStatement is created.
      *
-     * @param key
-     *            the key for the {@link PreparedStatement} to be created
+     * @param key the key for the {@link PreparedStatement} to be created
      * @see #createKey(String, int, int, StatementType)
      */
     @SuppressWarnings("resource")
@@ -303,7 +268,7 @@ public class PoolingConnection extends DelegatingConnection<Connection>
         }
         if (key.getStmtType() == StatementType.PREPARED_STATEMENT) {
             final PreparedStatement statement = (PreparedStatement) key.createStatement(getDelegate());
-            @SuppressWarnings({"rawtypes", "unchecked" }) // Unable to find way to avoid this
+            @SuppressWarnings({"rawtypes", "unchecked"}) // Unable to find way to avoid this
             final PoolablePreparedStatement pps = new PoolablePreparedStatement(statement, key, pstmtPool, this);
             return new DefaultPooledObject<>(pps);
         }
@@ -316,7 +281,6 @@ public class PoolingConnection extends DelegatingConnection<Connection>
      * Normalizes the given SQL statement, producing a canonical form that is semantically equivalent to the original.
      *
      * @param sql The statement to be normalized.
-     *
      * @return The canonical form of the supplied SQL statement.
      */
     protected String normalizeSQL(final String sql) {
@@ -327,16 +291,13 @@ public class PoolingConnection extends DelegatingConnection<Connection>
      * {@link KeyedPooledObjectFactory} method for passivating {@link PreparedStatement}s or {@link CallableStatement}s.
      * Invokes {@link PreparedStatement#clearParameters}.
      *
-     * @param key
-     *            ignored
-     * @param pooledObject
-     *            a wrapped {@link PreparedStatement}
+     * @param key          ignored
+     * @param pooledObject a wrapped {@link PreparedStatement}
      */
     @Override
     public void passivateObject(final PStmtKey key, final PooledObject<DelegatingPreparedStatement> pooledObject)
             throws Exception {
-        @SuppressWarnings("resource")
-        final DelegatingPreparedStatement dps = pooledObject.getObject();
+        @SuppressWarnings("resource") final DelegatingPreparedStatement dps = pooledObject.getObject();
         dps.clearParameters();
         dps.passivate();
     }
@@ -344,11 +305,9 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link CallableStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the CallableStatement
+     * @param sql the SQL string used to define the CallableStatement
      * @return a {@link PoolableCallableStatement}
-     * @throws SQLException
-     *             Wraps an underlying exception.
+     * @throws SQLException Wraps an underlying exception.
      */
     @Override
     public CallableStatement prepareCall(final String sql) throws SQLException {
@@ -366,15 +325,11 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link CallableStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the CallableStatement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
+     * @param sql                  the SQL string used to define the CallableStatement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
      * @return a {@link PoolableCallableStatement}
-     * @throws SQLException
-     *             Wraps an underlying exception.
+     * @throws SQLException Wraps an underlying exception.
      */
     @Override
     public CallableStatement prepareCall(final String sql, final int resultSetType, final int resultSetConcurrency)
@@ -394,21 +349,16 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link CallableStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the CallableStatement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     * @param resultSetHoldability
-     *            result set holdability
+     * @param sql                  the SQL string used to define the CallableStatement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
+     * @param resultSetHoldability result set holdability
      * @return a {@link PoolableCallableStatement}
-     * @throws SQLException
-     *             Wraps an underlying exception.
+     * @throws SQLException Wraps an underlying exception.
      */
     @Override
     public CallableStatement prepareCall(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) throws SQLException {
+                                         final int resultSetHoldability) throws SQLException {
         try {
             return (CallableStatement) pstmtPool.borrowObject(createKey(sql, resultSetType, resultSetConcurrency,
                     resultSetHoldability, StatementType.CALLABLE_STATEMENT));
@@ -424,8 +374,7 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link PreparedStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the PreparedStatement
+     * @param sql the SQL string used to define the PreparedStatement
      * @return a {@link PoolablePreparedStatement}
      */
     @Override
@@ -463,10 +412,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link PreparedStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the PreparedStatement
-     * @param columnIndexes
-     *            column indexes
+     * @param sql           the SQL string used to define the PreparedStatement
+     * @param columnIndexes column indexes
      * @return a {@link PoolablePreparedStatement}
      */
     @Override
@@ -488,12 +435,9 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link PreparedStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the PreparedStatement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
+     * @param sql                  the SQL string used to define the PreparedStatement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
      * @return a {@link PoolablePreparedStatement}
      */
     @Override
@@ -516,19 +460,15 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link PreparedStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the PreparedStatement
-     * @param resultSetType
-     *            result set type
-     * @param resultSetConcurrency
-     *            result set concurrency
-     * @param resultSetHoldability
-     *            result set holdability
+     * @param sql                  the SQL string used to define the PreparedStatement
+     * @param resultSetType        result set type
+     * @param resultSetConcurrency result set concurrency
+     * @param resultSetHoldability result set holdability
      * @return a {@link PoolablePreparedStatement}
      */
     @Override
     public PreparedStatement prepareStatement(final String sql, final int resultSetType, final int resultSetConcurrency,
-            final int resultSetHoldability) throws SQLException {
+                                              final int resultSetHoldability) throws SQLException {
         if (null == pstmtPool) {
             throw new SQLException("Statement pool is null - closed or invalid PoolingConnection.");
         }
@@ -546,10 +486,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Creates or obtains a {@link PreparedStatement} from the pool.
      *
-     * @param sql
-     *            the SQL string used to define the PreparedStatement
-     * @param columnNames
-     *            column names
+     * @param sql         the SQL string used to define the PreparedStatement
+     * @param columnNames column names
      * @return a {@link PoolablePreparedStatement}
      */
     @Override
@@ -571,8 +509,7 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * Sets the prepared statement pool.
      *
-     * @param pool
-     *            the prepared statement pool.
+     * @param pool the prepared statement pool.
      */
     public void setStatementPool(final KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pool) {
         pstmtPool = pool;
@@ -589,10 +526,8 @@ public class PoolingConnection extends DelegatingConnection<Connection>
     /**
      * {@link KeyedPooledObjectFactory} method for validating pooled statements. Currently always returns true.
      *
-     * @param key
-     *            ignored
-     * @param pooledObject
-     *            ignored
+     * @param key          ignored
+     * @param pooledObject ignored
      * @return {@code true}
      */
     @Override

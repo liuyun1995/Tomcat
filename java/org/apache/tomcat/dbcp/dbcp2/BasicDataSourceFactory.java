@@ -143,7 +143,7 @@ public class BasicDataSourceFactory implements ObjectFactory {
             PROP_MAX_OPEN_PREPARED_STATEMENTS, PROP_CONNECTION_PROPERTIES, PROP_MAX_CONN_LIFETIME_MILLIS,
             PROP_LOG_EXPIRED_CONNECTIONS, PROP_ROLLBACK_ON_RETURN, PROP_ENABLE_AUTO_COMMIT_ON_RETURN,
             PROP_DEFAULT_QUERY_TIMEOUT, PROP_FAST_FAIL_VALIDATION, PROP_DISCONNECTION_SQL_CODES, PROP_JMX_NAME,
-            PROP_CONNECTION_FACTORY_CLASS_NAME };
+            PROP_CONNECTION_FACTORY_CLASS_NAME};
 
     /**
      * Obsolete properties from DBCP 1.x. with warning strings suggesting new properties. LinkedHashMap will guarantee
@@ -187,23 +187,17 @@ public class BasicDataSourceFactory implements ObjectFactory {
      * <code>null</code> instead.
      * </p>
      *
-     * @param obj
-     *            The possibly null object containing location or reference information that can be used in creating an
-     *            object
-     * @param name
-     *            The name of this object relative to <code>nameCtx</code>
-     * @param nameCtx
-     *            The context relative to which the <code>name</code> parameter is specified, or <code>null</code> if
-     *            <code>name</code> is relative to the default initial context
-     * @param environment
-     *            The possibly null environment that is used in creating this object
-     *
-     * @throws Exception
-     *             if an exception occurs creating the instance
+     * @param obj         The possibly null object containing location or reference information that can be used in creating an
+     *                    object
+     * @param name        The name of this object relative to <code>nameCtx</code>
+     * @param nameCtx     The context relative to which the <code>name</code> parameter is specified, or <code>null</code> if
+     *                    <code>name</code> is relative to the default initial context
+     * @param environment The possibly null environment that is used in creating this object
+     * @throws Exception if an exception occurs creating the instance
      */
     @Override
     public Object getObjectInstance(final Object obj, final Name name, final Context nameCtx,
-            final Hashtable<?, ?> environment) throws Exception {
+                                    final Hashtable<?, ?> environment) throws Exception {
 
         // We only know how to deal with <code>javax.naming.Reference</code>s
         // that specify a class name of "javax.sql.DataSource"
@@ -242,17 +236,13 @@ public class BasicDataSourceFactory implements ObjectFactory {
      * Collects warnings and info messages. Warnings are generated when an obsolete property is set. Unknown properties
      * generate info messages.
      *
-     * @param ref
-     *            Reference to check properties of
-     * @param name
-     *            Name provided to getObject
-     * @param warnings
-     *            container for warning messages
-     * @param infoMessages
-     *            container for info messages
+     * @param ref          Reference to check properties of
+     * @param name         Name provided to getObject
+     * @param warnings     container for warning messages
+     * @param infoMessages container for info messages
      */
     private void validatePropertyNames(final Reference ref, final Name name, final List<String> warnings,
-            final List<String> infoMessages) {
+                                       final List<String> infoMessages) {
         final List<String> allPropsAsList = Arrays.asList(ALL_PROPERTIES);
         final String nameString = name != null ? "Name = " + name.toString() + " " : "";
         if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.keySet().isEmpty()) {
@@ -289,11 +279,9 @@ public class BasicDataSourceFactory implements ObjectFactory {
     /**
      * Creates and configures a {@link BasicDataSource} instance based on the given properties.
      *
-     * @param properties
-     *            The data source configuration properties.
+     * @param properties The data source configuration properties.
      * @return A new a {@link BasicDataSource} instance based on the given properties.
-     * @throws Exception
-     *             Thrown when an error occurs creating the data source.
+     * @throws Exception Thrown when an error occurs creating the data source.
      */
     public static BasicDataSource createDataSource(final Properties properties) throws Exception {
         final BasicDataSource dataSource = new BasicDataSource();
@@ -585,10 +573,8 @@ public class BasicDataSourceFactory implements ObjectFactory {
     /**
      * Parse list of property values from a delimited string
      *
-     * @param value
-     *            delimited list of values
-     * @param delimiter
-     *            character used to separate values in the list
+     * @param value     delimited list of values
+     * @param delimiter character used to separate values in the list
      * @return String Collection of values
      */
     private static Collection<String> parseList(final String value, final char delimiter) {

@@ -34,7 +34,7 @@ import javax.management.NotificationListener;
  * <p>Implementation of <code>NotificationBroadcaster</code> for attribute
  * change notifications.  This class is used by <code>BaseModelMBean</code> to
  * handle notifications of attribute change events to interested listeners.
- *</p>
+ * </p>
  *
  * @author Craig R. McClanahan
  * @author Costin Manolache
@@ -64,18 +64,17 @@ public class BaseNotificationBroadcaster implements NotificationBroadcaster {
      * Add a notification event listener to this MBean.
      *
      * @param listener Listener that will receive event notifications
-     * @param filter Filter object used to filter event notifications
-     *  actually delivered, or <code>null</code> for no filtering
+     * @param filter   Filter object used to filter event notifications
+     *                 actually delivered, or <code>null</code> for no filtering
      * @param handback Handback object to be sent along with event
-     *  notifications
-     *
-     * @exception IllegalArgumentException if the listener parameter is null
+     *                 notifications
+     * @throws IllegalArgumentException if the listener parameter is null
      */
     @Override
     public void addNotificationListener(NotificationListener listener,
                                         NotificationFilter filter,
                                         Object handback)
-        throws IllegalArgumentException {
+            throws IllegalArgumentException {
 
         synchronized (entries) {
 
@@ -84,11 +83,11 @@ public class BaseNotificationBroadcaster implements NotificationBroadcaster {
                 BaseAttributeFilter newFilter = (BaseAttributeFilter) filter;
                 for (BaseNotificationBroadcasterEntry item : entries) {
                     if ((item.listener == listener) &&
-                        (item.filter != null) &&
-                        (item.filter instanceof BaseAttributeFilter) &&
-                        (item.handback == handback)) {
+                            (item.filter != null) &&
+                            (item.filter instanceof BaseAttributeFilter) &&
+                            (item.handback == handback)) {
                         BaseAttributeFilter oldFilter =
-                            (BaseAttributeFilter) item.filter;
+                                (BaseAttributeFilter) item.filter;
                         String newNames[] = newFilter.getNames();
                         String oldNames[] = oldFilter.getNames();
                         if (newNames.length == 0) {
@@ -106,7 +105,7 @@ public class BaseNotificationBroadcaster implements NotificationBroadcaster {
 
             // General purpose addition of a new entry
             entries.add(new BaseNotificationBroadcasterEntry
-                        (listener, filter, handback));
+                    (listener, filter, handback));
         }
 
     }
@@ -126,18 +125,17 @@ public class BaseNotificationBroadcaster implements NotificationBroadcaster {
      * Remove a notification event listener from this MBean.
      *
      * @param listener The listener to be removed (any and all registrations
-     *  for this listener will be eliminated)
-     *
-     * @exception ListenerNotFoundException if this listener is not
-     *  registered in the MBean
+     *                 for this listener will be eliminated)
+     * @throws ListenerNotFoundException if this listener is not
+     *                                   registered in the MBean
      */
     @Override
     public void removeNotificationListener(NotificationListener listener)
-        throws ListenerNotFoundException {
+            throws ListenerNotFoundException {
 
         synchronized (entries) {
             Iterator<BaseNotificationBroadcasterEntry> items =
-                entries.iterator();
+                    entries.iterator();
             while (items.hasNext()) {
                 BaseNotificationBroadcasterEntry item = items.next();
                 if (item.listener == listener)
@@ -158,7 +156,7 @@ public class BaseNotificationBroadcaster implements NotificationBroadcaster {
         synchronized (entries) {
             for (BaseNotificationBroadcasterEntry item : entries) {
                 if ((item.filter != null) &&
-                    (!item.filter.isNotificationEnabled(notification)))
+                        (!item.filter.isNotificationEnabled(notification)))
                     continue;
                 item.listener.handleNotification(notification, item.handback);
             }

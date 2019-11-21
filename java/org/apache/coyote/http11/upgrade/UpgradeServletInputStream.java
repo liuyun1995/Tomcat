@@ -46,7 +46,7 @@ public class UpgradeServletInputStream extends ServletInputStream {
 
 
     public UpgradeServletInputStream(UpgradeProcessorBase processor,
-            SocketWrapperBase<?> socketWrapper) {
+                                     SocketWrapperBase<?> socketWrapper) {
         this.processor = processor;
         this.socketWrapper = socketWrapper;
     }
@@ -158,7 +158,6 @@ public class UpgradeServletInputStream extends ServletInputStream {
             throw ioe;
         }
     }
-
 
 
     @Override

@@ -35,7 +35,7 @@ public class ServletDef implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final StringManager sm =
-        StringManager.getManager(Constants.PACKAGE_NAME);
+            StringManager.getManager(Constants.PACKAGE_NAME);
 
     // ------------------------------------------------------------- Properties
 
@@ -156,7 +156,7 @@ public class ServletDef implements Serializable {
      * Add an initialization parameter to the set of parameters associated
      * with this servlet.
      *
-     * @param name The initialisation parameter name
+     * @param name  The initialisation parameter name
      * @param value The initialisation parameter value
      */
     public void addInitParameter(String name, String value) {
@@ -210,6 +210,7 @@ public class ServletDef implements Serializable {
     /**
      * Add a security-role-ref to the set of security-role-refs associated
      * with this servlet.
+     *
      * @param securityRoleRef The security role
      */
     public void addSecurityRoleRef(SecurityRoleRef securityRoleRef) {

@@ -69,6 +69,7 @@ public abstract class CloudMembershipProvider extends MembershipProviderBase imp
 
     /**
      * Get value of environment variable.
+     *
      * @param keys the environment variables
      * @return the env variables values, or null if not found
      */
@@ -85,6 +86,7 @@ public abstract class CloudMembershipProvider extends MembershipProviderBase imp
     /**
      * Get the Kubernetes namespace, or "tomcat" if the Kubernetes environment variable
      * cannot be found (with a warning log about the missing namespace).
+     *
      * @return the namespace
      */
     protected String getNamespace() {
@@ -133,7 +135,7 @@ public abstract class CloudMembershipProvider extends MembershipProviderBase imp
                 }
                 Runnable r = new Runnable() {
                     @Override
-                    public void run(){
+                    public void run() {
                         String name = Thread.currentThread().getName();
                         try {
                             Thread.currentThread().setName("CloudMembership-memberAdded");
@@ -154,7 +156,7 @@ public abstract class CloudMembershipProvider extends MembershipProviderBase imp
             }
             Runnable r = new Runnable() {
                 @Override
-                public void run(){
+                public void run() {
                     String name = Thread.currentThread().getName();
                     try {
                         Thread.currentThread().setName("CloudMembership-memberDisappeared");
@@ -170,6 +172,7 @@ public abstract class CloudMembershipProvider extends MembershipProviderBase imp
 
     /**
      * Fetch current cluster members from the cloud orchestration.
+     *
      * @return the member array
      */
     protected abstract Member[] fetchMembers();

@@ -1,19 +1,19 @@
 /*
-* Licensed to the Apache Software Foundation (ASF) under one or more
-* contributor license agreements.  See the NOTICE file distributed with
-* this work for additional information regarding copyright ownership.
-* The ASF licenses this file to You under the Apache License, Version 2.0
-* (the "License"); you may not use this file except in compliance with
-* the License.  You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package javax.servlet.jsp;
 
@@ -91,8 +91,7 @@ import javax.servlet.jsp.tagext.BodyContent;
  */
 
 public abstract class PageContext
-    extends JspContext
-{
+        extends JspContext {
 
     /**
      * Sole constructor. (For invocation by subclass constructors,
@@ -204,28 +203,27 @@ public abstract class PageContext
      * <p>
      * This method should not be used by page  or tag library authors.
      *
-     * @param servlet The Servlet that is associated with this PageContext
-     * @param request The currently pending request for this Servlet
-     * @param response The currently pending response for this Servlet
+     * @param servlet      The Servlet that is associated with this PageContext
+     * @param request      The currently pending request for this Servlet
+     * @param response     The currently pending response for this Servlet
      * @param errorPageURL The value of the errorpage attribute from the page
-     *     directive or null
+     *                     directive or null
      * @param needsSession The value of the session attribute from the
-     *     page directive
-     * @param bufferSize The value of the buffer attribute from the page
-     *     directive
-     * @param autoFlush The value of the autoflush attribute from the page
-     *     directive
-     *
-     * @throws IOException during creation of JspWriter
-     * @throws IllegalStateException if out not correctly initialized
+     *                     page directive
+     * @param bufferSize   The value of the buffer attribute from the page
+     *                     directive
+     * @param autoFlush    The value of the autoflush attribute from the page
+     *                     directive
+     * @throws IOException              during creation of JspWriter
+     * @throws IllegalStateException    if out not correctly initialized
      * @throws IllegalArgumentException If one of the given parameters
-     *     is invalid
+     *                                  is invalid
      */
 
     public abstract void initialize(Servlet servlet, ServletRequest request,
-        ServletResponse response, String errorPageURL, boolean needsSession,
-        int bufferSize, boolean autoFlush)
-        throws IOException, IllegalStateException, IllegalArgumentException;
+                                    ServletResponse response, String errorPageURL, boolean needsSession,
+                                    int bufferSize, boolean autoFlush)
+            throws IOException, IllegalStateException, IllegalArgumentException;
 
     /**
      * <p>
@@ -239,7 +237,6 @@ public abstract class PageContext
      *
      * <p>
      * This method should not be used by page  or tag library authors.
-     *
      */
 
     public abstract void release();
@@ -257,7 +254,7 @@ public abstract class PageContext
      * this is an instance of javax.servlet.Servlet).
      *
      * @return the Page implementation class instance associated
-     *     with this PageContext
+     * with this PageContext
      */
 
     public abstract Object getPage();
@@ -329,17 +326,16 @@ public abstract class PageContext
      * </p>
      *
      * @param relativeUrlPath specifies the relative URL path to the target
-     *     resource as described above
-     *
+     *                        resource as described above
      * @throws IllegalStateException if <code> ServletResponse </code> is not
-     *     in a state where a forward can be performed
-     * @throws ServletException if the page that was forwarded to throws
-     *     a ServletException
-     * @throws IOException if an I/O error occurred while forwarding
+     *                               in a state where a forward can be performed
+     * @throws ServletException      if the page that was forwarded to throws
+     *                               a ServletException
+     * @throws IOException           if an I/O error occurred while forwarding
      */
 
     public abstract void forward(String relativeUrlPath)
-        throws ServletException, IOException;
+            throws ServletException, IOException;
 
     /**
      * <p>
@@ -365,14 +361,13 @@ public abstract class PageContext
      * </p>
      *
      * @param relativeUrlPath specifies the relative URL path to the target
-     *     resource to be included
-     *
+     *                        resource to be included
      * @throws ServletException if the page that was forwarded to throws
-     *     a ServletException
-     * @throws IOException if an I/O error occurred while forwarding
+     *                          a ServletException
+     * @throws IOException      if an I/O error occurred while forwarding
      */
     public abstract void include(String relativeUrlPath)
-        throws ServletException, IOException;
+            throws ServletException, IOException;
 
     /**
      * <p>
@@ -399,17 +394,16 @@ public abstract class PageContext
      * </p>
      *
      * @param relativeUrlPath specifies the relative URL path to the
-     *     target resource to be included
-     * @param flush True if the JspWriter is to be flushed before the include,
-     *     or false if not.
-     *
+     *                        target resource to be included
+     * @param flush           True if the JspWriter is to be flushed before the include,
+     *                        or false if not.
      * @throws ServletException if the page that was forwarded to throws
-     *     a ServletException
-     * @throws IOException if an I/O error occurred while forwarding
+     *                          a ServletException
+     * @throws IOException      if an I/O error occurred while forwarding
      * @since 2.0
      */
     public abstract void include(String relativeUrlPath, boolean flush)
-        throws ServletException, IOException;
+            throws ServletException, IOException;
 
     /**
      * <p>
@@ -436,17 +430,15 @@ public abstract class PageContext
      * generated code should use PageContext.handlePageException(Throwable).
      *
      * @param e the exception to be handled
-     *
-     * @throws ServletException if an error occurs while invoking the error page
-     * @throws IOException if an I/O error occurred while invoking the error
-     *     page
+     * @throws ServletException     if an error occurs while invoking the error page
+     * @throws IOException          if an I/O error occurred while invoking the error
+     *                              page
      * @throws NullPointerException if the exception is null
-     *
      * @see #handlePageException(Throwable)
      */
 
     public abstract void handlePageException(Exception e)
-        throws ServletException, IOException;
+            throws ServletException, IOException;
 
     /**
      * <p>
@@ -475,17 +467,15 @@ public abstract class PageContext
      * ServletResponse state after invoking this call.
      *
      * @param t the throwable to be handled
-     *
-     * @throws ServletException if an error occurs while invoking the error page
-     * @throws IOException if an I/O error occurred while invoking the error
-     *     page
+     * @throws ServletException     if an error occurs while invoking the error page
+     * @throws IOException          if an I/O error occurred while invoking the error
+     *                              page
      * @throws NullPointerException if the exception is null
-     *
      * @see #handlePageException(Exception)
      */
 
     public abstract void handlePageException(Throwable t)
-        throws ServletException, IOException;
+            throws ServletException, IOException;
 
     /**
      * Return a new BodyContent object, save the current "out" JspWriter,
@@ -508,13 +498,12 @@ public abstract class PageContext
      * Servlet specification.  If this is not an error page (that is,
      * if the isErrorPage attribute of the page directive is not set
      * to "true"), the information is meaningless.
-     *
      * @since 2.0
      */
     public ErrorData getErrorData() {
         int status = 0;
 
-        Integer status_code = (Integer)getRequest().getAttribute(
+        Integer status_code = (Integer) getRequest().getAttribute(
                 RequestDispatcher.ERROR_STATUS_CODE);
         // Avoid NPE if attribute is not set
         if (status_code != null) {
@@ -522,14 +511,14 @@ public abstract class PageContext
         }
 
         return new ErrorData(
-            (Throwable)getRequest().getAttribute(
-                    RequestDispatcher.ERROR_EXCEPTION),
-            status,
-            (String)getRequest().getAttribute(
-                    RequestDispatcher.ERROR_REQUEST_URI),
-            (String)getRequest().getAttribute(
-                    RequestDispatcher.ERROR_SERVLET_NAME)
-            );
+                (Throwable) getRequest().getAttribute(
+                        RequestDispatcher.ERROR_EXCEPTION),
+                status,
+                (String) getRequest().getAttribute(
+                        RequestDispatcher.ERROR_REQUEST_URI),
+                (String) getRequest().getAttribute(
+                        RequestDispatcher.ERROR_SERVLET_NAME)
+        );
     }
 
 }

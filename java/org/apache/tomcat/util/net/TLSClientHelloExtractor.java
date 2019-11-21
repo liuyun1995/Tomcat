@@ -143,16 +143,16 @@ public class TLSClientHelloExtractor {
                 // Extension size is another two bytes
                 char extensionDataSize = netInBuffer.getChar();
                 switch (extensionType) {
-                case TLS_EXTENSION_SERVER_NAME: {
-                    sniValue = readSniExtension(netInBuffer);
-                    break;
-                }
-                case TLS_EXTENSION_ALPN:
-                    readAlpnExtension(netInBuffer, clientRequestedApplicationProtocols);
-                    break;
-                default: {
-                    skipBytes(netInBuffer, extensionDataSize);
-                }
+                    case TLS_EXTENSION_SERVER_NAME: {
+                        sniValue = readSniExtension(netInBuffer);
+                        break;
+                    }
+                    case TLS_EXTENSION_ALPN:
+                        readAlpnExtension(netInBuffer, clientRequestedApplicationProtocols);
+                        break;
+                    default: {
+                        skipBytes(netInBuffer, extensionDataSize);
+                    }
                 }
             }
             result = ExtractorResult.COMPLETE;

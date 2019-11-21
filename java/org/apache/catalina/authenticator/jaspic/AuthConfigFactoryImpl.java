@@ -1,18 +1,18 @@
 /**
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.catalina.authenticator.jaspic;
 
@@ -52,15 +52,15 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
     private static String DEFAULT_REGISTRATION_ID = getRegistrationID(null, null);
 
-    private final Map<String,RegistrationContextImpl> layerAppContextRegistrations =
+    private final Map<String, RegistrationContextImpl> layerAppContextRegistrations =
             new ConcurrentHashMap<>();
-    private final Map<String,RegistrationContextImpl> appContextRegistrations =
+    private final Map<String, RegistrationContextImpl> appContextRegistrations =
             new ConcurrentHashMap<>();
-    private final Map<String,RegistrationContextImpl> layerRegistrations =
+    private final Map<String, RegistrationContextImpl> layerRegistrations =
             new ConcurrentHashMap<>();
     // Note: Although there will only ever be a maximum of one entry in this
     //       Map, use a ConcurrentHashMap for consistency
-    private final Map<String,RegistrationContextImpl> defaultRegistration =
+    private final Map<String, RegistrationContextImpl> defaultRegistration =
             new ConcurrentHashMap<>(1);
 
 
@@ -71,7 +71,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
     @Override
     public AuthConfigProvider getConfigProvider(String layer, String appContext,
-            RegistrationListener listener) {
+                                                RegistrationListener listener) {
         RegistrationContextImpl registrationContext =
                 findRegistrationContextImpl(layer, appContext);
         if (registrationContext != null) {
@@ -88,8 +88,8 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
     @Override
     public String registerConfigProvider(String className,
-            @SuppressWarnings("rawtypes") Map properties, String layer, String appContext,
-            String description) {
+                                         @SuppressWarnings("rawtypes") Map properties, String layer, String appContext,
+                                         String description) {
         String registrationID =
                 doRegisterConfigProvider(className, properties, layer, appContext, description);
         savePersistentRegistrations();
@@ -99,8 +99,8 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
     @SuppressWarnings("unchecked")
     private String doRegisterConfigProvider(String className,
-            @SuppressWarnings("rawtypes") Map properties, String layer, String appContext,
-            String description) {
+                                            @SuppressWarnings("rawtypes") Map properties, String layer, String appContext,
+                                            String description) {
         if (log.isDebugEnabled()) {
             log.debug(sm.getString("authConfigFactoryImpl.registerClass",
                     className, layer, appContext));
@@ -120,7 +120,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
 
     private AuthConfigProvider createAuthConfigProvider(String className,
-            @SuppressWarnings("rawtypes") Map properties) throws SecurityException {
+                                                        @SuppressWarnings("rawtypes") Map properties) throws SecurityException {
         Class<?> clazz = null;
         AuthConfigProvider provider = null;
         try {
@@ -143,7 +143,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
     @Override
     public String registerConfigProvider(AuthConfigProvider provider, String layer,
-            String appContext, String description) {
+                                         String appContext, String description) {
         if (log.isDebugEnabled()) {
             log.debug(sm.getString("authConfigFactoryImpl.registerInstance",
                     provider.getClass().getName(), layer, appContext));
@@ -157,7 +157,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
 
     private void addRegistrationContextImpl(String layer, String appContext,
-            String registrationID, RegistrationContextImpl registrationContextImpl) {
+                                            String registrationID, RegistrationContextImpl registrationContextImpl) {
         RegistrationContextImpl previous = null;
 
         // Add the registration, noting any registration it replaces
@@ -237,7 +237,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
             registration = layerAppContextRegistrations.remove(registrationID);
         }
         if (registration == null) {
-            registration =  appContextRegistrations.remove(registrationID);
+            registration = appContextRegistrations.remove(registrationID);
         }
         if (registration == null) {
             registration = layerRegistrations.remove(registrationID);
@@ -262,7 +262,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
         String registrationID = getRegistrationID(layer, appContext);
         RegistrationContextImpl registrationContext = findRegistrationContextImpl(layer, appContext);
         if (registrationContext != null && registrationContext.removeListener(listener)) {
-            return new String[] { registrationID };
+            return new String[]{registrationID};
         }
         return EMPTY_STRING_ARRAY;
     }
@@ -289,8 +289,8 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
 
     private void findProvider(AuthConfigProvider provider,
-            Map<String,RegistrationContextImpl> registrations, List<String> result) {
-        for (Entry<String,RegistrationContextImpl> entry : registrations.entrySet()) {
+                              Map<String, RegistrationContextImpl> registrations, List<String> result) {
+        for (Entry<String, RegistrationContextImpl> entry : registrations.entrySet()) {
             if (provider.equals(entry.getValue().getProvider())) {
                 result.add(entry.getKey());
             }
@@ -364,15 +364,15 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
 
     private void savePersistentProviders(Providers providers,
-            Map<String,RegistrationContextImpl> registrations) {
-        for (Entry<String,RegistrationContextImpl> entry : registrations.entrySet()) {
+                                         Map<String, RegistrationContextImpl> registrations) {
+        for (Entry<String, RegistrationContextImpl> entry : registrations.entrySet()) {
             savePersistentProvider(providers, entry.getValue());
         }
     }
 
 
     private void savePersistentProvider(Providers providers,
-            RegistrationContextImpl registrationContextImpl) {
+                                        RegistrationContextImpl registrationContextImpl) {
         if (registrationContextImpl != null && registrationContextImpl.isPersistent()) {
             Provider provider = new Provider();
             provider.setAppContext(registrationContextImpl.getAppContext());
@@ -381,7 +381,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
             }
             provider.setDescription(registrationContextImpl.getDescription());
             provider.setLayer(registrationContextImpl.getMessageLayer());
-            for (Entry<String,String> property : registrationContextImpl.getProperties().entrySet()) {
+            for (Entry<String, String> property : registrationContextImpl.getProperties().entrySet()) {
                 provider.addProperty(property.getKey(), property.getValue());
             }
             providers.addProvider(provider);
@@ -408,13 +408,13 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
     private static class RegistrationContextImpl implements RegistrationContext {
 
         private RegistrationContextImpl(String messageLayer, String appContext, String description,
-                boolean persistent, AuthConfigProvider provider, Map<String,String> properties) {
+                                        boolean persistent, AuthConfigProvider provider, Map<String, String> properties) {
             this.messageLayer = messageLayer;
             this.appContext = appContext;
             this.description = description;
             this.persistent = persistent;
             this.provider = provider;
-            Map<String,String> propertiesCopy = new HashMap<>();
+            Map<String, String> propertiesCopy = new HashMap<>();
             if (properties != null) {
                 propertiesCopy.putAll(properties);
             }
@@ -426,7 +426,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
         private final String description;
         private final boolean persistent;
         private final AuthConfigProvider provider;
-        private final Map<String,String> properties;
+        private final Map<String, String> properties;
         private final List<RegistrationListenerWrapper> listeners = new CopyOnWriteArrayList<>();
 
         @Override
@@ -464,7 +464,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
         }
 
 
-        private Map<String,String> getProperties() {
+        private Map<String, String> getProperties() {
             return properties;
         }
 
@@ -490,7 +490,7 @@ public class AuthConfigFactoryImpl extends AuthConfigFactory {
 
 
         public RegistrationListenerWrapper(String messageLayer, String appContext,
-                RegistrationListener listener) {
+                                           RegistrationListener listener) {
             this.messageLayer = messageLayer;
             this.appContext = appContext;
             this.listener = listener;

@@ -36,7 +36,7 @@ public class FilterDef implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final StringManager sm =
-        StringManager.getManager(Constants.PACKAGE_NAME);
+            StringManager.getManager(Constants.PACKAGE_NAME);
 
     // ------------------------------------------------------------- Properties
 
@@ -172,7 +172,7 @@ public class FilterDef implements Serializable {
      * Add an initialization parameter to the set of parameters associated
      * with this filter.
      *
-     * @param name The initialization parameter name
+     * @param name  The initialization parameter name
      * @param value The initialization parameter value
      */
     public void addInitParameter(String name, String value) {

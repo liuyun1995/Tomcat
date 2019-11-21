@@ -42,9 +42,9 @@ final class Mark {
     /**
      * Constructor
      *
-     * @param reader JspReader this mark belongs to
+     * @param reader   JspReader this mark belongs to
      * @param inStream current stream for this mark
-     * @param name JSP file name
+     * @param name     JSP file name
      */
     Mark(JspReader reader, char[] inStream, String name) {
         this.ctxt = reader.getJspCompilationContext();
@@ -60,7 +60,7 @@ final class Mark {
      * Constructor
      */
     Mark(Mark other) {
-       init(other, false);
+        init(other, false);
     }
 
     void update(int cursor, int line, int col) {
@@ -105,7 +105,7 @@ final class Mark {
 
     @Override
     public String toString() {
-        return getFile()+"("+line+","+col+")";
+        return getFile() + "(" + line + "," + col + ")";
     }
 
     public String getFile() {
@@ -116,8 +116,7 @@ final class Mark {
      * Gets the URL of the resource with which this Mark is associated
      *
      * @return URL of the resource with which this Mark is associated
-     *
-     * @exception MalformedURLException if the resource pathname is incorrect
+     * @throws MalformedURLException if the resource pathname is incorrect
      */
     public URL getURL() throws MalformedURLException {
         return ctxt.getResource(getFile());

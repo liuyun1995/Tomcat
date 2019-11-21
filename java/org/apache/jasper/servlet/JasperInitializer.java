@@ -62,7 +62,7 @@ public class JasperInitializer implements ServletContainerInitializer {
         }
 
         // Setup a simple default Instance Manager
-        if (context.getAttribute(InstanceManager.class.getName())==null) {
+        if (context.getAttribute(InstanceManager.class.getName()) == null) {
             context.setAttribute(InstanceManager.class.getName(), new SimpleInstanceManager());
         }
 
@@ -96,7 +96,7 @@ public class JasperInitializer implements ServletContainerInitializer {
     }
 
     protected TldScanner newTldScanner(ServletContext context, boolean namespaceAware,
-            boolean validate, boolean blockExternal) {
+                                       boolean validate, boolean blockExternal) {
         return new TldScanner(context, namespaceAware, validate, blockExternal);
     }
 }

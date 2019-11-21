@@ -20,6 +20,7 @@ package org.apache.catalina.ssi;
 import java.io.PrintWriter;
 
 import org.apache.tomcat.util.res.StringManager;
+
 /**
  * Return the result associated with the supplied Server Variable.
  *
@@ -39,7 +40,7 @@ public class SSIEcho implements SSICommand {
      */
     @Override
     public long process(SSIMediator ssiMediator, String commandName,
-            String[] paramNames, String[] paramValues, PrintWriter writer) {
+                        String[] paramNames, String[] paramValues, PrintWriter writer) {
         String encoding = DEFAULT_ENCODING;
         String originalValue = null;
         String errorMessage = ssiMediator.getConfigErrMsg();

@@ -64,8 +64,7 @@ public class StoreFactoryBase implements IStoreFactory {
     }
 
     /**
-     * @param storeAppender
-     *            The storeAppender to set.
+     * @param storeAppender The storeAppender to set.
      */
     @Override
     public void setStoreAppender(StoreAppender storeAppender) {
@@ -106,7 +105,7 @@ public class StoreFactoryBase implements IStoreFactory {
      * Store a server.xml element with attributes and children
      *
      * @see org.apache.catalina.storeconfig.IStoreFactory#store(java.io.PrintWriter,
-     *      int, java.lang.Object)
+     * int, java.lang.Object)
      */
     @Override
     public void store(PrintWriter aWriter, int indent, Object aElement)
@@ -138,27 +137,27 @@ public class StoreFactoryBase implements IStoreFactory {
     /**
      * Must Implement at subclass for custom store children handling.
      *
-     * @param aWriter Current output writer
-     * @param indent Indentation level
-     * @param aElement Current element
+     * @param aWriter     Current output writer
+     * @param indent      Indentation level
+     * @param aElement    Current element
      * @param elementDesc The element description
      * @throws Exception Configuration storing error
      */
     public void storeChildren(PrintWriter aWriter, int indent, Object aElement,
-            StoreDescription elementDesc) throws Exception {
+                              StoreDescription elementDesc) throws Exception {
     }
 
     /**
      * Store only elements from storeChildren methods that are not a transient
      * child.
      *
-     * @param aWriter Current output writer
-     * @param indent Indentation level
+     * @param aWriter     Current output writer
+     * @param indent      Indentation level
      * @param aTagElement Current element
      * @throws Exception Configuration storing error
      */
     protected void storeElement(PrintWriter aWriter, int indent,
-            Object aTagElement) throws Exception {
+                                Object aTagElement) throws Exception {
         if (aTagElement != null) {
             IStoreFactory elementFactory = getRegistry().findStoreFactory(
                     aTagElement.getClass());
@@ -177,13 +176,14 @@ public class StoreFactoryBase implements IStoreFactory {
 
     /**
      * Save an array of elements.
-     * @param aWriter Current output writer
-     * @param indent Indentation level
+     *
+     * @param aWriter  Current output writer
+     * @param indent   Indentation level
      * @param elements Array of elements
      * @throws Exception Configuration storing error
      */
     protected void storeElementArray(PrintWriter aWriter, int indent,
-            Object[] elements) throws Exception {
+                                     Object[] elements) throws Exception {
         if (elements != null) {
             for (int i = 0; i < elements.length; i++) {
                 try {

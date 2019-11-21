@@ -34,10 +34,8 @@ public interface InputBuffer {
      *
      * @param handler ApplicationBufferHandler that provides the buffer to read
      *                data into.
-     *
      * @return The number of bytes that have been added to the buffer or -1 for
-     *         end of stream
-     *
+     * end of stream
      * @throws IOException If an I/O error occurs reading from the input stream
      */
     public int doRead(ApplicationBufferHandler handler) throws IOException;

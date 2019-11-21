@@ -37,7 +37,7 @@ public class PojoPathParam {
     private final String name;
 
 
-    public PojoPathParam(Class<?> type, String name)  throws DeploymentException {
+    public PojoPathParam(Class<?> type, String name) throws DeploymentException {
         if (name != null) {
             // Annotated as @PathParam so validate type
             validateType(type);

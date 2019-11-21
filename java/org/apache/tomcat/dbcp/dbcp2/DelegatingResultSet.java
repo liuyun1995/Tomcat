@@ -58,10 +58,8 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
     /**
      * Wraps the given result set in a delegate.
      *
-     * @param connection
-     *            The Connection which created the ResultSet.
-     * @param resultSet
-     *            The ResultSet to wrap.
+     * @param connection The Connection which created the ResultSet.
+     * @param resultSet  The ResultSet to wrap.
      * @return a new delegate.
      */
     public static ResultSet wrapResultSet(final Connection connection, final ResultSet resultSet) {
@@ -74,10 +72,8 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
     /**
      * Wraps the given result set in a delegate.
      *
-     * @param statement
-     *            The Statement which created the ResultSet.
-     * @param resultSet
-     *            The ResultSet to wrap.
+     * @param statement The Statement which created the ResultSet.
+     * @param resultSet The ResultSet to wrap.
      * @return a new delegate.
      */
     public static ResultSet wrapResultSet(final Statement statement, final ResultSet resultSet) {
@@ -87,13 +83,19 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
         return new DelegatingResultSet(statement, resultSet);
     }
 
-    /** My delegate. **/
+    /**
+     * My delegate.
+     **/
     private final ResultSet resultSet;
 
-    /** The Statement that created me, if any. **/
+    /**
+     * The Statement that created me, if any.
+     **/
     private Statement statement;
 
-    /** The Connection that created me, if any. **/
+    /**
+     * The Connection that created me, if any.
+     **/
     private Connection connection;
 
     /**
@@ -103,10 +105,8 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
      * Private to ensure all construction is {@link #wrapResultSet(Connection, ResultSet)}
      * </p>
      *
-     * @param conn
-     *            Connection which created this ResultSet
-     * @param res
-     *            ResultSet to wrap
+     * @param conn Connection which created this ResultSet
+     * @param res  ResultSet to wrap
      */
     private DelegatingResultSet(final Connection conn, final ResultSet res) {
         super((AbandonedTrace) conn);
@@ -121,10 +121,8 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
      * Private to ensure all construction is {@link #wrapResultSet(Statement, ResultSet)}
      * </p>
      *
-     * @param statement
-     *            The Statement which created the ResultSet.
-     * @param resultSet
-     *            The ResultSet to wrap.
+     * @param statement The Statement which created the ResultSet.
+     * @param resultSet The ResultSet to wrap.
      */
     private DelegatingResultSet(final Statement statement, final ResultSet resultSet) {
         super((AbandonedTrace) statement);
@@ -278,7 +276,9 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
         }
     }
 
-    /** @deprecated Use {@link #getBigDecimal(int)} */
+    /**
+     * @deprecated Use {@link #getBigDecimal(int)}
+     */
     @Deprecated
     @Override
     public BigDecimal getBigDecimal(final int columnIndex, final int scale) throws SQLException {
@@ -300,7 +300,9 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
         }
     }
 
-    /** @deprecated Use {@link #getBigDecimal(String)} */
+    /**
+     * @deprecated Use {@link #getBigDecimal(String)}
+     */
     @Deprecated
     @Override
     public BigDecimal getBigDecimal(final String columnName, final int scale) throws SQLException {
@@ -992,7 +994,9 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
         }
     }
 
-    /** @deprecated Use {@link #getCharacterStream(int)} */
+    /**
+     * @deprecated Use {@link #getCharacterStream(int)}
+     */
     @Deprecated
     @Override
     public InputStream getUnicodeStream(final int columnIndex) throws SQLException {
@@ -1004,7 +1008,9 @@ public final class DelegatingResultSet extends AbandonedTrace implements ResultS
         }
     }
 
-    /** @deprecated Use {@link #getCharacterStream(String)} */
+    /**
+     * @deprecated Use {@link #getCharacterStream(String)}
+     */
     @Deprecated
     @Override
     public InputStream getUnicodeStream(final String columnName) throws SQLException {

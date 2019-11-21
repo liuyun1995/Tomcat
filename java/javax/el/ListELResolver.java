@@ -29,7 +29,7 @@ public class ListELResolver extends ELResolver {
     private final boolean readOnly;
 
     private static final Class<?> UNMODIFIABLE =
-        Collections.unmodifiableList(new ArrayList<>()).getClass();
+            Collections.unmodifiableList(new ArrayList<>()).getClass();
 
     public ListELResolver() {
         this.readOnly = false;
@@ -76,13 +76,13 @@ public class ListELResolver extends ELResolver {
 
     @Override
     public void setValue(ELContext context, Object base, Object property,
-            Object value) {
+                         Object value) {
         Objects.requireNonNull(context);
 
         if (base instanceof List<?>) {
             context.setPropertyResolved(base, property);
             @SuppressWarnings("unchecked") // Must be OK to cast to Object
-            List<Object> list = (List<Object>) base;
+                    List<Object> list = (List<Object>) base;
 
             if (this.readOnly) {
                 throw new PropertyNotWritableException(Util.message(context,

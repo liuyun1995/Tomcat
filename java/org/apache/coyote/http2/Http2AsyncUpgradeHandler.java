@@ -47,7 +47,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
     private IOException applicationIOE = null;
 
     public Http2AsyncUpgradeHandler(Http2Protocol protocol, Adapter adapter,
-            Request coyoteRequest) {
+                                    Request coyoteRequest) {
         super(protocol, adapter, coyoteRequest);
     }
 
@@ -55,6 +55,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
         @Override
         public void completed(Long result, Void attachment) {
         }
+
         @Override
         public void failed(Throwable t, Void attachment) {
             error = t;
@@ -64,6 +65,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
         @Override
         public void completed(Long result, Void attachment) {
         }
+
         @Override
         public void failed(Throwable t, Void attachment) {
             if (t instanceof IOException) {
@@ -93,12 +95,12 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
 
     @Override
     protected void processConnection(WebConnection webConnection,
-            Stream stream) {
+                                     Stream stream) {
         // The end of the processing will instead be an async callback
     }
 
     void processConnectionCallback(WebConnection webConnection,
-            Stream stream) {
+                                   Stream stream) {
         super.processConnection(webConnection, stream);
     }
 
@@ -172,7 +174,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
 
     @Override
     void writeHeaders(Stream stream, int pushedStreamId, MimeHeaders mimeHeaders,
-            boolean endOfStream, int payloadSize) throws IOException {
+                      boolean endOfStream, int payloadSize) throws IOException {
         synchronized (headerWriteLock) {
             AsyncHeaderFrameBuffers headerFrameBuffers = (AsyncHeaderFrameBuffers)
                     doWriteHeaders(stream, pushedStreamId, mimeHeaders, endOfStream, payloadSize);
@@ -234,12 +236,12 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
         }
         // Build window update frame for stream 0
         byte[] frame = new byte[13];
-        ByteUtil.setThreeBytes(frame, 0,  4);
+        ByteUtil.setThreeBytes(frame, 0, 4);
         frame[3] = FrameType.WINDOW_UPDATE.getIdByte();
         ByteUtil.set31Bits(frame, 9, increment);
         // Change stream Id
         byte[] frame2 = new byte[13];
-        ByteUtil.setThreeBytes(frame2, 0,  4);
+        ByteUtil.setThreeBytes(frame2, 0, 4);
         frame2[3] = FrameType.WINDOW_UPDATE.getIdByte();
         ByteUtil.set31Bits(frame2, 9, increment);
         ByteUtil.set31Bits(frame2, 5, stream.getIdAsInt());
@@ -291,7 +293,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
                 }
                 // Reserve as much as possible right away
                 int reservation = (sendfile.end - sendfile.pos > Integer.MAX_VALUE) ? Integer.MAX_VALUE : (int) (sendfile.end - sendfile.pos);
-                sendfile.streamReservation  = sendfile.stream.reserveWindowSize(reservation, true);
+                sendfile.streamReservation = sendfile.stream.reserveWindowSize(reservation, true);
                 sendfile.connectionReservation = reserveWindowSize(sendfile.stream, sendfile.streamReservation, true);
             } catch (IOException e) {
                 return SendfileState.ERROR;
@@ -355,7 +357,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
                     sendfile.connectionReservation = reserveWindowSize(sendfile.stream, sendfile.streamReservation, true);
                 }
             } catch (IOException e) {
-                failed (e, sendfile);
+                failed(e, sendfile);
                 return;
             }
             int frameSize = Integer.min(getMaxFrameSize(), sendfile.streamReservation);

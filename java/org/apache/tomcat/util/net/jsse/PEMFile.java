@@ -121,7 +121,7 @@ public class PEMFile {
 
     private class Part {
         public static final String BEGIN_BOUNDARY = "-----BEGIN ";
-        public static final String END_BOUNDARY   = "-----END ";
+        public static final String END_BOUNDARY = "-----END ";
 
         public String type;
         public String content = "";
@@ -163,7 +163,7 @@ public class PEMFile {
 
             InvalidKeyException exception = new InvalidKeyException(sm.getString("jsse.pemParseError", filename));
             if (keyAlgorithm == null) {
-                for (String algorithm : new String[] {"RSA", "DSA", "EC"}) {
+                for (String algorithm : new String[]{"RSA", "DSA", "EC"}) {
                     try {
                         return KeyFactory.getInstance(algorithm).generatePrivate(keySpec);
                     } catch (InvalidKeySpecException e) {

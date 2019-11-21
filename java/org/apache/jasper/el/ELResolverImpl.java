@@ -34,7 +34,7 @@ public final class ELResolverImpl extends ELResolver {
     private final ELResolver elResolver;
 
     public ELResolverImpl(VariableResolver variableResolver,
-            ExpressionFactory factory) {
+                          ExpressionFactory factory) {
         this.variableResolver = variableResolver;
         this.elResolver = ELContextImpl.getDefaultResolver(factory);
     }
@@ -86,7 +86,7 @@ public final class ELResolverImpl extends ELResolver {
 
     @Override
     public void setValue(ELContext context, Object base, Object property,
-            Object value) {
+                         Object value) {
         Objects.requireNonNull(context);
 
         if (base == null) {

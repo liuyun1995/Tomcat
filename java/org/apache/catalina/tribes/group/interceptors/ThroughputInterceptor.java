@@ -54,18 +54,18 @@ public class ThroughputInterceptor extends ChannelInterceptorBase
 
     @Override
     public void sendMessage(Member[] destination, ChannelMessage msg, InterceptorPayload payload) throws ChannelException {
-        if ( access.addAndGet(1) == 1 ) txStart = System.currentTimeMillis();
-        long bytes = XByteBuffer.getDataPackageLength(((ChannelData)msg).getDataPackageLength());
+        if (access.addAndGet(1) == 1) txStart = System.currentTimeMillis();
+        long bytes = XByteBuffer.getDataPackageLength(((ChannelData) msg).getDataPackageLength());
         try {
             super.sendMessage(destination, msg, payload);
-        }catch ( ChannelException x ) {
+        } catch (ChannelException x) {
             msgTxErr.addAndGet(1);
-            if ( access.get() == 1 ) access.addAndGet(-1);
+            if (access.get() == 1) access.addAndGet(-1);
             throw x;
         }
-        mbTx += (bytes*destination.length)/(1024d*1024d);
-        mbAppTx += bytes/(1024d*1024d);
-        if ( access.addAndGet(-1) == 0 ) {
+        mbTx += (bytes * destination.length) / (1024d * 1024d);
+        mbAppTx += bytes / (1024d * 1024d);
+        if (access.addAndGet(-1) == 0) {
             long stop = System.currentTimeMillis();
             timeTx += (stop - txStart) / 1000d;
             if ((msgTxCnt.get() / (double) interval) >= lastCnt) {
@@ -78,22 +78,22 @@ public class ThroughputInterceptor extends ChannelInterceptorBase
 
     @Override
     public void messageReceived(ChannelMessage msg) {
-        if ( rxStart == 0 ) rxStart = System.currentTimeMillis();
-        long bytes = XByteBuffer.getDataPackageLength(((ChannelData)msg).getDataPackageLength());
-        mbRx += bytes/(1024d*1024d);
+        if (rxStart == 0) rxStart = System.currentTimeMillis();
+        long bytes = XByteBuffer.getDataPackageLength(((ChannelData) msg).getDataPackageLength());
+        mbRx += bytes / (1024d * 1024d);
         msgRxCnt.addAndGet(1);
-        if ( msgRxCnt.get() % interval == 0 ) report(timeTx);
+        if (msgRxCnt.get() % interval == 0) report(timeTx);
         super.messageReceived(msg);
 
     }
 
     @Override
     public void report(double timeTx) {
-        if ( log.isInfoEnabled() )
+        if (log.isInfoEnabled())
             log.info(sm.getString("throughputInterceptor.report",
                     msgTxCnt, df.format(mbTx), df.format(mbAppTx), df.format(timeTx),
-                    df.format(mbTx/timeTx), df.format(mbAppTx/timeTx), msgTxErr, msgRxCnt,
-                    df.format(mbRx/((System.currentTimeMillis()-rxStart)/(double)1000)),
+                    df.format(mbTx / timeTx), df.format(mbAppTx / timeTx), msgTxErr, msgRxCnt,
+                    df.format(mbRx / ((System.currentTimeMillis() - rxStart) / (double) 1000)),
                     df.format(mbRx)));
     }
 

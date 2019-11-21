@@ -41,7 +41,6 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
          * Read new characters.
          *
          * @return The number of characters read
-         *
          * @throws IOException If an I/O error occurs during reading
          */
         public int realReadChars() throws IOException;
@@ -112,7 +111,7 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
     /**
      * Sets the buffer to the specified subarray of characters.
      *
-     * @param c the characters
+     * @param c   the characters
      * @param off the start offset of the characters
      * @param len the length of the characters
      */
@@ -260,7 +259,7 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
     /**
      * Append a string to the buffer.
      *
-     * @param s The string
+     * @param s   The string
      * @param off Offset
      * @param len Length
      * @throws IOException Writing overflow data to the output channel failed
@@ -445,7 +444,7 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
      *
      * @param s the String to compare
      * @return <code>true</code> if the comparison succeeded, <code>false</code>
-     *         otherwise
+     * otherwise
      */
     public boolean equals(String s) {
         char[] c = buff;
@@ -468,7 +467,7 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
      *
      * @param s the String to compare
      * @return <code>true</code> if the comparison succeeded, <code>false</code>
-     *         otherwise
+     * otherwise
      */
     public boolean equalsIgnoreCase(String s) {
         char[] c = buff;
@@ -514,9 +513,9 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
 
 
     /**
-     * @return <code>true</code> if the message bytes starts with the specified
-     *         string.
      * @param s The string
+     * @return <code>true</code> if the message bytes starts with the specified
+     * string.
      */
     public boolean startsWith(String s) {
         char[] c = buff;
@@ -537,9 +536,8 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
     /**
      * Returns true if the buffer starts with the specified string.
      *
-     * @param s the string
+     * @param s   the string
      * @param pos The position
-     *
      * @return <code>true</code> if the start matches
      */
     public boolean startsWithIgnoreCase(String s, int pos) {
@@ -559,9 +557,9 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
 
 
     /**
-     * @return <code>true</code> if the message bytes end with the specified
-     *         string.
      * @param s The string
+     * @return <code>true</code> if the message bytes end with the specified
+     * string.
      */
     public boolean endsWith(String s) {
         char[] c = buff;
@@ -595,10 +593,10 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
      * starting at the specified char. If the character is not found, -1 is
      * returned. <br>
      *
-     * @param c The character
+     * @param c        The character
      * @param starting The start position
      * @return The position of the first instance of the character or -1 if the
-     *         character is not found.
+     * character is not found.
      */
     public int indexOf(char c, int starting) {
         int ret = indexOf(buff, start + starting, end, c);
@@ -612,10 +610,10 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
      *
      * @param chars The array to search
      * @param start The point to start searching from in the array
-     * @param end The point to stop searching in the array
-     * @param s The character to search for
+     * @param end   The point to stop searching in the array
+     * @param s     The character to search for
      * @return The position of the first instance of the character or -1 if the
-     *         character is not found.
+     * character is not found.
      */
     public static int indexOf(char chars[], int start, int end, char s) {
         int offset = start;
@@ -671,9 +669,8 @@ public final class CharChunk extends AbstractChunk implements CharSequence {
      * NO-OP.
      *
      * @param optimizedWrite Ignored
-     *
      * @deprecated Unused code. This is now a NO-OP and will be removed without
-     *             replacement in Tomcat 10.
+     * replacement in Tomcat 10.
      */
     @Deprecated
     public void setOptimizedWrite(boolean optimizedWrite) {

@@ -66,26 +66,32 @@ public class ListenerCreateRule extends ObjectCreateRule {
     public class OptionalListener implements LifecycleListener {
         protected final String className;
         protected final HashMap<String, String> properties = new HashMap<>();
+
         public OptionalListener(String className) {
             this.className = className;
         }
+
         /**
          * @return the className
          */
         public String getClassName() {
             return className;
         }
+
         @Override
         public void lifecycleEvent(LifecycleEvent event) {
             // Do nothing
         }
+
         /**
          * Return a set of the property keys.
+         *
          * @return the set
          */
         public Set<String> getProperties() {
             return properties.keySet();
         }
+
         /**
          * Return a property from the protocol handler.
          *
@@ -95,10 +101,11 @@ public class ListenerCreateRule extends ObjectCreateRule {
         public Object getProperty(String name) {
             return properties.get(name);
         }
+
         /**
          * Set the given property.
          *
-         * @param name the property name
+         * @param name  the property name
          * @param value the property value
          * @return <code>true</code>
          */

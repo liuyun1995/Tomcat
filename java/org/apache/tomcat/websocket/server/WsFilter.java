@@ -45,7 +45,7 @@ public class WsFilter extends GenericFilter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
 
         // This filter only needs to handle WebSocket upgrade requests
         if (!sc.areEndpointsRegistered() ||

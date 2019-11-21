@@ -183,7 +183,7 @@ public class Util {
 
 
     private static <T> TypeResult getGenericType(Class<T> type,
-            Class<? extends T> clazz) {
+                                                 Class<? extends T> clazz) {
 
         // Look to see if this class implements the interface of interest
 
@@ -269,7 +269,7 @@ public class Util {
         if (argType instanceof Class<?>) {
             return new TypeResult((Class<?>) argType, -1, 0);
         } else if (argType instanceof ParameterizedType) {
-            return new TypeResult((Class<?>)((ParameterizedType) argType).getRawType(), -1, 0);
+            return new TypeResult((Class<?>) ((ParameterizedType) argType).getRawType(), -1, 0);
         } else if (argType instanceof GenericArrayType) {
             Type arrayElementType = ((GenericArrayType) argType).getGenericComponentType();
             TypeResult result = getTypeParameter(clazz, arrayElementType);
@@ -290,7 +290,7 @@ public class Util {
     public static boolean isPrimitive(Class<?> clazz) {
         if (clazz.isPrimitive()) {
             return true;
-        } else if(clazz.equals(Boolean.class) ||
+        } else if (clazz.equals(Boolean.class) ||
                 clazz.equals(Byte.class) ||
                 clazz.equals(Character.class) ||
                 clazz.equals(Double.class) ||
@@ -332,7 +332,7 @@ public class Util {
 
     public static List<DecoderEntry> getDecoders(
             List<Class<? extends Decoder>> decoderClazzes)
-                    throws DeploymentException{
+            throws DeploymentException {
 
         List<DecoderEntry> result = new ArrayList<>();
         if (decoderClazzes != null) {
@@ -359,8 +359,8 @@ public class Util {
 
 
     static Set<MessageHandlerResult> getMessageHandlers(Class<?> target,
-            MessageHandler listener, EndpointConfig endpointConfig,
-            Session session) {
+                                                        MessageHandler listener, EndpointConfig endpointConfig,
+                                                        Session session) {
 
         // Will never be more than 2 types
         Set<MessageHandlerResult> results = new HashSet<>(2);
@@ -382,15 +382,15 @@ public class Util {
                     new MessageHandlerResult(listener,
                             MessageHandlerResultType.PONG);
             results.add(result);
-        // Handler needs wrapping and optional decoder to convert it to one of
-        // the types expected by the frame handling code
+            // Handler needs wrapping and optional decoder to convert it to one of
+            // the types expected by the frame handling code
         } else if (byte[].class.isAssignableFrom(target)) {
             boolean whole = MessageHandler.Whole.class.isAssignableFrom(listener.getClass());
             MessageHandlerResult result = new MessageHandlerResult(
                     whole ? new PojoMessageHandlerWholeBinary(listener,
-                                    getOnMessageMethod(listener), session,
-                                    endpointConfig, matchDecoders(target, endpointConfig, true),
-                                    new Object[1], 0, true, -1, false, -1) :
+                            getOnMessageMethod(listener), session,
+                            endpointConfig, matchDecoders(target, endpointConfig, true),
+                            new Object[1], 0, true, -1, false, -1) :
                             new PojoMessageHandlerPartialBinary(listener,
                                     getOnMessagePartialMethod(listener), session,
                                     new Object[2], 0, true, 1, -1, -1),
@@ -423,7 +423,7 @@ public class Util {
                                 endpointConfig,
                                 decoderMatch.getBinaryDecoders(), new Object[1],
                                 0, false, -1, false, -1),
-                                MessageHandlerResultType.BINARY);
+                        MessageHandlerResultType.BINARY);
                 results.add(result);
             }
             if (decoderMatch.getTextDecoders().size() > 0) {
@@ -432,7 +432,7 @@ public class Util {
                                 endpointConfig,
                                 decoderMatch.getTextDecoders(), new Object[1],
                                 0, false, -1, -1),
-                                MessageHandlerResultType.TEXT);
+                        MessageHandlerResultType.TEXT);
                 results.add(result);
             }
         }
@@ -446,7 +446,7 @@ public class Util {
     }
 
     private static List<Class<? extends Decoder>> matchDecoders(Class<?> target,
-            EndpointConfig endpointConfig, boolean binary) {
+                                                                EndpointConfig endpointConfig, boolean binary) {
         DecoderMatch decoderMatch = matchDecoders(target, endpointConfig);
         if (binary) {
             if (decoderMatch.getBinaryDecoders().size() > 0) {
@@ -459,7 +459,7 @@ public class Util {
     }
 
     private static DecoderMatch matchDecoders(Class<?> target,
-            EndpointConfig endpointConfig) {
+                                              EndpointConfig endpointConfig) {
         DecoderMatch decoderMatch;
         try {
             List<Class<? extends Decoder>> decoders =
@@ -473,7 +473,7 @@ public class Util {
     }
 
     public static void parseExtensionHeader(List<Extension> extensions,
-            String header) {
+                                            String header) {
         // The relevant ABNF for the Sec-WebSocket-Extensions is as follows:
         //      extension-list = 1#extension
         //      extension = extension-token *( ";" extension-param )
@@ -522,7 +522,7 @@ public class Util {
                 }
                 if (value != null &&
                         (value.indexOf(',') > -1 || value.indexOf(';') > -1 ||
-                        value.indexOf('\"') > -1 || value.indexOf('=') > -1)) {
+                                value.indexOf('\"') > -1 || value.indexOf('=') > -1)) {
                     throw new IllegalArgumentException(sm.getString("", value));
                 }
                 extension.addParameter(new WsExtensionParameter(name, value));
@@ -642,7 +642,7 @@ public class Util {
         private int dimension;
 
         public TypeResult(Class<?> clazz, int index, int dimension) {
-            this.clazz= clazz;
+            this.clazz = clazz;
             this.index = index;
             this.dimension = dimension;
         }

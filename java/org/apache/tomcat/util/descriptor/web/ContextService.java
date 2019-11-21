@@ -121,10 +121,10 @@ public class ContextService extends ResourceBase {
      * Declares the specific WSDL service element that is being referred to.
      * It is not specified if no wsdl-file is declared or if WSDL contains only
      * 1 service element.
-     *
+     * <p>
      * A service-qname is composed by a namespaceURI and a localpart.
      * It must be defined if more than 1 service is declared in the WSDL.
-     *
+     * <p>
      * serviceqname[0] : namespaceURI
      * serviceqname[1] : localpart
      */
@@ -166,6 +166,7 @@ public class ContextService extends ResourceBase {
      * Declares a client dependency on the container to resolving a Service Endpoint Interface
      * to a WSDL port. It optionally associates the Service Endpoint Interface with a
      * particular port-component.
+     *
      * @return the endpoint names
      */
     public Iterator<String> getServiceendpoints() {
@@ -184,7 +185,7 @@ public class ContextService extends ResourceBase {
 
     /**
      * A list of Handlers to use for this service-ref.
-     *
+     * <p>
      * The instantiation of the handler have to be done.
      */
     private final Map<String, ContextHandler> handlers = new HashMap<>();

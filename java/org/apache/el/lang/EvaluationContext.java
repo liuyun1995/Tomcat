@@ -37,7 +37,7 @@ public final class EvaluationContext extends ELContext {
     private final VariableMapper varMapper;
 
     public EvaluationContext(ELContext elContext, FunctionMapper fnMapper,
-            VariableMapper varMapper) {
+                             VariableMapper varMapper) {
         this.elContext = elContext;
         this.fnMapper = fnMapper;
         this.varMapper = varMapper;
@@ -76,7 +76,7 @@ public final class EvaluationContext extends ELContext {
     @Override
     // Can't use Class<?> because API needs to match specification in superclass
     public void putContext(@SuppressWarnings("rawtypes") Class key,
-            Object contextObject) {
+                           Object contextObject) {
         elContext.putContext(key, contextObject);
     }
 
@@ -88,7 +88,7 @@ public final class EvaluationContext extends ELContext {
     @Override
     public Locale getLocale() {
         return elContext.getLocale();
-        }
+    }
 
     @Override
     public void setLocale(Locale locale) {

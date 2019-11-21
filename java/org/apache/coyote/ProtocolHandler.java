@@ -23,7 +23,7 @@ import org.apache.tomcat.util.net.SSLHostConfig;
 
 /**
  * Abstract the protocol implementation, including threading, etc.
- *
+ * <p>
  * This is the main interface to be implemented by a coyote protocol.
  * Adapter is the main interface to be implemented by a coyote servlet
  * container.
@@ -36,6 +36,7 @@ public interface ProtocolHandler {
 
     /**
      * Return the adapter associated with the protocol handler.
+     *
      * @return the adapter
      */
     public Adapter getAdapter();
@@ -59,6 +60,7 @@ public interface ProtocolHandler {
 
     /**
      * Set the optional executor that will be used by the connector.
+     *
      * @param executor the executor
      */
     public void setExecutor(Executor executor);
@@ -66,6 +68,7 @@ public interface ProtocolHandler {
 
     /**
      * Get the utility executor that should be used by the protocol handler.
+     *
      * @return the executor
      */
     public ScheduledExecutorService getUtilityExecutor();
@@ -73,6 +76,7 @@ public interface ProtocolHandler {
 
     /**
      * Set the utility executor that should be used by the protocol handler.
+     *
      * @param utilityExecutor the executor
      */
     public void setUtilityExecutor(ScheduledExecutorService utilityExecutor);
@@ -138,7 +142,7 @@ public interface ProtocolHandler {
      * Requires APR/native library
      *
      * @return <code>true</code> if this Protocol Handler requires the
-     *         APR/native library, otherwise <code>false</code>
+     * APR/native library, otherwise <code>false</code>
      */
     public boolean isAprRequired();
 
@@ -147,13 +151,14 @@ public interface ProtocolHandler {
      * Does this ProtocolHandler support sendfile?
      *
      * @return <code>true</code> if this Protocol Handler supports sendfile,
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     public boolean isSendfileSupported();
 
 
     /**
      * Add a new SSL configuration for a virtual host.
+     *
      * @param sslHostConfig the configuration
      */
     public void addSslHostConfig(SSLHostConfig sslHostConfig);
@@ -162,6 +167,7 @@ public interface ProtocolHandler {
     /**
      * Find all configured SSL virtual host configurations which will be used
      * by SNI.
+     *
      * @return the configurations
      */
     public SSLHostConfig[] findSslHostConfigs();
@@ -169,6 +175,7 @@ public interface ProtocolHandler {
 
     /**
      * Add a new protocol for used by HTTP/1.1 upgrade or ALPN.
+     *
      * @param upgradeProtocol the protocol
      */
     public void addUpgradeProtocol(UpgradeProtocol upgradeProtocol);
@@ -176,6 +183,7 @@ public interface ProtocolHandler {
 
     /**
      * Return all configured upgrade protocols.
+     *
      * @return the protocols
      */
     public UpgradeProtocol[] findUpgradeProtocols();

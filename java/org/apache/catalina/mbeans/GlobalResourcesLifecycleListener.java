@@ -109,16 +109,15 @@ public class GlobalResourcesLifecycleListener implements LifecycleListener {
      * Create the MBeans for the interesting global JNDI resources in
      * the specified naming context.
      *
-     * @param prefix Prefix for complete object name paths
+     * @param prefix  Prefix for complete object name paths
      * @param context Context to be scanned
-     *
-     * @exception NamingException if a JNDI exception occurs
+     * @throws NamingException if a JNDI exception occurs
      */
     protected void createMBeans(String prefix, Context context) throws NamingException {
 
         if (log.isDebugEnabled()) {
             log.debug("Creating MBeans for Global JNDI Resources in Context '" +
-                prefix + "'");
+                    prefix + "'");
         }
 
         try {
@@ -151,10 +150,9 @@ public class GlobalResourcesLifecycleListener implements LifecycleListener {
     /**
      * Create the MBeans for the specified UserDatabase and its contents.
      *
-     * @param name Complete resource name of this UserDatabase
+     * @param name     Complete resource name of this UserDatabase
      * @param database The UserDatabase to be processed
-     *
-     * @exception Exception if an exception occurs while creating MBeans
+     * @throws Exception if an exception occurs while creating MBeans
      */
     protected void createMBeans(String name, UserDatabase database) throws Exception {
 
@@ -165,7 +163,7 @@ public class GlobalResourcesLifecycleListener implements LifecycleListener {
         }
         try {
             MBeanUtils.createMBean(database);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(sm.getString("globalResources.createError.userDatabase", name), e);
         }
 

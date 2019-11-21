@@ -60,9 +60,8 @@ public class UpgradeServletOutputStream extends ServletOutputStream {
     private boolean registered = false;
 
 
-
     public UpgradeServletOutputStream(UpgradeProcessorBase processor,
-            SocketWrapperBase<?> socketWrapper) {
+                                      SocketWrapperBase<?> socketWrapper) {
         this.processor = processor;
         this.socketWrapper = socketWrapper;
     }
@@ -86,7 +85,7 @@ public class UpgradeServletOutputStream extends ServletOutputStream {
                 // for write and multiple registrations will cause problems.
                 registered = true;
                 return false;
-            } else if (registered){
+            } else if (registered) {
                 // The socket is already registered for write and multiple
                 // registrations will cause problems.
                 return false;
@@ -136,7 +135,7 @@ public class UpgradeServletOutputStream extends ServletOutputStream {
     public void write(int b) throws IOException {
         synchronized (writeLock) {
             preWriteChecks();
-            writeInternal(new byte[] { (byte) b }, 0, 1);
+            writeInternal(new byte[]{(byte) b}, 0, 1);
         }
     }
 

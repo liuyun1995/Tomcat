@@ -158,7 +158,7 @@ final class Hpack {
         } else {
             int m = 0;
             do {
-                if(count++ > MAX_INTEGER_OCTETS) {
+                if (count++ > MAX_INTEGER_OCTETS) {
                     throw new HpackException(sm.getString("hpack.integerEncodedOverTooManyOctets",
                             Integer.valueOf(MAX_INTEGER_OCTETS)));
                 }
@@ -211,6 +211,7 @@ final class Hpack {
         return c;
     }
 
-    private Hpack() {}
+    private Hpack() {
+    }
 
 }

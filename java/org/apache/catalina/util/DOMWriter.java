@@ -41,6 +41,7 @@ public class DOMWriter {
 
     /**
      * Prints the specified node, recursively.
+     *
      * @param node The node to output
      */
     public void print(Node node) {
@@ -103,7 +104,7 @@ public class DOMWriter {
                 }
                 out.print("?>");
                 break;
-            }
+        }
 
         if (type == Node.ELEMENT_NODE) {
             out.print("</");
@@ -129,6 +130,7 @@ public class DOMWriter {
 
     /**
      * Returns a sorted list of attributes.
+     *
      * @param attrs The map to sort
      * @return a sorted attribute array
      */

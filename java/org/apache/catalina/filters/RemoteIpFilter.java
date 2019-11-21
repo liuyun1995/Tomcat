@@ -202,7 +202,7 @@ import org.apache.tomcat.util.res.StringManager;
  *       &lt;param-value&gt;x-forwarded-proto&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
- *
+ * <p>
  * &lt;filter-mapping&gt;
  *    &lt;filter-name&gt;RemoteIpFilter&lt;/filter-name&gt;
  *    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
@@ -281,7 +281,7 @@ import org.apache.tomcat.util.res.StringManager;
  *       &lt;param-value&gt;proxy1|proxy2&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
- *
+ * <p>
  * &lt;filter-mapping&gt;
  *    &lt;filter-name&gt;RemoteIpFilter&lt;/filter-name&gt;
  *    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
@@ -342,7 +342,7 @@ import org.apache.tomcat.util.res.StringManager;
  *       &lt;param-value&gt;proxy1|proxy2&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
- *
+ * <p>
  * &lt;filter-mapping&gt;
  *    &lt;filter-name&gt;RemoteIpFilter&lt;/filter-name&gt;
  *    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
@@ -404,7 +404,7 @@ import org.apache.tomcat.util.res.StringManager;
  *       &lt;param-value&gt;proxy1|proxy2&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
- *
+ * <p>
  * &lt;filter-mapping&gt;
  *    &lt;filter-name&gt;RemoteIpFilter&lt;/filter-name&gt;
  *    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
@@ -477,7 +477,7 @@ public class RemoteIpFilter extends GenericFilter {
             this.serverPort = request.getServerPort();
 
             headers = new HashMap<>();
-            for (Enumeration<String> headerNames = request.getHeaderNames(); headerNames.hasMoreElements();) {
+            for (Enumeration<String> headerNames = request.getHeaderNames(); headerNames.hasMoreElements(); ) {
                 String header = headerNames.nextElement();
                 headers.put(header, Collections.list(request.getHeaders(header)));
             }
@@ -689,7 +689,7 @@ public class RemoteIpFilter extends GenericFilter {
      */
     protected static String[] commaDelimitedListToStringArray(String commaDelimitedStrings) {
         return (commaDelimitedStrings == null || commaDelimitedStrings.length() == 0) ? new String[0] : commaSeparatedValuesPattern
-            .split(commaDelimitedStrings);
+                .split(commaDelimitedStrings);
     }
 
     /**
@@ -703,7 +703,7 @@ public class RemoteIpFilter extends GenericFilter {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        for (Iterator<String> it = stringList.iterator(); it.hasNext();) {
+        for (Iterator<String> it = stringList.iterator(); it.hasNext(); ) {
             Object element = it.next();
             if (element != null) {
                 result.append(element);
@@ -730,13 +730,13 @@ public class RemoteIpFilter extends GenericFilter {
      */
     private Pattern internalProxies = Pattern.compile(
             "10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "192\\.168\\.\\d{1,3}\\.\\d{1,3}|" +
-            "169\\.254\\.\\d{1,3}\\.\\d{1,3}|" +
-            "127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
-            "0:0:0:0:0:0:0:1|::1");
+                    "192\\.168\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "169\\.254\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}|" +
+                    "0:0:0:0:0:0:0:1|::1");
 
     /**
      * @see #setProtocolHeader(String)
@@ -785,7 +785,7 @@ public class RemoteIpFilter extends GenericFilter {
             LinkedList<String> proxiesHeaderValue = new LinkedList<>();
             StringBuilder concatRemoteIpHeaderValue = new StringBuilder();
 
-            for (Enumeration<String> e = request.getHeaders(remoteIpHeader); e.hasMoreElements();) {
+            for (Enumeration<String> e = request.getHeaders(remoteIpHeader); e.hasMoreElements(); ) {
                 if (concatRemoteIpHeaderValue.length() > 0) {
                     concatRemoteIpHeaderValue.append(", ");
                 }
@@ -802,7 +802,7 @@ public class RemoteIpFilter extends GenericFilter {
             for (idx = remoteIpHeaderValue.length - 1; idx >= 0; idx--) {
                 String currentRemoteIp = remoteIpHeaderValue[idx];
                 remoteIp = currentRemoteIp;
-                if (internalProxies !=null && internalProxies.matcher(currentRemoteIp).matches()) {
+                if (internalProxies != null && internalProxies.matcher(currentRemoteIp).matches()) {
                     // do nothing, internalProxies IPs are not appended to the
                 } else if (trustedProxies != null &&
                         trustedProxies.matcher(currentRemoteIp).matches()) {
@@ -958,7 +958,7 @@ public class RemoteIpFilter extends GenericFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
-            doFilter((HttpServletRequest)request, (HttpServletResponse)response, chain);
+            doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
         } else {
             chain.doFilter(request, response);
         }
@@ -1001,9 +1001,9 @@ public class RemoteIpFilter extends GenericFilter {
     }
 
     /**
-     * @see #setRequestAttributesEnabled(boolean)
      * @return <code>true</code> if the attributes will be logged, otherwise
-     *         <code>false</code>
+     * <code>false</code>
+     * @see #setRequestAttributesEnabled(boolean)
      */
     public boolean getRequestAttributesEnabled() {
         return requestAttributesEnabled;
@@ -1082,6 +1082,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>false</code>
      * </p>
+     *
      * @param changeLocalName The new flag value
      */
     public void setChangeLocalName(boolean changeLocalName) {
@@ -1098,6 +1099,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>false</code>
      * </p>
+     *
      * @param changeLocalPort The new flag value
      */
     public void setChangeLocalPort(boolean changeLocalPort) {
@@ -1112,6 +1114,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : 80
      * </p>
+     *
      * @param httpServerPort The server port to use
      */
     public void setHttpServerPort(int httpServerPort) {
@@ -1125,6 +1128,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : 443
      * </p>
+     *
      * @param httpsServerPort The server port to use
      */
     public void setHttpsServerPort(int httpsServerPort) {
@@ -1138,6 +1142,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : 10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|169\.254.\d{1,3}.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3}|0:0:0:0:0:0:0:1
      * </p>
+     *
      * @param internalProxies The regexp
      */
     public void setInternalProxies(String internalProxies) {
@@ -1156,6 +1161,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>null</code>
      * </p>
+     *
      * @param hostHeader The header name
      */
     public void setHostHeader(String hostHeader) {
@@ -1171,6 +1177,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>null</code>
      * </p>
+     *
      * @param portHeader The header name
      */
     public void setPortHeader(String portHeader) {
@@ -1185,6 +1192,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>null</code>
      * </p>
+     *
      * @param protocolHeader The header name
      */
     public void setProtocolHeader(String protocolHeader) {
@@ -1198,6 +1206,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>https</code>
      * </p>
+     *
      * @param protocolHeaderHttpsValue The header value
      */
     public void setProtocolHeaderHttpsValue(String protocolHeaderHttpsValue) {
@@ -1219,6 +1228,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>X-Forwarded-By</code>
      * </p>
+     *
      * @param proxiesHeader The header name
      */
     public void setProxiesHeader(String proxiesHeader) {
@@ -1235,6 +1245,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : <code>X-Forwarded-For</code>
      * </p>
+     *
      * @param remoteIpHeader The header name
      */
     public void setRemoteIpHeader(String remoteIpHeader) {
@@ -1246,7 +1257,7 @@ public class RemoteIpFilter extends GenericFilter {
      * protocol and port used for the request? This are typically used in
      * conjunction with an {@link AccessLog} which will otherwise log the
      * original values. Default is <code>true</code>.
-     *
+     * <p>
      * The attributes set are:
      * <ul>
      * <li>org.apache.catalina.AccessLog.RemoteAddr</li>
@@ -1256,9 +1267,9 @@ public class RemoteIpFilter extends GenericFilter {
      * <li>org.apache.tomcat.remoteAddr</li>
      * </ul>
      *
-     * @param requestAttributesEnabled  <code>true</code> causes the attributes
-     *                                  to be set, <code>false</code> disables
-     *                                  the setting of the attributes.
+     * @param requestAttributesEnabled <code>true</code> causes the attributes
+     *                                 to be set, <code>false</code> disables
+     *                                 the setting of the attributes.
      */
     public void setRequestAttributesEnabled(boolean requestAttributesEnabled) {
         this.requestAttributesEnabled = requestAttributesEnabled;
@@ -1272,6 +1283,7 @@ public class RemoteIpFilter extends GenericFilter {
      * <p>
      * Default value : empty list, no external proxy is trusted.
      * </p>
+     *
      * @param trustedProxies The trusted proxies regexp
      */
     public void setTrustedProxies(String trustedProxies) {

@@ -32,14 +32,14 @@ import javax.naming.NamingException;
  * @author Remy Maucherat
  */
 public class NamingContextBindingsEnumeration
-    implements NamingEnumeration<Binding> {
+        implements NamingEnumeration<Binding> {
 
 
     // ----------------------------------------------------------- Constructors
 
 
     public NamingContextBindingsEnumeration(Iterator<NamingEntry> entries,
-            Context ctx) {
+                                            Context ctx) {
         iterator = entries;
         this.ctx = ctx;
     }
@@ -67,7 +67,7 @@ public class NamingContextBindingsEnumeration
      */
     @Override
     public Binding next()
-        throws NamingException {
+            throws NamingException {
         return nextElementInternal();
     }
 
@@ -77,7 +77,7 @@ public class NamingContextBindingsEnumeration
      */
     @Override
     public boolean hasMore()
-        throws NamingException {
+            throws NamingException {
         return iterator.hasNext();
     }
 
@@ -87,7 +87,7 @@ public class NamingContextBindingsEnumeration
      */
     @Override
     public void close()
-        throws NamingException {
+            throws NamingException {
     }
 
 

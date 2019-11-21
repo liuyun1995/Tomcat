@@ -35,7 +35,6 @@ import org.apache.tomcat.util.log.UserDataHelper;
 import org.apache.tomcat.util.res.StringManager;
 
 /**
- *
  * @author Costin Manolache
  */
 public final class Parameters {
@@ -47,11 +46,11 @@ public final class Parameters {
     private static final UserDataHelper maxParamCountLog = new UserDataHelper(log);
 
     private static final StringManager sm =
-        StringManager.getManager("org.apache.tomcat.util.http");
+            StringManager.getManager("org.apache.tomcat.util.http");
 
-    private final Map<String,ArrayList<String>> paramHashValues =
+    private final Map<String, ArrayList<String>> paramHashValues =
             new LinkedHashMap<>();
-    private boolean didQueryParameters=false;
+    private boolean didQueryParameters = false;
 
     private MessageBytes queryMB;
 
@@ -74,8 +73,8 @@ public final class Parameters {
         // NO-OP
     }
 
-    public void setQuery( MessageBytes queryMB ) {
-        this.queryMB=queryMB;
+    public void setQuery(MessageBytes queryMB) {
+        this.queryMB = queryMB;
     }
 
     public void setLimit(int limit) {
@@ -91,7 +90,7 @@ public final class Parameters {
             charset = DEFAULT_BODY_CHARSET;
         }
         this.charset = charset;
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("Set encoding to " + charset.name());
         }
     }
@@ -102,7 +101,7 @@ public final class Parameters {
         }
         this.queryStringCharset = queryStringCharset;
 
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("Set query string encoding to " + queryStringCharset.name());
         }
     }
@@ -154,11 +153,11 @@ public final class Parameters {
         return Collections.enumeration(paramHashValues.keySet());
     }
 
-    public String getParameter(String name ) {
+    public String getParameter(String name) {
         handleQueryParameters();
         ArrayList<String> values = paramHashValues.get(name);
         if (values != null) {
-            if(values.size() == 0) {
+            if (values.size() == 0) {
                 return "";
             }
             return values.get(0);
@@ -167,7 +166,9 @@ public final class Parameters {
         }
     }
     // -------------------- Processing --------------------
-    /** Process the query string into parameters
+
+    /**
+     * Process the query string into parameters
      */
     public void handleQueryParameters() {
         if (didQueryParameters) {
@@ -180,7 +181,7 @@ public final class Parameters {
             return;
         }
 
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("Decoding query " + decodedQuery + " " + queryStringCharset.name());
         }
 
@@ -194,14 +195,14 @@ public final class Parameters {
     }
 
 
-    public void addParameter( String key, String value )
+    public void addParameter(String key, String value)
             throws IllegalStateException {
 
-        if( key==null ) {
+        if (key == null) {
             return;
         }
 
-        parameterCount ++;
+        parameterCount++;
         if (limit > -1 && parameterCount > limit) {
             // Processing this parameter will push us over the limit. ISE is
             // what Request.parseParts() uses for requests that are too big
@@ -218,28 +219,28 @@ public final class Parameters {
         values.add(value);
     }
 
-    public void setURLDecoder( UDecoder u ) {
-        urlDec=u;
+    public void setURLDecoder(UDecoder u) {
+        urlDec = u;
     }
 
     // -------------------- Parameter parsing --------------------
     // we are called from a single thread - we can do it the hard way
     // if needed
-    private final ByteChunk tmpName=new ByteChunk();
-    private final ByteChunk tmpValue=new ByteChunk();
-    private final ByteChunk origName=new ByteChunk();
-    private final ByteChunk origValue=new ByteChunk();
+    private final ByteChunk tmpName = new ByteChunk();
+    private final ByteChunk tmpValue = new ByteChunk();
+    private final ByteChunk origName = new ByteChunk();
+    private final ByteChunk origValue = new ByteChunk();
     private static final Charset DEFAULT_BODY_CHARSET = StandardCharsets.ISO_8859_1;
     private static final Charset DEFAULT_URI_CHARSET = StandardCharsets.UTF_8;
 
 
-    public void processParameters( byte bytes[], int start, int len ) {
+    public void processParameters(byte bytes[], int start, int len) {
         processParameters(bytes, start, len, charset);
     }
 
     private void processParameters(byte bytes[], int start, int len, Charset charset) {
 
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug(sm.getString("parameters.bytes",
                     new String(bytes, start, len, DEFAULT_BODY_CHARSET)));
         }
@@ -249,7 +250,7 @@ public final class Parameters {
         int pos = start;
         int end = start + len;
 
-        while(pos < end) {
+        while (pos < end) {
             int nameStart = pos;
             int nameEnd = -1;
             int valueStart = -1;
@@ -261,7 +262,7 @@ public final class Parameters {
             boolean parameterComplete = false;
 
             do {
-                switch(bytes[pos]) {
+                switch (bytes[pos]) {
                     case '=':
                         if (parsingName) {
                             // Name finished. Value starts from next character
@@ -279,7 +280,7 @@ public final class Parameters {
                             nameEnd = pos;
                         } else {
                             // Value finished
-                            valueEnd  = pos;
+                            valueEnd = pos;
                         }
                         parameterComplete = true;
                         pos++;
@@ -292,10 +293,10 @@ public final class Parameters {
                         } else {
                             decodeValue = true;
                         }
-                        pos ++;
+                        pos++;
                         break;
                     default:
-                        pos ++;
+                        pos++;
                         break;
                 }
             } while (!parameterComplete && pos < end);
@@ -303,7 +304,7 @@ public final class Parameters {
             if (pos == end) {
                 if (nameEnd == -1) {
                     nameEnd = pos;
-                } else if (valueStart > -1 && valueEnd == -1){
+                } else if (valueStart > -1 && valueEnd == -1) {
                     valueEnd = pos;
                 }
             }
@@ -311,10 +312,10 @@ public final class Parameters {
             if (log.isDebugEnabled() && valueStart == -1) {
                 log.debug(sm.getString("parameters.noequal",
                         Integer.valueOf(nameStart), Integer.valueOf(nameEnd),
-                        new String(bytes, nameStart, nameEnd-nameStart, DEFAULT_BODY_CHARSET)));
+                        new String(bytes, nameStart, nameEnd - nameStart, DEFAULT_BODY_CHARSET)));
             }
 
-            if (nameEnd <= nameStart ) {
+            if (nameEnd <= nameStart) {
                 if (valueStart == -1) {
                     // &&
                     if (log.isDebugEnabled()) {
@@ -476,22 +477,22 @@ public final class Parameters {
     }
 
     private void urlDecode(ByteChunk bc)
-        throws IOException {
-        if( urlDec==null ) {
-            urlDec=new UDecoder();
+            throws IOException {
+        if (urlDec == null) {
+            urlDec = new UDecoder();
         }
         urlDec.convert(bc, true);
     }
 
     public void processParameters(MessageBytes data, Charset charset) {
-        if( data==null || data.isNull() || data.getLength() <= 0 ) {
+        if (data == null || data.isNull() || data.getLength() <= 0) {
             return;
         }
 
-        if( data.getType() != MessageBytes.T_BYTES ) {
+        if (data.getType() != MessageBytes.T_BYTES) {
             data.toBytes();
         }
-        ByteChunk bc=data.getByteChunk();
+        ByteChunk bc = data.getByteChunk();
         processParameters(bc.getBytes(), bc.getOffset(), bc.getLength(), charset);
     }
 

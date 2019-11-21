@@ -60,7 +60,7 @@ public class SSLHostConfigCertificate implements Serializable {
     // JSSE
     private String certificateKeyAlias;
     private String certificateKeystorePassword = "changeit";
-    private String certificateKeystoreFile = System.getProperty("user.home")+"/.keystore";
+    private String certificateKeystoreFile = System.getProperty("user.home") + "/.keystore";
     private String certificateKeystoreProvider = DEFAULT_KEYSTORE_PROVIDER;
     private String certificateKeystoreType = DEFAULT_KEYSTORE_TYPE;
     private transient KeyStore certificateKeystore = null;

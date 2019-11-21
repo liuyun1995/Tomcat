@@ -101,7 +101,7 @@ public class SocketProperties {
      * -1 means unlimited, 0 means no cache
      * Default value is 100MB (1024*1024*100 bytes)
      */
-    protected int bufferPoolSize = 1024*1024*100;
+    protected int bufferPoolSize = 1024 * 1024 * 100;
 
     /**
      * TCP_NO_DELAY option. JVM default used if not set.
@@ -178,12 +178,12 @@ public class SocketProperties {
     private ObjectName oname = null;
 
 
-    public void setProperties(Socket socket) throws SocketException{
+    public void setProperties(Socket socket) throws SocketException {
         if (rxBufSize != null)
             socket.setReceiveBufferSize(rxBufSize.intValue());
         if (txBufSize != null)
             socket.setSendBufferSize(txBufSize.intValue());
-        if (ooBInline !=null)
+        if (ooBInline != null)
             socket.setOOBInline(ooBInline.booleanValue());
         if (soKeepAlive != null)
             socket.setKeepAlive(soKeepAlive.booleanValue());
@@ -209,7 +209,7 @@ public class SocketProperties {
         }
     }
 
-    public void setProperties(ServerSocket socket) throws SocketException{
+    public void setProperties(ServerSocket socket) throws SocketException {
         if (rxBufSize != null)
             socket.setReceiveBufferSize(rxBufSize.intValue());
         if (performanceConnectionTime != null && performanceLatency != null &&
@@ -336,7 +336,7 @@ public class SocketProperties {
 
     public void setPerformanceConnectionTime(int performanceConnectionTime) {
         this.performanceConnectionTime =
-            Integer.valueOf(performanceConnectionTime);
+                Integer.valueOf(performanceConnectionTime);
     }
 
     public void setTxBufSize(int txBufSize) {

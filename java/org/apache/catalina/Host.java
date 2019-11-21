@@ -79,6 +79,7 @@ public interface Host extends Container {
      * pathname or a relative pathname.
      * If null, the base path defaults to
      * ${catalina.base}/conf/&lt;engine name&gt;/&lt;host name&gt; directory
+     *
      * @param xmlBase The new XML root
      */
     public void setXmlBase(String xmlBase);
@@ -198,6 +199,7 @@ public interface Host extends Container {
     /**
      * Returns <code>true</code> if the Host will attempt to create directories for appBase and xmlBase
      * unless they already exist.
+     *
      * @return true if the Host will attempt to create directories
      */
     public boolean getCreateDirs();

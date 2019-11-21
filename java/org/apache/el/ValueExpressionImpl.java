@@ -78,12 +78,11 @@ import org.apache.el.util.ReflectionUtil;
  * <p>See the notes about comparison, serialization and immutability in
  * the {@link javax.el.Expression} javadocs.
  *
+ * @author Jacob Hookom [jacob@hookom.net]
  * @see javax.el.ELResolver
  * @see javax.el.Expression
  * @see javax.el.ExpressionFactory
  * @see javax.el.ValueExpression
- *
- * @author Jacob Hookom [jacob@hookom.net]
  */
 public final class ValueExpressionImpl extends ValueExpression implements
         Externalizable {
@@ -103,7 +102,7 @@ public final class ValueExpressionImpl extends ValueExpression implements
     }
 
     public ValueExpressionImpl(String expr, Node node, FunctionMapper fnMapper,
-            VariableMapper varMapper, Class<?> expectedType) {
+                               VariableMapper varMapper, Class<?> expectedType) {
         this.expr = expr;
         this.node = node;
         this.fnMapper = fnMapper;
@@ -143,9 +142,8 @@ public final class ValueExpressionImpl extends ValueExpression implements
      * evaluation.
      *
      * @return the <code>expectedType</code> passed to the
-     *         <code>ExpressionFactory.createValueExpression</code> method
-     *         that created this <code>ValueExpression</code>.
-     *
+     * <code>ExpressionFactory.createValueExpression</code> method
+     * that created this <code>ValueExpression</code>.
      * @see javax.el.Expression#getExpressionString()
      */
     @Override
@@ -275,7 +273,7 @@ public final class ValueExpressionImpl extends ValueExpression implements
 
     @Override
     public String toString() {
-        return "ValueExpression["+this.expr+"]";
+        return "ValueExpression[" + this.expr + "]";
     }
 
     /**

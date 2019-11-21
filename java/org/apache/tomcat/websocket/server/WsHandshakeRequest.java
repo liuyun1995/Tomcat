@@ -41,16 +41,16 @@ public class WsHandshakeRequest implements HandshakeRequest {
     private static final StringManager sm = StringManager.getManager(WsHandshakeRequest.class);
 
     private final URI requestUri;
-    private final Map<String,List<String>> parameterMap;
+    private final Map<String, List<String>> parameterMap;
     private final String queryString;
     private final Principal userPrincipal;
-    private final Map<String,List<String>> headers;
+    private final Map<String, List<String>> headers;
     private final Object httpSession;
 
     private volatile HttpServletRequest request;
 
 
-    public WsHandshakeRequest(HttpServletRequest request, Map<String,String> pathParams) {
+    public WsHandshakeRequest(HttpServletRequest request, Map<String, String> pathParams) {
 
         this.request = request;
 
@@ -60,21 +60,21 @@ public class WsHandshakeRequest implements HandshakeRequest {
         requestUri = buildRequestUri(request);
 
         // ParameterMap
-        Map<String,String[]> originalParameters = request.getParameterMap();
-        Map<String,List<String>> newParameters =
+        Map<String, String[]> originalParameters = request.getParameterMap();
+        Map<String, List<String>> newParameters =
                 new HashMap<>(originalParameters.size());
-        for (Entry<String,String[]> entry : originalParameters.entrySet()) {
+        for (Entry<String, String[]> entry : originalParameters.entrySet()) {
             newParameters.put(entry.getKey(),
                     Collections.unmodifiableList(
                             Arrays.asList(entry.getValue())));
         }
-        for (Entry<String,String> entry : pathParams.entrySet()) {
+        for (Entry<String, String> entry : pathParams.entrySet()) {
             newParameters.put(entry.getKey(), Collections.singletonList(entry.getValue()));
         }
         parameterMap = Collections.unmodifiableMap(newParameters);
 
         // Headers
-        Map<String,List<String>> newHeaders = new CaseInsensitiveKeyMap<>();
+        Map<String, List<String>> newHeaders = new CaseInsensitiveKeyMap<>();
 
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
@@ -93,7 +93,7 @@ public class WsHandshakeRequest implements HandshakeRequest {
     }
 
     @Override
-    public Map<String,List<String>> getParameterMap() {
+    public Map<String, List<String>> getParameterMap() {
         return parameterMap;
     }
 
@@ -108,7 +108,7 @@ public class WsHandshakeRequest implements HandshakeRequest {
     }
 
     @Override
-    public Map<String,List<String>> getHeaders() {
+    public Map<String, List<String>> getHeaders() {
         return headers;
     }
 
@@ -130,7 +130,7 @@ public class WsHandshakeRequest implements HandshakeRequest {
      * Called when the HandshakeRequest is no longer required. Since an instance
      * of this class retains a reference to the current HttpServletRequest that
      * reference needs to be cleared as the HttpServletRequest may be reused.
-     *
+     * <p>
      * There is no reason for instances of this class to be accessed once the
      * handshake has been completed.
      */
@@ -166,7 +166,7 @@ public class WsHandshakeRequest implements HandshakeRequest {
         uri.append(req.getServerName());
 
         if ((scheme.equals("http") && (port != 80))
-            || (scheme.equals("https") && (port != 443))) {
+                || (scheme.equals("https") && (port != 443))) {
             uri.append(':');
             uri.append(port);
         }

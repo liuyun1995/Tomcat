@@ -211,13 +211,13 @@ public final class EmbeddedServletOptions implements Options {
      */
     private boolean quoteAttributeEL = true;
 
-    public String getProperty(String name ) {
-        return settings.getProperty( name );
+    public String getProperty(String name) {
+        return settings.getProperty(name);
     }
 
-    public void setProperty(String name, String value ) {
-        if (name != null && value != null){
-            settings.setProperty( name, value );
+    public void setProperty(String name, String value) {
+        if (name != null && value != null) {
+            settings.setProperty(name, value);
         }
     }
 
@@ -468,16 +468,17 @@ public final class EmbeddedServletOptions implements Options {
     /**
      * Create an EmbeddedServletOptions object using data available from
      * ServletConfig and ServletContext.
-     * @param config The Servlet config
+     *
+     * @param config  The Servlet config
      * @param context The Servlet context
      */
     public EmbeddedServletOptions(ServletConfig config, ServletContext context) {
 
-        Enumeration<String> enumeration=config.getInitParameterNames();
-        while( enumeration.hasMoreElements() ) {
-            String k=enumeration.nextElement();
-            String v=config.getInitParameter( k );
-            setProperty( k, v);
+        Enumeration<String> enumeration = config.getInitParameterNames();
+        while (enumeration.hasMoreElements()) {
+            String k = enumeration.nextElement();
+            String v = config.getInitParameter(k);
+            setProperty(k, v);
         }
 
         String keepgen = config.getInitParameter("keepgenerated");
@@ -534,9 +535,9 @@ public final class EmbeddedServletOptions implements Options {
         String debugInfo = config.getInitParameter("classdebuginfo");
         if (debugInfo != null) {
             if (debugInfo.equalsIgnoreCase("true")) {
-                this.classDebugInfo  = true;
+                this.classDebugInfo = true;
             } else if (debugInfo.equalsIgnoreCase("false")) {
-                this.classDebugInfo  = false;
+                this.classDebugInfo = false;
             } else {
                 if (log.isWarnEnabled()) {
                     log.warn(Localizer.getMessage("jsp.warning.classDebugInfo"));
@@ -548,7 +549,7 @@ public final class EmbeddedServletOptions implements Options {
         if (checkInterval != null) {
             try {
                 this.checkInterval = Integer.parseInt(checkInterval);
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 if (log.isWarnEnabled()) {
                     log.warn(Localizer.getMessage("jsp.warning.checkInterval"));
                 }
@@ -559,7 +560,7 @@ public final class EmbeddedServletOptions implements Options {
         if (modificationTestInterval != null) {
             try {
                 this.modificationTestInterval = Integer.parseInt(modificationTestInterval);
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 if (log.isWarnEnabled()) {
                     log.warn(Localizer.getMessage("jsp.warning.modificationTestInterval"));
                 }
@@ -685,12 +686,12 @@ public final class EmbeddedServletOptions implements Options {
         this.compiler = config.getInitParameter("compiler");
 
         String compilerTargetVM = config.getInitParameter("compilerTargetVM");
-        if(compilerTargetVM != null) {
+        if (compilerTargetVM != null) {
             this.compilerTargetVM = compilerTargetVM;
         }
 
         String compilerSourceVM = config.getInitParameter("compilerSourceVM");
-        if(compilerSourceVM != null) {
+        if (compilerSourceVM != null) {
             this.compilerSourceVM = compilerSourceVM;
         }
 
@@ -747,9 +748,9 @@ public final class EmbeddedServletOptions implements Options {
         if (maxLoadedJsps != null) {
             try {
                 this.maxLoadedJsps = Integer.parseInt(maxLoadedJsps);
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 if (log.isWarnEnabled()) {
-                    log.warn(Localizer.getMessage("jsp.warning.maxLoadedJsps", ""+this.maxLoadedJsps));
+                    log.warn(Localizer.getMessage("jsp.warning.maxLoadedJsps", "" + this.maxLoadedJsps));
                 }
             }
         }
@@ -758,9 +759,9 @@ public final class EmbeddedServletOptions implements Options {
         if (jspIdleTimeout != null) {
             try {
                 this.jspIdleTimeout = Integer.parseInt(jspIdleTimeout);
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 if (log.isWarnEnabled()) {
-                    log.warn(Localizer.getMessage("jsp.warning.jspIdleTimeout", ""+this.jspIdleTimeout));
+                    log.warn(Localizer.getMessage("jsp.warning.jspIdleTimeout", "" + this.jspIdleTimeout));
                 }
             }
         }

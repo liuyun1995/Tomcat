@@ -54,7 +54,7 @@ public class CallbackHandlerImpl implements CallbackHandler {
     }
 
 
-    private  CallbackHandlerImpl() {
+    private CallbackHandlerImpl() {
         // Hide default constructor
     }
 

@@ -38,19 +38,14 @@ public class StandardHostSF extends StoreFactoryBase {
      * Store the specified Host properties and children
      * (Listener,Alias,Realm,Valve,Cluster, Context)
      *
-     * @param aWriter
-     *            PrintWriter to which we are storing
-     * @param indent
-     *            Number of spaces to indent this element
-     * @param aHost
-     *            Host whose properties are being stored
-     *
-     * @exception Exception
-     *                if an exception occurs while storing
+     * @param aWriter PrintWriter to which we are storing
+     * @param indent  Number of spaces to indent this element
+     * @param aHost   Host whose properties are being stored
+     * @throws Exception if an exception occurs while storing
      */
     @Override
     public void storeChildren(PrintWriter aWriter, int indent, Object aHost,
-            StoreDescription parentDesc) throws Exception {
+                              StoreDescription parentDesc) throws Exception {
         if (aHost instanceof StandardHost) {
             StandardHost host = (StandardHost) aHost;
             // Store nested <Listener> elements
@@ -76,10 +71,10 @@ public class StandardHostSF extends StoreFactoryBase {
 
             // Store nested <Valve> elements
             Valve valves[] = host.getPipeline().getValves();
-            if(valves != null && valves.length > 0 ) {
-                List<Valve> hostValves = new ArrayList<>() ;
-                for(int i = 0 ; i < valves.length ; i++ ) {
-                    if(!( valves[i] instanceof ClusterValve))
+            if (valves != null && valves.length > 0) {
+                List<Valve> hostValves = new ArrayList<>();
+                for (int i = 0; i < valves.length; i++) {
+                    if (!(valves[i] instanceof ClusterValve))
                         hostValves.add(valves[i]);
                 }
                 storeElementArray(aWriter, indent, hostValves.toArray());

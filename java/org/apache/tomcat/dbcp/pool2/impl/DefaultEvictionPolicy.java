@@ -34,14 +34,13 @@ import org.apache.tomcat.dbcp.pool2.PooledObject;
  * This class is immutable and thread-safe.
  *
  * @param <T> the type of objects in the pool
- *
  * @since 2.0
  */
 public class DefaultEvictionPolicy<T> implements EvictionPolicy<T> {
 
     @Override
     public boolean evict(final EvictionConfig config, final PooledObject<T> underTest,
-            final int idleCount) {
+                         final int idleCount) {
 
         if ((config.getIdleSoftEvictTime() < underTest.getIdleTimeMillis() &&
                 config.getMinIdle() < idleCount) ||

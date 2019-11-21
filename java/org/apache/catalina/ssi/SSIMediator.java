@@ -61,11 +61,11 @@ public class SSIMediator {
     protected final long lastModifiedDate;
     protected Strftime strftime;
     protected final SSIConditionalState conditionalState = new SSIConditionalState();
-    protected  int lastMatchCount = 0;
+    protected int lastMatchCount = 0;
 
 
     public SSIMediator(SSIExternalResolver ssiExternalResolver,
-            long lastModifiedDate) {
+                       long lastModifiedDate) {
         this.ssiExternalResolver = ssiExternalResolver;
         this.lastModifiedDate = lastModifiedDate;
         setConfigTimeFmt(DEFAULT_CONFIG_TIME_FMT, true);
@@ -195,6 +195,7 @@ public class SSIMediator {
     /**
      * Applies variable substitution to the specified String and returns the
      * new resolved string.
+     *
      * @param val The value which should be checked
      * @return the value after variable substitution
      */
@@ -224,7 +225,7 @@ public class SSIMediator {
             }
         }
 
-        for (int i = 0; i < sb.length();) {
+        for (int i = 0; i < sb.length(); ) {
             // Find the next $
             for (; i < sb.length(); i++) {
                 if (sb.charAt(i) == '$') {

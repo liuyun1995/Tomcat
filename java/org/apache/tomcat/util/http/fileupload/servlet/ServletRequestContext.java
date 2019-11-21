@@ -94,7 +94,6 @@ public class ServletRequestContext implements UploadContext {
      * Retrieve the input stream for the request.
      *
      * @return The input stream for the request.
-     *
      * @throws IOException if a problem occurs.
      */
     @Override
@@ -110,8 +109,8 @@ public class ServletRequestContext implements UploadContext {
     @Override
     public String toString() {
         return String.format("ContentLength=%s, ContentType=%s",
-                      Long.valueOf(this.contentLength()),
-                      this.getContentType());
+                Long.valueOf(this.contentLength()),
+                this.getContentType());
     }
 
 }

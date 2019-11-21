@@ -108,14 +108,12 @@ public class StringManager {
      * String is not found.
      *
      * @param key to desired resource String
-     *
      * @return resource String matching <i>key</i> from underlying bundle or
-     *         null if not found.
-     *
+     * null if not found.
      * @throws IllegalArgumentException if <i>key</i> is null
      */
     public String getString(String key) {
-        if (key == null){
+        if (key == null) {
             String msg = "key may not have a null value";
             throw new IllegalArgumentException(msg);
         }
@@ -152,7 +150,6 @@ public class StringManager {
      *
      * @param key  The key for the required message
      * @param args The values to insert into the message
-     *
      * @return The requested string formatted with the provided arguments
      */
     public String getString(final String key, final Object... args) {
@@ -181,7 +178,7 @@ public class StringManager {
     // STATIC SUPPORT METHODS
     // --------------------------------------------------------------
 
-    private static final Map<String, Map<Locale,StringManager>> managers =
+    private static final Map<String, Map<Locale, StringManager>> managers =
             new Hashtable<>();
 
 
@@ -191,7 +188,6 @@ public class StringManager {
      * else a new StringManager will be created and returned.
      *
      * @param clazz The class for which to retrieve the StringManager
-     *
      * @return The StringManager for the given class.
      */
     public static final StringManager getManager(Class<?> clazz) {
@@ -204,7 +200,6 @@ public class StringManager {
      * StringManager will be created and returned.
      *
      * @param packageName The package name
-     *
      * @return The StringManager for the given package.
      */
     public static final StringManager getManager(String packageName) {
@@ -218,13 +213,12 @@ public class StringManager {
      *
      * @param packageName The package name
      * @param locale      The Locale
-     *
      * @return The StringManager for a particular package and Locale
      */
     public static final synchronized StringManager getManager(
             String packageName, Locale locale) {
 
-        Map<Locale,StringManager> map = managers.get(packageName);
+        Map<Locale, StringManager> map = managers.get(packageName);
         if (map == null) {
             /*
              * Don't want the HashMap to be expanded beyond LOCALE_CACHE_SIZE.
@@ -234,11 +228,12 @@ public class StringManager {
              * for removal needs to use one less than the maximum desired size
              *
              */
-            map = new LinkedHashMap<Locale,StringManager>(LOCALE_CACHE_SIZE, 1, true) {
+            map = new LinkedHashMap<Locale, StringManager>(LOCALE_CACHE_SIZE, 1, true) {
                 private static final long serialVersionUID = 1L;
+
                 @Override
                 protected boolean removeEldestEntry(
-                        Map.Entry<Locale,StringManager> eldest) {
+                        Map.Entry<Locale, StringManager> eldest) {
                     if (size() > (LOCALE_CACHE_SIZE - 1)) {
                         return true;
                     }
@@ -261,13 +256,12 @@ public class StringManager {
      * Retrieve the StringManager for a list of Locales. The first StringManager
      * found will be returned.
      *
-     * @param packageName The package for which the StringManager is required
+     * @param packageName      The package for which the StringManager is required
      * @param requestedLocales the list of Locales
-     *
      * @return the found StringManager or the default StringManager
      */
     public static StringManager getManager(String packageName,
-            Enumeration<Locale> requestedLocales) {
+                                           Enumeration<Locale> requestedLocales) {
         while (requestedLocales.hasMoreElements()) {
             Locale locale = requestedLocales.nextElement();
             StringManager result = getManager(packageName, locale);

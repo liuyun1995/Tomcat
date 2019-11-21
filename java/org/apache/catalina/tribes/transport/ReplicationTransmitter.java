@@ -57,12 +57,13 @@ public class ReplicationTransmitter implements ChannelSender {
 
     /**
      * Send data to one member
+     *
      * @see org.apache.catalina.tribes.ChannelSender#sendMessage(org.apache.catalina.tribes.ChannelMessage, org.apache.catalina.tribes.Member[])
      */
     @Override
     public void sendMessage(ChannelMessage message, Member[] destination) throws ChannelException {
         MultiPointSender sender = getTransport();
-        sender.sendMessage(destination,message);
+        sender.sendMessage(destination, message);
     }
 
 
@@ -101,7 +102,7 @@ public class ReplicationTransmitter implements ChannelSender {
      */
     @Override
     public void heartbeat() {
-        if (getTransport()!=null) getTransport().keepalive();
+        if (getTransport() != null) getTransport().keepalive();
     }
 
     /**

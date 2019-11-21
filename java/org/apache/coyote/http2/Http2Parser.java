@@ -61,10 +61,8 @@ class Http2Parser {
      *
      * @param block Should this method block until a frame is available if no
      *              frame is available immediately?
-     *
      * @return <code>true</code> if a frame was read otherwise
-     *         <code>false</code>
-     *
+     * <code>false</code>
      * @throws IOException If an IO error occurs while trying to read a frame
      */
     boolean readFrame(boolean block) throws Http2Exception, IOException {
@@ -92,38 +90,38 @@ class Http2Parser {
         }
 
         switch (frameType) {
-        case DATA:
-            readDataFrame(streamId, flags, payloadSize, null);
-            break;
-        case HEADERS:
-            readHeadersFrame(streamId, flags, payloadSize, null);
-            break;
-        case PRIORITY:
-            readPriorityFrame(streamId, null);
-            break;
-        case RST:
-            readRstFrame(streamId, null);
-            break;
-        case SETTINGS:
-            readSettingsFrame(flags, payloadSize, null);
-            break;
-        case PUSH_PROMISE:
-            readPushPromiseFrame(streamId, null);
-            break;
-        case PING:
-            readPingFrame(flags, null);
-            break;
-        case GOAWAY:
-            readGoawayFrame(payloadSize, null);
-            break;
-        case WINDOW_UPDATE:
-            readWindowUpdateFrame(streamId, null);
-            break;
-        case CONTINUATION:
-            readContinuationFrame(streamId, flags, payloadSize, null);
-            break;
-        case UNKNOWN:
-            readUnknownFrame(streamId, frameType, flags, payloadSize, null);
+            case DATA:
+                readDataFrame(streamId, flags, payloadSize, null);
+                break;
+            case HEADERS:
+                readHeadersFrame(streamId, flags, payloadSize, null);
+                break;
+            case PRIORITY:
+                readPriorityFrame(streamId, null);
+                break;
+            case RST:
+                readRstFrame(streamId, null);
+                break;
+            case SETTINGS:
+                readSettingsFrame(flags, payloadSize, null);
+                break;
+            case PUSH_PROMISE:
+                readPushPromiseFrame(streamId, null);
+                break;
+            case PING:
+                readPingFrame(flags, null);
+                break;
+            case GOAWAY:
+                readGoawayFrame(payloadSize, null);
+                break;
+            case WINDOW_UPDATE:
+                readWindowUpdateFrame(streamId, null);
+                break;
+            case CONTINUATION:
+                readContinuationFrame(streamId, flags, payloadSize, null);
+                break;
+            case UNKNOWN:
+                readUnknownFrame(streamId, frameType, flags, payloadSize, null);
         }
 
         return true;
@@ -350,7 +348,6 @@ class Http2Parser {
      *
      * @param streamId The pushed stream
      * @param buffer   The payload, if available
-     *
      * @throws Http2Exception
      */
     protected void readPushPromiseFrame(int streamId, ByteBuffer buffer) throws Http2Exception {
@@ -534,9 +531,8 @@ class Http2Parser {
      * @param len        Number of bytes to swallow
      * @param mustBeZero Are the bytes required to have value zero
      * @param byteBuffer Unused for non-async parser
-     *
-     * @throws IOException If an I/O error occurs reading additional bytes into
-     *                     the input buffer.
+     * @throws IOException         If an I/O error occurs reading additional bytes into
+     *                             the input buffer.
      * @throws ConnectionException If the swallowed bytes are expected to have a
      *                             value of zero but do not
      */
@@ -616,7 +612,7 @@ class Http2Parser {
      * judgement.
      */
     protected void validateFrame(FrameType expected, FrameType frameType, int streamId, int flags,
-            int payloadSize) throws Http2Exception {
+                                 int payloadSize) throws Http2Exception {
 
         if (log.isDebugEnabled()) {
             log.debug(sm.getString("http2Parser.processFrame", connectionId,
@@ -657,8 +653,9 @@ class Http2Parser {
 
     /**
      * Read and validate the connection preface from input using blocking IO.
+     *
      * @param webConnection The connection
-     * @param stream The current stream
+     * @param stream        The current stream
      */
     void readConnectionPreface(WebConnection webConnection, Stream stream) throws Http2Exception {
         byte[] data = new byte[CLIENT_PREFACE_START.length];
@@ -689,15 +686,13 @@ class Http2Parser {
          * no data is available. If any data is available then the buffer will
          * be filled using blocking I/O.
          *
-         * @param block Should the first read into the provided buffer be a
-         *              blocking read or not.
-         * @param data  Buffer to fill
+         * @param block  Should the first read into the provided buffer be a
+         *               blocking read or not.
+         * @param data   Buffer to fill
          * @param offset Position in buffer to start writing
          * @param length Number of bytes to read
-         *
          * @return <code>true</code> if the buffer was filled otherwise
-         *         <code>false</code>
-         *
+         * <code>false</code>
          * @throws IOException If an I/O occurred while obtaining data with
          *                     which to fill the buffer
          */
@@ -729,14 +724,19 @@ class Http2Parser {
 
         // Data frames
         ByteBuffer startRequestBodyFrame(int streamId, int payloadSize, boolean endOfStream) throws Http2Exception;
+
         void endRequestBodyFrame(int streamId) throws Http2Exception;
+
         void receivedEndOfStream(int streamId) throws ConnectionException;
+
         void swallowedPadding(int streamId, int paddingLength) throws ConnectionException, IOException;
 
         // Header frames
         HeaderEmitter headersStart(int streamId, boolean headersEndStream)
                 throws Http2Exception, IOException;
+
         void headersContinue(int payloadSize, boolean endOfHeaders);
+
         void headersEnd(int streamId) throws ConnectionException;
 
         // Priority frames (also headers)
@@ -748,6 +748,7 @@ class Http2Parser {
 
         // Settings frames
         void setting(Setting setting, long value) throws ConnectionException;
+
         void settingsEnd(boolean ack) throws IOException;
 
         // Ping frames

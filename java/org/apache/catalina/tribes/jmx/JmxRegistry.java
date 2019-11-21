@@ -121,7 +121,7 @@ public class JmxRegistry {
     }
 
     public void unregisterJmx(ObjectName oname) {
-        if (oname ==null) return;
+        if (oname == null) return;
         try {
             mbserver.unregisterMBean(oname);
         } catch (InstanceNotFoundException e) {

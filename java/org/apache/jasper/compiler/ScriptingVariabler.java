@@ -105,7 +105,7 @@ class ScriptingVariabler {
             }
 
             if (varInfos.length > 0) {
-                for (int i=0; i<varInfos.length; i++) {
+                for (int i = 0; i < varInfos.length; i++) {
                     if (varInfos[i].getScope() != scope
                             || !varInfos[i].getDeclare()) {
                         continue;
@@ -120,7 +120,7 @@ class ScriptingVariabler {
                     }
                 }
             } else {
-                for (int i=0; i<tagVarInfos.length; i++) {
+                for (int i = 0; i < tagVarInfos.length; i++) {
                     if (tagVarInfos[i].getScope() != scope
                             || !tagVarInfos[i].getDeclare()) {
                         continue;
@@ -128,7 +128,7 @@ class ScriptingVariabler {
                     String varName = tagVarInfos[i].getNameGiven();
                     if (varName == null) {
                         varName = n.getTagData().getAttributeString(
-                                        tagVarInfos[i].getNameFromAttribute());
+                                tagVarInfos[i].getNameFromAttribute());
                         if (varName == null) {
                             err.jspError(n,
                                     "jsp.error.scripting.variable.missing_name",

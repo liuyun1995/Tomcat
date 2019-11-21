@@ -38,14 +38,14 @@ import org.apache.tomcat.util.res.StringManager;
  * This is a low-level, efficient representation of a server request. Most
  * fields are GC-free, expensive operations are delayed until the  user code
  * needs the information.
- *
+ * <p>
  * Processing is delegated to modules, using a hook mechanism.
- *
+ * <p>
  * This class is not intended for user code - it is used internally by tomcat
  * for processing the request in the most efficient way. Users ( servlets ) can
  * access the information using a facade, which provides the high-level view
  * of the request.
- *
+ * <p>
  * Tomcat defines a number of attributes:
  * <ul>
  *   <li>"org.apache.tomcat.request" - allows access to the low-level
@@ -99,13 +99,13 @@ public final class Request {
     private final MessageBytes localAddrMB = MessageBytes.newInstance();
 
     private final MimeHeaders headers = new MimeHeaders();
-    private final Map<String,String> trailerFields = new HashMap<>();
+    private final Map<String, String> trailerFields = new HashMap<>();
 
 
     /**
      * Path parameters
      */
-    private final Map<String,String> pathParameters = new HashMap<>();
+    private final Map<String, String> pathParameters = new HashMap<>();
 
     /**
      * Notes.
@@ -146,17 +146,17 @@ public final class Request {
     private final MessageBytes remoteUser = MessageBytes.newInstance();
     private boolean remoteUserNeedsAuthorization = false;
     private final MessageBytes authType = MessageBytes.newInstance();
-    private final HashMap<String,Object> attributes = new HashMap<>();
+    private final HashMap<String, Object> attributes = new HashMap<>();
 
     private Response response;
     private volatile ActionHook hook;
 
-    private long bytesRead=0;
+    private long bytesRead = 0;
     // Time of the request - useful to avoid repeated calls to System.currentTime
     private long startTime = -1;
     private int available = 0;
 
-    private final RequestInfo reqProcessorMX=new RequestInfo(this);
+    private final RequestInfo reqProcessorMX = new RequestInfo(this);
 
     private boolean sendfile = true;
 
@@ -208,7 +208,7 @@ public final class Request {
     }
 
 
-    public Map<String,String> getTrailerFields() {
+    public Map<String, String> getTrailerFields() {
         return trailerFields;
     }
 
@@ -249,7 +249,7 @@ public final class Request {
      * this request.
      *
      * @return The buffer holding the server name, if any. Use isNull() to check
-     *         if there is no value set.
+     * if there is no value set.
      */
     public MessageBytes serverName() {
         return serverNameMB;
@@ -259,8 +259,8 @@ public final class Request {
         return serverPort;
     }
 
-    public void setServerPort(int serverPort ) {
-        this.serverPort=serverPort;
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
     }
 
     public MessageBytes remoteAddr() {
@@ -279,19 +279,19 @@ public final class Request {
         return localAddrMB;
     }
 
-    public int getRemotePort(){
+    public int getRemotePort() {
         return remotePort;
     }
 
-    public void setRemotePort(int port){
+    public void setRemotePort(int port) {
         this.remotePort = port;
     }
 
-    public int getLocalPort(){
+    public int getLocalPort() {
         return localPort;
     }
 
-    public void setLocalPort(int port){
+    public void setLocalPort(int port) {
         this.localPort = port;
     }
 
@@ -302,8 +302,8 @@ public final class Request {
      * Get the character encoding used for this request.
      *
      * @return The value set via {@link #setCharset(Charset)} or if no
-     *         call has been made to that method try to obtain if from the
-     *         content type.
+     * call has been made to that method try to obtain if from the
+     * content type.
      */
     public String getCharacterEncoding() {
         if (characterEncoding == null) {
@@ -318,11 +318,10 @@ public final class Request {
      * Get the character encoding used for this request.
      *
      * @return The value set via {@link #setCharset(Charset)} or if no
-     *         call has been made to that method try to obtain if from the
-     *         content type.
-     *
+     * call has been made to that method try to obtain if from the
+     * content type.
      * @throws UnsupportedEncodingException If the user agent has specified an
-     *         invalid character encoding
+     *                                      invalid character encoding
      */
     public Charset getCharset() throws UnsupportedEncodingException {
         if (charset == null) {
@@ -330,7 +329,7 @@ public final class Request {
             if (characterEncoding != null) {
                 charset = B2CConverter.getCharset(characterEncoding);
             }
-         }
+        }
 
         return charset;
     }
@@ -357,7 +356,7 @@ public final class Request {
     }
 
     public long getContentLengthLong() {
-        if( contentLength > -1 ) {
+        if (contentLength > -1) {
             return contentLength;
         }
 
@@ -390,7 +389,7 @@ public final class Request {
 
 
     public void setContentType(MessageBytes mb) {
-        contentTypeMB=mb;
+        contentTypeMB = mb;
     }
 
 
@@ -461,15 +460,15 @@ public final class Request {
     // -------------------- Other attributes --------------------
     // We can use notes for most - need to discuss what is of general interest
 
-    public void setAttribute( String name, Object o ) {
-        attributes.put( name, o );
+    public void setAttribute(String name, Object o) {
+        attributes.put(name, o);
     }
 
-    public HashMap<String,Object> getAttributes() {
+    public HashMap<String, Object> getAttributes() {
         return attributes;
     }
 
-    public Object getAttribute(String name ) {
+    public Object getAttribute(String name) {
         return attributes.get(name);
     }
 
@@ -533,7 +532,7 @@ public final class Request {
 
     /**
      * Read data from the input buffer and put it into ApplicationBufferHandler.
-     *
+     * <p>
      * The buffer is owned by the protocol implementation - it will be reused on
      * the next read. The Adapter must either process the data in place or copy
      * it to a separate buffer if it needs to hold it. In most cases this is
@@ -542,15 +541,13 @@ public final class Request {
      * without copy.
      *
      * @param handler The destination to which to copy the data
-     *
      * @return The number of bytes copied
-     *
      * @throws IOException If an I/O error occurs during the copy
      */
     public int doRead(ApplicationBufferHandler handler) throws IOException {
         int n = inputBuffer.doRead(handler);
         if (n > 0) {
-            bytesRead+=n;
+            bytesRead += n;
         }
         return n;
     }
@@ -578,18 +575,18 @@ public final class Request {
      * Used to store private data. Thread data could be used instead - but
      * if you have the req, getting/setting a note is just an array access, may
      * be faster than ThreadLocal for very frequent operations.
+     * <p>
+     * Example use:
+     * Catalina CoyoteAdapter:
+     * ADAPTER_NOTES = 1 - stores the HttpServletRequest object ( req/res)
+     * <p>
+     * To avoid conflicts, note in the range 0 - 8 are reserved for the
+     * servlet container ( catalina connector, etc ), and values in 9 - 16
+     * for connector use.
+     * <p>
+     * 17-31 range is not allocated or used.
      *
-     *  Example use:
-     *   Catalina CoyoteAdapter:
-     *      ADAPTER_NOTES = 1 - stores the HttpServletRequest object ( req/res)
-     *
-     *   To avoid conflicts, note in the range 0 - 8 are reserved for the
-     *   servlet container ( catalina connector, etc ), and values in 9 - 16
-     *   for connector use.
-     *
-     *   17-31 range is not allocated or used.
-     *
-     * @param pos Index to use to store the note
+     * @param pos   Index to use to store the note
      * @param value The value to store at that index
      */
     public final void setNote(int pos, Object value) {
@@ -606,7 +603,7 @@ public final class Request {
 
 
     public void recycle() {
-        bytesRead=0;
+        bytesRead = 0;
 
         contentLength = -1;
         contentTypeMB = null;
@@ -616,7 +613,7 @@ public final class Request {
         headers.recycle();
         trailerFields.clear();
         serverNameMB.recycle();
-        serverPort=-1;
+        serverPort = -1;
         localAddrMB.recycle();
         localNameMB.recycle();
         localPort = -1;
@@ -663,7 +660,7 @@ public final class Request {
     }
 
     public boolean isProcessing() {
-        return reqProcessorMX.getStage()==org.apache.coyote.Constants.STAGE_SERVICE;
+        return reqProcessorMX.getStage() == org.apache.coyote.Constants.STAGE_SERVICE;
     }
 
     /**
@@ -689,7 +686,7 @@ public final class Request {
         }
         encoding = encoding.trim();
         if ((encoding.length() > 2) && (encoding.startsWith("\""))
-            && (encoding.endsWith("\""))) {
+                && (encoding.endsWith("\""))) {
             encoding = encoding.substring(1, encoding.length() - 1);
         }
 

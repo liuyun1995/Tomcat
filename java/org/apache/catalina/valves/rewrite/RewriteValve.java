@@ -63,8 +63,8 @@ import org.apache.tomcat.util.http.RequestUtil;
  * of catastrophic backtracking.
  *
  * @see <a href=
- *      "https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">OWASP
- *      ReDoS</a>
+ * "https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">OWASP
+ * ReDoS</a>
  */
 public class RewriteValve extends ValveBase {
 
@@ -143,7 +143,7 @@ public class RewriteValve extends ValveBase {
         if (getContainer() instanceof Context) {
             context = true;
             is = ((Context) getContainer()).getServletContext()
-                .getResourceAsStream("/WEB-INF/" + resourcePath);
+                    .getResourceAsStream("/WEB-INF/" + resourcePath);
             if (containerLog.isDebugEnabled()) {
                 if (is == null) {
                     containerLog.debug("No configuration resource found: /WEB-INF/" + resourcePath);
@@ -169,7 +169,7 @@ public class RewriteValve extends ValveBase {
         }
 
         try (InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-                BufferedReader reader = new BufferedReader(isr)) {
+             BufferedReader reader = new BufferedReader(isr)) {
             parse(reader);
         } catch (IOException ioe) {
             containerLog.error(sm.getString("rewriteValve.closeError"), ioe);
@@ -184,7 +184,7 @@ public class RewriteValve extends ValveBase {
     }
 
     public void setConfiguration(String configuration)
-        throws Exception {
+            throws Exception {
         if (containerLog == null) {
             containerLog = LogFactory.getLog(getContainer().getLogName() + ".rewrite");
         }
@@ -283,7 +283,7 @@ public class RewriteValve extends ValveBase {
 
     @Override
     public void invoke(Request request, Response response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         if (!getEnabled() || rules == null || rules.length == 0) {
             getNext().invoke(request, response);
@@ -483,7 +483,7 @@ public class RewriteValve extends ValveBase {
                     String queryStringDecoded = null;
                     int queryIndex = urlStringDecoded.indexOf('?');
                     if (queryIndex != -1) {
-                        queryStringDecoded = urlStringDecoded.substring(queryIndex+1);
+                        queryStringDecoded = urlStringDecoded.substring(queryIndex + 1);
                         urlStringDecoded = urlStringDecoded.substring(0, queryIndex);
                     }
                     // Save the current context path before re-writing starts
@@ -564,9 +564,9 @@ public class RewriteValve extends ValveBase {
 
     /**
      * This factory method will parse a line formed like:
-     *
+     * <p>
      * Example:
-     *  RewriteCond %{REMOTE_HOST}  ^host1.*  [OR]
+     * RewriteCond %{REMOTE_HOST}  ^host1.*  [OR]
      *
      * @param line A line from the rewrite configuration
      * @return The condition, rule or map resulting from parsing the line
@@ -648,9 +648,10 @@ public class RewriteValve extends ValveBase {
 
     /**
      * Parser for RewriteCond flags.
-     * @param line The configuration line being parsed
+     *
+     * @param line      The configuration line being parsed
      * @param condition The current condition
-     * @param flag The flag
+     * @param flag      The flag
      */
     protected static void parseCondFlag(String line, RewriteCond condition, String flag) {
         if (flag.equals("NC") || flag.equals("nocase")) {
@@ -665,6 +666,7 @@ public class RewriteValve extends ValveBase {
 
     /**
      * Parser for RewriteRule flags.
+     *
      * @param line The configuration line being parsed
      * @param rule The current rule
      * @param flag The flag
@@ -733,8 +735,8 @@ public class RewriteValve extends ValveBase {
             rule.setNoescape(true);
         } else if (flag.startsWith("next") || flag.startsWith("N")) {
             rule.setNext(true);
-        // Note: Proxy is not supported as Tomcat does not have proxy
-        //       capabilities
+            // Note: Proxy is not supported as Tomcat does not have proxy
+            //       capabilities
         } else if (flag.startsWith("qsappend") || flag.startsWith("QSA")) {
             rule.setQsappend(true);
         } else if (flag.startsWith("qsdiscard") || flag.startsWith("QSD")) {
@@ -748,7 +750,7 @@ public class RewriteValve extends ValveBase {
                 } else if (flag.startsWith("R=")) {
                     flag = flag.substring("R=".length());
                 }
-                switch(flag) {
+                switch (flag) {
                     case "temp":
                         redirectCode = HttpServletResponse.SC_FOUND;
                         break;

@@ -151,7 +151,7 @@ public class Http11InputBuffer implements InputBuffer, ApplicationBufferHandler 
     // ----------------------------------------------------------- Constructors
 
     public Http11InputBuffer(Request request, int headerBufferSize,
-            boolean rejectIllegalHeaderName, HttpParser httpParser) {
+                             boolean rejectIllegalHeaderName, HttpParser httpParser) {
 
         this.request = request;
         headers = request.getMimeHeaders();
@@ -322,12 +322,11 @@ public class Http11InputBuffer implements InputBuffer, ApplicationBufferHandler 
      * HTTP request header parsing. Do NOT attempt to read the request body
      * using it.
      *
-     * @throws IOException If an exception occurs during the underlying socket
-     * read operations, or if the given buffer is not big enough to accommodate
-     * the whole line.
-     *
      * @return true if data is properly fed; false if no data is available
      * immediately and thread should be freed
+     * @throws IOException If an exception occurs during the underlying socket
+     *                     read operations, or if the given buffer is not big enough to accommodate
+     *                     the whole line.
      */
     boolean parseRequestLine(boolean keptAlive, int connectionTimeout, int keepAliveTimeout)
             throws IOException {
@@ -701,14 +700,13 @@ public class Http11InputBuffer implements InputBuffer, ApplicationBufferHandler 
     }
 
 
-
     // --------------------------------------------------------- Private Methods
 
     /**
      * Attempts to read some data into the input buffer.
      *
      * @return <code>true</code> if more data was added to the input buffer
-     *         otherwise <code>false</code>
+     * otherwise <code>false</code>
      */
     private boolean fill(boolean block) throws IOException {
 
@@ -841,8 +839,8 @@ public class Http11InputBuffer implements InputBuffer, ApplicationBufferHandler 
         //
 
         while (headerParsePos == HeaderParsePosition.HEADER_VALUE_START ||
-               headerParsePos == HeaderParsePosition.HEADER_VALUE ||
-               headerParsePos == HeaderParsePosition.HEADER_MULTI_LINE) {
+                headerParsePos == HeaderParsePosition.HEADER_VALUE ||
+                headerParsePos == HeaderParsePosition.HEADER_MULTI_LINE) {
 
             if (headerParsePos == HeaderParsePosition.HEADER_VALUE_START) {
                 // Skipping spaces
@@ -1044,6 +1042,7 @@ public class Http11InputBuffer implements InputBuffer, ApplicationBufferHandler 
          * header name and is created after the name has been parsed.
          */
         MessageBytes headerValue = null;
+
         public void recycle() {
             start = 0;
             realPos = 0;

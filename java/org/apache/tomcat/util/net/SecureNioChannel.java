@@ -114,13 +114,13 @@ public class SecureNioChannel extends NioChannel {
     /**
      * Flush the channel.
      *
-     * @param block     Should a blocking write be used?
-     * @param s         The selector to use for blocking, if null then a busy
-     *                  write will be initiated
-     * @param timeout   The timeout for this write operation in milliseconds,
-     *                  -1 means no timeout
+     * @param block   Should a blocking write be used?
+     * @param s       The selector to use for blocking, if null then a busy
+     *                write will be initiated
+     * @param timeout The timeout for this write operation in milliseconds,
+     *                -1 means no timeout
      * @return <code>true</code> if the network buffer has been flushed out and
-     *         is empty else <code>false</code>
+     * is empty else <code>false</code>
      * @throws IOException If an I/O error occurs during the operation
      */
     @Override
@@ -135,6 +135,7 @@ public class SecureNioChannel extends NioChannel {
 
     /**
      * Flushes the buffer to the network, non blocking
+     *
      * @param buf ByteBuffer
      * @return boolean true if the buffer has been emptied out, false otherwise
      * @throws IOException An IO error occurred writing data
@@ -155,13 +156,11 @@ public class SecureNioChannel extends NioChannel {
      * value from this method is positive, the selection key should be
      * registered interestOps given by the return value.
      *
-     * @param read boolean - true if the underlying channel is readable
+     * @param read  boolean - true if the underlying channel is readable
      * @param write boolean - true if the underlying channel is writable
-     *
      * @return 0 if hand shake is complete, -1 if an error (other than an
-     *         IOException) occurred, otherwise it returns a SelectionKey
-     *         interestOps value
-     *
+     * IOException) occurred, otherwise it returns a SelectionKey
+     * interestOps value
      * @throws IOException If an I/O error occurs during the handshake or if the
      *                     handshake fails during wrapping or unwrapping
      */
@@ -232,7 +231,7 @@ public class SecureNioChannel extends NioChannel {
                     }
                     //fall down to NEED_UNWRAP on the same call, will result in a
                     //BUFFER_UNDERFLOW if it needs data
-                //$FALL-THROUGH$
+                    //$FALL-THROUGH$
                 case NEED_UNWRAP:
                     //perform the unwrap function
                     handshake = handshakeUnwrap(read);
@@ -240,7 +239,7 @@ public class SecureNioChannel extends NioChannel {
                         if (handshakeStatus == HandshakeStatus.NEED_TASK) {
                             handshakeStatus = tasks();
                         }
-                    } else if ( handshake.getStatus() == Status.BUFFER_UNDERFLOW ){
+                    } else if (handshake.getStatus() == Status.BUFFER_UNDERFLOW) {
                         //read more data, reregister for OP_READ
                         return SelectionKey.OP_READ;
                     } else {
@@ -296,30 +295,30 @@ public class SecureNioChannel extends NioChannel {
         List<Cipher> clientRequestedCiphers = null;
         List<String> clientRequestedApplicationProtocols = null;
         switch (extractor.getResult()) {
-        case COMPLETE:
-            hostName = extractor.getSNIValue();
-            clientRequestedApplicationProtocols =
-                    extractor.getClientRequestedApplicationProtocols();
-            //$FALL-THROUGH$ to set the client requested ciphers
-        case NOT_PRESENT:
-            clientRequestedCiphers = extractor.getClientRequestedCiphers();
-            break;
-        case NEED_READ:
-            return SelectionKey.OP_READ;
-        case UNDERFLOW:
-            // Unable to buffer enough data to read SNI extension data
-            if (log.isDebugEnabled()) {
-                log.debug(sm.getString("channel.nio.ssl.sniDefault"));
-            }
-            hostName = endpoint.getDefaultSSLHostConfigName();
-            clientRequestedCiphers = Collections.emptyList();
-            break;
-        case NON_SECURE:
-            netOutBuffer.clear();
-            netOutBuffer.put(TLSClientHelloExtractor.USE_TLS_RESPONSE);
-            netOutBuffer.flip();
-            flushOutbound();
-            throw new IOException(sm.getString("channel.nio.ssl.foundHttp"));
+            case COMPLETE:
+                hostName = extractor.getSNIValue();
+                clientRequestedApplicationProtocols =
+                        extractor.getClientRequestedApplicationProtocols();
+                //$FALL-THROUGH$ to set the client requested ciphers
+            case NOT_PRESENT:
+                clientRequestedCiphers = extractor.getClientRequestedCiphers();
+                break;
+            case NEED_READ:
+                return SelectionKey.OP_READ;
+            case UNDERFLOW:
+                // Unable to buffer enough data to read SNI extension data
+                if (log.isDebugEnabled()) {
+                    log.debug(sm.getString("channel.nio.ssl.sniDefault"));
+                }
+                hostName = endpoint.getDefaultSSLHostConfigName();
+                clientRequestedCiphers = Collections.emptyList();
+                break;
+            case NON_SECURE:
+                netOutBuffer.clear();
+                netOutBuffer.put(TLSClientHelloExtractor.USE_TLS_RESPONSE);
+                netOutBuffer.flip();
+                flushOutbound();
+                throw new IOException(sm.getString("channel.nio.ssl.foundHttp"));
         }
 
         if (log.isDebugEnabled()) {
@@ -356,8 +355,9 @@ public class SecureNioChannel extends NioChannel {
      * Force a blocking handshake to take place for this key.
      * This requires that both network and application buffers have been emptied out prior to this call taking place, or a
      * IOException will be thrown.
+     *
      * @param timeout - timeout in milliseconds for each socket operation
-     * @throws IOException - if an IO exception occurs or if application or network buffers contain data
+     * @throws IOException            - if an IO exception occurs or if application or network buffers contain data
      * @throws SocketTimeoutException - if a socket operation timed out
      */
     @SuppressWarnings("null") // key cannot be null
@@ -387,12 +387,12 @@ public class SecureNioChannel extends NioChannel {
             while (handshaking) {
                 int hsStatus = this.handshake(isReadable, isWriteable);
                 switch (hsStatus) {
-                    case -1 :
+                    case -1:
                         throw new EOFException(sm.getString("channel.nio.ssl.eofDuringHandshake"));
-                    case  0 :
+                    case 0:
                         handshaking = false;
                         break;
-                    default :
+                    default:
                         long now = System.currentTimeMillis();
                         if (selector == null) {
                             selector = Selector.open();
@@ -401,7 +401,7 @@ public class SecureNioChannel extends NioChannel {
                             key.interestOps(hsStatus); // null warning suppressed
                         }
                         int keyCount = selector.select(timeout);
-                        if (keyCount == 0 && ((System.currentTimeMillis()-now) >= timeout)) {
+                        if (keyCount == 0 && ((System.currentTimeMillis() - now) >= timeout)) {
                             throw new SocketTimeoutException(sm.getString("channel.nio.ssl.timeoutDuringHandshake"));
                         }
                         isReadable = key.isReadable();
@@ -432,9 +432,9 @@ public class SecureNioChannel extends NioChannel {
     }
 
 
-
     /**
      * Executes all the tasks needed on the same thread.
+     *
      * @return the status
      */
     protected SSLEngineResult.HandshakeStatus tasks() {
@@ -447,6 +447,7 @@ public class SecureNioChannel extends NioChannel {
 
     /**
      * Performs the WRAP function
+     *
      * @param doWrite boolean
      * @return the result
      * @throws IOException An IO error occurred
@@ -471,6 +472,7 @@ public class SecureNioChannel extends NioChannel {
 
     /**
      * Perform handshake unwrap
+     *
      * @param doread boolean
      * @return the result
      * @throws IOException An IO error occurred
@@ -481,7 +483,7 @@ public class SecureNioChannel extends NioChannel {
             //clear the buffer if we have emptied it out on data
             netInBuffer.clear();
         }
-        if (doread)  {
+        if (doread) {
             //if we have data to read, read it
             int read = sc.read(netInBuffer);
             if (read == -1) {
@@ -502,13 +504,13 @@ public class SecureNioChannel extends NioChannel {
             //read in the status
             handshakeStatus = result.getHandshakeStatus();
             if (result.getStatus() == SSLEngineResult.Status.OK &&
-                 result.getHandshakeStatus() == HandshakeStatus.NEED_TASK) {
+                    result.getHandshakeStatus() == HandshakeStatus.NEED_TASK) {
                 //execute tasks if we need to
                 handshakeStatus = tasks();
             }
             //perform another unwrap?
             cont = result.getStatus() == SSLEngineResult.Status.OK &&
-                   handshakeStatus == HandshakeStatus.NEED_UNWRAP;
+                    handshakeStatus == HandshakeStatus.NEED_UNWRAP;
         } while (cont);
         return result;
     }
@@ -521,6 +523,7 @@ public class SecureNioChannel extends NioChannel {
      *   while (isOpen() &amp;&amp; !myTimeoutFunction()) Thread.sleep(25);
      *   if ( isOpen() ) close(true); //forces a close if you timed out
      * </code></pre>
+     *
      * @throws IOException if an I/O error occurs
      * @throws IOException if there is data on the outgoing network buffer and
      *                     we are unable to flush it
@@ -583,8 +586,8 @@ public class SecureNioChannel extends NioChannel {
      *
      * @param dst The buffer into which bytes are to be transferred
      * @return The number of bytes read, possibly zero, or <code>-1</code> if
-     *         the channel has reached end-of-stream
-     * @throws IOException If some other I/O error occurs
+     * the channel has reached end-of-stream
+     * @throws IOException              If some other I/O error occurs
      * @throws IllegalArgumentException if the destination buffer is different
      *                                  than getBufHandler().getReadBuffer()
      */

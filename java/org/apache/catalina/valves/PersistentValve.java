@@ -40,7 +40,7 @@ import org.apache.catalina.connector.Response;
  * <b>USAGE CONSTRAINT</b>: To work correctly it requires a  PersistentManager.
  * <p>
  * <b>USAGE CONSTRAINT</b>: To work correctly it assumes only one request exists
- *                              per session at any one time.
+ * per session at any one time.
  *
  * @author Jean-Frederic Clere
  */
@@ -79,15 +79,14 @@ public class PersistentValve extends ValveBase {
      * based on the specified request URI.  If no matching Context can
      * be found, return an appropriate HTTP error.
      *
-     * @param request Request to be processed
+     * @param request  Request to be processed
      * @param response Response to be produced
-     *
-     * @exception IOException if an input/output error occurred
-     * @exception ServletException if a servlet error occurred
+     * @throws IOException      if an input/output error occurred
+     * @throws ServletException if a servlet error occurred
      */
     @Override
     public void invoke(Request request, Response response)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         // Select the Context to be used for this Request
         Context context = request.getContext();
@@ -111,7 +110,7 @@ public class PersistentValve extends ValveBase {
                 }
                 if (session != null) {
                     if (!session.isValid() ||
-                        isSessionStale(session, System.currentTimeMillis())) {
+                            isSessionStale(session, System.currentTimeMillis())) {
                         if (container.getLogger().isDebugEnabled()) {
                             container.getLogger().debug("session swapped in is invalid or expired");
                         }
@@ -146,14 +145,14 @@ public class PersistentValve extends ValveBase {
                 hsess = null;
             }
             String newsessionId = null;
-            if (hsess!=null) {
+            if (hsess != null) {
                 newsessionId = hsess.getIdInternal();
             }
 
             if (container.getLogger().isDebugEnabled()) {
                 container.getLogger().debug("newsessionId: " + newsessionId);
             }
-            if (newsessionId!=null) {
+            if (newsessionId != null) {
                 try {
                     bind(context);
 
@@ -174,7 +173,7 @@ public class PersistentValve extends ValveBase {
                                         (session == null ? "N/A" : Boolean.toString(
                                                 session.isValid())) +
                                         " stale: " + isSessionStale(session,
-                                                System.currentTimeMillis()));
+                                        System.currentTimeMillis()));
                             }
 
                         }
@@ -195,8 +194,9 @@ public class PersistentValve extends ValveBase {
     /**
      * Indicate whether the session has been idle for longer
      * than its expiration date as of the supplied time.
-     *
+     * <p>
      * FIXME: Probably belongs in the Session class.
+     *
      * @param session The session to check
      * @param timeNow The current time to check for
      * @return <code>true</code> if the session is past its expiration
@@ -207,7 +207,7 @@ public class PersistentValve extends ValveBase {
             int maxInactiveInterval = session.getMaxInactiveInterval();
             if (maxInactiveInterval >= 0) {
                 int timeIdle = // Truncate, do not round up
-                    (int) ((timeNow - session.getThisAccessedTime()) / 1000L);
+                        (int) ((timeNow - session.getThisAccessedTime()) / 1000L);
                 if (timeIdle >= maxInactiveInterval) {
                     return true;
                 }

@@ -67,7 +67,7 @@ public class StaticFieldELResolver extends ELResolver {
 
     @Override
     public void setValue(ELContext context, Object base, Object property,
-            Object value) {
+                         Object value) {
         Objects.requireNonNull(context);
 
         if (base instanceof ELClass && property instanceof String) {
@@ -83,7 +83,7 @@ public class StaticFieldELResolver extends ELResolver {
 
     @Override
     public Object invoke(ELContext context, Object base, Object method,
-            Class<?>[] paramTypes, Object[] params) {
+                         Class<?>[] paramTypes, Object[] params) {
         Objects.requireNonNull(context);
 
         if (base instanceof ELClass && method instanceof String) {
@@ -195,7 +195,7 @@ public class StaticFieldELResolver extends ELResolver {
      */
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context,
-            Object base) {
+                                                             Object base) {
         return null;
     }
 

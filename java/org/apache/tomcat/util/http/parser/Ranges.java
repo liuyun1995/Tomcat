@@ -70,9 +70,7 @@ public class Ranges {
      * Parses a Range header from an HTTP header.
      *
      * @param input a reader over the header text
-     *
      * @return a set of ranges parsed from the input, or null if not valid
-     *
      * @throws IOException if there was a problem reading the input
      */
     public static Ranges parse(StringReader input) throws IOException {

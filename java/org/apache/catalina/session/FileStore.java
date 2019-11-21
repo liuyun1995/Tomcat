@@ -122,7 +122,7 @@ public final class FileStore extends StoreBase {
     /**
      * Return the number of Sessions present in this Store.
      *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public int getSize() throws IOException {
@@ -151,7 +151,7 @@ public final class FileStore extends StoreBase {
     /**
      * Remove all of the Sessions in this Store.
      *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void clear() throws IOException {
@@ -167,7 +167,7 @@ public final class FileStore extends StoreBase {
      * currently saved in this Store.  If there are no such Sessions, a
      * zero-length array is returned.
      *
-     * @exception IOException if an input/output error occurred
+     * @throws IOException if an input/output error occurred
      */
     @Override
     public String[] keys() throws IOException {
@@ -180,7 +180,7 @@ public final class FileStore extends StoreBase {
         String files[] = file.list();
 
         // Bugzilla 32130
-        if((files == null) || (files.length < 1)) {
+        if ((files == null) || (files.length < 1)) {
             return new String[0];
         }
 
@@ -202,9 +202,8 @@ public final class FileStore extends StoreBase {
      * such stored Session, return <code>null</code>.
      *
      * @param id Session identifier of the session to load
-     *
-     * @exception ClassNotFoundException if a deserialization error occurs
-     * @exception IOException if an input/output error occurs
+     * @throws ClassNotFoundException if a deserialization error occurs
+     * @throws IOException            if an input/output error occurs
      */
     @Override
     public Session load(String id) throws ClassNotFoundException, IOException {
@@ -222,13 +221,13 @@ public final class FileStore extends StoreBase {
         Log contextLog = context.getLogger();
 
         if (contextLog.isDebugEnabled()) {
-            contextLog.debug(sm.getString(getStoreName()+".loading", id, file.getAbsolutePath()));
+            contextLog.debug(sm.getString(getStoreName() + ".loading", id, file.getAbsolutePath()));
         }
 
         ClassLoader oldThreadContextCL = context.bind(Globals.IS_SECURITY_ENABLED, null);
 
         try (FileInputStream fis = new FileInputStream(file.getAbsolutePath());
-                ObjectInputStream ois = getObjectInputStream(fis)) {
+             ObjectInputStream ois = getObjectInputStream(fis)) {
 
             StandardSession session = (StandardSession) manager.createEmptySession();
             session.readObjectData(ois);
@@ -251,8 +250,7 @@ public final class FileStore extends StoreBase {
      * takes no action.
      *
      * @param id Session identifier of the Session to be removed
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void remove(String id) throws IOException {
@@ -262,7 +260,7 @@ public final class FileStore extends StoreBase {
         }
         if (manager.getContext().getLogger().isDebugEnabled()) {
             manager.getContext().getLogger().debug(sm.getString(getStoreName() + ".removing",
-                             id, file.getAbsolutePath()));
+                    id, file.getAbsolutePath()));
         }
 
         if (file.exists() && !file.delete()) {
@@ -276,8 +274,7 @@ public final class FileStore extends StoreBase {
      * information for the associated session identifier is replaced.
      *
      * @param session Session to be saved
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void save(Session session) throws IOException {
@@ -288,12 +285,12 @@ public final class FileStore extends StoreBase {
         }
         if (manager.getContext().getLogger().isDebugEnabled()) {
             manager.getContext().getLogger().debug(sm.getString(getStoreName() + ".saving",
-                             session.getIdInternal(), file.getAbsolutePath()));
+                    session.getIdInternal(), file.getAbsolutePath()));
         }
 
         try (FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
-                ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(fos))) {
-            ((StandardSession)session).writeObjectData(oos);
+             ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(fos))) {
+            ((StandardSession) session).writeObjectData(oos);
         }
     }
 
@@ -338,7 +335,7 @@ public final class FileStore extends StoreBase {
      * session persistence file, if any.
      *
      * @param id The ID of the Session to be retrieved. This is
-     *    used in the file naming.
+     *           used in the file naming.
      */
     private File file(String id) throws IOException {
         if (this.directory == null) {

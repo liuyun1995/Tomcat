@@ -158,7 +158,7 @@ public abstract class AbstractFileResourceSet extends AbstractResourceSet {
         // level APIs are used to create the files that bypass various checks.
         // File names that end in ' ' are known to cause problems when using
         // File#getCanonicalPath().
-        if (name.charAt(len -1) == ' ') {
+        if (name.charAt(len - 1) == ' ') {
             return true;
         }
         return false;

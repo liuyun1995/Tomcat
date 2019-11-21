@@ -41,6 +41,7 @@ public interface ServerEndpointConfig extends EndpointConfig {
     /**
      * Returns the path at which this WebSocket server endpoint has been
      * registered. It may be a path or a level 0 URI template.
+     *
      * @return The registered path
      */
     String getPath();
@@ -73,7 +74,7 @@ public interface ServerEndpointConfig extends EndpointConfig {
 
 
         private Builder(Class<?> endpointClass,
-                String path) {
+                        String path) {
             this.endpointClass = endpointClass;
             this.path = path;
         }
@@ -202,12 +203,12 @@ public interface ServerEndpointConfig extends EndpointConfig {
 
 
         public String getNegotiatedSubprotocol(List<String> supported,
-                List<String> requested) {
+                                               List<String> requested) {
             return fetchContainerDefaultConfigurator().getNegotiatedSubprotocol(supported, requested);
         }
 
         public List<Extension> getNegotiatedExtensions(List<Extension> installed,
-                List<Extension> requested) {
+                                                       List<Extension> requested) {
             return fetchContainerDefaultConfigurator().getNegotiatedExtensions(installed, requested);
         }
 
@@ -216,7 +217,7 @@ public interface ServerEndpointConfig extends EndpointConfig {
         }
 
         public void modifyHandshake(ServerEndpointConfig sec,
-                HandshakeRequest request, HandshakeResponse response) {
+                                    HandshakeRequest request, HandshakeResponse response) {
             fetchContainerDefaultConfigurator().modifyHandshake(sec, request, response);
         }
 

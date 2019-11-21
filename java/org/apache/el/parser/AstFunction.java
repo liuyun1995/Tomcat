@@ -164,14 +164,14 @@ public final class AstFunction extends SimpleNode {
         int inputParameterCount = parameters.jjtGetNumChildren();
         int methodParameterCount = paramTypes.length;
         if (inputParameterCount == 0 && methodParameterCount == 1 && m.isVarArgs()) {
-            params = new Object[] { null };
+            params = new Object[]{null};
         } else if (inputParameterCount > 0) {
             params = new Object[methodParameterCount];
             try {
                 for (int i = 0; i < methodParameterCount; i++) {
                     if (m.isVarArgs() && i == methodParameterCount - 1) {
                         if (inputParameterCount < methodParameterCount) {
-                            params[i] = new Object[] { null };
+                            params[i] = new Object[]{null};
                         } else if (inputParameterCount == methodParameterCount &&
                                 paramTypes[i].isArray()) {
                             params[i] = parameters.jjtGetChild(i).getValue(ctx);
@@ -180,8 +180,8 @@ public final class AstFunction extends SimpleNode {
                                     new Object[inputParameterCount - methodParameterCount + 1];
                             Class<?> target = paramTypes[i].getComponentType();
                             for (int j = i; j < inputParameterCount; j++) {
-                                varargs[j-i] = parameters.jjtGetChild(j).getValue(ctx);
-                                varargs[j-i] = coerceToType(ctx, varargs[j-i], target);
+                                varargs[j - i] = parameters.jjtGetChild(j).getValue(ctx);
+                                varargs[j - i] = coerceToType(ctx, varargs[j - i], target);
                             }
                             params[i] = varargs;
                         }
@@ -224,8 +224,7 @@ public final class AstFunction extends SimpleNode {
 
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ELParserTreeConstants.jjtNodeName[id] + "[" + this.getOutputName() + "]";
     }
 }

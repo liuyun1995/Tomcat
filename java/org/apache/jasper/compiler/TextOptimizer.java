@@ -21,6 +21,7 @@ import org.apache.jasper.Options;
 import org.apache.jasper.TrimSpacesOption;
 
 /**
+ *
  */
 public class TextOptimizer {
 

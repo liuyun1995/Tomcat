@@ -211,7 +211,7 @@ public class DummyProxySession implements Session {
 
     @Override
     public void tellChangedSessionId(String newId, String oldId,
-            boolean notifySessionListeners, boolean notifyContainerListeners) {
+                                     boolean notifySessionListeners, boolean notifyContainerListeners) {
         // NOOP
     }
 

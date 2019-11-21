@@ -328,17 +328,17 @@ public class Http11OutputBuffer implements HttpOutputBuffer {
         // Write status code
         int status = response.getStatus();
         switch (status) {
-        case 200:
-            write(Constants._200_BYTES);
-            break;
-        case 400:
-            write(Constants._400_BYTES);
-            break;
-        case 404:
-            write(Constants._404_BYTES);
-            break;
-        default:
-            write(status);
+            case 200:
+                write(Constants._200_BYTES);
+                break;
+            case 400:
+                write(Constants._400_BYTES);
+                break;
+            case 404:
+                write(Constants._404_BYTES);
+                break;
+            default:
+                write(status);
         }
 
         headerBuffer.put(Constants.SP);
@@ -354,7 +354,7 @@ public class Http11OutputBuffer implements HttpOutputBuffer {
     /**
      * Send a header.
      *
-     * @param name Header name
+     * @param name  Header name
      * @param value Header value
      */
     public void sendHeader(MessageBytes name, MessageBytes value) {
@@ -446,7 +446,7 @@ public class Http11OutputBuffer implements HttpOutputBuffer {
         int len = s.length();
         checkLengthBeforeWrite(len);
         for (int i = 0; i < len; i++) {
-            char c = s.charAt (i);
+            char c = s.charAt(i);
             headerBuffer.put((byte) c);
         }
     }
@@ -471,18 +471,19 @@ public class Http11OutputBuffer implements HttpOutputBuffer {
     /**
      * Writes any remaining buffered data.
      *
-     * @param block     Should this method block until the buffer is empty
-     * @return  <code>true</code> if data remains in the buffer (which can only
-     *          happen in non-blocking mode) else <code>false</code>.
+     * @param block Should this method block until the buffer is empty
+     * @return <code>true</code> if data remains in the buffer (which can only
+     * happen in non-blocking mode) else <code>false</code>.
      * @throws IOException Error writing data
      */
-    protected boolean flushBuffer(boolean block) throws IOException  {
+    protected boolean flushBuffer(boolean block) throws IOException {
         return socketWrapper.flush(block);
     }
 
 
     /**
      * Is standard Servlet blocking IO being used for output?
+     *
      * @return <code>true</code> if this is blocking IO
      */
     protected final boolean isBlocking() {

@@ -73,12 +73,12 @@ public class CompressionConfig {
      */
     public String getCompression() {
         switch (compressionLevel) {
-        case 0:
-            return "off";
-        case 1:
-            return "on";
-        case 2:
-            return "force";
+            case 0:
+                return "off";
+            case 1:
+                return "on";
+            case 2:
+                return "force";
         }
         return "off";
     }
@@ -122,7 +122,7 @@ public class CompressionConfig {
             this.noCompressionUserAgents = null;
         } else {
             this.noCompressionUserAgents =
-                Pattern.compile(noCompressionUserAgents);
+                    Pattern.compile(noCompressionUserAgents);
         }
     }
 
@@ -179,9 +179,8 @@ public class CompressionConfig {
      *
      * @param request  The request that triggered the response
      * @param response The response to consider compressing
-     *
      * @return {@code true} if compression was enabled for the given response,
-     *         otherwise {@code false}
+     * otherwise {@code false}
      */
     public boolean useCompression(Request request, Response response) {
         // Check if compression is enabled
@@ -251,7 +250,7 @@ public class CompressionConfig {
             Pattern noCompressionUserAgents = this.noCompressionUserAgents;
             if (noCompressionUserAgents != null) {
                 MessageBytes userAgentValueMB = request.getMimeHeaders().getValue("user-agent");
-                if(userAgentValueMB != null) {
+                if (userAgentValueMB != null) {
                     String userAgentValue = userAgentValueMB.toString();
                     if (noCompressionUserAgents.matcher(userAgentValue).matches()) {
                         return false;
@@ -275,7 +274,7 @@ public class CompressionConfig {
      * Checks if any entry in the string array starts with the specified value
      *
      * @param sArray the StringArray
-     * @param value string
+     * @param value  string
      */
     private static boolean startsWithStringArray(String sArray[], String value) {
         if (value == null) {

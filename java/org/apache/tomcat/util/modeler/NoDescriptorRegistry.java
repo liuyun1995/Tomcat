@@ -70,7 +70,7 @@ public class NoDescriptorRegistry extends Registry {
 
     @Override
     public void invoke(final List<ObjectName> mbeans, final String operation,
-            final boolean failFirst) throws Exception {
+                       final boolean failFirst) throws Exception {
         // no-op
     }
 
@@ -108,7 +108,7 @@ public class NoDescriptorRegistry extends Registry {
 
     @Override
     public ManagedBean findManagedBean(final Object bean, final Class<?> beanClass,
-            final String type) throws Exception {
+                                       final String type) throws Exception {
         return null;
     }
 
@@ -165,7 +165,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public ObjectInstance createMBean(String className, ObjectName name, Object[] params,
-                String[] signature) throws ReflectionException, InstanceAlreadyExistsException,
+                                          String[] signature) throws ReflectionException, InstanceAlreadyExistsException,
                 MBeanRegistrationException, NotCompliantMBeanException, MBeanRegistrationException {
             return null;
         }
@@ -173,7 +173,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public ObjectInstance createMBean(String className, ObjectName name, ObjectName loaderName,
-                Object[] params, String[] signature) throws ReflectionException,
+                                          Object[] params, String[] signature) throws ReflectionException,
                 InstanceAlreadyExistsException, MBeanRegistrationException,
                 NotCompliantMBeanException, InstanceNotFoundException, MBeanRegistrationException {
             return null;
@@ -256,7 +256,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public Object invoke(ObjectName name, String operationName, Object[] params,
-                String[] signature)
+                             String[] signature)
                 throws InstanceNotFoundException, MBeanException, ReflectionException {
             return null;
         }
@@ -276,14 +276,14 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public void addNotificationListener(ObjectName name, NotificationListener listener,
-                NotificationFilter filter, Object handback) throws InstanceNotFoundException {
+                                            NotificationFilter filter, Object handback) throws InstanceNotFoundException {
 
         }
 
 
         @Override
         public void addNotificationListener(ObjectName name, ObjectName listener,
-                NotificationFilter filter, Object handback) throws InstanceNotFoundException {
+                                            NotificationFilter filter, Object handback) throws InstanceNotFoundException {
 
         }
 
@@ -297,7 +297,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public void removeNotificationListener(ObjectName name, ObjectName listener,
-                NotificationFilter filter, Object handback)
+                                               NotificationFilter filter, Object handback)
                 throws InstanceNotFoundException, ListenerNotFoundException {
 
         }
@@ -312,7 +312,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public void removeNotificationListener(ObjectName name, NotificationListener listener,
-                NotificationFilter filter, Object handback)
+                                               NotificationFilter filter, Object handback)
                 throws InstanceNotFoundException, ListenerNotFoundException {
 
         }
@@ -354,7 +354,7 @@ public class NoDescriptorRegistry extends Registry {
 
         @Override
         public Object instantiate(String className, ObjectName loaderName, Object[] params,
-                String[] signature)
+                                  String[] signature)
                 throws ReflectionException, MBeanException, InstanceNotFoundException {
             return null;
         }

@@ -36,9 +36,13 @@ public class FactoryCreateRule extends Rule {
 
     // ----------------------------------------------------------- Fields
 
-    /** Should exceptions thrown by the factory be ignored? */
+    /**
+     * Should exceptions thrown by the factory be ignored?
+     */
     private boolean ignoreCreateExceptions;
-    /** Stock to manage */
+    /**
+     * Stock to manage
+     */
     private ArrayStack<Boolean> exceptionIgnoredStack;
 
 
@@ -48,13 +52,13 @@ public class FactoryCreateRule extends Rule {
      * Construct a factory create rule using the given, already instantiated,
      * {@link ObjectCreationFactory}.
      *
-     * @param creationFactory called on to create the object.
+     * @param creationFactory        called on to create the object.
      * @param ignoreCreateExceptions if true, exceptions thrown by the object
-     *  creation factory will be ignored.
+     *                               creation factory will be ignored.
      */
     public FactoryCreateRule(
-                            ObjectCreationFactory creationFactory,
-                            boolean ignoreCreateExceptions) {
+            ObjectCreationFactory creationFactory,
+            boolean ignoreCreateExceptions) {
 
         this.creationFactory = creationFactory;
         this.ignoreCreateExceptions = ignoreCreateExceptions;
@@ -102,7 +106,7 @@ public class FactoryCreateRule extends Rule {
                 // log message and error
                 if (digester.log.isInfoEnabled()) {
                     digester.log.info(sm.getString("rule.createError",
-                        ((e.getMessage() == null) ? e.getClass().getName() : e.getMessage())));
+                            ((e.getMessage() == null) ? e.getClass().getName() : e.getMessage())));
                     if (digester.log.isDebugEnabled()) {
                         digester.log.debug("[FactoryCreateRule] Ignored exception:", e);
                     }
@@ -132,8 +136,8 @@ public class FactoryCreateRule extends Rule {
         // this only happens if an exception was thrown and we're ignoring them
         if (
                 ignoreCreateExceptions &&
-                exceptionIgnoredStack != null &&
-                !(exceptionIgnoredStack.empty())) {
+                        exceptionIgnoredStack != null &&
+                        !(exceptionIgnoredStack.empty())) {
 
             if ((exceptionIgnoredStack.pop()).booleanValue()) {
                 // creation exception was ignored

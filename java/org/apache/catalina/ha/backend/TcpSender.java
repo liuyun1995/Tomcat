@@ -36,7 +36,7 @@ import org.apache.tomcat.util.res.StringManager;
  * Sender to proxies using multicast socket.
  */
 public class TcpSender
-    implements Sender {
+        implements Sender {
 
     private static final Log log = LogFactory.getLog(HeartbeatListener.class);
     private static final StringManager sm = StringManager.getManager(TcpSender.class);
@@ -73,7 +73,7 @@ public class TcpSender
             proxies[i] = new Proxy();
             proxies[i].port = Integer.parseInt(token.substring(pos + 1));
             try {
-                 proxies[i].address = InetAddress.getByName(token.substring(0, pos));
+                proxies[i].address = InetAddress.getByName(token.substring(0, pos));
             } catch (Exception e) {
                 throw new Exception(sm.getString("tcpSender.invalidProxyList"));
             }
@@ -98,7 +98,7 @@ public class TcpSender
                 try {
                     if (config.getHost() != null) {
                         connections[i] = new Socket();
-                        InetAddress addr =  InetAddress.getByName(config.getHost());
+                        InetAddress addr = InetAddress.getByName(config.getHost());
                         InetSocketAddress addrs = new InetSocketAddress(addr, 0);
                         connections[i].setReuseAddress(true);
                         connections[i].bind(addrs);
@@ -172,7 +172,7 @@ public class TcpSender
                         } else {
                             contentLength -= n;
                         }
-                   }
+                    }
                 }
             }
 
@@ -183,6 +183,7 @@ public class TcpSender
 
     /**
      * Close connection.
+     *
      * @param i The index of the connection that will be closed
      */
     protected void close(int i) {

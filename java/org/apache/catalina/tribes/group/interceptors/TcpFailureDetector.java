@@ -65,11 +65,11 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
     private static final Log log = LogFactory.getLog(TcpFailureDetector.class);
     protected static final StringManager sm = StringManager.getManager(TcpFailureDetector.class);
 
-    protected static final byte[] TCP_FAIL_DETECT = new byte[] {
-        79, -89, 115, 72, 121, -126, 67, -55, -97, 111, -119, -128, -95, 91, 7, 20,
-        125, -39, 82, 91, -21, -15, 67, -102, -73, 126, -66, -113, -127, 103, 30, -74,
-        55, 21, -66, -121, 69, 126, 76, -88, -65, 10, 77, 19, 83, 56, 21, 50,
-        85, -10, -108, -73, 58, -6, 64, 120, -111, 4, 125, -41, 114, -124, -64, -43};
+    protected static final byte[] TCP_FAIL_DETECT = new byte[]{
+            79, -89, 115, 72, 121, -126, 67, -55, -97, 111, -119, -128, -95, 91, 7, 20,
+            125, -39, 82, 91, -21, -15, 67, -102, -73, 126, -66, -113, -127, 103, 30, -74,
+            55, 21, -66, -121, 69, 126, 76, -88, -65, 10, 77, 19, 83, 56, 21, 50,
+            85, -10, -108, -73, 58, -6, 64, 120, -111, 4, 125, -41, 114, -124, -64, -43};
 
     protected long connectTimeout = 1000;//1 second default
 
@@ -91,11 +91,11 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
     public void sendMessage(Member[] destination, ChannelMessage msg, InterceptorPayload payload) throws ChannelException {
         try {
             super.sendMessage(destination, msg, payload);
-        }catch ( ChannelException cx ) {
+        } catch (ChannelException cx) {
             FaultyMember[] mbrs = cx.getFaultyMembers();
-            for ( int i=0; i<mbrs.length; i++ ) {
-                if ( mbrs[i].getCause()!=null &&
-                     (!(mbrs[i].getCause() instanceof RemoteProcessException)) ) {//RemoteProcessException's are ok
+            for (int i = 0; i < mbrs.length; i++) {
+                if (mbrs[i].getCause() != null &&
+                        (!(mbrs[i].getCause() instanceof RemoteProcessException))) {//RemoteProcessException's are ok
                     this.memberDisappeared(mbrs[i].getMember());
                 }//end if
             }//for
@@ -107,27 +107,27 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
     public void messageReceived(ChannelMessage msg) {
         //catch incoming
         boolean process = true;
-        if ( okToProcess(msg.getOptions()) ) {
+        if (okToProcess(msg.getOptions())) {
             //check to see if it is a testMessage, if so, process = false
-            process = ( (msg.getMessage().getLength() != TCP_FAIL_DETECT.length) ||
-                        (!Arrays.equals(TCP_FAIL_DETECT,msg.getMessage().getBytes()) ) );
+            process = ((msg.getMessage().getLength() != TCP_FAIL_DETECT.length) ||
+                    (!Arrays.equals(TCP_FAIL_DETECT, msg.getMessage().getBytes())));
         }//end if
 
         //ignore the message, it doesnt have the flag set
-        if ( process ) super.messageReceived(msg);
-        else if ( log.isDebugEnabled() ) log.debug("Received a failure detector packet:"+msg);
+        if (process) super.messageReceived(msg);
+        else if (log.isDebugEnabled()) log.debug("Received a failure detector packet:" + msg);
     }//messageReceived
 
 
     @Override
     public void memberAdded(Member member) {
-        if ( membership == null ) setupMembership();
+        if (membership == null) setupMembership();
         boolean notify = false;
         synchronized (membership) {
             if (removeSuspects.containsKey(member)) {
                 //previously marked suspect, system below picked up the member again
                 removeSuspects.remove(member);
-            } else if (membership.getMember(member) == null){
+            } else if (membership.getMember(member) == null) {
                 //if we add it here, then add it upwards too
                 //check to see if it is alive
                 if (memberAlive(member)) {
@@ -141,13 +141,13 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
                 }
             }
         }
-        if ( notify ) super.memberAdded(member);
+        if (notify) super.memberAdded(member);
     }
 
     @Override
     public void memberDisappeared(Member member) {
-        if ( membership == null ) setupMembership();
-        boolean shutdown = Arrays.equals(member.getCommand(),Member.SHUTDOWN_PAYLOAD);
+        if (membership == null) setupMembership();
+        boolean shutdown = Arrays.equals(member.getCommand(), Member.SHUTDOWN_PAYLOAD);
         if (shutdown) {
             synchronized (membership) {
                 if (!membership.contains(member)) return;
@@ -160,11 +160,11 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
             super.memberDisappeared(member);
         } else {
             boolean notify = false;
-            if(log.isInfoEnabled())
+            if (log.isInfoEnabled())
                 log.info(sm.getString("tcpFailureDetector.memberDisappeared.verify", member));
             synchronized (membership) {
                 if (!membership.contains(member)) {
-                    if(log.isInfoEnabled())
+                    if (log.isInfoEnabled())
                         log.info(sm.getString("tcpFailureDetector.already.disappeared", member));
                     return;
                 }
@@ -182,12 +182,12 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
                     removeSuspects.put(member, Long.valueOf(System.currentTimeMillis()));
                 }
             }
-            if ( notify ) {
-                if(log.isInfoEnabled())
+            if (notify) {
+                if (log.isInfoEnabled())
                     log.info(sm.getString("tcpFailureDetector.member.disappeared", member));
                 super.memberDisappeared(member);
             } else {
-                if(log.isInfoEnabled())
+                if (log.isInfoEnabled())
                     log.info(sm.getString("tcpFailureDetector.still.alive", member));
             }
         }
@@ -195,19 +195,19 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
 
     @Override
     public boolean hasMembers() {
-        if ( membership == null ) setupMembership();
+        if (membership == null) setupMembership();
         return membership.hasMembers();
     }
 
     @Override
     public Member[] getMembers() {
-        if ( membership == null ) setupMembership();
+        if (membership == null) setupMembership();
         return membership.getMembers();
     }
 
     @Override
     public Member getMember(Member mbr) {
-        if ( membership == null ) setupMembership();
+        if (membership == null) setupMembership();
         return membership.getMember(mbr);
     }
 
@@ -231,7 +231,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
                 else performForcedCheck();
             }
         } catch (Exception x) {
-            log.warn(sm.getString("tcpFailureDetector.heartbeat.failed"),x);
+            log.warn(sm.getString("tcpFailureDetector.heartbeat.failed"), x);
         }
     }
 
@@ -243,7 +243,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
                 if (membership.memberAlive(members[i])) super.memberAdded(members[i]);
                 addSuspects.remove(members[i]);
             } else {
-                if (membership.getMember(members[i])!=null) {
+                if (membership.getMember(members[i]) != null) {
                     membership.removeMember(members[i]);
                     removeSuspects.remove(members[i]);
                     if (members[i] instanceof StaticMember) {
@@ -287,7 +287,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
                 }
                 super.memberDisappeared(m);
                 removeSuspects.remove(m);
-                if(log.isInfoEnabled())
+                if (log.isInfoEnabled())
                     log.info(sm.getString("tcpFailureDetector.suspectMember.dead", m));
             } else {
                 if (removeSuspectsTimeout > 0) {
@@ -305,51 +305,51 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
         keys = addSuspects.keySet().toArray(new Member[addSuspects.size()]);
         for (int i = 0; i < keys.length; i++) {
             Member m = keys[i];
-            if ( membership.getMember(m) == null && (memberAlive(m))) {
+            if (membership.getMember(m) == null && (memberAlive(m))) {
                 membership.memberAlive(m);
                 super.memberAdded(m);
                 addSuspects.remove(m);
-                if(log.isInfoEnabled())
+                if (log.isInfoEnabled())
                     log.info(sm.getString("tcpFailureDetector.suspectMember.alive", m));
             } //end if
         }
     }
 
     protected synchronized void setupMembership() {
-        if ( membership == null ) {
+        if (membership == null) {
             membership = new Membership(super.getLocalMember(true));
         }
 
     }
 
     protected boolean memberAlive(Member mbr) {
-        return memberAlive(mbr,TCP_FAIL_DETECT,performSendTest,performReadTest,readTestTimeout,connectTimeout,getOptionFlag());
+        return memberAlive(mbr, TCP_FAIL_DETECT, performSendTest, performReadTest, readTestTimeout, connectTimeout, getOptionFlag());
     }
 
     protected boolean memberAlive(Member mbr, byte[] msgData,
-                                         boolean sendTest, boolean readTest,
-                                         long readTimeout, long conTimeout,
-                                         int optionFlag) {
+                                  boolean sendTest, boolean readTest,
+                                  long readTimeout, long conTimeout,
+                                  int optionFlag) {
         //could be a shutdown notification
-        if ( Arrays.equals(mbr.getCommand(),Member.SHUTDOWN_PAYLOAD) ) return false;
+        if (Arrays.equals(mbr.getCommand(), Member.SHUTDOWN_PAYLOAD)) return false;
 
         try (Socket socket = new Socket()) {
             InetAddress ia = InetAddress.getByAddress(mbr.getHost());
             InetSocketAddress addr = new InetSocketAddress(ia, mbr.getPort());
-            socket.setSoTimeout((int)readTimeout);
+            socket.setSoTimeout((int) readTimeout);
             socket.connect(addr, (int) conTimeout);
-            if ( sendTest ) {
+            if (sendTest) {
                 ChannelData data = new ChannelData(true);
                 data.setAddress(getLocalMember(false));
-                data.setMessage(new XByteBuffer(msgData,false));
+                data.setMessage(new XByteBuffer(msgData, false));
                 data.setTimestamp(System.currentTimeMillis());
                 int options = optionFlag | Channel.SEND_OPTIONS_BYTE_MESSAGE;
-                if ( readTest ) options = (options | Channel.SEND_OPTIONS_USE_ACK);
+                if (readTest) options = (options | Channel.SEND_OPTIONS_USE_ACK);
                 else options = (options & (~Channel.SEND_OPTIONS_USE_ACK));
                 data.setOptions(options);
                 byte[] message = XByteBuffer.createDataPackage(data);
                 socket.getOutputStream().write(message);
-                if ( readTest ) {
+                if (readTest) {
                     int length = socket.getInputStream().read(message);
                     return length > 0;
                 }
@@ -358,7 +358,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase implements TcpFai
         } catch (SocketTimeoutException | ConnectException | NoRouteToHostException noop) {
             //do nothing, we couldn't connect
         } catch (Exception x) {
-            log.error(sm.getString("tcpFailureDetector.failureDetection.failed", mbr),x);
+            log.error(sm.getString("tcpFailureDetector.failureDetection.failed", mbr), x);
         }
         return false;
     }

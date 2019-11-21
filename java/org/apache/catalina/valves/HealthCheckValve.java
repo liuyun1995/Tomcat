@@ -32,9 +32,9 @@ public class HealthCheckValve extends ValveBase {
 
     private static final String UP =
             "{\n" +
-            "  \"status\": \"UP\",\n" +
-            "  \"checks\": []\n" +
-            "}";
+                    "  \"status\": \"UP\",\n" +
+                    "  \"checks\": []\n" +
+                    "}";
     private String path = "/health";
 
     public HealthCheckValve() {

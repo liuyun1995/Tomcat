@@ -474,7 +474,7 @@ public class JDBCStore extends StoreBase {
      * @param localDataSource the new flag value
      */
     public void setLocalDataSource(boolean localDataSource) {
-      this.localDataSource = localDataSource;
+        this.localDataSource = localDataSource;
     }
 
 
@@ -496,10 +496,9 @@ public class JDBCStore extends StoreBase {
      * zero-length array is returned.
      *
      * @param expiredOnly flag, whether only keys of expired sessions should
-     *        be returned
+     *                    be returned
      * @return array containing the list of session IDs
-     *
-     * @exception IOException if an input/output error occurred
+     * @throws IOException if an input/output error occurred
      */
     private String[] keys(boolean expiredOnly) throws IOException {
         String keys[] = null;
@@ -557,8 +556,7 @@ public class JDBCStore extends StoreBase {
      * <code>0</code> is returned.
      *
      * @return the count of all sessions currently saved in this Store
-     *
-     * @exception IOException if an input/output error occurred
+     * @throws IOException if an input/output error occurred
      */
     @Override
     public int getSize() throws IOException {
@@ -608,8 +606,8 @@ public class JDBCStore extends StoreBase {
      *
      * @param id a value of type <code>String</code>
      * @return the stored <code>Session</code>
-     * @exception ClassNotFoundException if an error occurs
-     * @exception IOException if an input/output error occurred
+     * @throws ClassNotFoundException if an error occurs
+     * @throws IOException            if an input/output error occurred
      */
     @Override
     public Session load(String id) throws ClassNotFoundException, IOException {
@@ -641,7 +639,7 @@ public class JDBCStore extends StoreBase {
                     try (ResultSet rst = preparedLoadSql.executeQuery()) {
                         if (rst.next()) {
                             try (ObjectInputStream ois =
-                                    getObjectInputStream(rst.getBinaryStream(2))) {
+                                         getObjectInputStream(rst.getBinaryStream(2))) {
                                 if (contextLog.isDebugEnabled()) {
                                     contextLog.debug(sm.getString(
                                             getStoreName() + ".loading", id, sessionTable));
@@ -678,8 +676,7 @@ public class JDBCStore extends StoreBase {
      * takes no action.
      *
      * @param id Session identifier of the Session to be removed
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void remove(String id) throws IOException {
@@ -718,7 +715,7 @@ public class JDBCStore extends StoreBase {
      * this Store, if present.  If no such Session is present, this method
      * takes no action.
      *
-     * @param id Session identifier of the Session to be removed
+     * @param id    Session identifier of the Session to be removed
      * @param _conn open connection to be used
      * @throws SQLException if an error occurs while talking to the database
      */
@@ -738,7 +735,7 @@ public class JDBCStore extends StoreBase {
     /**
      * Remove all of the Sessions in this Store.
      *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void clear() throws IOException {
@@ -754,7 +751,7 @@ public class JDBCStore extends StoreBase {
                 try {
                     if (preparedClearSql == null) {
                         String clearSql = "DELETE FROM " + sessionTable
-                             + " WHERE " + sessionAppCol + " = ?";
+                                + " WHERE " + sessionAppCol + " = ?";
                         preparedClearSql = _conn.prepareStatement(clearSql);
                     }
 
@@ -778,7 +775,7 @@ public class JDBCStore extends StoreBase {
      * Save a session to the Store.
      *
      * @param session the session to be stored
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     @Override
     public void save(Session session) throws IOException {
@@ -800,21 +797,21 @@ public class JDBCStore extends StoreBase {
 
                     bos = new ByteArrayOutputStream();
                     try (ObjectOutputStream oos =
-                            new ObjectOutputStream(new BufferedOutputStream(bos))) {
+                                 new ObjectOutputStream(new BufferedOutputStream(bos))) {
                         ((StandardSession) session).writeObjectData(oos);
                     }
                     byte[] obs = bos.toByteArray();
                     int size = obs.length;
                     try (ByteArrayInputStream bis = new ByteArrayInputStream(obs, 0, size);
-                            InputStream in = new BufferedInputStream(bis, size)) {
+                         InputStream in = new BufferedInputStream(bis, size)) {
                         if (preparedSaveSql == null) {
                             String saveSql = "INSERT INTO " + sessionTable + " ("
-                               + sessionIdCol + ", " + sessionAppCol + ", "
-                               + sessionDataCol + ", " + sessionValidCol
-                               + ", " + sessionMaxInactiveCol + ", "
-                               + sessionLastAccessedCol
-                               + ") VALUES (?, ?, ?, ?, ?, ?)";
-                           preparedSaveSql = _conn.prepareStatement(saveSql);
+                                    + sessionIdCol + ", " + sessionAppCol + ", "
+                                    + sessionDataCol + ", " + sessionValidCol
+                                    + ", " + sessionMaxInactiveCol + ", "
+                                    + sessionLastAccessedCol
+                                    + ") VALUES (?, ?, ?, ?, ?, ?)";
+                            preparedSaveSql = _conn.prepareStatement(saveSql);
                         }
 
                         preparedSaveSql.setString(1, session.getIdInternal());
@@ -880,8 +877,7 @@ public class JDBCStore extends StoreBase {
      * this Store.
      *
      * @return database connection ready to use
-     *
-     * @exception SQLException if a database error occurs
+     * @throws SQLException if a database error occurs
      */
     protected Connection open() throws SQLException {
 
@@ -924,7 +920,7 @@ public class JDBCStore extends StoreBase {
             } catch (ReflectiveOperationException e) {
                 manager.getContext().getLogger().error(
                         sm.getString(getStoreName() + ".checkConnectionClassNotFoundException",
-                        e.toString()));
+                                e.toString()));
                 throw new SQLException(e);
             }
         }
@@ -1023,8 +1019,8 @@ public class JDBCStore extends StoreBase {
      * Start this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#startInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void startInternal() throws LifecycleException {
@@ -1041,8 +1037,8 @@ public class JDBCStore extends StoreBase {
      * Stop this component and implement the requirements
      * of {@link org.apache.catalina.util.LifecycleBase#stopInternal()}.
      *
-     * @exception LifecycleException if this component detects a fatal error
-     *  that prevents this component from being used
+     * @throws LifecycleException if this component detects a fatal error
+     *                            that prevents this component from being used
      */
     @Override
     protected synchronized void stopInternal() throws LifecycleException {

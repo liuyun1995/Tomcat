@@ -52,6 +52,7 @@ public class CloudMembershipService extends MembershipServiceBase
 
     /**
      * Return a property.
+     *
      * @param name the property name
      * @return the property value
      */
@@ -61,7 +62,8 @@ public class CloudMembershipService extends MembershipServiceBase
 
     /**
      * Set a property.
-     * @param name the property name
+     *
+     * @param name  the property name
      * @param value the property value
      * @return <code>true</code> if the property was successfully set
      */
@@ -71,6 +73,7 @@ public class CloudMembershipService extends MembershipServiceBase
 
     /**
      * Return the membership provider class.
+     *
      * @return the classname
      */
     public String getMembershipProviderClassName() {
@@ -79,6 +82,7 @@ public class CloudMembershipService extends MembershipServiceBase
 
     /**
      * Set the membership provider class.
+     *
      * @param membershipProviderClassName the class name
      */
     public void setMembershipProviderClassName(String membershipProviderClassName) {

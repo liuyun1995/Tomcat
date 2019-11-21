@@ -189,18 +189,14 @@ public class VariableInfo {
      * Constructor These objects can be created (at translation time) by the
      * TagExtraInfo instances.
      *
-     * @param varName
-     *            The name of the scripting variable
-     * @param className
-     *            The type of this variable
-     * @param declare
-     *            If true, it is a new variable (in some languages this will
-     *            require a declaration)
-     * @param scope
-     *            Indication on the lexical scope of the variable
+     * @param varName   The name of the scripting variable
+     * @param className The type of this variable
+     * @param declare   If true, it is a new variable (in some languages this will
+     *                  require a declaration)
+     * @param scope     Indication on the lexical scope of the variable
      */
     public VariableInfo(String varName, String className, boolean declare,
-            int scope) {
+                        int scope) {
         this.varName = varName;
         this.className = className;
         this.declare = declare;
@@ -241,7 +237,7 @@ public class VariableInfo {
      * Returns the lexical scope of the variable.
      *
      * @return the lexical scope of the variable, either AT_BEGIN, AT_END, or
-     *         NESTED.
+     * NESTED.
      * @see #AT_BEGIN
      * @see #AT_END
      * @see #NESTED
