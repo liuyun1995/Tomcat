@@ -48,10 +48,8 @@ public class TransactionRegistry {
     /**
      * Creates a TransactionRegistry for the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager used to enlist connections.
-     * @param transactionSynchronizationRegistry
-     *              The optional TSR to register synchronizations with
+     * @param transactionManager                 the transaction manager used to enlist connections.
+     * @param transactionSynchronizationRegistry The optional TSR to register synchronizations with
      * @since 2.6.0
      */
     public TransactionRegistry(final TransactionManager transactionManager, final TransactionSynchronizationRegistry transactionSynchronizationRegistry) {
@@ -61,6 +59,7 @@ public class TransactionRegistry {
 
     /**
      * Provided for backwards compatibility
+     *
      * @param transactionManager the transaction manager used to enlist connections
      */
     public TransactionRegistry(final TransactionManager transactionManager) {
@@ -71,10 +70,8 @@ public class TransactionRegistry {
      * Registers the association between a Connection and a XAResource. When a connection is enlisted in a transaction,
      * it is actually the XAResource that is given to the transaction manager.
      *
-     * @param connection
-     *            The JDBC connection.
-     * @param xaResource
-     *            The XAResource which managed the connection within a transaction.
+     * @param connection The JDBC connection.
+     * @param xaResource The XAResource which managed the connection within a transaction.
      */
     public synchronized void registerConnection(final Connection connection, final XAResource xaResource) {
         Objects.requireNonNull(connection, "connection is null");
@@ -85,11 +82,9 @@ public class TransactionRegistry {
     /**
      * Gets the XAResource registered for the connection.
      *
-     * @param connection
-     *            the connection
+     * @param connection the connection
      * @return The XAResource registered for the connection; never null.
-     * @throws SQLException
-     *             Thrown when the connection does not have a registered XAResource.
+     * @throws SQLException Thrown when the connection does not have a registered XAResource.
      */
     public synchronized XAResource getXAResource(final Connection connection) throws SQLException {
         Objects.requireNonNull(connection, "connection is null");
@@ -105,8 +100,7 @@ public class TransactionRegistry {
      * Gets the active TransactionContext or null if not Transaction is active.
      *
      * @return The active TransactionContext or null if no Transaction is active.
-     * @throws SQLException
-     *             Thrown when an error occurs while fetching the transaction.
+     * @throws SQLException Thrown when an error occurs while fetching the transaction.
      */
     public TransactionContext getActiveTransactionContext() throws SQLException {
         Transaction transaction = null;
@@ -138,8 +132,7 @@ public class TransactionRegistry {
     /**
      * Unregisters a destroyed connection from {@link TransactionRegistry}.
      *
-     * @param connection
-     *            A destroyed connection from {@link TransactionRegistry}.
+     * @param connection A destroyed connection from {@link TransactionRegistry}.
      */
     public synchronized void unregisterConnection(final Connection connection) {
         final Connection key = getConnectionKey(connection);

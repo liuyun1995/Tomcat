@@ -47,12 +47,9 @@ public class TransactionContext {
      * Creates a TransactionContext for the specified Transaction and TransactionRegistry. The TransactionRegistry is
      * used to obtain the XAResource for the shared connection when it is enlisted in the transaction.
      *
-     * @param transactionRegistry
-     *            the TransactionRegistry used to obtain the XAResource for the shared connection
-     * @param transaction
-     *            the transaction
-     * @param transactionSynchronizationRegistry
-     *              The optional TSR to register synchronizations with
+     * @param transactionRegistry                the TransactionRegistry used to obtain the XAResource for the shared connection
+     * @param transaction                        the transaction
+     * @param transactionSynchronizationRegistry The optional TSR to register synchronizations with
      * @since 2.6.0
      */
     public TransactionContext(final TransactionRegistry transactionRegistry, final Transaction transaction,
@@ -69,8 +66,8 @@ public class TransactionContext {
      * Provided for backwards compatibility
      *
      * @param transactionRegistry the TransactionRegistry used to obtain the XAResource for the
-     * shared connection
-     * @param transaction the transaction
+     *                            shared connection
+     * @param transaction         the transaction
      */
     public TransactionContext(final TransactionRegistry transactionRegistry, final Transaction transaction) {
         this(transactionRegistry, transaction, null);
@@ -89,11 +86,9 @@ public class TransactionContext {
     /**
      * Sets the shared connection for this transaction. The shared connection is enlisted in the transaction.
      *
-     * @param sharedConnection
-     *            the shared connection
-     * @throws SQLException
-     *             if a shared connection is already set, if XAResource for the connection could not be found in the
-     *             transaction registry, or if there was a problem enlisting the connection in the transaction
+     * @param sharedConnection the shared connection
+     * @throws SQLException if a shared connection is already set, if XAResource for the connection could not be found in the
+     *                      transaction registry, or if there was a problem enlisting the connection in the transaction
      */
     public void setSharedConnection(final Connection sharedConnection) throws SQLException {
         if (this.sharedConnection != null) {
@@ -123,10 +118,8 @@ public class TransactionContext {
     /**
      * Adds a listener for transaction completion events.
      *
-     * @param listener
-     *            the listener to add
-     * @throws SQLException
-     *             if a problem occurs adding the listener to the transaction
+     * @param listener the listener to add
+     * @throws SQLException if a problem occurs adding the listener to the transaction
      */
     public void addTransactionContextListener(final TransactionContextListener listener) throws SQLException {
         try {
@@ -164,8 +157,7 @@ public class TransactionContext {
      * True if the transaction is active or marked for rollback only.
      *
      * @return true if the transaction is active or marked for rollback only; false otherwise
-     * @throws SQLException
-     *             if a problem occurs obtaining the transaction status
+     * @throws SQLException if a problem occurs obtaining the transaction status
      */
     public boolean isActive() throws SQLException {
         try {
@@ -201,7 +193,6 @@ public class TransactionContext {
      * Gets the transaction complete flag to true.
      *
      * @return The transaction complete flag.
-     *
      * @since 2.4.0
      */
     public boolean isTransactionComplete() {

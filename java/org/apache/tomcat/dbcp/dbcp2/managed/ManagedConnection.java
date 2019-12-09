@@ -38,9 +38,7 @@ import org.apache.tomcat.dbcp.pool2.ObjectPool;
  * SQLException. This is necessary to assure that the transaction completes as a single unit.
  * </p>
  *
- * @param <C>
- *            the Connection type
- *
+ * @param <C> the Connection type
  * @since 2.0
  */
 public class ManagedConnection<C extends Connection> extends DelegatingConnection<C> {
@@ -70,14 +68,10 @@ public class ManagedConnection<C extends Connection> extends DelegatingConnectio
     /**
      * Constructs a new instance responsible for managing a database connection in a transactional environment.
      *
-     * @param pool
-     *            The connection pool.
-     * @param transactionRegistry
-     *            The transaction registry.
-     * @param accessToUnderlyingConnectionAllowed
-     *            Whether or not to allow access to the underlying Connection.
-     * @throws SQLException
-     *             Thrown when there is problem managing transactions.
+     * @param pool                                The connection pool.
+     * @param transactionRegistry                 The transaction registry.
+     * @param accessToUnderlyingConnectionAllowed Whether or not to allow access to the underlying Connection.
+     * @throws SQLException Thrown when there is problem managing transactions.
      */
     public ManagedConnection(final ObjectPool<C> pool, final TransactionRegistry transactionRegistry,
                              final boolean accessToUnderlyingConnectionAllowed) throws SQLException {

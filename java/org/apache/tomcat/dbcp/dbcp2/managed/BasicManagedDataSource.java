@@ -51,19 +51,29 @@ import org.apache.tomcat.dbcp.dbcp2.Utils;
  */
 public class BasicManagedDataSource extends BasicDataSource {
 
-    /** Transaction Registry */
+    /**
+     * Transaction Registry
+     */
     private TransactionRegistry transactionRegistry;
 
-    /** Transaction Manager */
+    /**
+     * Transaction Manager
+     */
     private transient TransactionManager transactionManager;
 
-    /** XA data source class name */
+    /**
+     * XA data source class name
+     */
     private String xaDataSource;
 
-    /** XA data source instance */
+    /**
+     * XA data source instance
+     */
     private XADataSource xaDataSourceInstance;
 
-    /** Transaction Synchronization Registry */
+    /**
+     * Transaction Synchronization Registry
+     */
     private transient TransactionSynchronizationRegistry transactionSynchronizationRegistry;
 
     /**
@@ -85,8 +95,7 @@ public class BasicManagedDataSource extends BasicDataSource {
      * setLoginTimeout, getLoginTimeout, getLogWriter.</code>
      * </p>
      *
-     * @param xaDataSourceInstance
-     *            XADataSource instance
+     * @param xaDataSourceInstance XADataSource instance
      */
     public synchronized void setXaDataSourceInstance(final XADataSource xaDataSourceInstance) {
         this.xaDataSourceInstance = xaDataSourceInstance;
@@ -124,8 +133,7 @@ public class BasicManagedDataSource extends BasicDataSource {
     /**
      * Sets the required transaction manager property.
      *
-     * @param transactionManager
-     *            the transaction manager used to enlist connections
+     * @param transactionManager the transaction manager used to enlist connections
      */
     public void setTransactionManager(final TransactionManager transactionManager) {
         this.transactionManager = transactionManager;
@@ -134,8 +142,7 @@ public class BasicManagedDataSource extends BasicDataSource {
     /**
      * Sets the optional TransactionSynchronizationRegistry property.
      *
-     * @param transactionSynchronizationRegistry
-     *            the TSR used to register synchronizations
+     * @param transactionSynchronizationRegistry the TSR used to register synchronizations
      * @since 2.6.0
      */
     public void setTransactionSynchronizationRegistry(
@@ -155,8 +162,7 @@ public class BasicManagedDataSource extends BasicDataSource {
     /**
      * Sets the optional XADataSource class name.
      *
-     * @param xaDataSource
-     *            the optional XADataSource class name
+     * @param xaDataSource the optional XADataSource class name
      */
     public synchronized void setXADataSource(final String xaDataSource) {
         this.xaDataSource = xaDataSource;
@@ -214,10 +220,8 @@ public class BasicManagedDataSource extends BasicDataSource {
     /**
      * Creates the PoolableConnectionFactory and attaches it to the connection pool.
      *
-     * @param driverConnectionFactory
-     *            JDBC connection factory created by {@link #createConnectionFactory()}
-     * @throws SQLException
-     *             if an error occurs creating the PoolableConnectionFactory
+     * @param driverConnectionFactory JDBC connection factory created by {@link #createConnectionFactory()}
+     * @throws SQLException if an error occurs creating the PoolableConnectionFactory
      */
     @Override
     protected PoolableConnectionFactory createPoolableConnectionFactory(final ConnectionFactory driverConnectionFactory)

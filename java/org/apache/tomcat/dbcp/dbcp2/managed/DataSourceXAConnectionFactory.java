@@ -46,10 +46,8 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
      * Creates an DataSourceXAConnectionFactory which uses the specified XADataSource to create database connections.
      * The connections are enlisted into transactions using the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager in which connections will be enlisted
-     * @param xaDataSource
-     *            the data source from which connections will be retrieved
+     * @param transactionManager the transaction manager in which connections will be enlisted
+     * @param xaDataSource       the data source from which connections will be retrieved
      * @since 2.6.0
      */
     public DataSourceXAConnectionFactory(final TransactionManager transactionManager, final XADataSource xaDataSource) {
@@ -60,14 +58,10 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
      * Creates an DataSourceXAConnectionFactory which uses the specified XADataSource to create database connections.
      * The connections are enlisted into transactions using the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager in which connections will be enlisted
-     * @param xaDataSource
-     *            the data source from which connections will be retrieved
-     * @param userName
-     *            the user name used for authenticating new connections or null for unauthenticated
-     * @param userPassword
-     *            the password used for authenticating new connections
+     * @param transactionManager the transaction manager in which connections will be enlisted
+     * @param xaDataSource       the data source from which connections will be retrieved
+     * @param userName           the user name used for authenticating new connections or null for unauthenticated
+     * @param userPassword       the password used for authenticating new connections
      */
     public DataSourceXAConnectionFactory(final TransactionManager transactionManager, final XADataSource xaDataSource,
                                          final String userName, final char[] userPassword) {
@@ -78,16 +72,11 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
      * Creates an DataSourceXAConnectionFactory which uses the specified XADataSource to create database connections.
      * The connections are enlisted into transactions using the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager in which connections will be enlisted
-     * @param xaDataSource
-     *            the data source from which connections will be retrieved
-     * @param userName
-     *            the user name used for authenticating new connections or null for unauthenticated
-     * @param userPassword
-     *            the password used for authenticating new connections
-     * @param transactionSynchronizationRegistry
-     *            register with this TransactionSynchronizationRegistry
+     * @param transactionManager                 the transaction manager in which connections will be enlisted
+     * @param xaDataSource                       the data source from which connections will be retrieved
+     * @param userName                           the user name used for authenticating new connections or null for unauthenticated
+     * @param userPassword                       the password used for authenticating new connections
+     * @param transactionSynchronizationRegistry register with this TransactionSynchronizationRegistry
      * @since 2.6.0
      */
     public DataSourceXAConnectionFactory(final TransactionManager transactionManager, final XADataSource xaDataSource,
@@ -107,14 +96,10 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
      * Creates an DataSourceXAConnectionFactory which uses the specified XADataSource to create database connections.
      * The connections are enlisted into transactions using the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager in which connections will be enlisted
-     * @param xaDataSource
-     *            the data source from which connections will be retrieved
-     * @param userName
-     *            the user name used for authenticating new connections or null for unauthenticated
-     * @param userPassword
-     *            the password used for authenticating new connections
+     * @param transactionManager the transaction manager in which connections will be enlisted
+     * @param xaDataSource       the data source from which connections will be retrieved
+     * @param userName           the user name used for authenticating new connections or null for unauthenticated
+     * @param userPassword       the password used for authenticating new connections
      */
     public DataSourceXAConnectionFactory(final TransactionManager transactionManager, final XADataSource xaDataSource,
                                          final String userName, final String userPassword) {
@@ -125,12 +110,9 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
      * Creates an DataSourceXAConnectionFactory which uses the specified XADataSource to create database connections.
      * The connections are enlisted into transactions using the specified transaction manager.
      *
-     * @param transactionManager
-     *            the transaction manager in which connections will be enlisted
-     * @param xaDataSource
-     *            the data source from which connections will be retrieved
-     * @param transactionSynchronizationRegistry
-     *            register with this TransactionSynchronizationRegistry
+     * @param transactionManager                 the transaction manager in which connections will be enlisted
+     * @param xaDataSource                       the data source from which connections will be retrieved
+     * @param transactionSynchronizationRegistry register with this TransactionSynchronizationRegistry
      */
     public DataSourceXAConnectionFactory(final TransactionManager transactionManager, final XADataSource xaDataSource, final TransactionSynchronizationRegistry transactionSynchronizationRegistry) {
         this(transactionManager, xaDataSource, null, (char[]) null, transactionSynchronizationRegistry);
@@ -216,8 +198,7 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
     /**
      * Sets the password used to authenticate new connections.
      *
-     * @param userPassword
-     *            the password used for authenticating the connection or null for unauthenticated.
+     * @param userPassword the password used for authenticating the connection or null for unauthenticated.
      * @since 2.4.0
      */
     public void setPassword(final char[] userPassword) {
@@ -227,8 +208,7 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
     /**
      * Sets the password used to authenticate new connections.
      *
-     * @param userPassword
-     *            the password used for authenticating the connection or null for unauthenticated
+     * @param userPassword the password used for authenticating the connection or null for unauthenticated
      */
     public void setPassword(final String userPassword) {
         this.userPassword = Utils.toCharArray(userPassword);
@@ -237,8 +217,7 @@ public class DataSourceXAConnectionFactory implements XAConnectionFactory {
     /**
      * Sets the user name used to authenticate new connections.
      *
-     * @param userName
-     *            the user name used for authenticating the connection or null for unauthenticated
+     * @param userName the user name used for authenticating the connection or null for unauthenticated
      */
     public void setUsername(final String userName) {
         this.userName = userName;

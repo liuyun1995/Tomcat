@@ -201,9 +201,9 @@ public class ConnectorStoreAppender extends StoreAppender {
      * Print Attributes for the connector
      *
      * @param aWriter Current writer
-     * @param indent Indentation level
-     * @param bean The connector bean
-     * @param aDesc The connector description
+     * @param indent  Indentation level
+     * @param bean    The connector bean
+     * @param aDesc   The connector description
      * @throws Exception Store error occurred
      */
     protected void storeConnectorAttributes(PrintWriter aWriter, int indent,
@@ -217,8 +217,8 @@ public class ConnectorStoreAppender extends StoreAppender {
      * Print the open tag for connector attributes (override).
      *
      * @see org.apache.catalina.storeconfig.StoreAppender#printOpenTag(java.io.PrintWriter,
-     *      int, java.lang.Object,
-     *      org.apache.catalina.storeconfig.StoreDescription)
+     * int, java.lang.Object,
+     * org.apache.catalina.storeconfig.StoreDescription)
      */
     @Override
     public void printOpenTag(PrintWriter aWriter, int indent, Object bean,
@@ -233,8 +233,8 @@ public class ConnectorStoreAppender extends StoreAppender {
      * Print a tag for connector attributes (override).
      *
      * @see org.apache.catalina.storeconfig.StoreAppender#printTag(java.io.PrintWriter,
-     *      int, java.lang.Object,
-     *      org.apache.catalina.storeconfig.StoreDescription)
+     * int, java.lang.Object,
+     * org.apache.catalina.storeconfig.StoreDescription)
      */
     @Override
     public void printTag(PrintWriter aWriter, int indent, Object bean,
@@ -249,7 +249,7 @@ public class ConnectorStoreAppender extends StoreAppender {
      * Print a value but replace certain attribute names.
      *
      * @see org.apache.catalina.storeconfig.StoreAppender#printValue(java.io.PrintWriter,
-     *      int, java.lang.String, java.lang.Object)
+     * int, java.lang.String, java.lang.Object)
      */
     @Override
     public void printValue(PrintWriter writer, int indent, String name,
@@ -266,8 +266,8 @@ public class ConnectorStoreAppender extends StoreAppender {
      * </li><li> Don't save catalina.base path at server.xml</li><li></ul>
      *
      * @see org.apache.catalina.storeconfig.StoreAppender#isPrintValue(java.lang.Object,
-     *      java.lang.Object, java.lang.String,
-     *      org.apache.catalina.storeconfig.StoreDescription)
+     * java.lang.Object, java.lang.String,
+     * org.apache.catalina.storeconfig.StoreDescription)
      */
     @Override
     public boolean isPrintValue(Object bean, Object bean2, String attrName,
