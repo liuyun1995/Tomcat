@@ -4,9 +4,6 @@ import java.beans.FeatureDescriptor;
 import java.util.Iterator;
 import java.util.Objects;
 
-/**
- * @since EL 3.0
- */
 public class BeanNameELResolver extends ELResolver {
 
     private final BeanNameResolver beanNameResolver;

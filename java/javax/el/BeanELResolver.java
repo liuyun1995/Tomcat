@@ -20,8 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BeanELResolver extends ELResolver {
 
     private static final int CACHE_SIZE;
-    private static final String CACHE_SIZE_PROP =
-            "org.apache.el.BeanELResolver.CACHE_SIZE";
+    private static final String CACHE_SIZE_PROP = "org.apache.el.BeanELResolver.CACHE_SIZE";
 
     static {
         String cacheSizeStr;
@@ -78,8 +77,7 @@ public class BeanELResolver extends ELResolver {
         } catch (InvocationTargetException e) {
             Throwable cause = e.getCause();
             Util.handleThrowable(cause);
-            throw new ELException(Util.message(context, "propertyReadError",
-                    base.getClass().getName(), property.toString()), cause);
+            throw new ELException(Util.message(context, "propertyReadError", base.getClass().getName(), property.toString()), cause);
         } catch (Exception e) {
             throw new ELException(e);
         }
@@ -96,8 +94,7 @@ public class BeanELResolver extends ELResolver {
         context.setPropertyResolved(base, property);
 
         if (this.readOnly) {
-            throw new PropertyNotWritableException(Util.message(context,
-                    "resolverNotWriteable", base.getClass().getName()));
+            throw new PropertyNotWritableException(Util.message(context, "resolverNotWriteable", base.getClass().getName()));
         }
 
         Method m = this.property(context, base, property).write(context, base);

@@ -36,8 +36,7 @@ import org.apache.tomcat.util.net.SocketEvent;
 import org.apache.tomcat.util.net.SocketWrapperBase;
 import org.apache.tomcat.util.res.StringManager;
 
-public abstract class AbstractProtocol<S> implements ProtocolHandler,
-        MBeanRegistration {
+public abstract class AbstractProtocol<S> implements ProtocolHandler, MBeanRegistration {
 
     /**
      * The string manager for this package.
@@ -77,8 +76,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
     private Handler<S> handler;
 
 
-    private final Set<Processor> waitingProcessors =
-            Collections.newSetFromMap(new ConcurrentHashMap<Processor, Boolean>());
+    private final Set<Processor> waitingProcessors = Collections.newSetFromMap(new ConcurrentHashMap<Processor, Boolean>());
 
     /**
      * Controller for the timeout scheduling.

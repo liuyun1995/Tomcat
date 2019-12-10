@@ -20,7 +20,6 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.apache.tomcat.util.net.AprEndpoint;
 
-
 /**
  * Abstract the protocol implementation, including threading, etc.
  * Processor is single threaded and specific to stream-based protocols,

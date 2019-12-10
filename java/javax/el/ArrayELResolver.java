@@ -52,25 +52,20 @@ public class ArrayELResolver extends ELResolver {
     }
 
     @Override
-    public void setValue(ELContext context, Object base, Object property,
-                         Object value) {
+    public void setValue(ELContext context, Object base, Object property, Object value) {
         Objects.requireNonNull(context);
 
         if (base != null && base.getClass().isArray()) {
             context.setPropertyResolved(base, property);
 
             if (this.readOnly) {
-                throw new PropertyNotWritableException(Util.message(context,
-                        "resolverNotWriteable", base.getClass().getName()));
+                throw new PropertyNotWritableException(Util.message(context, "resolverNotWriteable", base.getClass().getName()));
             }
 
             int idx = coerce(property);
             checkBounds(base, idx);
-            if (value != null && !Util.isAssignableFrom(value.getClass(),
-                    base.getClass().getComponentType())) {
-                throw new ClassCastException(Util.message(context,
-                        "objectNotAssignable", value.getClass().getName(),
-                        base.getClass().getComponentType().getName()));
+            if (value != null && !Util.isAssignableFrom(value.getClass(), base.getClass().getComponentType())) {
+                throw new ClassCastException(Util.message(context, "objectNotAssignable", value.getClass().getName(), base.getClass().getComponentType().getName()));
             }
             Array.set(base, idx, value);
         }
